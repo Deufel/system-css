@@ -162,7 +162,7 @@ Conventions that keep charts consistent and legible:
 4. **Verify for real.** `templ generate && go build ./... && go test ./...`
    must stay green, and LOOK at the result: render the section through a
    throwaway preview harness test (the GEN_PREVIEW pattern in
-   view/preview_test.go) or `go run ./cmd/snap`, and read the PNGs — the
+   a specimen in the lab's Charts page) or `go run ./cmd/snap`, and read the PNGs — the
    chart bugs worth catching are visual.
 
 ### Interactive charts are BACKEND-DRIVEN

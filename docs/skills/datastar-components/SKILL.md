@@ -454,7 +454,7 @@ Two more morph/fetch traps, verified in the bundle source (gf-52):
   per-page placement doesn't matter and HTTP caching makes it a one-time download.
 - **Shipping a new component:** the `.js` goes in static/rocket/, the templ
   wrapper in view/; run `templ generate` and confirm the wrapper compiled —
-  and give it a bench entry in rocketDemos (view/admin_lab.templ) so regressions
+  and give it a bench page in the lab (system-css/site/lab/rocket-<name>.html) so regressions
   are seen in the lab first.
 - **Whole-page morph caveat (land-and-stream):** when an SSE update morphs a page
   with the component open, the morph diffs against Rocket's managed interior. If

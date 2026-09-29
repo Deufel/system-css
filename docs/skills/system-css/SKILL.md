@@ -277,7 +277,7 @@ the scale, templates pick steps.
   one-off look rides its own `@scope` block — never unlayered, never a
   project layer (retired gf-133).
 - VERIFY WITH EYES, not imagination: a throwaway GEN_* preview test
-  (view/preview_test.go pattern) or `go run ./cmd/snap`, then READ the
+  (a specimen in the lab, site/lab) or `go run ./cmd/snap`, then READ the
   PNGs. And remember staticfs caches assets at boot — restart the app
   before judging any CSS change against the running server.
 
