@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-signals="{theme: ''}" data-attr:data-ui-theme="$theme != '' ? $theme : false">
+<html lang="en" data-signals="{theme: (function () { try { return localStorage.getItem('theme') || '' } catch (e) { return '' } })()}" data-attr:data-ui-theme="$theme != '' ? $theme : false">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
@@ -104,6 +104,5 @@ runtime's <code>rocket</code> module and need the Pro bundle at <code>/static/da
 		</section>
 	</main>
 </div>
-<script>document.addEventListener('datastar-ready',()=>{try{const t=localStorage.getItem('theme')||'';window.ds&&window.ds.signals&&window.ds.signals.set('theme',t)}catch(e){}})</script>
 </body>
 </html>

@@ -256,7 +256,17 @@ func shortTitle(t string) string {
 		t = t[:i]
 	}
 	t = strings.TrimSpace(t)
-	if t == strings.ToUpper(t) && len(t) > 3 { // SHOUTED headings read quieter as labels
+	// SHOUTED headings read quieter as labels: sentence case when most letters shout
+	upper, letters := 0, 0
+	for _, r := range t {
+		if r >= 'A' && r <= 'Z' {
+			upper++
+		}
+		if (r >= 'A' && r <= 'Z') || (r >= 'a' && r <= 'z') {
+			letters++
+		}
+	}
+	if letters > 3 && upper*10 > letters*6 {
 		t = strings.ToUpper(t[:1]) + strings.ToLower(t[1:])
 	}
 	return t
@@ -350,7 +360,7 @@ func shell(pg *page, cur *section, icons map[string]string) string {
 		scripts += `<script type="module" src="` + root + `static/rocket/` + r + `.js"></script>`
 	}
 	return `<!doctype html>
-<html lang="en" data-signals="{theme: ''}" data-attr:data-ui-theme="$theme != '' ? $theme : false">
+<html lang="en" data-signals="{theme: (function () { try { return localStorage.getItem('theme') || '' } catch (e) { return '' } })()}" data-attr:data-ui-theme="$theme != '' ? $theme : false">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
@@ -390,7 +400,6 @@ func shell(pg *page, cur *section, icons map[string]string) string {
 		</section>
 	</main>
 </div>
-<script>document.addEventListener('datastar-ready',()=>{try{const t=localStorage.getItem('theme')||'';window.ds&&window.ds.signals&&window.ds.signals.set('theme',t)}catch(e){}})</script>
 </body>
 </html>
 `

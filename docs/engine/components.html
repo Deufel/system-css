@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-signals="{theme: ''}" data-attr:data-ui-theme="$theme != '' ? $theme : false">
+<html lang="en" data-signals="{theme: (function () { try { return localStorage.getItem('theme') || '' } catch (e) { return '' } })()}" data-attr:data-ui-theme="$theme != '' ? $theme : false">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
@@ -31,7 +31,7 @@
 	</nav>
 	<header class="pg-main-header column">
 		<div class="spread"><h1>Components</h1></div>
-		<nav class="row mobile" aria-label="Sections" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../skills/system-css.html">Skills</a></nav><nav class="tabs-underline scroll-x" aria-label="Engine"><a href="../engine/overview.html">Overview</a><a href="../engine/one-file-one-spine.html">ONE file, one spine</a><a href="../engine/the-painter-model.html">The painter model</a><a href="../engine/the-cascade-constitution.html">The cascade constitution</a><a href="../engine/layout.html">Layout</a><a href="../engine/components.html" aria-current="page">Components</a><a href="../engine/semantic-hue-locks-vs-number.html">SEMANTIC HUE LOCKS vs NUMBER FORMATTING</a><a href="../engine/the-rhythm-ladder.html">The rhythm ladder</a><a href="../engine/authoring-checklist.html">Authoring checklist</a><a href="../engine/view-transitions-the-fouc-ledger.html">View transitions &amp; the FOUC ledger</a><a href="../engine/the-form-canon.html">The form canon</a></nav>
+		<nav class="row mobile" aria-label="Sections" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../skills/system-css.html">Skills</a></nav><nav class="tabs-underline scroll-x" aria-label="Engine"><a href="../engine/overview.html">Overview</a><a href="../engine/one-file-one-spine.html">ONE file, one spine</a><a href="../engine/the-painter-model.html">The painter model</a><a href="../engine/the-cascade-constitution.html">The cascade constitution</a><a href="../engine/layout.html">Layout</a><a href="../engine/components.html" aria-current="page">Components</a><a href="../engine/semantic-hue-locks-vs-number.html">Semantic hue locks vs number formatting</a><a href="../engine/the-rhythm-ladder.html">The rhythm ladder</a><a href="../engine/authoring-checklist.html">Authoring checklist</a><a href="../engine/view-transitions-the-fouc-ledger.html">View transitions &amp; the FOUC ledger</a><a href="../engine/the-form-canon.html">The form canon</a></nav>
 	</header>
 	<main class="pg-main column owns-scroll">
 		<section class="column measure" style="--measure: 80ch; --gap: 1lh;">
@@ -76,6 +76,5 @@ order).</p>
 		</section>
 	</main>
 </div>
-<script>document.addEventListener('datastar-ready',()=>{try{const t=localStorage.getItem('theme')||'';window.ds&&window.ds.signals&&window.ds.signals.set('theme',t)}catch(e){}})</script>
 </body>
 </html>
