@@ -38,7 +38,7 @@
 	<nav class="pg-toolbar spread-column tablet desktop" aria-label="How-to"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">How-to</small><a class="nav-item" href="../howto/start.html"><span class="medium large">Start a project</span></a><a class="nav-item" href="../howto/page.html"><span class="medium large">Author a page</span></a><a class="nav-item" href="../howto/form.html"><span class="medium large">Author a form</span></a><a class="nav-item" href="../howto/rocket.html" aria-current="page"><span class="medium large">Author a rocket</span></a><a class="nav-item" href="../howto/stream.html"><span class="medium large">Land and stream in Go</span></a><a class="nav-item" href="../howto/migrate.html"><span class="medium large">Migrations</span></a></div></nav>
 	<main class="pg-main column owns-scroll">
 		<section class="column measure" style="--measure: 80ch; --gap: 1lh;">
-<nav class="card column" aria-label="On this page" style="--gap: 0; --type: -1;"><strong>On this page</strong><a href="#the-contract">The contract</a><a href="#a-complete-example">A complete example</a><a href="#the-rockets-in-this-repository">The rockets in this repository</a></nav><p>A rocket is a web component for the one thing Datastar cannot do on its
+<nav class="card column" aria-label="On this page" style="--gap: 0; --type: -1;"><strong>On this page</strong><a href="#the-contract">The contract</a><a href="#a-complete-example">A complete example</a><a href="#every-rockets-requirements">Every rocket's requirements</a></nav><p>A rocket is a web component for the one thing Datastar cannot do on its
 own: hold client state, or reach a browser API. Everything else is a
 Datastar attribute over a baked DOM. Before writing one, check that the
 component is not already a <code>select</code>, a <code>dialog</code>, a <code>popover</code>, or a signal.</p>
@@ -98,11 +98,13 @@ customElements.define('activation-tracker', ActivationTracker);
 </code></pre>
 <p>Event names are lowercase: Datastar lowercases attribute names, so
 <code>data-on:visitIn</code> would never fire.</p>
-<h2 id="the-rockets-in-this-repository">The rockets in this repository</h2>
-<p><code>hold-confirm</code>, <code>command-palette</code>, <code>image-input</code> and <code>exif</code> run on core
-Datastar. <code>date-picker</code>, <code>day-picker</code>, <code>combo-box</code>, <code>group-pick</code>,
-<code>toast-card</code>, <code>mini-calc</code> and <code>copy-button</code> import the Datastar Pro
-runtime's <code>rocket</code> module and need the Pro bundle at <code>/static/datastar.js</code>.</p>
+<h2 id="every-rockets-requirements">Every rocket's requirements</h2>
+<p>Two runtimes exist. A product on this stack ships <strong>Datastar Pro</strong> (its
+<code>rocket</code> module is what most of these components import); this library
+and its site run the <strong>free core build</strong>, so only the rockets marked
+<em>core</em> run live in the Lab. An API means a key and a bill; a permission
+means the browser asks the person.</p>
+<div class="scroll-x"><table style="--type: -1;"><thead><tr><th>Rocket</th><th>Runtime</th><th>API</th><th>Depends on</th><th>Server</th><th>Shipped</th></tr></thead><tbody><tr><td><code>activation-tracker</code></td><td>core</td><td></td><td>the device's Geolocation API (a permission)</td><td>the check-in and check-out verbs</td><td>no (app)</td></tr><tr><td><code>bug-report</code></td><td><b>Pro</b></td><td></td><td></td><td>the feedback lane (the app's, not the library's)</td><td>no (app)</td></tr><tr><td><code>combo-box</code></td><td><b>Pro</b></td><td></td><td></td><td>an endpoint that morphs the listbox as the input's signal posts</td><td>yes</td></tr><tr><td><code>command-palette</code></td><td>core</td><td></td><td></td><td>a search endpoint the palette's input posts to</td><td>yes</td></tr><tr><td><code>copy-button</code></td><td><b>Pro</b></td><td></td><td>the Clipboard API (a secure context)</td><td></td><td>yes</td></tr><tr><td><code>date-picker</code></td><td><b>Pro</b></td><td></td><td></td><td></td><td>yes</td></tr><tr><td><code>day-picker</code></td><td><b>Pro</b></td><td></td><td></td><td></td><td>yes</td></tr><tr><td><code>element-pick</code></td><td>core</td><td></td><td></td><td>the feedback lane (the app's, not the library's)</td><td>no (app)</td></tr><tr><td><code>exif</code></td><td>core</td><td></td><td>none — a dependency-free EXIF reader</td><td></td><td>yes</td></tr><tr><td><code>google-maps</code></td><td><b>Pro</b></td><td>Google Maps JavaScript API — a key, billed</td><td></td><td></td><td>no (app)</td></tr><tr><td><code>group-pick</code></td><td><b>Pro</b></td><td></td><td></td><td>the pick-or-make verbs (list · create · delete)</td><td>yes</td></tr><tr><td><code>hold-confirm</code></td><td>core</td><td></td><td></td><td></td><td>yes</td></tr><tr><td><code>image-input</code></td><td>core</td><td></td><td>exif.js; may read the device's position (Geolocation, a permission)</td><td></td><td>yes</td></tr><tr><td><code>mini-calc</code></td><td><b>Pro</b></td><td></td><td></td><td></td><td>yes</td></tr><tr><td><code>mini-map</code></td><td><b>Pro</b></td><td>Google Static Maps API — a key, billed</td><td></td><td></td><td>no (app)</td></tr><tr><td><code>toast-card</code></td><td><b>Pro</b></td><td></td><td></td><td></td><td>yes</td></tr></tbody></table></div>
 
 		</section>
 	</main>

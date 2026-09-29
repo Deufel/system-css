@@ -72,9 +72,12 @@ customElements.define('activation-tracker', ActivationTracker);
 Event names are lowercase: Datastar lowercases attribute names, so
 `data-on:visitIn` would never fire.
 
-## The rockets in this repository
+## Every rocket's requirements
 
-`hold-confirm`, `command-palette`, `image-input` and `exif` run on core
-Datastar. `date-picker`, `day-picker`, `combo-box`, `group-pick`,
-`toast-card`, `mini-calc` and `copy-button` import the Datastar Pro
-runtime's `rocket` module and need the Pro bundle at `/static/datastar.js`.
+Two runtimes exist. A product on this stack ships **Datastar Pro** (its
+`rocket` module is what most of these components import); this library
+and its site run the **free core build**, so only the rockets marked
+*core* run live in the Lab. An API means a key and a bill; a permission
+means the browser asks the person.
+
+<!-- needs-table -->
