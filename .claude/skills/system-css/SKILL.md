@@ -262,6 +262,15 @@ are clean; admin/settings carry the grandfathered debt — snap values
 when you touch a site). Same spirit for every knob: the engine owns
 the scale, templates pick steps.
 
+THE MEASURE LADDER (2026-09-29): `.measure` centres a surface at a width
+the engine owns, and `--measure` is a RUNG, never a length — `1` a
+column (a wizard station, a dialog-like card, a form alone) · `2`
+reading (settings leaves, prose, a report; the default) · `3` working (a
+record page's grid, a dashboard's cap). The rung is 40ch + 30ch a step in
+the type's own unit, so it grows with `--type` and the text-size
+preference. Rosters take no measure: they fill the canvas. The counter
+checks the rungs the way it checks gaps; a length here is a regression.
+
 ## Authoring checklist
 
 - Theme by setting --hue / --bg / --lift / --fg / --type, not classes.
