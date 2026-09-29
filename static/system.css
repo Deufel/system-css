@@ -1806,6 +1806,14 @@
     --dk-neg: oklch(9% 0.015 0);  --dk-zero: oklch(18.7% 0.012 0); --dk-pos: oklch(83.5% 0.095 0); --dk-flip: 0.70;
     --cfg-radius: 16px;
   }
+  /* AN EXPLICIT CORNERS CHOICE OUTRANKS A SKIN'S DEFAULT (2026-09-29): the
+     theme layer's [data-ui-radius] steps restated here, after the skins, so
+     colour (the skin, the hue) and shape (the corners) are separate choices
+     a person makes apart — a skin only proposes a radius. */
+  [data-ui-radius="0"] { --cfg-radius: 0px; }
+  [data-ui-radius="1"] { --cfg-radius: 6px; }
+  [data-ui-radius="2"] { --cfg-radius: 12px; }
+  [data-ui-radius="3"] { --cfg-radius: 22px; }
 }
 
 

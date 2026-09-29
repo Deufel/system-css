@@ -42,6 +42,10 @@ func TestEngineLaws(t *testing.T) {
 			t.Errorf("line %d: !important in layer %q", i+1, layer)
 		}
 	}
+	// colour and shape apart: an explicit corners choice is declared after the skins
+	if strings.LastIndex(css, `[data-ui-radius="3"]`) < strings.Index(css, `[data-ui-skin="material"]`) {
+		t.Error("the corners choice does not outrank the skins (declare [data-ui-radius] after the skin blocks)")
+	}
 	if strings.Contains(css, "#") && regexp.MustCompile(`(?m)^\s*#[a-zA-Z]`).MatchString(css) {
 		t.Error("an ID selector")
 	}
