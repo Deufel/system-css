@@ -1,0 +1,86 @@
+<!-- combo-box — exported from the EventOS UI lab by cmd/labexport; edit the lab, not this file -->
+<div class="column" style="--gap: 0.5lh;"><div class="card column" style="--gap: 0.25lh;"><strong>combo-box / combo-select</strong> <small style="--fg: -0.55;">static/rocket/combo-box.js — one grammar, two elements. combo-box: suggestions + a free-form lane; combo-select: STRICT, the source is the vocabulary. Behavior only: open on focus, best-match pre-highlight (type → Enter commits), arrows, Escape/click-outside, morph-armored highlight, &lt;mark&gt; match ink. COMMITTED PICKS ARE TAGS (a reference is categorical); free-form addresses stay text (that&#39;s what they are). Signals are the single truth — forms post them; the chip is presentation.</small></div><div class="row" style="--gap: 1em; flex-wrap: wrap;"><div class="column" style="--gap: 0.5lh;" data-signals="{cbq: '', cbsel: '', cbq2: '', cbsel2: '', cb2err: false, cbfq: '', cbfsel: '', cbfq2: '', cbfsel2: '', cbfq3: '', cbfsel3: '', cbfq4: '', cbfsel4: '', cbferr: false, cbfsaved: false}"><div class="grid" style="--grid-min: 24rem; --gap: 1lh;"><div class="card column" style="--gap: 0.5lh;"><strong>combo-box — free</strong> <small style="--fg: -0.55;">Type, Enter — best match commits and CHIPS; "Use address" commits as text. The × un-commits.</small><div role="form"><fieldset><legend>Where is the event?</legend> <label><span>Customer, place, or address</span> <small></small><combo-box data-preserve-attr="data-ui-state" style="anchor-name: --cb-demo;"><input type="text" role="combobox" aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Start typing…" aria-label="Customer, place, or address" data-bind="cbq" data-show="!($cbsel != &#39;&#39; &amp;&amp; !$cbsel.startsWith(&#39;address&#39;))" data-on:input__debounce.300ms="@post(&#39;/admin/ui/combo-demo?list=cb-demo&amp;q=cbq&amp;sel=cbsel&amp;free=1&#39;)">      <div class="field" data-cb-chip tabindex="0" data-show="$cbsel != &#39;&#39; &amp;&amp; !$cbsel.startsWith(&#39;address&#39;)" style="display: none;"><span class="tag"><span data-text="$cbq"></span></span> <button type="button" class="bare" data-cb-clear aria-label="Clear selection" data-on:click="$cbq = &#39;&#39;; $cbsel = &#39;&#39;"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg>
+</button></div><menu id="cb-demo-list" class="menu" popover="manual" role="listbox" aria-label="Suggestions" data-ignore-morph style="position-anchor: --cb-demo; --type: -1;"></menu></combo-box></label></fieldset></div><div class="row" style="--gap: 0.5em;"><small style="--fg: -0.55;">identity:</small> <span class="tag" data-text="$cbsel || '—'"></span></div></div><div class="card column" style="--gap: 0.5lh;"><strong>combo-select — strict</strong> <small style="--fg: -0.55;">No free-form lane. Junk judges invalid on blur (try "zzz", click away); every commit chips.</small><div role="form" data-on:change="evt.detail && evt.detail.valid !== undefined && ($cb2err = !evt.detail.valid)"><fieldset><legend>Host customer</legend> <label><span>Customer</span> <small class="dgr" data-show="$cb2err">must match a suggestion — pick from the list</small><combo-select data-preserve-attr="data-ui-state" style="anchor-name: --cb-demo2;"><input type="text" role="combobox" aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Type a customer…" aria-label="Host customer" data-bind="cbq2" data-show="!($cbsel2 != &#39;&#39;)" data-on:input__debounce.300ms="@post(&#39;/admin/ui/combo-demo?list=cb-demo2&amp;q=cbq2&amp;sel=cbsel2&#39;)">      <div class="field" data-cb-chip tabindex="0" data-show="$cbsel2 != &#39;&#39;" style="display: none;"><span class="tag"><span data-text="$cbq2"></span></span> <button type="button" class="bare" data-cb-clear aria-label="Clear selection" data-on:click="$cbq2 = &#39;&#39;; $cbsel2 = &#39;&#39;"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg>
+</button></div><menu id="cb-demo2-list" class="menu" popover="manual" role="listbox" aria-label="Suggestions" data-ignore-morph style="position-anchor: --cb-demo2; --type: -1;"></menu></combo-select></label></fieldset></div><div class="row" style="--gap: 0.5em;"><small style="--fg: -0.55;">identity:</small> <span class="tag" data-text="$cbsel2 || '—'"></span></div></div></div><div class="column" style="--gap: 0.25lh;"><strong>In forms — the canon integration (gf-191)</strong> <small style="--fg: -0.55;">Both elements sit in the label grid's control lists beside date-picker, so the WHOLE canon works unmodified: label→small→control, required asterisks (from the inner input), --row-width shares, fieldset rows, state slots, the datastar submit. This is the production shape.</small></div><div class="card column stress" style="--gap: 0.5lh;" data-on:change="evt.detail && evt.detail.valid !== undefined && ($cbferr = !evt.detail.valid)"><form data-on:submit__prevent="$cbfsaved = true"><h3>New occurrence</h3><fieldset><legend>Where &amp; who <small data-show="$cbfsaved">saved ✓</small></legend> <label style="--row-width: 1.4;"><span>Location</span> <small></small><combo-box data-preserve-attr="data-ui-state" style="anchor-name: --cb-f1;"><input type="text" role="combobox" aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Customer, place, or address…" aria-label="Location" required data-bind="cbfq" data-show="!($cbfsel != &#39;&#39; &amp;&amp; !$cbfsel.startsWith(&#39;address&#39;))" data-on:input__debounce.300ms="@post(&#39;/admin/ui/combo-demo?list=cb-f1&amp;q=cbfq&amp;sel=cbfsel&amp;free=1&#39;)">      <div class="field" data-cb-chip tabindex="0" data-show="$cbfsel != &#39;&#39; &amp;&amp; !$cbfsel.startsWith(&#39;address&#39;)" style="display: none;"><span class="tag"><span data-text="$cbfq"></span></span> <button type="button" class="bare" data-cb-clear aria-label="Clear selection" data-on:click="$cbfq = &#39;&#39;; $cbfsel = &#39;&#39;"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg>
+</button></div><menu id="cb-f1-list" class="menu" popover="manual" role="listbox" aria-label="Suggestions" data-ignore-morph style="position-anchor: --cb-f1; --type: -1;"></menu></combo-box></label> <label><span>Host customer</span> <small class="dgr" data-show="$cbferr">must match a suggestion</small><combo-select data-preserve-attr="data-ui-state" style="anchor-name: --cb-f2;"><input type="text" role="combobox" aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Type a customer…" aria-label="Host customer" required data-bind="cbfq2" data-show="!($cbfsel2 != &#39;&#39;)" data-on:input__debounce.300ms="@post(&#39;/admin/ui/combo-demo?list=cb-f2&amp;q=cbfq2&amp;sel=cbfsel2&#39;)">      <div class="field" data-cb-chip tabindex="0" data-show="$cbfsel2 != &#39;&#39;" style="display: none;"><span class="tag"><span data-text="$cbfq2"></span></span> <button type="button" class="bare" data-cb-clear aria-label="Clear selection" data-on:click="$cbfq2 = &#39;&#39;; $cbfsel2 = &#39;&#39;"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg>
+</button></div><menu id="cb-f2-list" class="menu" popover="manual" role="listbox" aria-label="Suggestions" data-ignore-morph style="position-anchor: --cb-f2; --type: -1;"></menu></combo-select></label></fieldset><fieldset style="--type: -1;"><legend>Compact tier <small>the same pair at --type: -1 — the chip must sit inside the smaller control height</small></legend> <label><span>Location (compact)</span> <small></small><combo-box data-preserve-attr="data-ui-state" style="anchor-name: --cb-f3;"><input type="text" role="combobox" aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Customer, place, or address…" aria-label="Location compact" data-bind="cbfq3" data-show="!($cbfsel3 != &#39;&#39; &amp;&amp; !$cbfsel3.startsWith(&#39;address&#39;))" data-on:input__debounce.300ms="@post(&#39;/admin/ui/combo-demo?list=cb-f3&amp;q=cbfq3&amp;sel=cbfsel3&amp;free=1&#39;)">      <div class="field" data-cb-chip tabindex="0" data-show="$cbfsel3 != &#39;&#39; &amp;&amp; !$cbfsel3.startsWith(&#39;address&#39;)" style="display: none;"><span class="tag"><span data-text="$cbfq3"></span></span> <button type="button" class="bare" data-cb-clear aria-label="Clear selection" data-on:click="$cbfq3 = &#39;&#39;; $cbfsel3 = &#39;&#39;"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg>
+</button></div><menu id="cb-f3-list" class="menu" popover="manual" role="listbox" aria-label="Suggestions" data-ignore-morph style="position-anchor: --cb-f3; --type: -1;"></menu></combo-box></label> <label><span>Host (compact)</span> <small></small><combo-select data-preserve-attr="data-ui-state" style="anchor-name: --cb-f4;"><input type="text" role="combobox" aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Type a customer…" aria-label="Host compact" data-bind="cbfq4" data-show="!($cbfsel4 != &#39;&#39;)" data-on:input__debounce.300ms="@post(&#39;/admin/ui/combo-demo?list=cb-f4&amp;q=cbfq4&amp;sel=cbfsel4&#39;)">      <div class="field" data-cb-chip tabindex="0" data-show="$cbfsel4 != &#39;&#39;" style="display: none;"><span class="tag"><span data-text="$cbfq4"></span></span> <button type="button" class="bare" data-cb-clear aria-label="Clear selection" data-on:click="$cbfq4 = &#39;&#39;; $cbfsel4 = &#39;&#39;"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg>
+</button></div><menu id="cb-f4-list" class="menu" popover="manual" role="listbox" aria-label="Suggestions" data-ignore-morph style="position-anchor: --cb-f4; --type: -1;"></menu></combo-select></label></fieldset><fieldset><legend>Dates</legend> <label><span>When</span> <small></small><date-picker data-ignore-morph mode="range"></date-picker></label></fieldset><div class="spread"><span></span> <button type="submit" class="suc">Save</button></div></form></div></div></div></div>

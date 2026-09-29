@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="en" data-signals="{theme: ''}" data-attr:data-ui-theme="$theme != '' ? $theme : false">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="dark light"/>
+<title>datastar-components — system.css</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=optional" rel="stylesheet"/>
+<link rel="stylesheet" href="../static/system.css"/>
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-ui-theme',t)}catch(e){}</script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar@1.0.0/bundles/datastar.js"></script>
+<script type="module" src="../static/rocket/hold-confirm.js"></script><script type="module" src="../static/rocket/command-palette.js"></script><script type="module" src="../static/rocket/image-input.js"></script><script type="module" src="../static/rocket/exif.js"></script>
+</head>
+<body>
+<div class="page">
+	<header class="pg-header spread" style="--gap: 0.5em;">
+		<a href="../index.html" class="row oneline" style="--gap: 0.5em;"><strong>system.css</strong><small style="--fg: -0.55;">the engine</small></a>
+		<span class="row oneline" style="--gap: 0.5em;">
+			<a href="https://github.com/Deufel/system-css" style="--type: -1;">GitHub</a>
+			<button type="button" class="icon" aria-label="Theme" title="Theme: system → dark → light" data-on:click="$theme = $theme == '' ? 'dark' : ($theme == 'dark' ? 'light' : ''); try { localStorage.setItem('theme', $theme) } catch (e) {}">
+				<span data-show="$theme == ''" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="20" height="14" x="2" y="3" rx="2" /> <line x1="8" x2="16" y1="21" y2="21" /> <line x1="12" x2="12" y1="17" y2="21" /> </svg></span>
+				<span data-show="$theme == 'dark'" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" /> </svg></span>
+				<span data-show="$theme == 'light'" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="4" /> <path d="M12 2v2" /> <path d="M12 20v2" /> <path d="m4.93 4.93 1.41 1.41" /> <path d="m17.66 17.66 1.41 1.41" /> <path d="M2 12h2" /> <path d="M20 12h2" /> <path d="m6.34 17.66-1.41 1.41" /> <path d="m19.07 4.93-1.41 1.41" /> </svg></span>
+			</button>
+		</span>
+	</header>
+	<nav class="pg-navigation spread-column tablet desktop" aria-label="Sections">
+		<div class="column"><a class="nav-item" href="../index.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /> <path d="M20 3v4" /> <path d="M22 5h-4" /> <path d="M4 17v2" /> <path d="M5 18H3" /> </svg><span class="medium large">Home</span></a><a class="nav-item" href="../howto/start.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /> </svg><span class="medium large">How-to</span></a><a class="nav-item" href="../engine/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /> <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /> <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /> <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /> <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /> </svg><span class="medium large">Engine</span></a><a class="nav-item" href="../components/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span class="medium large">Components</span></a><a class="nav-item" href="../stream/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span class="medium large">Land & stream</span></a><a class="nav-item" href="../charts/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /> <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /> <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /> <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /> <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /> </svg><span class="medium large">Charts</span></a><a class="nav-item" href="../lab/primitives.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /> <path d="M20 3v4" /> <path d="M22 5h-4" /> <path d="M4 17v2" /> <path d="M5 18H3" /> </svg><span class="medium large">Lab</span></a><a class="nav-item" href="../skills/system-css.html" aria-current="page"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /> </svg><span class="medium large">Skills</span></a></div>
+	</nav>
+	<header class="pg-main-header column">
+		<div class="spread"><h1>datastar-components</h1></div>
+		<nav class="row mobile" aria-label="Sections" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../skills/system-css.html">Skills</a></nav><nav class="tabs-underline scroll-x" aria-label="Skills"><a href="../skills/system-css.html">system-css</a><a href="../skills/datastar-components.html" aria-current="page">datastar-components</a><a href="../skills/land-and-stream.html">land-and-stream</a><a href="../skills/svg-charts.html">svg-charts</a></nav>
+	</header>
+	<main class="pg-main column owns-scroll">
+		<section class="column measure" style="--measure: 80ch; --gap: 1lh;">
+<nav class="card column" aria-label="On this page" style="--gap: 0; --type: -1;"><strong>On this page</strong><a href="#the-recipe--every-component-follows-it">The recipe — every component follows it</a><a href="#datastar-bindings-these-components-use">Datastar bindings these components use</a><a href="#state-belongs-in-data-ui--not-data-">State belongs in data-ui-*, not data-*</a><a href="#dont-hand-roll-layout--compose-primitives">Don't hand-roll layout — compose primitives</a><a href="#container-responsive-no-media-queries-no-js">Container-responsive (no media queries, no JS)</a><a href="#anchored-popover-combobox--menu">Anchored popover (combobox / menu)</a><a href="#the-six-components">The six components</a><a href="#rocket-components-datastar-pro--when-to-reach-for-them">Rocket components (Datastar Pro) — when to reach for them</a><a href="#the-stepped-dialog-wizard-grammar--three-templs-one-signal-gf-314315">The stepped dialog (wizard) grammar — three templs, one signal (gf-314/315)</a><a href="#morph-armor--protecting-clientwizard-state-from-server-morphs">Morph armor — protecting client/wizard state from server morphs</a><a href="#the-active-utility-gf-191-per-mike">THE .active UTILITY (gf-191, per Mike)</a><a href="#the-rocket-state-canon-gf-191-per-mike-there-should-be-canon">THE ROCKET STATE CANON (gf-191, per Mike: &quot;there should be canon</a><a href="#pre-ship-checklist">Pre-ship checklist</a><a href="#one-bad-expression-takes-the-whole-page-down-gf-175">One bad expression takes the whole page down (gf-175)</a><a href="#dialogs-on-a-live-page">Dialogs on a live page</a></nav><hr>
+<h2 id="scope-general">name: datastar-components
+description: Author small interactive UI components from Datastar reactive attributes over a baked DOM, styled with system.css — date pickers, range pickers, month calendars, comboboxes/autocompletes, and multi/single selection grids. Use whenever building or editing such a component with Datastar (data-signals/data-bind/data-text/data-show/data-class/data-attr/data-style/data-on), or when the user mentions Datastar, $-signals, a baked-grid-of-buttons component, an anchored/flipping popover, the lowercase-namespace gotcha, data-ui-* state hooks, or wiring reactive state onto system.css primitives. Pairs with the system-css skill (which covers the styling engine itself). Do NOT use for React/Vue/Svelte components or for server-rendered Datastar SSE backends — this is client-side, build-stepless, signal-driven HTML (the server half — CQRS commands, streams, morph-vs-replace — is the land-and-stream skill).
+scope: general</h2>
+<h1 id="datastar-enhanced-components">Datastar-enhanced components</h1>
+<p>These components are <strong>HTML, not a framework app</strong>. There is no build step, no
+virtual DOM, and no client-side templating. The markup <em>is</em> the component;
+<a href="https://data-star.dev">Datastar</a> attributes make it reactive, and
+system.css styles it (static/system.css — read the system-css skill). State lives in <strong>signals</strong>, not in
+form fields — with the land-and-stream qualifier stated up front: signals
+hold COMPONENT-EPHEMERAL state (draft, hover, shown month) and act as
+TRANSPORT for commands; anything a view renders is STORE truth, and a
+fat-morph re-merging a signal server-authoritatively is correct behavior,
+not a bug. Every component below is the same small shape — learn it once.</p>
+<blockquote>
+<p>Read the <strong>system-css</strong> skill for the styling engine (--bg/--fg/--type,
+primitives, the surface contract). This skill is only about wiring Datastar
+onto it.</p>
+</blockquote>
+<h2 id="the-recipe--every-component-follows-it">The recipe — every component follows it</h2>
+<ol>
+<li><strong>One signal namespace holds all state.</strong> <code>data-signals:ns=&quot;{ ... }&quot;</code> on the
+wrapper. Everything reads/writes <code>$ns.field</code>.</li>
+<li><strong>Bake the structurally-constant DOM.</strong> Datastar has <strong>no client-side loop or
+template</strong>. A month grid always has 42 day cells; a numpad has 12 keys; a
+combobox list has N options. Emit those nodes at author/build time (a Python
+f-string loop, a server template — anything that runs <em>before</em> the page
+ships). The DOM shape is fixed; only its <em>content and state</em> change.</li>
+<li><strong>Bind each baked node reactively</strong> — <code>data-text</code>, <code>data-show</code>,
+<code>data-class</code>, <code>data-attr</code>, <code>data-style</code>, <code>data-on</code>.</li>
+<li><strong>Props down via pure helpers; events up via <code>data-on</code>.</strong> Plain JS functions
+take signal values as arguments and return a value/boolean
+(<code>cellIsToday($cal.v, i)</code>, <code>cbFilter($cb.q)</code>). They never read globals or
+mutate — they're props-down. <code>data-on:click</code> is events-up: it mutates the
+signal, the bindings recompute.</li>
+<li><strong>Layout from system.css primitives in the markup; the rest from the API.</strong>
+See &quot;Don't hand-roll layout&quot; below.</li>
+</ol>
+<h2 id="datastar-bindings-these-components-use">Datastar bindings these components use</h2>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data-signals:ns=&quot;{...}&quot;</code></td>
+<td>declare the component's state (JSON; may reference globals like a baked <code>DP_INIT</code>)</td>
+</tr>
+<tr>
+<td><code>data-bind:field</code></td>
+<td>two-way bind a control's value to a signal</td>
+</tr>
+<tr>
+<td><code>data-text=&quot;expr&quot;</code></td>
+<td>element text content</td>
+</tr>
+<tr>
+<td><code>data-show=&quot;expr&quot;</code></td>
+<td>toggle visibility (inline <code>display</code>)</td>
+</tr>
+<tr>
+<td><code>data-class:name=&quot;expr&quot;</code></td>
+<td>toggle a class</td>
+</tr>
+<tr>
+<td><code>data-attr:name=&quot;expr&quot;</code></td>
+<td>toggle/set an attribute (<strong>see boolean rule below</strong>)</td>
+</tr>
+<tr>
+<td><code>data-style:--prop=&quot;expr&quot;</code></td>
+<td>drive a CSS custom property → repaints through the engine</td>
+</tr>
+<tr>
+<td><code>data-on:evt=&quot;stmt&quot;</code></td>
+<td>event handler (<code>click</code>, <code>input</code>, <code>keydown</code>, <code>focus</code>, <code>blur</code>, …); <code>evt</code> is in scope</td>
+</tr>
+</tbody>
+</table>
+<h3 id="gotchas-all-verified-by-rendering">Gotchas (all verified by rendering)</h3>
+<ul>
+<li><strong>Lowercase the signal namespace.</strong> HTML lowercases attribute names, so
+<code>data-signals:calSm</code> becomes <code>calsm</code> and <code>$calSm</code> silently fails to resolve.
+Use all-lowercase namespaces: <code>dp</code>, <code>rng</code>, <code>cb</code>, <code>sel</code>, <code>view</code>, <code>cal</code>.</li>
+<li><strong><code>data-attr:NAME</code> with a boolean toggles attribute <em>presence</em></strong>, not a
+<code>&quot;true&quot;</code>/<code>&quot;false&quot;</code> string. <code>data-attr:data-ui-selected=&quot;cellIso(v,i) === $cal.sel&quot;</code>
+puts <code>data-ui-selected</code> on the selected cell and removes it elsewhere — so
+<code>[data-ui-selected]</code> matches <em>exactly</em>. Multi-dash names work. For a <strong>token</strong>
+attribute (a value, not mere presence) use a ternary:
+<code>data-attr:aria-current=&quot;cellIsToday(v,i) ? 'date' : 'false'&quot;</code> → matched as
+<code>[aria-current=&quot;date&quot;]</code>.</li>
+<li><strong><code>data-style:--prop</code> is the reactive paint knob — for COMPONENT CHROME
+only.</strong> <code>data-style:--bg=&quot;busy(iso)&quot;</code> drives a cell's surface through the
+color engine; prefer it over toggling many classes. It is NEVER for
+application data or chart marks — data recolors server-side (the
+svg-charts backend-toggle rule); this knob paints the throwaway
+interaction state a component owns.</li>
+<li><strong>Avoid <code>data-computed</code>.</strong> It silently no-opped under an earlier bundle;
+inline the expression in each binding instead. (The project pins Datastar Pro
+v1.0.2, which does export <code>computed</code> — re-verify by rendering before relying
+on it.)</li>
+<li><strong>No client loops.</strong> Bake the constant DOM, then <code>data-show</code>/<code>data-text</code> each
+baked node. Don't try to generate rows on the client.</li>
+<li><strong>A suggest lane replies to a FIXED listbox id.</strong> <code>SuggestReply(w, r, &quot;ws&quot;, …)</code> patches <code>#ws-list</code> (<code>ComboOptionsView</code> renders <code>id+&quot;-list&quot;</code>),
+so a ComboBox/ComboSelect's <code>id</code> must EQUAL its lane's reply id and be
+unique on the page. gf-367: the portfolio wizard's <code>pfws</code>/<code>pfwb</code> boxes
+posted to lanes that answered <code>ws</code>/<code>wb</code> — the search never landed an
+option and nobody saw an error.</li>
+<li><strong><code>data-bind</code> takes the VALUE form here: <code>data-bind=&quot;sq&quot;</code>, never the
+key form <code>data-bind:sq</code></strong> (gf-385: the group-pick input rendered
+<code>data-bind:gpq</code> and neither direction synced — the pick wrote the
+signal and the field kept the typed text; the pinned bundle honours
+the value form, which every combobox uses).</li>
+<li><strong>Load Datastar from <code>/static/datastar.js</code></strong> (the pinned Pro bundle,
+v1.0.2) as a <code>&lt;script type=&quot;module&quot;&gt;</code> — the base layout does this once;
+never add a second runtime or a CDN copy. (Inlining is only for throwaway
+offline artifacts, not this app.)</li>
+</ul>
+<h2 id="state-belongs-in-data-ui--not-data-">State belongs in <code>data-ui-*</code>, not <code>data-*</code></h2>
+<p>Datastar owns the <code>data-*</code> space. Put your <strong>styling state hooks</strong> under the
+framework's existing <code>data-ui-*</code> namespace (it already uses
+<code>data-ui-theme/size/motion</code> and <code>.tag[data-ui-state]</code>). This avoids any
+collision with Datastar and makes selectors self-documenting:</p>
+<pre><code class="language-css">.cal .ngrid &gt; button[aria-current=&quot;date&quot;]    { outline: 2px dashed var(--focus); }
+.cal .ngrid &gt; button[data-ui-selected] { outline: 2px solid var(--focus); }
+.cal .ngrid &gt; button[data-ui-adjacent] { --bg: 0.1; }
+</code></pre>
+<pre><code class="language-html">&lt;button data-attr:aria-current=&quot;cellIsToday($cal.v,i) ? 'date' : 'false'&quot;
+        data-attr:data-ui-selected=&quot;cellIso($cal.v,i) === $cal.sel&quot;
+        data-attr:data-ui-adjacent=&quot;!cellInMonth($cal.v,i)&quot;&gt;…&lt;/button&gt;
+</code></pre>
+<p><strong>Classes are identity; <code>data-ui-*</code> (or ARIA) is state.</strong> A class says <em>what the
+element is</em> — a layout primitive or component (<code>.card</code>, <code>.column</code>, <code>.ngrid</code>,
+<code>.tag</code>), authored once, never toggled. A <code>data-ui-*</code> attribute says <em>what state
+it's in</em>, toggled at runtime by <code>data-attr</code>. Keep them visibly separate:
+<code>class=&quot;column&quot;</code> (it's a column) carrying <code>data-ui-selected</code> (it's selected).</p>
+<p><strong>If the element already carries ARIA state, style off that — don't add a
+redundant flag.</strong> Selection grids set <code>aria-pressed</code>/<code>aria-checked</code>; a combobox
+option sets <code>aria-selected</code>. Style <code>&amp;[aria-pressed=&quot;true&quot;]</code> directly so the
+accessible state and its look share one source of truth and one binding. Reserve
+<code>data-ui-*</code> for state with no ARIA equivalent — a calendar's <em>adjacent</em>
+(out-of-month) day, a range's band / preview / endpoints. (A calendar's <em>today</em>
+is a real ARIA fact, <code>aria-current=&quot;date&quot;</code>, so it stays ARIA.) Two house
+reservations on top of that rule: <code>data-ui-state=&quot;active&quot;</code> is the ENGINE's
+painted lens-control state (--bg 1 / --fg −1 — an applied sort/filter/scope
+is a condition ARIA has no word for), and <code>data-ui-state=&quot;on|off&quot;</code> is the
+legend-toggle pair. Never stamp an ARIA state AND a data-ui-* flag for the
+same fact — one source of truth, one binding.</p>
+<blockquote>
+<p><code>data-class</code> (reactively toggling a <em>class</em>) is still fine for genuinely
+class-shaped things — toggling a layout primitive, or the container-band
+<code>.medium</code>/<code>.column</code> reveal. The rule is only that visual <em>state</em> lives in
+<code>data-ui-*</code>/ARIA, not that every reactive toggle is an attribute.</p>
+</blockquote>
+<h3 id="where-component-css-lives">Where component CSS lives</h3>
+<p>Wrap each component's rules in <code>@layer components</code> (with a comment banner) and
+<strong>nest the state inside the structural class</strong>, so an element and its states
+read as one block:</p>
+<pre><code class="language-css">@layer components {
+  /* calendar — standalone month surface */
+  .cal .ngrid &gt; button {
+    aspect-ratio: 1; display: grid; place-items: center; --bg: 0.3;
+    &amp; &gt; b               { --type: -1; --fg: -0.9; }
+    &amp;[data-ui-adjacent] { --bg: 0.1; &amp; &gt; b { --fg: -0.6; } }
+    &amp;[aria-current=&quot;date&quot;]    { outline: 2px dashed var(--focus); }
+    &amp;[data-ui-selected] { outline: 2px solid var(--focus); }
+  }
+}
+</code></pre>
+<p>Your components then become genuine peers of <code>.card</code>/<code>.tag</code> in the same layer,
+so the cascade stays predictable instead of &quot;app CSS wins by being unlayered.&quot;
+The framework declares the spine up front (<code>@layer reset, core.color, core.type, core.layout, theme, base, components, utility, media, skin, view-transitions;</code>), so an
+appended <code>@layer components {}</code> block <em>joins</em> that layer after the framework's
+components — it doesn't become a new top layer. Do <strong>not</strong> put component rules
+in <code>project</code> (or leave them unlayered): they would out-cascade the <code>media</code>
+layer and break the revert-layer gates (<code>.small</code>/<code>.medium</code>/<code>.c-*</code>). Reactive
+paints are unaffected: <code>data-style:--bg</code> and inline <code>style=&quot;--bg:…&quot;</code> are inline
+styles, which beat any layer.</p>
+<h2 id="dont-hand-roll-layout--compose-primitives">Don't hand-roll layout — compose primitives</h2>
+<p>A well-built component is <strong>almost no custom CSS</strong>. Push every layout decision
+into system.css classes in the markup; keep only shape and the type/color API in
+your stylesheet.</p>
+<ul>
+<li><strong>Layout → primitives in markup:</strong> <code>.card</code> (surface), <code>.column</code>/<code>.row</code>,
+<code>.spread</code> (space-between), <code>.lcr</code> (start/center/end), <code>.ngrid</code> with
+<code>style=&quot;--cols:7&quot;</code> (fixed-column grid), <code>.grid</code> (auto-fit),
+<code>.menu</code> (anchored popover; note <code>.center</code> is TEXT centering, a utility —
+not a box-centering primitive). Never write <code>display</code>/<code>flex</code>/<code>grid</code> in component CSS.</li>
+<li><strong>Type &amp; color → the API only:</strong> <code>--type</code> (size), <code>--bg</code> (surfaces), <code>--fg</code>
+(ink). E.g. <code>.cal b { --type:-1; --fg:-0.9 }</code>.</li>
+<li><strong>State → <code>data-ui-*</code></strong> attributes (above) + <code>.tag[data-ui-state=&quot;on|off&quot;]</code>.</li>
+<li><strong>Shape → <code>aspect-ratio</code>.</strong> This is the <em>one</em> geometric thing you set yourself
+(square day cells, square keys). Add <code>min-inline-size:0</code> so 1fr grid tracks can
+shrink, and <code>display:grid; place-items:center</code> to center the glyph.</li>
+</ul>
+<blockquote>
+<p>Rule of thumb: a component rarely needs more than ~10 lines of custom CSS. The
+month calendar is 8–9 lines total (square + number color + the two
+<code>data-ui-*</code> outlines + the <code>--bg</code> in/out tints). If you're writing flexbox,
+you're fighting the system — reach for a primitive.</p>
+</blockquote>
+<h2 id="container-responsive-no-media-queries-no-js">Container-responsive (no media queries, no JS)</h2>
+<p>Make one component render differently by <strong>width of its own box</strong>:</p>
+<ol>
+<li>Put <code>.container</code> on a wrapper (it sets <code>container-type: inline-size</code>).</li>
+<li>Give a child both a <strong>gate class</strong> and a <strong>layout primitive</strong>:
+<code>class=&quot;medium column&quot;</code>. The gate class (in the media layer) hides it with
+<code>display:none</code> out of band; in band it becomes <code>display: revert-layer</code>,
+which restores the value from the earlier layer — i.e. <code>.column</code>'s flex.
+<strong>The primitive is load-bearing:</strong> a bare <code>.medium</code> with no composed display
+reverts to default <code>block</code>, not hidden.</li>
+</ol>
+<p>Two container gate families, two jobs: <code>.small</code>/<code>.medium</code>/<code>.large</code> are
+<strong>density tiers</strong> (component scale: <code>.small</code> &lt; 8rem = glyph alone, <code>.medium</code>
+8rem–20rem = glyph + label, <code>.large</code> ≥ 20rem = full block; &quot;and-up&quot; via
+multi-class <code>class=&quot;medium large&quot;</code>). <code>.c-mobile</code>/<code>.c-tablet</code>/<code>.c-desktop</code> are
+the <strong>layout band</strong> family (576px / 768px, container-measured).</p>
+<pre><code class="language-html">&lt;button class=&quot;column&quot;&gt;                 &lt;!-- a day cell --&gt;
+  &lt;b data-text=&quot;cellDay(v,i)&quot;&gt;&lt;/b&gt;
+  &lt;span class=&quot;medium large column&quot;&gt;…2 chips…&lt;/span&gt;  &lt;!-- glyph+label and up --&gt;
+  &lt;span class=&quot;large column&quot;&gt;…3 chips…&lt;/span&gt;         &lt;!-- full block only --&gt;
+&lt;/button&gt;
+</code></pre>
+<p>No <code>@container</code> rule in your CSS — the framework already gates both families.</p>
+<h2 id="anchored-popover-combobox--menu">Anchored popover (combobox / menu)</h2>
+<p>Use CSS anchor positioning instead of JS measurement:
+<code>anchor-name</code> on the field; on a <code>popover=&quot;manual&quot;</code> element set
+<code>position-anchor</code>, <code>top: anchor(bottom)</code>, <code>width: anchor-size(width)</code>, and
+<code>position-try-fallbacks: flip-block</code> so it opens downward and flips up near the
+viewport bottom. It lives in the top layer (no <code>z-index</code> juggling). Chromium
+125+; add an <code>@supports</code> fallback if Firefox/Safari matter.</p>
+<p>Two scars to carry (gf-79, gf-46): a CLOSED <code>.menu</code> popover must get
+<code>display: none</code> — hiding by opacity alone leaves every hidden menu in the
+tab order. And out-of-flow anchor positioning LOSES to morphs: the moment
+the server removes or replaces the anchor node, everything anchored to it
+jumps or orphans. Anchor to stable, server-owned nodes only; anything that
+chains or stacks (toasts) stays IN-FLOW with <code>interpolate-size</code> collapse —
+degrade is a snap, never a break. An overlay that traces an element pins
+to THE TRACED ELEMENT itself, never its wrapper (hold-confirm's inset:0
+mis-scale).</p>
+<h2 id="the-six-components">The six components</h2>
+<p><em>(This skill ships no references folder — its bundled reference and
+examples were lost in an old repack and never restored; the table below
+is the surviving summary, and the live in-tree exemplars are the rockets
+under <code>static/rocket/</code> and their benches on Admin → UI lab → Rockets.)</em></p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Signal shape</th>
+<th>Patterns it teaches</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Date — single</td>
+<td><code>{v, s}</code> (view month, selected ISO)</td>
+<td>popover calendar, baked 42 cells, <code>aria-current</code> (today) + <code>data-ui-selected</code></td>
+</tr>
+<tr>
+<td>Date — range</td>
+<td><code>{v, a, b, h}</code> (anchor, end, hover)</td>
+<td>two endpoints + hover preview, band tint via <code>--bg</code></td>
+</tr>
+<tr>
+<td>Calendar</td>
+<td><code>{v, sel}</code></td>
+<td>standalone month surface, <code>.ngrid</code>+<code>.spread</code> nav, in/out tint, Today/prev/next</td>
+</tr>
+<tr>
+<td>Combobox</td>
+<td><code>{q, open, hi, label}</code> (query, open, highlighted idx)</td>
+<td>text filter, keyboard nav, anchored flipping popover</td>
+</tr>
+<tr>
+<td>group-pick (gf-385)</td>
+<td>three page signals: typed text · picked name (the TAG) · rename draft</td>
+<td>pick-or-make over server rows: focus shows all, typing filters, Enter picks only a highlighted ROW (a typed word is never a value — &quot;No match&quot; + an Add row chosen from the list), the pick is a tag in the field, a pencil renames a row in place (Enter/check saves, Escape/leaving cancels), per-row delete disabled while in use; <code>view.GroupPick(GroupPickSpec)</code>; bench UI → Rockets</td>
+</tr>
+<tr>
+<td>Selection grid — multi</td>
+<td><code>{ids: []}</code></td>
+<td>array signal, toggle membership, <code>aria-pressed</code> + <code>data-ui-state</code></td>
+</tr>
+<tr>
+<td>Selection grid — single</td>
+<td><code>{id}</code></td>
+<td>single-id signal, radio semantics, <code>aria-checked</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="rocket-components-datastar-pro--when-to-reach-for-them">Rocket components (Datastar Pro) — when to reach for them</h2>
+<p>Everything above is build-stepless HTML: bake the DOM, bind it, inline the
+bundle. <strong>Rocket</strong> is the other mode — Datastar <strong>Pro</strong>'s web-component API
+(<code>rocket(tag, {...})</code>). It packages a component as a real custom element with a
+typed prop API, instance-scoped state, and a <code>render()</code> that <em>can</em> loop. It is
+not a replacement for the recipe above; it is for a specific kind of component.</p>
+<p><strong>Use Rocket only when all of these hold</strong> (the date picker is the canonical yes):</p>
+<ul>
+<li>There is a <strong>public API worth typing</strong> — attributes a page author sets
+(<code>mode</code>, <code>value</code>, <code>value-end</code>), decoded via codecs (<code>oneOf</code>, <code>string</code>, <code>date</code>).</li>
+<li>The state is <strong>genuinely ephemeral and client-only</strong> — draft selection, hovered
+cell, shown month. In a server-owns-state app (land-and-stream), the <em>committed</em>
+value is server state and flows back in as an attribute; only the throwaway
+interaction state lives in the component. If the &quot;state&quot; is application data,
+it does <strong>not</strong> belong in a client component — render it server-side.</li>
+<li>The internal DOM is <strong>repetitive</strong> — Rocket's <code>render</code> supports
+<code>&lt;template data-for=&quot;i in [...]&quot;&gt;</code>, so the 42 cells are <em>looped</em>, not baked.
+This is the main ergonomic win over the vanilla recipe. ⚠ The carve-out
+(gf-44 doctrine): if the server ALREADY renders the markup, Rocket owns
+interaction ONLY — a behavior wrapper over server truth. A roster
+needs no rocket at all: it is server markup under the engine's
+<code>.roster</code> component (gf-98). The app's month calendar is server markup
+over <code>cal-*</code>; a client-rendered calendar is the standalone-widget case,
+never the app's.</li>
+<li>You <strong>reuse it across pages</strong>, so a registered element + typed wrapper pays off.</li>
+</ul>
+<p>Display-only or server-driven things (card, tag, alert, table, dashboard, a
+disclosure toggle) are <strong>not</strong> Rocket candidates — a typed templ/partial wrapper
+gives the same drop-in reuse without a client runtime. By this test most apps
+have only a few Rocket components: date/time pickers, combobox, token input.</p>
+<h3 id="the-shape">The shape</h3>
+<pre><code class="language-js">import { rocket } from '/static/datastar.js';   // ABSOLUTE path (see gotcha)
+// pure date/format helpers on window so rendered expressions can call them
+Object.assign(window, { cellDay, cellIso, cellInMonth, cellIsToday, som, monthLabel, fmtPretty });
+
+rocket('event-date-picker', {
+  mode: 'light',                                  // inherit system.css; shadow DOM walls it off
+  props: ({ oneOf, string }) =&gt; ({
+    mode:     oneOf('single','range').default('single'),
+    value:    string.default(''),                 // committed start ISO; reflects to attribute
+    valueEnd: string.default(''),
+  }),
+  setup: ({ $$, props, host, action }) =&gt; {       // destructure `action` — needed below
+    $$.da = ''; $$.db = ''; $$.hover = '';        // ephemeral draft/UI state
+    $$.v  = props.value ? som(new Date(props.value).getTime(),0) : som(Date.now(),0);
+    action('commit', () =&gt; {                       // registered action (see gotcha)
+      host.setAttribute('value', $$.da);
+      host.dispatchEvent(new CustomEvent('change', { bubbles:true, detail:{ start:$$.da, end:$$.db||$$.da }}));
+    });
+  },
+  render: ({ html }) =&gt; html`
+    &lt;div class=&quot;calendar&quot;&gt;
+      &lt;template data-for=&quot;i in [0,1,2,/* … */,41]&quot;&gt;     &lt;!-- looped, not baked --&gt;
+        &lt;button data-text=&quot;cellDay($$v,i)&quot;
+          data-attr:data-ui-selected=&quot;!!($$da &amp;&amp; cellIso($$v,i)===$$da)&quot;
+          data-on:click=&quot;$$clicked=cellIso($$v,i); @pick()&quot;&gt;&lt;/button&gt;
+      &lt;/template&gt;
+      &lt;button data-on:click=&quot;@commit(); document.getElementById('evpop').hidePopover()&quot;&gt;Confirm&lt;/button&gt;
+    &lt;/div&gt;
+  `,
+});
+</code></pre>
+<h2 id="the-stepped-dialog-wizard-grammar--three-templs-one-signal-gf-314315">The stepped dialog (wizard) grammar — three templs, one signal (gf-314/315)</h2>
+<p>A wizard inside the app is a <code>dialog.modal.glass</code> whose STATIONS ride
+one page-local signal: <code>data-signals__ifmissing=&quot;{pkw: N}&quot;</code> on the
+dialog seeds N from the record at land (the first station whose fact is
+open) and keeps it across morphs; <code>wizSignalStrip(sig, stations)</code> is the
+house crumb trail with every station clickable and <code>aria-current</code> on
+the active one; <code>wizSignalFoot(sig, last)</code> is Back/Next; each body is a
+<code>data-show=&quot;$sig == i&quot;</code>. Every verb inside is a 204 + publish, and the
+morph re-lands the tags. Outside the app (no session, a reload between
+steps) the wizard is a PAGE of plain forms and 303s with the strip as real
+links (<code>/start</code>'s six stations, gf-360…366; the page opens NO stream —
+<code>Page.NoStream</code> — so nothing can morph a half-filled form) — a dialog
+cannot survive the sign-in reload. <code>wizOpener</code> is the header-rack &quot;Set
+up&quot; verb. The PORTFOLIO wizard is retired (gf-367); packages
+(<code>view/settings.templ</code>, signal <code>pkw</code>) is the surviving exemplar.</p>
+<h2 id="morph-armor--protecting-clientwizard-state-from-server-morphs">Morph armor — protecting client/wizard state from server morphs</h2>
+<p>A region whose CHILDREN carry in-flight state (a multi-step wizard body, a
+component-owned DOM island) must survive the page-wide morphs a land-and-stream
+app fires on every publish. Verified against the bundle source (gf-51):</p>
+<ul>
+<li><strong><code>data-ignore-morph</code></strong> — when BOTH the DOM node and the incoming node carry
+it, the morph walk returns the node untouched, subtree included. This is the
+tool for subtree state. (One side only ≠ armor.)</li>
+<li><strong>Replace-mode patches bypass the morpher</strong> (plain <code>replaceWith</code>) — which is
+how the armored region's OWNER updates it: the server command answers with
+<code>PatchElements(html, WithModeReplace())</code>, and the rendered fragment re-carries
+the id + the armor attribute so later patches and morphs behave the same.</li>
+<li><strong><code>data-preserve-attr</code> is NOT armor</strong> — it shields the listed <em>attributes</em>
+(<code>open</code> on a dialog, inline <code>style</code>) while the children still morph. Right
+tool for keeping a dialog open across a morph; wrong tool for keeping what's
+inside it.</li>
+</ul>
+<p>The worked example: the connector wizard (<code>connWizDialog</code> in
+<code>view/settings.templ</code>, its commands in <code>handler/connector.go</code>) — a
+stepped dialog whose station is derived from what the org has saved,
+each command a 204 + org publish, the page's own fat-morph re-landing
+the next station. (The CSV import wizard that first carried this armor
+retired with the seam; the lab's mock at /admin/ui keeps its shape.)</p>
+<p>Two more morph/fetch traps, verified in the bundle source (gf-52):</p>
+<ul>
+<li>
+<p><strong><code>data-on:submit</code> ALWAYS prevents the native submit</strong> (bundle: <code>el instanceof HTMLFormElement &amp;&amp; event === &quot;submit&quot; &amp;&amp; preventDefault()</code>,
+with or without <code>__prevent</code>). A native <code>method=&quot;post&quot;</code> form must carry
+no <code>data-on:submit</code>; a Datastar form is <code>data-on:submit__prevent</code> +
+<code>@post(url, {contentType: 'form'})</code> + a 204 (gf-358, the contact
+dialog lost a day of messages to this).</p>
+</li>
+<li>
+<p><strong>File uploads need <code>enctype=&quot;multipart/form-data&quot;</code> ON THE FORM.</strong>
+<code>@post(url, {contentType: 'form'})</code> builds a FormData, but ships it as
+the body only when the form declares that enctype — otherwise the bundle
+flattens it to <code>URLSearchParams</code> and every file input silently drops
+(server sees &quot;no file&quot;). The attribute is load-bearing even though no
+native submit ever happens.</p>
+</li>
+<li>
+<p><strong>A morphed checkbox freezes after its first flip.</strong> The morpher diffs
+<code>checked</code> by comparing the ATTRIBUTE on old-vs-new but writes only the
+PROPERTY, leaving the old attribute stale — every later morph
+false-negatives. Fix: key the input's <code>id</code> by state (e.g. <code>act-7-on</code> /
+<code>act-7-off</code>) so old and new never pair and the morph replaces the node.</p>
+</li>
+</ul>
+<h3 id="rocket-gotchas-each-cost-a-real-debugging-cycle-here">Rocket gotchas (each cost a real debugging cycle here)</h3>
+<ul>
+<li>
+<p><strong>A rocket host RE-RENDERS its template on every prop change</strong> (gf-323,
+learned on the virtual-scroll bench, retired gf-324): every <code>data-attr:*</code> landing after first
+render runs <code>render</code> again, so element references captured in
+<code>onFirstRender</code> point at detached nodes while Datastar keeps patching
+the live ones by id. Re-query the nodes at the top of every reset
+(<code>host.querySelector('[data-viewport]')</code>), and pass STATIC props as
+plain attributes — only a value that truly changes rides <code>data-attr:</code>.
+The reference virtual-scroll also averaged empty blocks into a running
+height total; measure only what holds rows, by its own row count.</p>
+</li>
+<li>
+<p><strong>A rocket that renders its own subtree must OWN it end to end</strong>
+(gf-323, on prod): the page-wide morph on every publish deletes what
+the server did not send, so the host needs <code>data-ignore-morph</code> — and
+that same flag makes Datastar skip any patch aimed inside the subtree,
+the rocket's own block replies included. Apply those by hand (parse
+the <code>datastar-patch-elements</code> event, swap the live element's children
+by id) instead of dispatching them back to Datastar. Verify under
+publishes, not on a quiet page: the scratch server showed nothing
+because nothing published. And any scroller that re-positions content
+above the viewport sets <code>overflow-anchor: none</code> on it, or Chrome's
+scroll anchoring will move scrollTop after every re-position and the
+scroller will chase its own tail.</p>
+</li>
+<li>
+<p><strong><code>$$name</code> is the instance-local signal.</strong> Inside <code>render</code>, write <code>$$da</code>,
+<code>$$mode</code>; in <code>setup</code>, <code>$$.da = ''</code>. Rocket rewrites <code>$$</code> to a per-instance path,
+so multiple instances on a page don't collide. Helpers are still plain JS on
+<code>window</code>, called with <code>$$</code> values as args (props-down, unchanged from the recipe).</p>
+</li>
+<li>
+<p><strong>Register actions with <code>action(name, fn)</code> — not <code>$$.fn = …</code>.</strong> Defining
+<code>$$.commit = () =&gt; {}</code> does <strong>not</strong> make <code>@commit()</code> callable; you get
+<em>&quot;Undefined Rocket action: commit.&quot;</em> Destructure <code>action</code> from the setup context
+and call <code>action('commit', () =&gt; {...})</code>.</p>
+</li>
+<li>
+<p><strong>Local actions take NO arguments — pass data via a signal.</strong> Calling
+<code>@pick(cellIso($$v,i))</code> makes Rocket rewrite the dispatch and <strong>recurse into a
+<code>Maximum call stack size exceeded</code></strong>. The working pattern mirrors no-arg
+<code>@commit()</code>: set a signal first, then call the bare action which reads it —
+<code>data-on:click=&quot;$$clicked=cellIso($$v,i); @pick()&quot;</code>, and inside, <code>const iso = $$.clicked;</code>.</p>
+</li>
+<li>
+<p><strong>Boolean-coerce every <code>data-attr</code> expression with <code>!!(...)</code>.</strong> Rocket sets an
+attribute whenever the expression yields a <em>string</em>; <code>$$da &amp;&amp; …</code> returns <code>''</code>
+(empty string, not <code>false</code>) when <code>$$da</code> is empty, so <code>data-ui-selected=&quot;&quot;</code>
+lands on <strong>every</strong> cell and presence-based CSS (<code>[data-ui-selected]</code>) matches
+all of them. <code>data-attr:data-ui-selected=&quot;!!($$da &amp;&amp; cellIso($$v,i)===$$da)&quot;</code>
+forces a real boolean, so Rocket omits the attribute when false. (This is the
+Rocket-specific counterpart to the vanilla presence rule above.)</p>
+</li>
+<li>
+<p><strong><code>mode: 'light'</code></strong> so the component lives in the page's DOM/CSS and inherits
+system.css tokens. Shadow DOM (<code>open</code>/<code>closed</code>) would wall off the stylesheet;
+only reach for it if you <em>want</em> encapsulation and theme purely via custom props.</p>
+</li>
+<li>
+<p><strong>Commit on light-dismiss.</strong> A <code>[popover]</code> fires <code>toggle</code>; wire
+<code>data-on:toggle=&quot;evt.newState==='closed' &amp;&amp; &lt;valid&gt; &amp;&amp; @commit()&quot;</code> so clicking
+outside locks in the selection (no separate Cancel needed).</p>
+</li>
+</ul>
+<h3 id="project-integration-go--templ-or-any-ssr">Project integration (Go + templ, or any SSR)</h3>
+<ul>
+<li><strong>One file per component</strong>, served as a static asset:
+<code>static/rocket/&lt;name&gt;.js</code>. Its bundle import must be <strong>absolute</strong>
+(<code>/static/datastar.js</code>) — a relative <code>./datastar.js</code> resolves against the
+subfolder and 404s.</li>
+<li><strong>A thin typed wrapper</strong> in your view layer (one templ component) gives the
+drop-in API and lets the compiler catch attribute typos:
+<pre><code class="language-go">templ EventDatePicker(mode, value, valueEnd string) {
+  &lt;event-date-picker mode={ mode }
+    if value != &quot;&quot; { value={ value } }
+    if valueEnd != &quot;&quot; { value-end={ valueEnd } }
+  &gt;&lt;/event-date-picker&gt;
+}
+</code></pre>
+</li>
+<li><strong>Load it once from the base layout</strong> (<code>&lt;script type=&quot;module&quot; src=&quot;/static/rocket/&lt;name&gt;.js&quot;&gt;</code>). Registration is idempotent and
+order-independent — custom elements upgrade whenever the definition lands — so
+per-page placement doesn't matter and HTTP caching makes it a one-time download.</li>
+<li><strong>Shipping a new component:</strong> the <code>.js</code> goes in static/rocket/, the templ
+wrapper in view/; run <code>templ generate</code> and confirm the wrapper compiled —
+and give it a bench entry in rocketDemos (view/admin_lab.templ) so regressions
+are seen in the lab first.</li>
+<li><strong>Whole-page morph caveat (land-and-stream):</strong> when an SSE update morphs a page
+with the component open, the morph diffs against Rocket's managed interior. If
+the internals get clobbered mid-interaction, keep the morph off the host's
+subtree (<code>data-ignore-morph</code> on BOTH nodes) and let Rocket own it — and
+update the armored region only via replace-mode patches (the fat-morph
+bypass; see land-and-stream §2).</li>
+<li><strong>Observers get cleanup, always.</strong> A MutationObserver left running under a
+fat-morphing page re-scans every morphed node — that leak was the bulk of
+the phantom ~5s morph cost (gf-98). Register observers in setup, disconnect
+in cleanup, re-observe on re-attach; props are codec'd; define is idempotent.</li>
+<li><strong>Datastar signals only — no custom <code>data-q</code>/<code>data-sort</code> stamps</strong> (gf-66):
+server state rides real signals or server-rendered attributes the engine
+already knows (<code>data-ui-*</code>, ARIA), never an invented data-* vocabulary.</li>
+</ul>
+<h2 id="the-active-utility-gf-191-per-mike">THE .active UTILITY (gf-191, per Mike)</h2>
+<p>A TRANSIENT client highlight (keyboard focus row in a combobox/menu,
+a hover-independent &quot;this one&quot; marker) is the <code>.active</code> utility class —
+never <code>aria-current</code>, which keeps its REAL meaning (the current page /
+step / date in a set: the org switcher's current org, the wizard
+strip's current station). Rockets toggle <code>.active</code> for paint and the
+proper ARIA attribute for semantics (<code>aria-selected</code> in a listbox).
+The engine's paint recipes list <code>.active</code> beside their ARIA selectors.</p>
+<h2 id="the-rocket-state-canon-gf-191-per-mike-there-should-be-canon">THE ROCKET STATE CANON (gf-191, per Mike: &quot;there should be canon</h2>
+<p>solutions for these situations&quot; — paid for three times: the search
+rocket, toast-card, the combobox)</p>
+<p>Every rocket that holds client state under fat-morphs follows these
+FIVE laws; a new rocket that deviates is wrong until proven otherwise:</p>
+<ol>
+<li><strong>Client-owned state rides an ATTRIBUTE on the host</strong>, shielded by
+<code>data-preserve-attr</code> in the server markup — never a JS-only flag.
+(dialog <code>open</code>, <code>data-ui-state</code> for a popover/leaving toast,
+<code>data-ignore</code> for maps.) An attribute survives inspection, gives
+CSS a hook, and morphs can be told to keep it; a closure variable
+dies silently.</li>
+<li><strong>Observers RESTORE and RE-HOME; they never DECIDE.</strong> A
+MutationObserver may re-home derived state (the highlight the morph
+swapped out from under you, command-palette's resetActive) and
+re-assert what the preserved attribute already says — it must never
+originate a state change. An observer that opens things will one
+day open them on a data-text ripple.</li>
+<li><strong>State changes come from USER INTENT only</strong>: focus, clicks, and
+<code>isTrusted</code> events. A signal write dispatches synthetic events
+(<code>isTrusted: false</code>) — a rocket that treats those as input will act
+on its own echo.</li>
+<li><strong>Rockets never invent data.</strong> Every committable choice is a
+server-rendered element with its own datastar action; Enter/keys
+just .click() it. If the rocket can fabricate a selection, the
+server and client can disagree.</li>
+<li><strong>Content is server truth and morphs freely.</strong> Armor the CONTAINER
+(<code>data-ignore-morph</code> for imperative third-party DOM, REPLACE-mode
+patches for wizard bodies), never the data.</li>
+</ol>
+<h2 id="pre-ship-checklist">Pre-ship checklist</h2>
+<ul>
+<li>Signal namespace is <strong>lowercase</strong>; one signal object per component.</li>
+<li>DOM is <strong>baked</strong> (no client loop); every dynamic node is bound.</li>
+<li>Layout is <strong>primitives</strong>; custom CSS is only <code>aspect-ratio</code> + <code>--type/--bg/--fg</code>
+<ul>
+<li><code>data-ui-*</code> state.</li>
+</ul>
+</li>
+<li>Booleans go through <code>data-attr</code> (presence); tokens/strings via ternary.</li>
+<li>Datastar loads once, from <code>/static/datastar.js</code> (no second runtime).</li>
+<li>You <strong>rendered it</strong> (headless or real browser) and checked geometry + state +
+no console errors — not just eyeballed the markup.</li>
+<li><strong>(Rocket only)</strong> actions are registered with <code>action(name, fn)</code> and called with
+<strong>no args</strong> (data passed via a signal); every <code>data-attr</code> expression is
+<code>!!()</code>-coerced; the bundle import is an <strong>absolute</strong> path; <code>mode: 'light'</code>.</li>
+</ul>
+<h2 id="one-bad-expression-takes-the-whole-page-down-gf-175">One bad expression takes the whole page down (gf-175)</h2>
+<p>datastar throws <code>ValueRequired</code> on an EMPTY expression (e.g.
+<code>data-on:submit__prevent=&quot;&quot;</code>) and the exception ABORTS the page's entire
+attribute walk — every <code>data-*</code> binding on the page goes inert: blank
+<code>data-text</code>, <code>data-show</code> not hiding, <code>data-attr</code> never applying. The
+symptom reads like &quot;datastar didn't load.&quot; A demo/no-op handler still
+needs a real expression (<code>&quot;0&quot;</code>); when a whole page's bindings die at
+once, check the console for ONE plugin error before debugging any
+individual binding.</p>
+<h2 id="dialogs-on-a-live-page">Dialogs on a live page</h2>
+<p>Every <code>&lt;dialog&gt;</code> on a land-and-stream page carries <code>data-preserve-attr=&quot;open&quot;</code>
+(Mike, 2026-09-17). A push from the stream morphs the whole page; without the
+preserve, the morph resets the <code>open</code> attribute and the dialog closes under
+the person mid-form for a reason they cannot see. The contact and vote
+dialogs are the exemplars.</p>
+<p>Local draft state in a public dialog rides <code>_</code>-prefixed signals (off the
+wire) kept by the Pro persist plugin —
+<code>data-persist:contact=&quot;{include: /^_contact\./}&quot;</code> on the form, the submit
+handler clearing them and setting the dialog's own <code>_sent</code> flag
+(<code>__ifmissing</code>, so a push cannot reset it) — view/layout.templ, gf-358.</p>
+
+		</section>
+	</main>
+</div>
+<script>document.addEventListener('datastar-ready',()=>{try{const t=localStorage.getItem('theme')||'';window.ds&&window.ds.signals&&window.ds.signals.set('theme',t)}catch(e){}})</script>
+</body>
+</html>

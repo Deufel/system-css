@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en" data-signals="{theme: ''}" data-attr:data-ui-theme="$theme != '' ? $theme : false">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="dark light"/>
+<title>system-css — system.css</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=optional" rel="stylesheet"/>
+<link rel="stylesheet" href="../static/system.css"/>
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-ui-theme',t)}catch(e){}</script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar@1.0.0/bundles/datastar.js"></script>
+<script type="module" src="../static/rocket/hold-confirm.js"></script><script type="module" src="../static/rocket/command-palette.js"></script><script type="module" src="../static/rocket/image-input.js"></script><script type="module" src="../static/rocket/exif.js"></script>
+</head>
+<body>
+<div class="page">
+	<header class="pg-header spread" style="--gap: 0.5em;">
+		<a href="../index.html" class="row oneline" style="--gap: 0.5em;"><strong>system.css</strong><small style="--fg: -0.55;">the engine</small></a>
+		<span class="row oneline" style="--gap: 0.5em;">
+			<a href="https://github.com/Deufel/system-css" style="--type: -1;">GitHub</a>
+			<button type="button" class="icon" aria-label="Theme" title="Theme: system → dark → light" data-on:click="$theme = $theme == '' ? 'dark' : ($theme == 'dark' ? 'light' : ''); try { localStorage.setItem('theme', $theme) } catch (e) {}">
+				<span data-show="$theme == ''" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="20" height="14" x="2" y="3" rx="2" /> <line x1="8" x2="16" y1="21" y2="21" /> <line x1="12" x2="12" y1="17" y2="21" /> </svg></span>
+				<span data-show="$theme == 'dark'" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" /> </svg></span>
+				<span data-show="$theme == 'light'" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="4" /> <path d="M12 2v2" /> <path d="M12 20v2" /> <path d="m4.93 4.93 1.41 1.41" /> <path d="m17.66 17.66 1.41 1.41" /> <path d="M2 12h2" /> <path d="M20 12h2" /> <path d="m6.34 17.66-1.41 1.41" /> <path d="m19.07 4.93-1.41 1.41" /> </svg></span>
+			</button>
+		</span>
+	</header>
+	<nav class="pg-navigation spread-column tablet desktop" aria-label="Sections">
+		<div class="column"><a class="nav-item" href="../index.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /> <path d="M20 3v4" /> <path d="M22 5h-4" /> <path d="M4 17v2" /> <path d="M5 18H3" /> </svg><span class="medium large">Home</span></a><a class="nav-item" href="../howto/start.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /> </svg><span class="medium large">How-to</span></a><a class="nav-item" href="../engine/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /> <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /> <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /> <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /> <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /> </svg><span class="medium large">Engine</span></a><a class="nav-item" href="../components/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span class="medium large">Components</span></a><a class="nav-item" href="../stream/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span class="medium large">Land & stream</span></a><a class="nav-item" href="../charts/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /> <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /> <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /> <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /> <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /> </svg><span class="medium large">Charts</span></a><a class="nav-item" href="../lab/primitives.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /> <path d="M20 3v4" /> <path d="M22 5h-4" /> <path d="M4 17v2" /> <path d="M5 18H3" /> </svg><span class="medium large">Lab</span></a><a class="nav-item" href="../skills/system-css.html" aria-current="page"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /> </svg><span class="medium large">Skills</span></a></div>
+	</nav>
+	<header class="pg-main-header column">
+		<div class="spread"><h1>system-css</h1></div>
+		<nav class="row mobile" aria-label="Sections" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../skills/system-css.html">Skills</a></nav><nav class="tabs-underline scroll-x" aria-label="Skills"><a href="../skills/system-css.html" aria-current="page">system-css</a><a href="../skills/datastar-components.html">datastar-components</a><a href="../skills/land-and-stream.html">land-and-stream</a><a href="../skills/svg-charts.html">svg-charts</a></nav>
+	</header>
+	<main class="pg-main column owns-scroll">
+		<section class="column measure" style="--measure: 80ch; --gap: 1lh;">
+<nav class="card column" aria-label="On this page" style="--gap: 0; --type: -1;"><strong>On this page</strong><a href="#one-file-one-spine">ONE file, one spine</a><a href="#the-painter-model-how-color-works">THE PAINTER MODEL (how color works)</a><a href="#the-cascade-constitution-hard-laws">THE CASCADE CONSTITUTION (hard laws)</a><a href="#layout--the-page-shell-and-primitives">LAYOUT — the page shell and primitives</a><a href="#components-styled-semantics--a-few-classes">COMPONENTS (styled semantics + a few classes)</a><a href="#semantic-hue-locks-vs-number-formatting-keep-separate">SEMANTIC HUE LOCKS vs NUMBER FORMATTING (keep separate)</a><a href="#the-rhythm-ladder-gf-231-per-mike--prevent-drift">THE RHYTHM LADDER (gf-231, per Mike — &quot;prevent drift&quot;)</a><a href="#authoring-checklist">Authoring checklist</a><a href="#view-transitions--the-fouc-ledger-hard-won--do-not-relearn">View transitions &amp; the FOUC ledger (hard-won — do not relearn)</a><a href="#the-form-canon-gf-173-per-mike--follow-this-exactly">THE FORM CANON (gf-173, per Mike — follow this EXACTLY)</a></nav><hr>
+<h2 id="scope-general-the-engine-travels-the-eventos-paths-inside-are-examples">name: system-css
+description: Author HTML/UI with system.css — an OKLCH + type-driven design engine where components are styled semantic elements themed by inherited custom properties (--hue, --bg, --fg, --lift, --type), not variant classes. Use when building or editing pages, components, forms, tables, dashboards, or app shells on system.css; when the user mentions system.css, the painter/engine model, the .page shell and pg-* regions, the revert-layer gates (.mobile/.tablet/.desktop), the .row/.column/.grid primitives, the .card/.tag/.avatar/.tabs-underline/.search-box components, the semantic hue locks (.suc/.inf/.wrn/.dgr), the number family (.num/.delta/.num-good/.est/.past), or the Laws of authoring. Do NOT use for Tailwind, Bootstrap, or Material work — this engine rejects palette-of-decisions frameworks.
+scope: general (the engine travels; the EventOS paths inside are examples)</h2>
+<h1 id="systemcss--the-engine">system.css — the engine</h1>
+<p>system.css is a small design <strong>engine</strong>, not a component library. You style
+semantic HTML (button, table, form) and a handful of composition classes, then
+theme everything by setting a few inherited custom properties. There are no
+.btn-primary / .btn-lg variant classes. A button is a button; its appearance
+comes from the --bg/--fg/--hue it inherits.</p>
+<h2 id="one-file-one-spine">ONE file, one spine</h2>
+<p>The engine is a SINGLE file: <code>static/system.css</code>, edited in-repo (the old
+four-file split and the &quot;canonical source lives elsewhere / read-mostly&quot;
+doctrine are both retired). Concern boundaries survive as @layer sections
+inside the file, opened by one spine statement:</p>
+<pre><code>@layer reset, core.color, core.type, core.layout, theme, base,
+       components, utility, media, skin, view-transitions;
+</code></pre>
+<p>Layers, not source order, decide the cascade — read the whole file before
+changing it (the layer order IS the cascade; a rule's position in the file
+tells you nothing about who wins).</p>
+<h2 id="the-painter-model-how-color-works">THE PAINTER MODEL (how color works)</h2>
+<p>Color is computed, not picked. You never write a hex value. Instead:</p>
+<ul>
+<li>--hue (0–360) sets the base hue for a subtree. --hue-shift nudges it relative
+to context; --hue-lock pins it absolutely regardless of what's inherited
+(used by components and graphs that must stay a fixed color).</li>
+<li>--bg is an ABSOLUTE surface position on a −1…+1 walk through three theme
+anchors: −1 = neutral floor, 0 = paper, +1 = full chroma. Setting --bg on any
+element repaints its surface (the universal :where(*) rule re-derives the
+internal --_bg from each element's own --bg).</li>
+<li>--lift is a RELATIVE surface: this element's surface, N above the host it
+sits on. Use --lift for &quot;slightly raised card on whatever's behind it&quot;; use
+--bg for an absolute surface.</li>
+<li>--fg is the INK. Sign selects neutral vs chromatic ink; magnitude sets
+intensity. --fg: -1 = full neutral ink (near-black on light). --fg: 0.85 =
+high-chroma ink toward the current hue (this is how colored numbers get their
+vivid green/red). Small negative values (−0.5…−0.6) = quiet/muted ink.</li>
+<li>--type is a size STEP on the type scale; it also drives weight — and it
+INHERITS (canon since gf-68): set it on a container and the subtree
+follows; the scale is absolute, so steps never compound. Type IS spacing
+(lh/em everywhere), so one step re-rhythms text AND gaps AND control
+heights (--_control-h is type-derived). COMPONENTS never re-type their
+own elements — only a USAGE site nudges, only through the knob.</li>
+</ul>
+<p>Registered properties (@property — typed/animatable): --bg, --fg, --hue-shift,
+--lift, --gap, --type, --_sem-ink, --row-width. Everything else is a plain
+custom property.</p>
+<ul>
+<li>--focus and --border are the derived token PAIR every surface computes:
+--border is the quiet edge, --focus the vibrant one (focus rings, the
+.Card voice, active outlines). Read them (border: 1px solid
+var(--border)); never redefine them.</li>
+</ul>
+<p>Publisher contract: a region or .bg element paints via
+background-color: var(--_bg); --surf: var(--_bg); --surf-bg: var(--bg). You
+rarely write this — regions and .card do it for you. If you set --bg on a
+custom element and want it painted, add .bg or let a pg-* region rule do it.</p>
+<h2 id="the-cascade-constitution-hard-laws">THE CASCADE CONSTITUTION (hard laws)</h2>
+<ol>
+<li>Layers decide the cascade. Within a layer, specificity is ZERO. Every
+selector is wrapped in :where(...), and :not() guards go INSIDE the
+:where(). No ID selectors, no !important outside the media and skin layers
+(config switches that must out-cascade), no specificity battles. A
+specificity conflict is a SYSTEM FAILURE requiring root-cause review — never
+patch it with a more-specific selector.</li>
+<li>Do not touch engine internals when the public API suffices. Internal vars
+are --_-prefixed (--_bg, --_sem-ink). Author with the public knobs above. If
+you find yourself reaching for --_sem-ink, stop — you almost certainly want
+--hue-lock + --fg instead.</li>
+<li>The right LAYER owns the change. Region surfaces (pg-* --bg) ship in the
+skin layer; an app recipe that has settled graduates into the engine's
+own components layer (the project layer RETIRED 2026-09-01, gf-133 —
+ProjectStyles is gone); a public page's one-off look lives in that
+page's own <code>@scope</code> block (the landing's idiom). A rule
+in the wrong layer is silently out-cascaded — that is a layer-placement
+bug, never a specificity problem to fight.</li>
+<li><strong>NO NEW CSS CLASSES (gf-185, per Mike, at maximum emphasis).</strong> The
+engine's whole point is explicit declarative HTML composed from the
+EXISTING composition classes + the style API (--type/--bg/--fg/
+--hue-shift/--hue-lock/--lift/--gap) — never a new class per feature.
+A vertical stepper, a card variant, a layout arrangement: composition
+(.row/.column + knobs + the ARIA-state idioms + native elements like
+<progress>), not a class. The EXCEPTION LIST is components that
+require CLIENT STATE (the google-maps rocket, the date picker) plus
+Mike's named three — <code>.wash</code>, the landing's <code>@scope</code>, <code>.app-icon</code> —
+nothing else qualifies without an explicit conversation with Mike.
+When composition genuinely cannot express something, that is a gap to
+RAISE (evolve a composition class, or extend the exception list — at
+the lab bench, with Mike), never a silent new class. Class sprawl
+&quot;enables a corruption that is mathematically impossible to overcome
+after a certain point.&quot; Corollary: every NEW component or convention
+is demoed on /admin/ui and aligned with Mike BEFORE product use.</li>
+</ol>
+<p>Enforcement is Go now (the cowork-era conformance.py is long gone):
+<code>go test ./...</code> runs view/ratchet_test.go — the INLINE-GEOMETRY ratchet
+(style= is sanctioned only for --knobs, anchor-name/position-anchor, and
+commented one-offs; per-.templ counts may only go DOWN), the icon 24px-box
+ratchet, and the anatomy-reach ratchet (project CSS may not restyle engine
+anatomy). The cssaudit package charts lines-per-layer complexity on the
+admin Metrics page. Keep them all green.</p>
+<h2 id="layout--the-page-shell-and-primitives">LAYOUT — the page shell and primitives</h2>
+<p>Regions (grid areas on .page, 5-column shell): pg-banner (b), pg-header (h),
+pg-subheader (s), pg-navigation (n), pg-toolbar (t), pg-main-header (mh),
+pg-main-subheader (ms — a band under the main header: tabs, crumbs, filter
+strips that belong to main but must not scroll with it), pg-main (m),
+pg-main-aside (ma — the main-scoped flank, inboard of pg-aside, starting under
+the main header), pg-main-footer (mf), pg-aside (a), pg-footer (f). Set --bg on
+any of them to repaint. pg-aside is recessed by default.</p>
+<p>Rails are MIN-WIDTH, TYPE-DERIVED, SERVER-DRIVEN. The published knobs are
+--pg-navigation-w / --pg-toolbar-w (default 8lh, stamped once on .page);
+rails can GROW for long content and are exact only when collapsed, where the
+width is the glyph ANATOMY calc (glyph + item padding + rail padding —
+centered by construction, never by bespoke rules). Collapse is an explicit
+server-stamped width (the theme pref (sys_pref, key nav_density) → --pg-navigation-w:
+var(--rail-w-icon)); labels drop out through the container TIER gates
+(.medium/.large on the label span). The data-ui-density attribute is
+RETIRED and stays retired — never infer density from attributes, and never
+infer rail shape from page width (the @container page restyle is retired
+too).</p>
+<p>Asides are CONTENT-SIZED (no declared width, no containment — the auto track
+hugs the one-off widget the flank carries). Consequence: aside content cannot
+gate on the aside itself. ONE topology: there are no alternate grids at narrow
+widths — a region that cannot fit gates itself (.c-desktop on an aside) and its
+track collapses; narrow reachability of a gated flank is an app decision (dock,
+drawer), not a shell re-slot.</p>
+<p>Flow primitives: .row / .column (flex), .grid (auto-fit with --grid-min),
+.spread (space-between row), .lcr (left-center-right 3-zone grid — used for
+headers), .flank, .oneline (nowrap), .stack (overlap).</p>
+<p>Responsive gates (revert-layer trick, in the media layer) — TWO FAMILIES, TWO
+JOBS:</p>
+<ul>
+<li>Viewport gates: .mobile / .tablet / .desktop show an element only at that
+viewport width. Container equivalents (LAYOUT band family): .c-mobile /
+.c-tablet / .c-desktop, same breakpoints (576px / 768px) measured on the
+nearest query container.</li>
+<li>DENSITY TIERS (component scale): .small (&lt; 8rem) / .medium (8rem–20rem) /
+.large (≥ 20rem). small = the glyph alone; medium = glyph + label; large =
+the full block. &quot;And-up&quot; is the multi-class idiom (class=&quot;medium large&quot;).
+The 8rem boundary is rail math: it straddles the rail's two declared widths
+at every type size, so rail content gates on the tiers instead of inferring
+density from attributes.</li>
+<li>.fine / .coarse gate on pointer type.
+Container rule: gate classes go on a dedicated wrapper div, never on a styled
+leaf component, and the gated element must also carry a layout primitive
+(revert-layer restores the primitive's display, not a default).</li>
+</ul>
+<p>Focus mode (gf-262): a STORED pref like every other display choice —
+the server stamps data-ui-state=&quot;focus&quot; on .page and the chrome
+collapses so pg-main* fill the viewport. The Theme shelf of the profile
+dialog posts /settings/focus/mode; the focus fab retired in gf-307 (its
+engine classes .focus-fab .i-expand .i-collapse wait, undemoed, for the
+day it returns) and the old hidden #focus-toggle checkbox before it.</p>
+<p>THE EDIT CARD (gf-262, view/settings.templ editCard): the ONE shape for a
+record's form — h3 + pencil top-right (unlocks), the canon fieldsets bound
+readonly while locked, Cancel bottom-left as a native type=&quot;reset&quot; (the
+fields fall back to their stored values — no seed strings), Save
+bottom-right posting the form (contentType 'form'). Stored values are
+judged by the RENDER (aria-invalid + the message in the field's small —
+canon (4)); a wizard lights the one control to click next with
+data-ui-state=&quot;guide&quot; (a still ring + a slow glow, motion-gated; the
+set-up walk that first used it retired in gf-313).</p>
+<p>Print: @media print (in the media layer) strips every region except pg-main*,
+drops surfaces to white while keeping borders, forces black ink. The screen is
+the themed medium; paper is austere.</p>
+<h2 id="components-styled-semantics--a-few-classes">COMPONENTS (styled semantics + a few classes)</h2>
+<p>.card (lifted surface panel), .tag (small pill; pair with a hue helper),
+.avatar, .crumbs (--type: -3, a crumb <a> is a BARE link — the recipe restates nothing base owns, gf-334), .tree
+(nested lists of links), .tabs / .tabs-underline (the latter is the GitHub underline
+treatment; icon-aware, .count pill support), .button-group, .nav-item /
+.nav-icon, .drawer (+ .left/.right/.top and .glass), .modal, .menu (popover),
+.search-box (icon+input+kbd as one control), .icon (THE icon-only square —
+explicit class, aria-label required; never rely on selector inference),
+section.owns-scroll (a component-scrolled section that stops clipping —
+how every full-height roster is built; overflow-y:auto clips BOTH axes,
+which is why corner badges shear without it), .roster (THE SERVER-DRIVEN
+TABLE: one class on the div holding a roster's head, form and table;
+truncating cells, the hugging column model with .clip absorbers, tonal
+head and hover, 1lh head controls that wake on hover, the shadowed
+.scroll-x — all CSS over server markup, zero client state), .focus-fab, .glass utility,
+.hud overlay slots (t/c/b row × l/c/r column; corner slots pad 1lh, the
+centre none — a scope zeroes it when the top row must be one line,
+gf-358; a .fab-1/2/3 inside a .hud is frozen to 2.4lh), .wash (gf-359 — a
+viewport-fixed underlay of two soft pools in the surface's own colour;
+<code>:has(&gt; .wash)</code> makes the HOST a stacking context so the pools paint
+above its surface and under its content; the second pool is a real CHILD
+at --hue-shift: 30, never a pseudo — the engine resolves --_bg per
+element), .county-map (an engine recipe demoed in the lab only since
+gf-364's picker paints by --fg groups).</p>
+<p>Anatomy glyphs are DECLARED boxes: flex-frozen, exempt from the reset's
+fluid max-inline-size cap (the 4px-glyph bug), and .icon self-centers —
+a square control never stretches. Know what a class IS before composing
+it: .sec is a skin-layer BUTTON voice — on a wrapper it paints a ghost
+box (the gf-46 button-group scar). Voices, locks, and recipes attach to
+specific anatomy.</p>
+<p>Dialogs are native <dialog class="modal"> in three engine sizes (.sm 22rem ·
+default 28rem · .lg 54rem, all glass, top-pinned), opened by a one-line
+showModal() onclick and closed declaratively (closedby=&quot;any&quot;;
+data-preserve-attr=&quot;open&quot; is MANDATORY on every dialog on a live page — a push morphs the whole page and closes it under the person (gf-357)). popover +
+popovertarget drive menus — and a closed .menu popover must get
+display:none, never opacity alone (opacity leaves hidden menus in the tab
+order).</p>
+<h2 id="semantic-hue-locks-vs-number-formatting-keep-separate">SEMANTIC HUE LOCKS vs NUMBER FORMATTING (keep separate)</h2>
+<ul>
+<li>.suc / .inf / .wrn / .dgr are HUE LOCKS. They pin a hue
+(success/info/warning/danger) against local context so a button, tag, or SVG
+graph stays that color no matter what --hue surrounds it. They set --hue-lock
+(+ the commit flag). They are NOT text/number colorers.</li>
+<li>The number family (separate concern, in system.css utility layer):
+<ul>
+<li>.num — a value+delta cluster: white-space: nowrap + tabular figures,
+auto-spaces a child .delta. Keeps &quot;312 CE ▲ 8%&quot; on one line.</li>
+<li>.delta — small tabular indicator (▲ 8%), never wraps. Layout only.</li>
+<li>.num-good / .num-bad — chromatic green / red ink via
+--hue-lock: var(--hue-suc|--hue-dgr) + --fg: 0.85. Self-contained number
+formatters, independent of the .suc/.dgr component locks.</li>
+<li>.num-flat — quiet neutral ink for unchanged values.</li>
+<li>.est — italic + ~ prefix: an estimate/projection.</li>
+<li>.past — quieted ink (--fg: -0.55): a prior period.</li>
+<li>.num-table — table modifier: all cells tabular; .num cells right-align.</li>
+</ul>
+</li>
+</ul>
+<p>The two-axis rule: COLOR encodes valence (favorable/unfavorable — color the
+valence, NOT the raw sign; a falling cost is favorable → .num-good). TYPOGRAPHY
+encodes certainty/time (.est, .past). The axes are orthogonal and never collide
+— a past unfavorable delta is quiet AND red.</p>
+<p>The CSS/Go dividing line: if a class changes how a number looks in context
+(color, weight, alignment, wrapping) it is CSS. If it changes which digits
+appear (rounding, currency, k/M abbreviation, precision) it is Go — format the
+string in the template, then let CSS style the finished text.</p>
+<h2 id="the-rhythm-ladder-gf-231-per-mike--prevent-drift">THE RHYTHM LADDER (gf-231, per Mike — &quot;prevent drift&quot;)</h2>
+<p><code>--gap</code> takes ONLY these rungs — a usage site picks a rung, never a
+number: block rhythm <code>0 · 0.25lh (default) · 0.5lh · 1lh</code>; inline rows
+(chip/button rows) <code>0.25em · 0.5em · 1em</code>. 419 inline gaps across 23
+values had crept in before this; <code>TestGapLadderRatchet</code> counts
+off-ladder values per .templ and the count may only go down (event/home
+are clean; admin/settings carry the grandfathered debt — snap values
+when you touch a site). Same spirit for every knob: the engine owns
+the scale, templates pick steps.</p>
+<h2 id="authoring-checklist">Authoring checklist</h2>
+<ul>
+<li>Theme by setting --hue / --bg / --lift / --fg / --type, not classes.</li>
+<li>Never write a hex color. Never write an ID selector or !important (outside
+media/skin). Never fight specificity — find the root cause.</li>
+<li>Gate responsiveness with .mobile/.tablet/.desktop on wrapper divs.</li>
+<li>Use native dialog (showModal + closedby) and popover for dynamic UI.</li>
+<li>Inline style= carries ONLY knobs (--bg/--fg/--type/--gap…) or anchor
+plumbing — the geometry ratchet counts everything else, and counts may
+only go down. Run <code>go test ./...</code> after every CSS change.</li>
+<li>Engine changes go in static/system.css in the right layer; a settled app
+recipe graduates into the engine's components layer, a public page's
+one-off look rides its own <code>@scope</code> block — never unlayered, never a
+project layer (retired gf-133).</li>
+<li>VERIFY WITH EYES, not imagination: a throwaway GEN_* preview test
+(view/preview_test.go pattern) or <code>go run ./cmd/snap</code>, then READ the
+PNGs. And remember staticfs caches assets at boot — restart the app
+before judging any CSS change against the running server.</li>
+</ul>
+<h2 id="view-transitions--the-fouc-ledger-hard-won--do-not-relearn">View transitions &amp; the FOUC ledger (hard-won — do not relearn)</h2>
+<p><strong>CROSS-DOCUMENT VT IS OFF (gf-200, per Mike: &quot;more trouble than it's
+worth&quot;).</strong> Measured 2026-09-04: with <code>@view-transition {navigation: auto}</code> active, EVERY same-origin navigation stalled ~4s —
+the old document held open (SSE alive four seconds past the new GET)
+waiting for a snapshot that never completed, then the transition timed
+out, skipped, and showed the white interstitial; cross-origin
+navigations ran in 21ms. All cost, no cross-fade. The opt-in is
+commented out in the view-transitions layer with the evidence; the
+<code>html[data-vt-ran]</code> pagereveal probe stays armed — any re-enable
+experiment starts by uncommenting the opt-in and watching that probe,
+and MUST verify the ~4s stall stays gone. The baked <code>meta color-scheme</code> keeps plain document swaps dark-to-dark.</p>
+<p>The nav cross-blur lived in <code>@layer view-transitions</code> (the spine's last
+layer; the old <code>project</code> tail is retired) as <code>@view-transition { navigation: auto }</code> plus explicit animations. The navigation-flash
+bugs run to ground so far; each is a LAW now:</p>
+<ul>
+<li>
+<p><strong>Stale-sheet FOUC is dead — assets are VERSIONED (gf-188).</strong> The
+static handler computes a per-file version at boot; layout stamps
+every static reference <code>?v=</code> (the <code>av()</code> helper, wired via
+<code>view.AssetVer</code>); versioned URLs cache <code>immutable</code>, so HTML can never
+pair with a mismatched sheet no matter the deploy cadence. If a
+&quot;FOUC after deploy&quot; report ever returns, check av() coverage first —
+module-internal import specifiers are the one known unversioned crack.</p>
+</li>
+<li>
+<p><strong>One name, one rendered box includes OVERLAYS (gf-188).</strong> The toasts
+hud was a second not-<code>.mobile</code> <code>.hud</code> silently sharing <code>vt-hud</code> with
+the fab cluster — armed only when an unseen toast painted it, then
+every navigation hard-cut. Overlays whose content differs per page get
+<code>view-transition-name: none</code>, never a lifted group.</p>
+</li>
+<li>
+<p><strong>Custom VT animations silently wipe plus-lighter (gf-140).</strong> The UA
+applies <code>mix-blend-mode: plus-lighter</code> through its OWN animation —
+override <code>animation-name</code> on <code>::view-transition-old/new</code> and the blend
+vanishes: mid-cross the two half-transparent snapshots sum below 100%
+and the canvas flashes through every navigation. Any custom VT
+animation must restore <code>isolation: isolate</code> on the image-pair,
+<code>plus-lighter</code> on old/new, and LINEAR timing both sides so opacities
+sum to 1 at every instant.</p>
+</li>
+<li>
+<p><strong>In-flow data-show FALSE-at-seed carries inline <code>display: none;</code>
+(gf-198 — THE SEED-HIDE LAW).</strong> Datastar evaluates after its module
+loads, AFTER first paint: an in-flow element whose data-show
+expression is false at land paints VISIBLE for a frame (Set-Up →
+General landed doubled with a live Save row; every feedback thread
+landed with its composer open). The floor is the landed HTML itself:
+seed-hide with inline <code>display: none;</code> (datastar overwrites
+el.style.display on evaluation). Same law for data-attr state:
+BAKE the landed value server-side (the locked form now lands
+<code>data-ui-state=&quot;locked&quot;</code> beside its data-attr binding). Elements
+inside a closed <code>&lt;dialog&gt;</code> are exempt — they never paint. <code>display</code>
+in this idiom is state, not geometry; the ratchet baselines carry a
+dated note where it is used.</p>
+</li>
+<li>
+<p><strong>Client-state hosts get their display rule in the ENGINE, not a
+rocket-injected sheet (gf-198).</strong> hold-confirm's
+<code>display:inline-flex</code> lived only in JS injectCSS — the pre-upgrade
+frame rendered the host inline and reflowed on connect. Every
+custom-element host is sized by system.css's <code>:where(host)</code> rules
+(date-picker, day-picker, combo-box…); a rocket's injected CSS may
+add BEHAVIOR chrome only, never the host's own box.</p>
+</li>
+<li>
+<p><strong>The INTERSTITIAL frame is pre-CSS — bake <code>meta color-scheme</code>
+(gf-200).</strong> Between two documents the engine paints the window
+default (WHITE) until the incoming page's color-scheme is known;
+CSS's <code>color-scheme</code> arrives too late for that frame. Chrome-the-
+browser masks the gap with the cross-doc view transition; app-mode
+windows (chromium --app — Omarchy web apps) don't, so dark-mode
+users see a white flash on every click. The layout bakes
+<code>&lt;meta name=&quot;color-scheme&quot;&gt;</code> from the SERVER-known theme (dark /
+light / &quot;dark light&quot; for auto) beside the theme-color meta — the
+blank frame then paints in the right darkness with or without a
+view transition.</p>
+</li>
+<li>
+<p><strong>Every <code>&lt;script&gt;</code> in the head must exist on disk (gf-47).</strong> A
+parser-blocking 404 stalls first paint AND breaks the VT handoff. A
+batch commit once scooped an unrelated deletion — verify a commit's
+file list, and after deleting any static/ file grep layout.templ for
+its tag.</p>
+</li>
+<li>
+<p><strong>One landing = ONE document GET (gf-47).</strong> A client-side default-view
+or remembered-lens re-navigation doubles the load and the cross-fade
+(reads as page-wide FOUC). Any &quot;apply stored view&quot; logic must compare
+URLs order-insensitively (page=1 ≡ absent) and use location.replace
+with a handoff key that skips the second transition.</p>
+</li>
+<li>
+<p><strong>Theme/size/skin seed rides the ROOT element (gf-108), and statics
+serve stale-while-revalidate (gf-113)</strong> — the <code>&lt;html&gt;</code> data-attrs must
+be baked server-side (a bundle that evaluates root bindings before the
+body seed strips the theme for a frame), and <code>staticfs</code> must keep
+<code>max-age=0, stale-while-revalidate</code> so CSS renders from cache
+instantly. Check response headers before suspecting the cascade.</p>
+</li>
+</ul>
+<p>When a flash report arrives: FIRST check the console for 404s and count
+document GETs per click (network tab), THEN test with <code>--cfg-motion: 0</code>
+(a flash that survives motion-0 is a blend/paint bug, not an animation
+bug), and only then read the VT rules.</p>
+<h2 id="the-form-canon-gf-173-per-mike--follow-this-exactly">THE FORM CANON (gf-173, per Mike — follow this EXACTLY)</h2>
+<p>The practice bench lives at /admin/ui?cs=forms; the engine rules live in
+the form/fieldset sections of system.css. If a product form doesn't look
+like the bench specimens, the product form is wrong.</p>
+<ul>
+<li><strong>Everything lives in <code>&lt;fieldset&gt;</code>s.</strong> A fieldset is ONE ROW of
+fields; <code>&lt;legend&gt;</code> names the group (the legend's own <code>&lt;small&gt;</code> is the
+GROUP state slot). A form-section heading is <code>&lt;h3&gt;</code>.</li>
+<li><strong>Every field — checkboxes included — is label → small → control:</strong>
+<code>&lt;label&gt;&lt;span&gt;Name&lt;/span&gt;&lt;small&gt;&lt;/small&gt;&lt;input/&gt;&lt;/label&gt;</code> (checkbox:
+<code>&lt;label&gt;&lt;input/&gt;&lt;span&gt;Text&lt;/span&gt;&lt;small&gt;&lt;/small&gt;&lt;/label&gt;</code>). The EMPTY
+<code>&lt;small&gt;&lt;/small&gt;</code> is mandatory — it reserves the 1lh state row so the
+layout never shifts when a message lands.</li>
+<li><strong><code>&lt;small&gt;</code> is STATE, almost never a caption.</strong> Self-descriptor hint
+text is a smell — if information is truly needed, it belongs in the
+page's info popover. State lights the slot through the canonical
+channels only: <code>aria-invalid=&quot;true&quot;</code> on the control (danger hue +
+message in that field's small) or <code>.suc/.inf/.wrn/.dgr</code> on the label
+or fieldset. Never a separate error div.</li>
+<li><strong>Everything fills the entire width</strong> — controls by the canon's own
+rules; a lone submit <code>button</code> in a <code>.column</code> does NOT stretch on its
+own, it takes <code>class=&quot;fill&quot;</code> (gf-313: the wizard's buttons). Row shares ride
+<code>--row-width: &lt;number&gt;</code> — a BARE NUMBER (it is a registered
+<code>&lt;number&gt;</code> property; a flex shorthand like <code>1 1 100%</code> is INVALID and
+silently falls back to 1). Since gf-173 labels flex under legended
+fieldsets too; buttons keep hugging.</li>
+<li><strong>The submit runs through datastar:</strong>
+<code>data-on:submit__prevent={&quot;@post('&quot;+url+&quot;', {contentType: 'form'})&quot;}</code>.
+A file input additionally requires <code>enctype=&quot;multipart/form-data&quot;</code> on
+the form (gf-52 — without it the bundle silently drops the file). A
+second endpoint on the same form = a <code>data-on:click</code> @post button
+(formaction can't fire under __prevent; nested forms are
+parser-dropped, gf-63).</li>
+<li><strong>The handler stores → publishes → answers 204.</strong> Never HTML back,
+never a redirect on a datastar form; the fat-morph re-lands truth.
+<code>required</code> generates the asterisk — never hand-write one.</li>
+<li><strong><code>&lt;div role=&quot;form&quot;&gt;</code></strong> is the sanctioned formless spelling for a
+CQRS group (checkboxes that post individually) — same recipe, no
+submit.</li>
+<li><strong>State rides the OUTLINE, never the surface (gf-174):</strong> a stated
+field keeps its neutral raised background; the locked hue colors only
+the border and the small (the engine re-hues the bg back to ambient —
+don't fight it, don't add tinted backgrounds).</li>
+<li><strong>Fieldsets breathe:</strong> the engine gives a fieldset 0.35lh after
+itself inside a form (gf-174) — never add manual spacers between
+groups. An <code>&lt;hr&gt;</code> may draw the seam between CONCERNS in one form; a
+<code>&lt;details&gt;&lt;summary&gt;</code> folds a rarely-touched tail (fields inside
+follow the same canon).</li>
+<li><strong>The segmented groove splits EVENLY (gf-175):</strong> chips share the
+groove equally (flex: 1) and the checked chip wears the ACTIVE state
+paint (--bg: 1, inverted ink — same as [data-ui-state=&quot;active&quot;]). Be
+prudent: don't wear the groove where the longest option can't fit its
+equal share.</li>
+<li><strong>The LOCKED form (gf-175):</strong> the reading state — NOT disabled.
+<code>data-ui-state=&quot;locked&quot;</code> on the form (field chrome stands down,
+controls sleep, buttons stay live) + real <code>readonly</code> on text controls
+for AT (aria-readonly doesn't apply to role=form). The state rides a
+SIGNAL + data-attr bindings so fat-morphs re-land it intact (the
+orgEdit precedent); Unlock flips the signal, Save re-locks through
+the normal 204+publish, Cancel just re-locks and the morph restores
+stored values. Specimen on the bench.</li>
+<li><strong>THE SINGLE-ROW FORM (gf-183, per Mike):</strong> for concise surfaces
+that must not hog space — a chat composer, a compact search, an
+inline sign-in. ONE legend-less <code>&lt;fieldset&gt;</code>, BARE controls
+(aria-label + placeholder carry the name; no label grid, no state
+small), the submit hugging its own width (buttons hug in every
+fieldset). Weight fields with <code>--row-width</code> as usual. The moment a
+field needs a visible name or a state slot it has outgrown the
+pattern — use the full canon.</li>
+<li><strong>THE ACTION ROW (gf-176, per Mike): submit bottom-RIGHT, cancel
+bottom-LEFT, SPREAD apart</strong> — <code>&lt;div class=&quot;spread&quot;&gt;</code> as the form's
+last row (cancel/destructive first, submit last; a lone submit rides
+an empty <code>&lt;span&gt;&lt;/span&gt;</code> on the left). Opposite-effect buttons get
+maximum visual separation so a user can't fat-finger the wrong one.
+Never a centered or adjacent pair.</li>
+<li><strong>THE DATABASE FLOWS (gf-176 — wired specimens on the lab's Forms
+bench):</strong>
+(1) EDIT/SAVE/CANCEL — the draft mechanism: Edit seeds signals from
+the stored value (the seed expression is server-rendered, so morphs
+keep it fresh), typing stays client-side, Cancel discards, Save posts
+signals → 204 → morph re-lands truth.
+(2) UNLOCK/AUTOSAVE/LOCK — no draft, no Save: the bound field posts
+on <code>data-on:input__debounce.500ms</code>, the morph carries the receipt
+(&quot;saved …&quot; in the legend's small), Lock re-sleeps the chrome.
+(3) SQL PREFLIGHT (gf-177) — the draft debounces into a CHECK op that
+validates WITHOUT writing (business rules + a uniqueness query, self
+excluded) and stores draft+verdict in a scratch row; the morph
+disables Save and speaks a CONCISE per-rule message in the error
+small (which speaks ONLY on error); Save re-validates and lets the
+real UNIQUE constraint backstop a race; Cancel clears the scratch —
+nothing was ever written.
+(4) DEBOUNCED STORED-STATE VALIDATION — the value stores raw; the
+RENDER judges it and the morph delivers aria-invalid + the message in
+the field's small. Validation is stored state re-rendered — never
+client truth; a second tab goes red at the same instant.</li>
+<li><strong>THE LAYOUT-SHIFT DOCTRINE (gf-178, per Mike): whenever possible,
+do not cause layout shift.</strong> Editing must not reflow the page. For
+edits with significant validation, use the ANCHORED SMALL DIALOG:
+<code>.modal.sm.anchored</code> — the subject wears <code>anchor-name</code>, the dialog
+wears <code>position-anchor</code> (the sanctioned inline pair). ⚠ Chrome gives
+DIALOGS no implicit invoker anchor yet (popovertarget does, commandfor
+on a dialog does NOT — verified live, gf-183): the trigger wears
+<code>anchor-name</code>, its click stamps <code>el.style.positionAnchor</code> on the
+dialog BEFORE <code>commandfor</code> opens it (pinned from the first paint), and
+the server re-stamps it by morph from the stored edit state. One
+dialog, many triggers. It opens pinned beside the subject in the top
+layer (zero shift), growing toward inline-START (edit triggers live
+at row ends), with a <code>min-inline-size</code> in the recipe — without one,
+auto width silently SHRINKS into a cramped position-area region
+instead of overflowing it, and <code>position-try-fallbacks</code> never fire
+(fallbacks trigger on overflow only — verified live, gf-184). The platform gives the focus
+trap + an inert page (exactly ONE edit open, by construction) and
+Escape/light-dismiss ARE cancel — wire <code>data-on:close</code> to the cancel
+op so an abandoned edit can never leak scratch state. One dialog per
+surface, always in the DOM (the selected-row idiom), content +
+anchor server-rendered from stored edit state, kept open across
+morphs by <code>data-preserve-attr=&quot;open&quot;</code>. Inline editing remains right
+ONLY for trivial single-value flips (a status select, a checkbox) —
+anything with preflight rules earns the dialog.</li>
+<li><strong><code>.stress</code> is the lab's resize handle</strong> (resize: horizontal) — for
+stress-testing specimens only; product surfaces size by composition.</li>
+<li><strong>Radios have two spellings:</strong> a PLAIN group rides the checkbox
+recipe (input → span → small, one label per option, per-option state
+smalls); a short exclusive choice worn like a control is the
+SEGMENTED <code>.tabs</code> groove — a <code>div role=&quot;group&quot;</code> with a <code>.legend</code>
+child (NOT a fieldset — its anonymous box breaks tile stretch). Both
+A label may carry an ICON before its span (gf-362: Manufacturer |
+Wholesaler | Retailer with factory · truck · store); a disabled option
+keeps its chip and says why in <code>title</code>.
+are specimens on /admin/ui?cs=forms.</li>
+</ul>
+
+		</section>
+	</main>
+</div>
+<script>document.addEventListener('datastar-ready',()=>{try{const t=localStorage.getItem('theme')||'';window.ds&&window.ds.signals&&window.ds.signals.set('theme',t)}catch(e){}})</script>
+</body>
+</html>

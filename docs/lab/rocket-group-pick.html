@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en" data-signals="{theme: ''}" data-attr:data-ui-theme="$theme != '' ? $theme : false">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="dark light"/>
+<title>Rocket · group-pick — system.css</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=optional" rel="stylesheet"/>
+<link rel="stylesheet" href="../static/system.css"/>
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-ui-theme',t)}catch(e){}</script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar@1.0.0/bundles/datastar.js"></script>
+<script type="module" src="../static/rocket/hold-confirm.js"></script><script type="module" src="../static/rocket/command-palette.js"></script><script type="module" src="../static/rocket/image-input.js"></script><script type="module" src="../static/rocket/exif.js"></script>
+</head>
+<body>
+<div class="page">
+	<header class="pg-header spread" style="--gap: 0.5em;">
+		<a href="../index.html" class="row oneline" style="--gap: 0.5em;"><strong>system.css</strong><small style="--fg: -0.55;">the engine</small></a>
+		<span class="row oneline" style="--gap: 0.5em;">
+			<a href="https://github.com/Deufel/system-css" style="--type: -1;">GitHub</a>
+			<button type="button" class="icon" aria-label="Theme" title="Theme: system → dark → light" data-on:click="$theme = $theme == '' ? 'dark' : ($theme == 'dark' ? 'light' : ''); try { localStorage.setItem('theme', $theme) } catch (e) {}">
+				<span data-show="$theme == ''" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="20" height="14" x="2" y="3" rx="2" /> <line x1="8" x2="16" y1="21" y2="21" /> <line x1="12" x2="12" y1="17" y2="21" /> </svg></span>
+				<span data-show="$theme == 'dark'" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" /> </svg></span>
+				<span data-show="$theme == 'light'" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="4" /> <path d="M12 2v2" /> <path d="M12 20v2" /> <path d="m4.93 4.93 1.41 1.41" /> <path d="m17.66 17.66 1.41 1.41" /> <path d="M2 12h2" /> <path d="M20 12h2" /> <path d="m6.34 17.66-1.41 1.41" /> <path d="m19.07 4.93-1.41 1.41" /> </svg></span>
+			</button>
+		</span>
+	</header>
+	<nav class="pg-navigation spread-column tablet desktop" aria-label="Sections">
+		<div class="column"><a class="nav-item" href="../index.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /> <path d="M20 3v4" /> <path d="M22 5h-4" /> <path d="M4 17v2" /> <path d="M5 18H3" /> </svg><span class="medium large">Home</span></a><a class="nav-item" href="../howto/start.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /> </svg><span class="medium large">How-to</span></a><a class="nav-item" href="../engine/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /> <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /> <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /> <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /> <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /> </svg><span class="medium large">Engine</span></a><a class="nav-item" href="../components/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span class="medium large">Components</span></a><a class="nav-item" href="../stream/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span class="medium large">Land & stream</span></a><a class="nav-item" href="../charts/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /> <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /> <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /> <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /> <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /> </svg><span class="medium large">Charts</span></a><a class="nav-item" href="../lab/primitives.html" aria-current="page"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /> <path d="M20 3v4" /> <path d="M22 5h-4" /> <path d="M4 17v2" /> <path d="M5 18H3" /> </svg><span class="medium large">Lab</span></a><a class="nav-item" href="../skills/system-css.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /> </svg><span class="medium large">Skills</span></a></div>
+	</nav>
+	<header class="pg-main-header column">
+		<div class="spread"><h1>Rocket · group-pick</h1></div>
+		<nav class="row mobile" aria-label="Sections" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../skills/system-css.html">Skills</a></nav><nav class="tabs-underline scroll-x" aria-label="Lab"><a href="../lab/primitives.html">Primitives</a><a href="../lab/compositions.html">Compositions</a><a href="../lab/color.html">Color</a><a href="../lab/type.html">Type</a><a href="../lab/icons.html">Icons</a><a href="../lab/state.html">State</a><a href="../lab/aria.html">ARIA</a><a href="../lab/forms.html">Forms</a><a href="../lab/charts.html">Charts</a><a href="../lab/rocket-activation-tracker.html">Rocket · activation-tracker</a><a href="../lab/rocket-bug-report.html">Rocket · bug-report</a><a href="../lab/rocket-combo-box.html">Rocket · combo-box</a><a href="../lab/rocket-command-palette.html">Rocket · command-palette</a><a href="../lab/rocket-date-picker.html">Rocket · date-picker</a><a href="../lab/rocket-day-picker.html">Rocket · day-picker</a><a href="../lab/rocket-element-pick.html">Rocket · element-pick</a><a href="../lab/rocket-exif.html">Rocket · exif</a><a href="../lab/rocket-google-maps.html">Rocket · google-maps</a><a href="../lab/rocket-group-pick.html" aria-current="page">Rocket · group-pick</a><a href="../lab/rocket-hold-confirm.html">Rocket · hold-confirm</a><a href="../lab/rocket-image-input.html">Rocket · image-input</a><a href="../lab/rocket-mini-calc.html">Rocket · mini-calc</a><a href="../lab/rocket-toast-card.html">Rocket · toast-card</a></nav>
+	</header>
+	<main class="pg-main column owns-scroll">
+		<section class="column measure" style="--measure: 80ch; --gap: 1lh;">
+<div class="alert inf" role="note"><div>This bench imports the Datastar Pro runtime's <code>rocket</code> module, which the site does not load; the markup is shown, the behaviour runs in an app that ships Pro.</div></div><!-- group-pick — exported from the EventOS UI lab by cmd/labexport; edit the lab, not this file -->
+<div class="column" style="--gap: 0.5lh;"><div class="card column" style="--gap: 0.25lh;"><strong>group-pick</strong> <small style="--fg: -0.55;">static/rocket/group-pick.js — the pick-or-make input for the light vocabularies (brand families, supplier families, reporting categories). The pick is a TAG in the field. Focus shows the WHOLE list; typing filters it; a typed word must match a row (Enter picks the highlighted match, never the word); a word matching nothing shows No match and an Add row — added from the list, on purpose; the pencil renames a row in place; every row carries its delete, disabled while the group is in use. Behavior only: rows and their actions are the server&#39;s.</small></div><div class="row" style="--gap: 1em; flex-wrap: wrap;"><div class="column" style="--gap: 0.5lh;" data-signals="{gpq: &#39;&#39;, gpv: &#39;&#39;, gpe: &#39;&#39;, gpi0: &#34;AB&#34;, gpu0: 3, gpi1: &#34;Molson Coors&#34;, gpu1: 2, gpi2: &#34;Craft&#34;, gpu2: 1, gpi3: &#34;Imports&#34;, gpu3: 0, gpi4: &#34;&#34;, gpu4: 0, gpi5: &#34;&#34;, gpu5: 0}"><div class="grid" style="--grid-min: 20rem; --gap: 1lh;"><div class="card column" style="--gap: 0.5lh;"><strong>Brand family</strong> <small style="--fg: -0.55;">Three in use (undeletable), one free. The pick is a tag; a typed word must match a row — a new one is added from the list; the pencil renames in place.</small><div role="form"><label><span>Family</span> <small data-text="$gpv ? 'picked: ' + $gpv : 'none'"></small><group-pick data-preserve-attr="data-ui-state" style="anchor-name: --gp-bench;"><input type="text" role="combobox" aria-autocomplete="list" aria-controls="gp-bench-list" autocomplete="off" spellcheck="false" placeholder="Family…" aria-label="Brand family" data-bind="gpq" data-show="$gpv == &#39;&#39;"><div class="field" data-gp-chip tabindex="0" data-show="$gpv != &#39;&#39;" style="display: none;"><span class="tag"><span data-text="$gpv"></span></span> <button type="button" class="bare" data-gp-clear aria-label="Clear" data-on:click="$gpv = &#39;&#39;; $gpq = &#39;&#39;"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg>
+</button></div><menu id="gp-bench-list" class="menu" popover="manual" role="listbox" style="position-anchor: --gp-bench;"><div role="option" id="gp-bench-o0" data-show="$gpi0 != &#39;&#39;"><button type="button" data-gp-pick data-on:click="$gpv = $gpi0; $gpq = &#39;&#39;"><span data-gp-label data-text="$gpi0"></span> <small style="--fg: -0.5;">3 in use</small></button> <input type="text" data-gp-rename aria-label="Rename" hidden data-bind="gpe"> <button type="button" class="bare icon" data-gp-save hidden aria-label="Save the name" title="Save" data-on:click="$gpe = $gpe.trim(); $gpe != &#39;&#39; &amp;&amp; ($gpv == $gpi0 &amp;&amp; ($gpv = $gpe), $gpi0 = $gpe)"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 6 9 17l-5-5" />
+</svg>
+</button> <button type="button" class="bare icon" data-gp-edit aria-label="Rename slot 0" title="Rename"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+  <path d="m15 5 4 4" />
+</svg>
+</button> <button type="button" class="bare icon" data-gp-del aria-label="Delete slot 0" title="In use — reassign its 3 records first" disabled data-on:click="$gpv == $gpi0 &amp;&amp; ($gpv = &#39;&#39;); $gpi0 = &#39;&#39;"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M10 11v6" />
+  <path d="M14 11v6" />
+  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+  <path d="M3 6h18" />
+  <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+</svg>
+</button></div><div role="option" id="gp-bench-o1" data-show="$gpi1 != &#39;&#39;"><button type="button" data-gp-pick data-on:click="$gpv = $gpi1; $gpq = &#39;&#39;"><span data-gp-label data-text="$gpi1"></span> <small style="--fg: -0.5;">2 in use</small></button> <input type="text" data-gp-rename aria-label="Rename" hidden data-bind="gpe"> <button type="button" class="bare icon" data-gp-save hidden aria-label="Save the name" title="Save" data-on:click="$gpe = $gpe.trim(); $gpe != &#39;&#39; &amp;&amp; ($gpv == $gpi1 &amp;&amp; ($gpv = $gpe), $gpi1 = $gpe)"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 6 9 17l-5-5" />
+</svg>
+</button> <button type="button" class="bare icon" data-gp-edit aria-label="Rename slot 1" title="Rename"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+  <path d="m15 5 4 4" />
+</svg>
+</button> <button type="button" class="bare icon" data-gp-del aria-label="Delete slot 1" title="In use — reassign its 2 records first" disabled data-on:click="$gpv == $gpi1 &amp;&amp; ($gpv = &#39;&#39;); $gpi1 = &#39;&#39;"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M10 11v6" />
+  <path d="M14 11v6" />
+  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+  <path d="M3 6h18" />
+  <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+</svg>
+</button></div><div role="option" id="gp-bench-o2" data-show="$gpi2 != &#39;&#39;"><button type="button" data-gp-pick data-on:click="$gpv = $gpi2; $gpq = &#39;&#39;"><span data-gp-label data-text="$gpi2"></span> <small style="--fg: -0.5;">1 in use</small></button> <input type="text" data-gp-rename aria-label="Rename" hidden data-bind="gpe"> <button type="button" class="bare icon" data-gp-save hidden aria-label="Save the name" title="Save" data-on:click="$gpe = $gpe.trim(); $gpe != &#39;&#39; &amp;&amp; ($gpv == $gpi2 &amp;&amp; ($gpv = $gpe), $gpi2 = $gpe)"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 6 9 17l-5-5" />
+</svg>
+</button> <button type="button" class="bare icon" data-gp-edit aria-label="Rename slot 2" title="Rename"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+  <path d="m15 5 4 4" />
+</svg>
+</button> <button type="button" class="bare icon" data-gp-del aria-label="Delete slot 2" title="In use — reassign its 1 record first" disabled data-on:click="$gpv == $gpi2 &amp;&amp; ($gpv = &#39;&#39;); $gpi2 = &#39;&#39;"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M10 11v6" />
+  <path d="M14 11v6" />
+  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+  <path d="M3 6h18" />
+  <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+</svg>
+</button></div><div role="option" id="gp-bench-o3" data-show="$gpi3 != &#39;&#39;"><button type="button" data-gp-pick data-on:click="$gpv = $gpi3; $gpq = &#39;&#39;"><span data-gp-label data-text="$gpi3"></span> </button> <input type="text" data-gp-rename aria-label="Rename" hidden data-bind="gpe"> <button type="button" class="bare icon" data-gp-save hidden aria-label="Save the name" title="Save" data-on:click="$gpe = $gpe.trim(); $gpe != &#39;&#39; &amp;&amp; ($gpv == $gpi3 &amp;&amp; ($gpv = $gpe), $gpi3 = $gpe)"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 6 9 17l-5-5" />
+</svg>
+</button> <button type="button" class="bare icon" data-gp-edit aria-label="Rename slot 3" title="Rename"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+  <path d="m15 5 4 4" />
+</svg>
+</button> <button type="button" class="bare icon" data-gp-del aria-label="Delete slot 3" title="Delete" data-on:click="$gpv == $gpi3 &amp;&amp; ($gpv = &#39;&#39;); $gpi3 = &#39;&#39;"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M10 11v6" />
+  <path d="M14 11v6" />
+  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+  <path d="M3 6h18" />
+  <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+</svg>
+</button></div><div role="option" id="gp-bench-o4" data-show="$gpi4 != &#39;&#39;"><button type="button" data-gp-pick data-on:click="$gpv = $gpi4; $gpq = &#39;&#39;"><span data-gp-label data-text="$gpi4"></span> </button> <input type="text" data-gp-rename aria-label="Rename" hidden data-bind="gpe"> <button type="button" class="bare icon" data-gp-save hidden aria-label="Save the name" title="Save" data-on:click="$gpe = $gpe.trim(); $gpe != &#39;&#39; &amp;&amp; ($gpv == $gpi4 &amp;&amp; ($gpv = $gpe), $gpi4 = $gpe)"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 6 9 17l-5-5" />
+</svg>
+</button> <button type="button" class="bare icon" data-gp-edit aria-label="Rename slot 4" title="Rename"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+  <path d="m15 5 4 4" />
+</svg>
+</button> <button type="button" class="bare icon" data-gp-del aria-label="Delete slot 4" title="Delete" data-on:click="$gpv == $gpi4 &amp;&amp; ($gpv = &#39;&#39;); $gpi4 = &#39;&#39;"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M10 11v6" />
+  <path d="M14 11v6" />
+  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+  <path d="M3 6h18" />
+  <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+</svg>
+</button></div><div role="option" id="gp-bench-o5" data-show="$gpi5 != &#39;&#39;"><button type="button" data-gp-pick data-on:click="$gpv = $gpi5; $gpq = &#39;&#39;"><span data-gp-label data-text="$gpi5"></span> </button> <input type="text" data-gp-rename aria-label="Rename" hidden data-bind="gpe"> <button type="button" class="bare icon" data-gp-save hidden aria-label="Save the name" title="Save" data-on:click="$gpe = $gpe.trim(); $gpe != &#39;&#39; &amp;&amp; ($gpv == $gpi5 &amp;&amp; ($gpv = $gpe), $gpi5 = $gpe)"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 6 9 17l-5-5" />
+</svg>
+</button> <button type="button" class="bare icon" data-gp-edit aria-label="Rename slot 5" title="Rename"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+  <path d="m15 5 4 4" />
+</svg>
+</button> <button type="button" class="bare icon" data-gp-del aria-label="Delete slot 5" title="Delete" data-on:click="$gpv == $gpi5 &amp;&amp; ($gpv = &#39;&#39;); $gpi5 = &#39;&#39;"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M10 11v6" />
+  <path d="M14 11v6" />
+  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+  <path d="M3 6h18" />
+  <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+</svg>
+</button></div><small data-gp-nomatch hidden style="--fg: -0.55;">No match.</small><div role="option" data-gp-create hidden><button type="button" data-gp-pick data-on:click="$gpq = $gpq.trim(); $gpi0 == &#39;&#39; ? ($gpi0 = $gpq, $gpu0 = 0) : ($gpi1 == &#39;&#39; ? ($gpi1 = $gpq, $gpu1 = 0) : ($gpi2 == &#39;&#39; ? ($gpi2 = $gpq, $gpu2 = 0) : ($gpi3 == &#39;&#39; ? ($gpi3 = $gpq, $gpu3 = 0) : ($gpi4 == &#39;&#39; ? ($gpi4 = $gpq, $gpu4 = 0) : ($gpi5 == &#39;&#39; ? ($gpi5 = $gpq, $gpu5 = 0) : 0))))); $gpv = $gpq; $gpq = &#39;&#39;"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="M12 5v14" />
+</svg>
+<span>Add “<span data-text="$gpq"></span>”</span></button></div><small data-gp-empty hidden style="--fg: -0.55;">Nothing yet — type a name.</small></menu></group-pick></label></div></div><div class="card column" style="--gap: 0.5lh;"><strong>The slots</strong> <small style="--fg: -0.55;">What the fixture holds right now — the server's rows, in product.</small><div class="row wrap" style="--gap: 0.25em;"><span class="tag" data-show="$gpi0 != &#39;&#39;"><span data-text="$gpi0"></span> · <span data-text="$gpu0"></span></span><span class="tag" data-show="$gpi1 != &#39;&#39;"><span data-text="$gpi1"></span> · <span data-text="$gpu1"></span></span><span class="tag" data-show="$gpi2 != &#39;&#39;"><span data-text="$gpi2"></span> · <span data-text="$gpu2"></span></span><span class="tag" data-show="$gpi3 != &#39;&#39;"><span data-text="$gpi3"></span> · <span data-text="$gpu3"></span></span><span class="tag" data-show="$gpi4 != &#39;&#39;"><span data-text="$gpi4"></span> · <span data-text="$gpu4"></span></span><span class="tag" data-show="$gpi5 != &#39;&#39;"><span data-text="$gpi5"></span> · <span data-text="$gpu5"></span></span></div></div></div></div></div></div>
+		</section>
+	</main>
+</div>
+<script>document.addEventListener('datastar-ready',()=>{try{const t=localStorage.getItem('theme')||'';window.ds&&window.ds.signals&&window.ds.signals.set('theme',t)}catch(e){}})</script>
+</body>
+</html>

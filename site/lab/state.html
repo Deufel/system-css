@@ -1,0 +1,28 @@
+<!-- State — exported from the EventOS UI lab by cmd/labexport; edit the lab, not this file -->
+<div class="column" style="--gap: 1lh;"><div class="column" style="--gap: 0.25lh;"><strong>State — the data-ui-* grammar</strong> <small style="--fg: -0.55;">Server-stamped state, engine-styled. A state outranks any variant it lands on.</small></div><div class="grid" style="--grid-min: 22rem; --gap: 1lh;"><div class="card column" style="--gap: 0.5lh;"><strong>THE SELECTION VOCABULARY (gf-191)</strong> <small style="--fg: -0.55;">Four spellings, four meanings — never interchangeable. aria-current="page" = REAL currentness (the org switcher's org, a step strip's station). aria-pressed = a toggle's on. aria-selected = a listbox's CHOSEN row — generalized into the .menu and .tabs paints (see it live on the combo-box rocket bench; a bare .menu can't render in flow by design). .active = the GLOBAL UTILITY for a transient client highlight (a combobox's keyboard row): paint without stolen semantics.</small><div class="column" style="--gap: 0.25lh;"><a class="nav-item" aria-current="page">aria-current="page" — where you ARE</a> <button type="button" aria-pressed="true">aria-pressed — toggled on</button> <button type="button" class="active">.active — transient highlight</button> <button type="button">(rest state)</button></div></div><div class="card column" style="--gap: 0.5lh;"><strong>on · off</strong> <small style="--fg: -0.55;">on = the engine's focus ring; off = drained (grayscale — .tag keeps its own quieter recipe).</small><div class="row"><button type="button" data-ui-state="on">on</button> <button type="button" data-ui-state="off">off</button> <span class="tag" data-ui-state="on">tag on</span> <span class="tag" data-ui-state="off">tag off</span></div><div class="row"><span data-ui-state="on" title="column shown"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 6 9 17l-5-5" />
+</svg>
+</span> <span data-ui-state="off" title="column hidden"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 6 9 17l-5-5" />
+</svg>
+</span> <small style="--fg: -0.8;">svg-only span — the roster column toggles</small></div></div><div class="card column" style="--gap: 0.5lh;"><strong>active</strong> <small style="--fg: -0.55;">The .pri position as a STATE — lens sort/filter toggles wear it. Skin layer, after the variants: --bg 1 must beat .bare's --bg 0.</small><div class="row"><button type="button" data-ui-state="active">button</button> <button type="button" class="bare" data-ui-state="active">bare</button> <a class="btn bare" data-ui-state="active" href="#nogo">btn bare</a> <span class="tag" data-ui-state="active">tag</span></div><div class="row"><button type="button" class="bare">bare at rest</button> <a class="btn bare" href="#nogo">btn bare at rest</a></div></div><div class="card column" style="--gap: 0.5lh;"><strong>leaving</strong> <small style="--fg: -0.55;">The exit choreography: toast-card sets data-ui-state="leaving", the engine animates the collapse. Live on Rockets → toast-card.</small></div><div class="card column" style="--gap: 0.5lh;"><strong>The wider data-ui-* vocabulary</strong> <small style="--fg: -0.55;">Preference knobs on html, stamped by the shell, read by the engine: data-ui-theme · -skin · -size · -font · -motion · -radius.</small> <small style="--fg: -0.55;">Component-local state, stamped by rockets/views: data-ui-selected · -today · -start · -end · -inrange · -adjacent · -preview · -confirm · -grid · -kind (the calendar family) · -bill (settings).</small></div></div></div>

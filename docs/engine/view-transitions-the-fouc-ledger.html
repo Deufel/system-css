@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en" data-signals="{theme: ''}" data-attr:data-ui-theme="$theme != '' ? $theme : false">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="dark light"/>
+<title>View transitions &amp; the FOUC ledger — system.css</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=optional" rel="stylesheet"/>
+<link rel="stylesheet" href="../static/system.css"/>
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-ui-theme',t)}catch(e){}</script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar@1.0.0/bundles/datastar.js"></script>
+<script type="module" src="../static/rocket/hold-confirm.js"></script><script type="module" src="../static/rocket/command-palette.js"></script><script type="module" src="../static/rocket/image-input.js"></script><script type="module" src="../static/rocket/exif.js"></script>
+</head>
+<body>
+<div class="page">
+	<header class="pg-header spread" style="--gap: 0.5em;">
+		<a href="../index.html" class="row oneline" style="--gap: 0.5em;"><strong>system.css</strong><small style="--fg: -0.55;">the engine</small></a>
+		<span class="row oneline" style="--gap: 0.5em;">
+			<a href="https://github.com/Deufel/system-css" style="--type: -1;">GitHub</a>
+			<button type="button" class="icon" aria-label="Theme" title="Theme: system → dark → light" data-on:click="$theme = $theme == '' ? 'dark' : ($theme == 'dark' ? 'light' : ''); try { localStorage.setItem('theme', $theme) } catch (e) {}">
+				<span data-show="$theme == ''" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="20" height="14" x="2" y="3" rx="2" /> <line x1="8" x2="16" y1="21" y2="21" /> <line x1="12" x2="12" y1="17" y2="21" /> </svg></span>
+				<span data-show="$theme == 'dark'" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" /> </svg></span>
+				<span data-show="$theme == 'light'" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="4" /> <path d="M12 2v2" /> <path d="M12 20v2" /> <path d="m4.93 4.93 1.41 1.41" /> <path d="m17.66 17.66 1.41 1.41" /> <path d="M2 12h2" /> <path d="M20 12h2" /> <path d="m6.34 17.66-1.41 1.41" /> <path d="m19.07 4.93-1.41 1.41" /> </svg></span>
+			</button>
+		</span>
+	</header>
+	<nav class="pg-navigation spread-column tablet desktop" aria-label="Sections">
+		<div class="column"><a class="nav-item" href="../index.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /> <path d="M20 3v4" /> <path d="M22 5h-4" /> <path d="M4 17v2" /> <path d="M5 18H3" /> </svg><span class="medium large">Home</span></a><a class="nav-item" href="../howto/start.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /> </svg><span class="medium large">How-to</span></a><a class="nav-item" href="../engine/overview.html" aria-current="page"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /> <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /> <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /> <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /> <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /> </svg><span class="medium large">Engine</span></a><a class="nav-item" href="../components/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span class="medium large">Components</span></a><a class="nav-item" href="../stream/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span class="medium large">Land & stream</span></a><a class="nav-item" href="../charts/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /> <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /> <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /> <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /> <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /> </svg><span class="medium large">Charts</span></a><a class="nav-item" href="../lab/primitives.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /> <path d="M20 3v4" /> <path d="M22 5h-4" /> <path d="M4 17v2" /> <path d="M5 18H3" /> </svg><span class="medium large">Lab</span></a><a class="nav-item" href="../skills/system-css.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /> </svg><span class="medium large">Skills</span></a></div>
+	</nav>
+	<header class="pg-main-header column">
+		<div class="spread"><h1>View transitions &amp; the FOUC ledger</h1></div>
+		<nav class="row mobile" aria-label="Sections" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../skills/system-css.html">Skills</a></nav><nav class="tabs-underline scroll-x" aria-label="Engine"><a href="../engine/overview.html">Overview</a><a href="../engine/one-file-one-spine.html">ONE file, one spine</a><a href="../engine/the-painter-model.html">The painter model</a><a href="../engine/the-cascade-constitution.html">The cascade constitution</a><a href="../engine/layout.html">Layout</a><a href="../engine/components.html">Components</a><a href="../engine/semantic-hue-locks-vs-number.html">SEMANTIC HUE LOCKS vs NUMBER FORMATTING</a><a href="../engine/the-rhythm-ladder.html">The rhythm ladder</a><a href="../engine/authoring-checklist.html">Authoring checklist</a><a href="../engine/view-transitions-the-fouc-ledger.html" aria-current="page">View transitions &amp; the FOUC ledger</a><a href="../engine/the-form-canon.html">The form canon</a></nav>
+	</header>
+	<main class="pg-main column owns-scroll">
+		<section class="column measure" style="--measure: 80ch; --gap: 1lh;">
+<h2 id="view-transitions--the-fouc-ledger-hard-won--do-not-relearn">View transitions &amp; the FOUC ledger (hard-won — do not relearn)</h2>
+<p><strong>CROSS-DOCUMENT VT IS OFF (gf-200, per Mike: &quot;more trouble than it's
+worth&quot;).</strong> Measured 2026-09-04: with <code>@view-transition {navigation: auto}</code> active, EVERY same-origin navigation stalled ~4s —
+the old document held open (SSE alive four seconds past the new GET)
+waiting for a snapshot that never completed, then the transition timed
+out, skipped, and showed the white interstitial; cross-origin
+navigations ran in 21ms. All cost, no cross-fade. The opt-in is
+commented out in the view-transitions layer with the evidence; the
+<code>html[data-vt-ran]</code> pagereveal probe stays armed — any re-enable
+experiment starts by uncommenting the opt-in and watching that probe,
+and MUST verify the ~4s stall stays gone. The baked <code>meta color-scheme</code> keeps plain document swaps dark-to-dark.</p>
+<p>The nav cross-blur lived in <code>@layer view-transitions</code> (the spine's last
+layer; the old <code>project</code> tail is retired) as <code>@view-transition { navigation: auto }</code> plus explicit animations. The navigation-flash
+bugs run to ground so far; each is a LAW now:</p>
+<ul>
+<li>
+<p><strong>Stale-sheet FOUC is dead — assets are VERSIONED (gf-188).</strong> The
+static handler computes a per-file version at boot; layout stamps
+every static reference <code>?v=</code> (the <code>av()</code> helper, wired via
+<code>view.AssetVer</code>); versioned URLs cache <code>immutable</code>, so HTML can never
+pair with a mismatched sheet no matter the deploy cadence. If a
+&quot;FOUC after deploy&quot; report ever returns, check av() coverage first —
+module-internal import specifiers are the one known unversioned crack.</p>
+</li>
+<li>
+<p><strong>One name, one rendered box includes OVERLAYS (gf-188).</strong> The toasts
+hud was a second not-<code>.mobile</code> <code>.hud</code> silently sharing <code>vt-hud</code> with
+the fab cluster — armed only when an unseen toast painted it, then
+every navigation hard-cut. Overlays whose content differs per page get
+<code>view-transition-name: none</code>, never a lifted group.</p>
+</li>
+<li>
+<p><strong>Custom VT animations silently wipe plus-lighter (gf-140).</strong> The UA
+applies <code>mix-blend-mode: plus-lighter</code> through its OWN animation —
+override <code>animation-name</code> on <code>::view-transition-old/new</code> and the blend
+vanishes: mid-cross the two half-transparent snapshots sum below 100%
+and the canvas flashes through every navigation. Any custom VT
+animation must restore <code>isolation: isolate</code> on the image-pair,
+<code>plus-lighter</code> on old/new, and LINEAR timing both sides so opacities
+sum to 1 at every instant.</p>
+</li>
+<li>
+<p><strong>In-flow data-show FALSE-at-seed carries inline <code>display: none;</code>
+(gf-198 — THE SEED-HIDE LAW).</strong> Datastar evaluates after its module
+loads, AFTER first paint: an in-flow element whose data-show
+expression is false at land paints VISIBLE for a frame (Set-Up →
+General landed doubled with a live Save row; every feedback thread
+landed with its composer open). The floor is the landed HTML itself:
+seed-hide with inline <code>display: none;</code> (datastar overwrites
+el.style.display on evaluation). Same law for data-attr state:
+BAKE the landed value server-side (the locked form now lands
+<code>data-ui-state=&quot;locked&quot;</code> beside its data-attr binding). Elements
+inside a closed <code>&lt;dialog&gt;</code> are exempt — they never paint. <code>display</code>
+in this idiom is state, not geometry; the ratchet baselines carry a
+dated note where it is used.</p>
+</li>
+<li>
+<p><strong>Client-state hosts get their display rule in the ENGINE, not a
+rocket-injected sheet (gf-198).</strong> hold-confirm's
+<code>display:inline-flex</code> lived only in JS injectCSS — the pre-upgrade
+frame rendered the host inline and reflowed on connect. Every
+custom-element host is sized by system.css's <code>:where(host)</code> rules
+(date-picker, day-picker, combo-box…); a rocket's injected CSS may
+add BEHAVIOR chrome only, never the host's own box.</p>
+</li>
+<li>
+<p><strong>The INTERSTITIAL frame is pre-CSS — bake <code>meta color-scheme</code>
+(gf-200).</strong> Between two documents the engine paints the window
+default (WHITE) until the incoming page's color-scheme is known;
+CSS's <code>color-scheme</code> arrives too late for that frame. Chrome-the-
+browser masks the gap with the cross-doc view transition; app-mode
+windows (chromium --app — Omarchy web apps) don't, so dark-mode
+users see a white flash on every click. The layout bakes
+<code>&lt;meta name=&quot;color-scheme&quot;&gt;</code> from the SERVER-known theme (dark /
+light / &quot;dark light&quot; for auto) beside the theme-color meta — the
+blank frame then paints in the right darkness with or without a
+view transition.</p>
+</li>
+<li>
+<p><strong>Every <code>&lt;script&gt;</code> in the head must exist on disk (gf-47).</strong> A
+parser-blocking 404 stalls first paint AND breaks the VT handoff. A
+batch commit once scooped an unrelated deletion — verify a commit's
+file list, and after deleting any static/ file grep layout.templ for
+its tag.</p>
+</li>
+<li>
+<p><strong>One landing = ONE document GET (gf-47).</strong> A client-side default-view
+or remembered-lens re-navigation doubles the load and the cross-fade
+(reads as page-wide FOUC). Any &quot;apply stored view&quot; logic must compare
+URLs order-insensitively (page=1 ≡ absent) and use location.replace
+with a handoff key that skips the second transition.</p>
+</li>
+<li>
+<p><strong>Theme/size/skin seed rides the ROOT element (gf-108), and statics
+serve stale-while-revalidate (gf-113)</strong> — the <code>&lt;html&gt;</code> data-attrs must
+be baked server-side (a bundle that evaluates root bindings before the
+body seed strips the theme for a frame), and <code>staticfs</code> must keep
+<code>max-age=0, stale-while-revalidate</code> so CSS renders from cache
+instantly. Check response headers before suspecting the cascade.</p>
+</li>
+</ul>
+<p>When a flash report arrives: FIRST check the console for 404s and count
+document GETs per click (network tab), THEN test with <code>--cfg-motion: 0</code>
+(a flash that survives motion-0 is a blend/paint bug, not an animation
+bug), and only then read the VT rules.</p>
+
+		</section>
+	</main>
+</div>
+<script>document.addEventListener('datastar-ready',()=>{try{const t=localStorage.getItem('theme')||'';window.ds&&window.ds.signals&&window.ds.signals.set('theme',t)}catch(e){}})</script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en" data-signals="{theme: ''}" data-attr:data-ui-theme="$theme != '' ? $theme : false">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="dark light"/>
+<title>The one mechanism you must understand: `--fg` → `currentColor` — system.css</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=optional" rel="stylesheet"/>
+<link rel="stylesheet" href="../static/system.css"/>
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-ui-theme',t)}catch(e){}</script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar@1.0.0/bundles/datastar.js"></script>
+<script type="module" src="../static/rocket/hold-confirm.js"></script><script type="module" src="../static/rocket/command-palette.js"></script><script type="module" src="../static/rocket/image-input.js"></script><script type="module" src="../static/rocket/exif.js"></script>
+</head>
+<body>
+<div class="page">
+	<header class="pg-header spread" style="--gap: 0.5em;">
+		<a href="../index.html" class="row oneline" style="--gap: 0.5em;"><strong>system.css</strong><small style="--fg: -0.55;">the engine</small></a>
+		<span class="row oneline" style="--gap: 0.5em;">
+			<a href="https://github.com/Deufel/system-css" style="--type: -1;">GitHub</a>
+			<button type="button" class="icon" aria-label="Theme" title="Theme: system → dark → light" data-on:click="$theme = $theme == '' ? 'dark' : ($theme == 'dark' ? 'light' : ''); try { localStorage.setItem('theme', $theme) } catch (e) {}">
+				<span data-show="$theme == ''" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="20" height="14" x="2" y="3" rx="2" /> <line x1="8" x2="16" y1="21" y2="21" /> <line x1="12" x2="12" y1="17" y2="21" /> </svg></span>
+				<span data-show="$theme == 'dark'" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" /> </svg></span>
+				<span data-show="$theme == 'light'" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="4" /> <path d="M12 2v2" /> <path d="M12 20v2" /> <path d="m4.93 4.93 1.41 1.41" /> <path d="m17.66 17.66 1.41 1.41" /> <path d="M2 12h2" /> <path d="M20 12h2" /> <path d="m6.34 17.66-1.41 1.41" /> <path d="m19.07 4.93-1.41 1.41" /> </svg></span>
+			</button>
+		</span>
+	</header>
+	<nav class="pg-navigation spread-column tablet desktop" aria-label="Sections">
+		<div class="column"><a class="nav-item" href="../index.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /> <path d="M20 3v4" /> <path d="M22 5h-4" /> <path d="M4 17v2" /> <path d="M5 18H3" /> </svg><span class="medium large">Home</span></a><a class="nav-item" href="../howto/start.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /> </svg><span class="medium large">How-to</span></a><a class="nav-item" href="../engine/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /> <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /> <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /> <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /> <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /> </svg><span class="medium large">Engine</span></a><a class="nav-item" href="../components/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span class="medium large">Components</span></a><a class="nav-item" href="../stream/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span class="medium large">Land & stream</span></a><a class="nav-item" href="../charts/overview.html" aria-current="page"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /> <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /> <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /> <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /> <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /> </svg><span class="medium large">Charts</span></a><a class="nav-item" href="../lab/primitives.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /> <path d="M20 3v4" /> <path d="M22 5h-4" /> <path d="M4 17v2" /> <path d="M5 18H3" /> </svg><span class="medium large">Lab</span></a><a class="nav-item" href="../skills/system-css.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /> </svg><span class="medium large">Skills</span></a></div>
+	</nav>
+	<header class="pg-main-header column">
+		<div class="spread"><h1>The one mechanism you must understand: `--fg` → `currentColor`</h1></div>
+		<nav class="row mobile" aria-label="Sections" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../skills/system-css.html">Skills</a></nav><nav class="tabs-underline scroll-x" aria-label="Charts"><a href="../charts/overview.html">Overview</a><a href="../charts/the-one-mechanism-you-must.html" aria-current="page">The one mechanism you must understand: `--fg` → `currentColor`</a><a href="../charts/anatomy-of-a-chart-builder.html">Anatomy of a chart builder</a><a href="../charts/gotchas.html">Gotchas</a><a href="../charts/integration-with-the-stack.html">Integration with the stack</a><a href="../charts/the-quieting-doctrine.html">The quieting doctrine</a><a href="../charts/the-shelf.html">The shelf</a></nav>
+	</header>
+	<main class="pg-main column owns-scroll">
+		<section class="column measure" style="--measure: 80ch; --gap: 1lh;">
+<h2 id="the-one-mechanism-you-must-understand---fg--currentcolor">The one mechanism you must understand: <code>--fg</code> → <code>currentColor</code></h2>
+<p>system.css computes ink for <strong>every element</strong> (<code>@layer core.color { :where(*) { … color: oklch(…) } }</code>),
+and bridges SVG with <code>:where(svg) { color: currentColor }</code>. So the recipe is always:</p>
+<ol>
+<li>Set <code>--fg</code> (and <code>--hue-shift</code> when you want color) on an SVG element or a <code>&lt;g&gt;</code>.</li>
+<li>Paint with <code>fill=&quot;currentColor&quot;</code> and/or <code>stroke=&quot;currentColor&quot;</code>.</li>
+</ol>
+<p>That's it. The engine turns <code>--fg</code> into the actual <code>color</code>, and <code>currentColor</code> picks it up.</p>
+<h3 id="the---fg-scale--n---1--0--1">The <code>--fg</code> scale — <code>n ∈ [-1 .. 0 .. 1]</code></h3>
+<p><code>--fg</code> encodes <strong>contrast and chroma in one number</strong>. Sign picks the channel; magnitude is strength:</p>
+<ul>
+<li><strong><code>-1</code></strong> → heavy <strong>neutral</strong> ink (grayscale, maximum contrast vs. the surface).</li>
+<li><strong><code>0</code></strong> → equals the background (invisible — useful for nothing, avoid).</li>
+<li><strong><code>+1</code></strong> → maximum <strong>chromatic</strong> contrast (fully saturated ink at the current hue).</li>
+</ul>
+<p>Negative is neutral/structural; positive is colored/expressive. So chart <em>furniture</em>
+(axes, gridlines, ticks, titles) is negative, and <em>data marks</em> (bars, bubbles, lines)
+are positive when you want them to carry hue. A practical ladder:</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th><code>--fg</code></th>
+<th>why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Faint gridlines</td>
+<td><code>-0.13</code></td>
+<td>barely there, just enough to read values</td>
+</tr>
+<tr>
+<td>Axis lines</td>
+<td><code>-0.4</code></td>
+<td>structural but quiet</td>
+</tr>
+<tr>
+<td>Labels (foLabel default)</td>
+<td><code>-0.8</code> at <code>--type: -2</code></td>
+<td>readable, clearly furniture</td>
+</tr>
+<tr>
+<td>Data marks</td>
+<td><code>1</code></td>
+<td>full chroma — the data is the star (gf-69, per Mike)</td>
+</tr>
+<tr>
+<td>Data marks (neutral)</td>
+<td><code>-0.85</code></td>
+<td>a single-series chart that wants no hue</td>
+</tr>
+<tr>
+<td>Quiet outlines (a silhouette behind the data)</td>
+<td><code>-0.25</code></td>
+<td>the unselected states/counties, at low fill-opacity (gf-364)</td>
+</tr>
+<tr>
+<td>A prior period</td>
+<td><code>-0.55</code> dashed</td>
+<td>last year's line under this year's (gf-347)</td>
+</tr>
+<tr>
+<td>A secondary fill under the marks</td>
+<td><code>0.2</code></td>
+<td>the territory's states under its counties at <code>1</code> (gf-364)</td>
+</tr>
+</tbody>
+</table>
+<p>(These are the SHIPPED values — the Metrics charts, the Charts shelf, the
+landing and the territory picker use exactly these rungs; don't invent
+intermediate steps.)</p>
+<h3 id="hue-per-series---hue-shift-never---hue-lock">Hue per series: <code>--hue-shift</code>, never <code>--hue-lock</code></h3>
+<p><strong>THE LADDER (gf-182, per Mike — supersedes the full-wheel spread
+below):</strong> series step <strong>+30° apiece</strong> from the theme hue — an analogous
+run that stays cohesive with the page and re-themes as one family; the
+wheel spread read as a carnival against any theme. Fixed step, not
+divided by count (series four keeps its color when a fifth arrives).
+<code>hueShift</code>/<code>hueStyle</code> implement it; the shelf's &quot;Categorical color&quot;
+card shows the ladder re-theming live under a second surface hue.</p>
+<p>The engine's hue is <code>--hue + --hue-shift</code> (unless <code>--hue-lock</code> overrides it). To give
+each series its own color, spread them around the wheel and set <code>--hue-shift</code> on the
+mark: <code>shift = idx * 360 / n</code>. Because it <em>rides on the inherited <code>--hue</code></em>, the whole
+chart re-themes correctly when the page hue changes — admin-red vs. product-indigo just
+works.</p>
+<p><strong>Never reach for <code>--hue-lock</code> to color a series.</strong> <code>--hue-lock</code> hard-pins hue for an
+element <em>and its entire subtree</em> and refuses the cascade — it exists only for semantic
+primitives (success/info/danger pills) that must mean the same thing everywhere. Using
+it as a coloring tool poisons inheritance and is, per the color API's load-bearing
+rules, insurmountable tech debt. If you just want a color, that's <code>--fg</code> (+ <code>--hue-shift</code>).</p>
+<p>The ONE sanctioned hue-lock use in a chart: a segment whose color IS a meaning —
+created = success, rejected = danger (<code>view/statusbar.go</code>'s result bar). That is the
+semantic-primitive case the lock exists for, not series coloring.</p>
+<h3 id="text-via-foreignobject--and-its-scaling-trap">Text via <code>&lt;foreignObject&gt;</code> — and its scaling trap</h3>
+<p>ALL chart text is engine-typed <code>&lt;foreignObject&gt;</code> — the <code>foLabel</code> helper in
+view/chartrender.go (2026-08-30, per Mike: no SVG <code>&lt;text&gt;</code>, no hand fonts,
+no px literals; the engine types everything). ⚠ The text lives in SVG
+coordinates: the whole drawing — text included — scales by
+rendered-width / viewBox-width, so <code>--type: -2</code> only means what it says
+when the viewBox width ≈ the rendered width. Pin the builder's nominal W
+to its host container and say so in a comment (view/statusbar.go's &quot;THE
+NOMINAL WIDTH IS THE DIALOG'S&quot; warning is the exemplar).</p>
+
+		</section>
+	</main>
+</div>
+<script>document.addEventListener('datastar-ready',()=>{try{const t=localStorage.getItem('theme')||'';window.ds&&window.ds.signals&&window.ds.signals.set('theme',t)}catch(e){}})</script>
+</body>
+</html>

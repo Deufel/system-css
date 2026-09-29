@@ -1,0 +1,294 @@
+<!-- group-pick — exported from the EventOS UI lab by cmd/labexport; edit the lab, not this file -->
+<div class="column" style="--gap: 0.5lh;"><div class="card column" style="--gap: 0.25lh;"><strong>group-pick</strong> <small style="--fg: -0.55;">static/rocket/group-pick.js — the pick-or-make input for the light vocabularies (brand families, supplier families, reporting categories). The pick is a TAG in the field. Focus shows the WHOLE list; typing filters it; a typed word must match a row (Enter picks the highlighted match, never the word); a word matching nothing shows No match and an Add row — added from the list, on purpose; the pencil renames a row in place; every row carries its delete, disabled while the group is in use. Behavior only: rows and their actions are the server&#39;s.</small></div><div class="row" style="--gap: 1em; flex-wrap: wrap;"><div class="column" style="--gap: 0.5lh;" data-signals="{gpq: &#39;&#39;, gpv: &#39;&#39;, gpe: &#39;&#39;, gpi0: &#34;AB&#34;, gpu0: 3, gpi1: &#34;Molson Coors&#34;, gpu1: 2, gpi2: &#34;Craft&#34;, gpu2: 1, gpi3: &#34;Imports&#34;, gpu3: 0, gpi4: &#34;&#34;, gpu4: 0, gpi5: &#34;&#34;, gpu5: 0}"><div class="grid" style="--grid-min: 20rem; --gap: 1lh;"><div class="card column" style="--gap: 0.5lh;"><strong>Brand family</strong> <small style="--fg: -0.55;">Three in use (undeletable), one free. The pick is a tag; a typed word must match a row — a new one is added from the list; the pencil renames in place.</small><div role="form"><label><span>Family</span> <small data-text="$gpv ? 'picked: ' + $gpv : 'none'"></small><group-pick data-preserve-attr="data-ui-state" style="anchor-name: --gp-bench;"><input type="text" role="combobox" aria-autocomplete="list" aria-controls="gp-bench-list" autocomplete="off" spellcheck="false" placeholder="Family…" aria-label="Brand family" data-bind="gpq" data-show="$gpv == &#39;&#39;"><div class="field" data-gp-chip tabindex="0" data-show="$gpv != &#39;&#39;" style="display: none;"><span class="tag"><span data-text="$gpv"></span></span> <button type="button" class="bare" data-gp-clear aria-label="Clear" data-on:click="$gpv = &#39;&#39;; $gpq = &#39;&#39;"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg>
+</button></div><menu id="gp-bench-list" class="menu" popover="manual" role="listbox" style="position-anchor: --gp-bench;"><div role="option" id="gp-bench-o0" data-show="$gpi0 != &#39;&#39;"><button type="button" data-gp-pick data-on:click="$gpv = $gpi0; $gpq = &#39;&#39;"><span data-gp-label data-text="$gpi0"></span> <small style="--fg: -0.5;">3 in use</small></button> <input type="text" data-gp-rename aria-label="Rename" hidden data-bind="gpe"> <button type="button" class="bare icon" data-gp-save hidden aria-label="Save the name" title="Save" data-on:click="$gpe = $gpe.trim(); $gpe != &#39;&#39; &amp;&amp; ($gpv == $gpi0 &amp;&amp; ($gpv = $gpe), $gpi0 = $gpe)"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 6 9 17l-5-5" />
+</svg>
+</button> <button type="button" class="bare icon" data-gp-edit aria-label="Rename slot 0" title="Rename"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+  <path d="m15 5 4 4" />
+</svg>
+</button> <button type="button" class="bare icon" data-gp-del aria-label="Delete slot 0" title="In use — reassign its 3 records first" disabled data-on:click="$gpv == $gpi0 &amp;&amp; ($gpv = &#39;&#39;); $gpi0 = &#39;&#39;"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M10 11v6" />
+  <path d="M14 11v6" />
+  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+  <path d="M3 6h18" />
+  <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+</svg>
+</button></div><div role="option" id="gp-bench-o1" data-show="$gpi1 != &#39;&#39;"><button type="button" data-gp-pick data-on:click="$gpv = $gpi1; $gpq = &#39;&#39;"><span data-gp-label data-text="$gpi1"></span> <small style="--fg: -0.5;">2 in use</small></button> <input type="text" data-gp-rename aria-label="Rename" hidden data-bind="gpe"> <button type="button" class="bare icon" data-gp-save hidden aria-label="Save the name" title="Save" data-on:click="$gpe = $gpe.trim(); $gpe != &#39;&#39; &amp;&amp; ($gpv == $gpi1 &amp;&amp; ($gpv = $gpe), $gpi1 = $gpe)"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 6 9 17l-5-5" />
+</svg>
+</button> <button type="button" class="bare icon" data-gp-edit aria-label="Rename slot 1" title="Rename"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+  <path d="m15 5 4 4" />
+</svg>
+</button> <button type="button" class="bare icon" data-gp-del aria-label="Delete slot 1" title="In use — reassign its 2 records first" disabled data-on:click="$gpv == $gpi1 &amp;&amp; ($gpv = &#39;&#39;); $gpi1 = &#39;&#39;"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M10 11v6" />
+  <path d="M14 11v6" />
+  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+  <path d="M3 6h18" />
+  <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+</svg>
+</button></div><div role="option" id="gp-bench-o2" data-show="$gpi2 != &#39;&#39;"><button type="button" data-gp-pick data-on:click="$gpv = $gpi2; $gpq = &#39;&#39;"><span data-gp-label data-text="$gpi2"></span> <small style="--fg: -0.5;">1 in use</small></button> <input type="text" data-gp-rename aria-label="Rename" hidden data-bind="gpe"> <button type="button" class="bare icon" data-gp-save hidden aria-label="Save the name" title="Save" data-on:click="$gpe = $gpe.trim(); $gpe != &#39;&#39; &amp;&amp; ($gpv == $gpi2 &amp;&amp; ($gpv = $gpe), $gpi2 = $gpe)"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 6 9 17l-5-5" />
+</svg>
+</button> <button type="button" class="bare icon" data-gp-edit aria-label="Rename slot 2" title="Rename"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+  <path d="m15 5 4 4" />
+</svg>
+</button> <button type="button" class="bare icon" data-gp-del aria-label="Delete slot 2" title="In use — reassign its 1 record first" disabled data-on:click="$gpv == $gpi2 &amp;&amp; ($gpv = &#39;&#39;); $gpi2 = &#39;&#39;"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M10 11v6" />
+  <path d="M14 11v6" />
+  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+  <path d="M3 6h18" />
+  <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+</svg>
+</button></div><div role="option" id="gp-bench-o3" data-show="$gpi3 != &#39;&#39;"><button type="button" data-gp-pick data-on:click="$gpv = $gpi3; $gpq = &#39;&#39;"><span data-gp-label data-text="$gpi3"></span> </button> <input type="text" data-gp-rename aria-label="Rename" hidden data-bind="gpe"> <button type="button" class="bare icon" data-gp-save hidden aria-label="Save the name" title="Save" data-on:click="$gpe = $gpe.trim(); $gpe != &#39;&#39; &amp;&amp; ($gpv == $gpi3 &amp;&amp; ($gpv = $gpe), $gpi3 = $gpe)"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 6 9 17l-5-5" />
+</svg>
+</button> <button type="button" class="bare icon" data-gp-edit aria-label="Rename slot 3" title="Rename"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+  <path d="m15 5 4 4" />
+</svg>
+</button> <button type="button" class="bare icon" data-gp-del aria-label="Delete slot 3" title="Delete" data-on:click="$gpv == $gpi3 &amp;&amp; ($gpv = &#39;&#39;); $gpi3 = &#39;&#39;"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M10 11v6" />
+  <path d="M14 11v6" />
+  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+  <path d="M3 6h18" />
+  <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+</svg>
+</button></div><div role="option" id="gp-bench-o4" data-show="$gpi4 != &#39;&#39;"><button type="button" data-gp-pick data-on:click="$gpv = $gpi4; $gpq = &#39;&#39;"><span data-gp-label data-text="$gpi4"></span> </button> <input type="text" data-gp-rename aria-label="Rename" hidden data-bind="gpe"> <button type="button" class="bare icon" data-gp-save hidden aria-label="Save the name" title="Save" data-on:click="$gpe = $gpe.trim(); $gpe != &#39;&#39; &amp;&amp; ($gpv == $gpi4 &amp;&amp; ($gpv = $gpe), $gpi4 = $gpe)"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 6 9 17l-5-5" />
+</svg>
+</button> <button type="button" class="bare icon" data-gp-edit aria-label="Rename slot 4" title="Rename"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+  <path d="m15 5 4 4" />
+</svg>
+</button> <button type="button" class="bare icon" data-gp-del aria-label="Delete slot 4" title="Delete" data-on:click="$gpv == $gpi4 &amp;&amp; ($gpv = &#39;&#39;); $gpi4 = &#39;&#39;"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M10 11v6" />
+  <path d="M14 11v6" />
+  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+  <path d="M3 6h18" />
+  <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+</svg>
+</button></div><div role="option" id="gp-bench-o5" data-show="$gpi5 != &#39;&#39;"><button type="button" data-gp-pick data-on:click="$gpv = $gpi5; $gpq = &#39;&#39;"><span data-gp-label data-text="$gpi5"></span> </button> <input type="text" data-gp-rename aria-label="Rename" hidden data-bind="gpe"> <button type="button" class="bare icon" data-gp-save hidden aria-label="Save the name" title="Save" data-on:click="$gpe = $gpe.trim(); $gpe != &#39;&#39; &amp;&amp; ($gpv == $gpi5 &amp;&amp; ($gpv = $gpe), $gpi5 = $gpe)"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20 6 9 17l-5-5" />
+</svg>
+</button> <button type="button" class="bare icon" data-gp-edit aria-label="Rename slot 5" title="Rename"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+  <path d="m15 5 4 4" />
+</svg>
+</button> <button type="button" class="bare icon" data-gp-del aria-label="Delete slot 5" title="Delete" data-on:click="$gpv == $gpi5 &amp;&amp; ($gpv = &#39;&#39;); $gpi5 = &#39;&#39;"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M10 11v6" />
+  <path d="M14 11v6" />
+  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+  <path d="M3 6h18" />
+  <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+</svg>
+</button></div><small data-gp-nomatch hidden style="--fg: -0.55;">No match.</small><div role="option" data-gp-create hidden><button type="button" data-gp-pick data-on:click="$gpq = $gpq.trim(); $gpi0 == &#39;&#39; ? ($gpi0 = $gpq, $gpu0 = 0) : ($gpi1 == &#39;&#39; ? ($gpi1 = $gpq, $gpu1 = 0) : ($gpi2 == &#39;&#39; ? ($gpi2 = $gpq, $gpu2 = 0) : ($gpi3 == &#39;&#39; ? ($gpi3 = $gpq, $gpu3 = 0) : ($gpi4 == &#39;&#39; ? ($gpi4 = $gpq, $gpu4 = 0) : ($gpi5 == &#39;&#39; ? ($gpi5 = $gpq, $gpu5 = 0) : 0))))); $gpv = $gpq; $gpq = &#39;&#39;"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="M12 5v14" />
+</svg>
+<span>Add “<span data-text="$gpq"></span>”</span></button></div><small data-gp-empty hidden style="--fg: -0.55;">Nothing yet — type a name.</small></menu></group-pick></label></div></div><div class="card column" style="--gap: 0.5lh;"><strong>The slots</strong> <small style="--fg: -0.55;">What the fixture holds right now — the server's rows, in product.</small><div class="row wrap" style="--gap: 0.25em;"><span class="tag" data-show="$gpi0 != &#39;&#39;"><span data-text="$gpi0"></span> · <span data-text="$gpu0"></span></span><span class="tag" data-show="$gpi1 != &#39;&#39;"><span data-text="$gpi1"></span> · <span data-text="$gpu1"></span></span><span class="tag" data-show="$gpi2 != &#39;&#39;"><span data-text="$gpi2"></span> · <span data-text="$gpu2"></span></span><span class="tag" data-show="$gpi3 != &#39;&#39;"><span data-text="$gpi3"></span> · <span data-text="$gpu3"></span></span><span class="tag" data-show="$gpi4 != &#39;&#39;"><span data-text="$gpi4"></span> · <span data-text="$gpu4"></span></span><span class="tag" data-show="$gpi5 != &#39;&#39;"><span data-text="$gpi5"></span> · <span data-text="$gpu5"></span></span></div></div></div></div></div></div>

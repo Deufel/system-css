@@ -1,0 +1,19 @@
+<!-- ARIA — exported from the EventOS UI lab by cmd/labexport; edit the lab, not this file -->
+<div class="column" style="--gap: 1lh;"><div class="column" style="--gap: 0.25lh;"><strong>ARIA — the semantic states</strong> <small style="--fg: -0.55;">State rides the attribute the screen reader hears; the engine styles the same attribute. No class ever duplicates these.</small></div><div class="grid" style="--grid-min: 22rem; --gap: 1lh;"><div class="card column" style="--gap: 0.5lh;"><strong>aria-pressed</strong> <small style="--fg: -0.55;">Toggles. Standalone button lifts + full ink; a .button-group member goes full-blast.</small><div class="row"><button type="button" aria-pressed="true">pressed</button> <button type="button" aria-pressed="false">not pressed</button><nav class="button-group" aria-label="Pressed group"><button type="button" class="btn">off</button> <button type="button" class="btn" aria-pressed="true">on</button> <button type="button" class="btn">off</button></nav></div></div><div class="card column" style="--gap: 0.5lh;"><strong>aria-current="page"</strong> <small style="--fg: -0.55;">Where you ARE — nav items, menu rows, breadcrumbs.</small><div class="row"><button type="button" class="nav-item"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 16h.01" />
+  <path d="M16 16h.01" />
+  <path d="M3 19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5a.5.5 0 0 0-.769-.422l-4.462 2.844A.5.5 0 0 1 15 10.5v-2a.5.5 0 0 0-.769-.422L9.77 10.922A.5.5 0 0 1 9 10.5V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z" />
+  <path d="M8 16h.01" />
+</svg>
+<span class="medium large">Elsewhere</span></button> <button type="button" class="nav-item" aria-current="page"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><polyline points="3.29 7 12 12 20.71 7"/><path d="m7.5 4.27 9 5.15"/></svg>
+<span class="medium large">Here</span></button></div><menu class="menu" style="--type: -1;"><a href="#nogo" aria-current="page">Active row</a> <a href="#nogo">Plain row</a></menu></div><div class="card column" style="--gap: 0.5lh;"><strong>aria-selected</strong> <small style="--fg: -0.55;">Tabs and pickable rows — the underline follows the attribute.</small><nav class="tabs-underline" aria-label="Selected demo"><button type="button" aria-selected="true">Selected</button> <button type="button">Plain</button> <button type="button">Plain</button></nav></div><div class="card column" style="--gap: 0.5lh;"><strong>aria-disabled · disabled</strong> <small style="--fg: -0.55;">Drained ink + not-allowed cursor; aria-disabled keeps the element focusable for AT.</small><div class="row"><button type="button" disabled>disabled</button> <button type="button" aria-disabled="true">aria-disabled</button> <span class="tag" aria-disabled="true">tag aria-disabled</span></div></div><div class="card column" style="--gap: 0.5lh;"><strong>aria-invalid</strong> <small style="--fg: -0.55;">The label composition locks the danger hue and paints the hint at full ink.</small> <label><span>Field</span> <small>This value is wrong</small> <input type="text" aria-invalid="true" value="bad value"></label></div><div class="card column" style="--gap: 0.5lh;"><strong>The rest of the shell's ARIA</strong> <small style="--fg: -0.55;">aria-label on every icon-only control (the ratchet's icon boxes stay mute without it) · aria-hidden on decorative glyphs · aria-busy while a rocket fetches · aria-haspopup + aria-controls on the openers · aria-activedescendant in the command palette.</small></div></div></div>

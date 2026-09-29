@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en" data-signals="{theme: ''}" data-attr:data-ui-theme="$theme != '' ? $theme : false">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="dark light"/>
+<title>The form canon — system.css</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=optional" rel="stylesheet"/>
+<link rel="stylesheet" href="../static/system.css"/>
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-ui-theme',t)}catch(e){}</script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar@1.0.0/bundles/datastar.js"></script>
+<script type="module" src="../static/rocket/hold-confirm.js"></script><script type="module" src="../static/rocket/command-palette.js"></script><script type="module" src="../static/rocket/image-input.js"></script><script type="module" src="../static/rocket/exif.js"></script>
+</head>
+<body>
+<div class="page">
+	<header class="pg-header spread" style="--gap: 0.5em;">
+		<a href="../index.html" class="row oneline" style="--gap: 0.5em;"><strong>system.css</strong><small style="--fg: -0.55;">the engine</small></a>
+		<span class="row oneline" style="--gap: 0.5em;">
+			<a href="https://github.com/Deufel/system-css" style="--type: -1;">GitHub</a>
+			<button type="button" class="icon" aria-label="Theme" title="Theme: system → dark → light" data-on:click="$theme = $theme == '' ? 'dark' : ($theme == 'dark' ? 'light' : ''); try { localStorage.setItem('theme', $theme) } catch (e) {}">
+				<span data-show="$theme == ''" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="20" height="14" x="2" y="3" rx="2" /> <line x1="8" x2="16" y1="21" y2="21" /> <line x1="12" x2="12" y1="17" y2="21" /> </svg></span>
+				<span data-show="$theme == 'dark'" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" /> </svg></span>
+				<span data-show="$theme == 'light'" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="4" /> <path d="M12 2v2" /> <path d="M12 20v2" /> <path d="m4.93 4.93 1.41 1.41" /> <path d="m17.66 17.66 1.41 1.41" /> <path d="M2 12h2" /> <path d="M20 12h2" /> <path d="m6.34 17.66-1.41 1.41" /> <path d="m19.07 4.93-1.41 1.41" /> </svg></span>
+			</button>
+		</span>
+	</header>
+	<nav class="pg-navigation spread-column tablet desktop" aria-label="Sections">
+		<div class="column"><a class="nav-item" href="../index.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /> <path d="M20 3v4" /> <path d="M22 5h-4" /> <path d="M4 17v2" /> <path d="M5 18H3" /> </svg><span class="medium large">Home</span></a><a class="nav-item" href="../howto/start.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /> </svg><span class="medium large">How-to</span></a><a class="nav-item" href="../engine/overview.html" aria-current="page"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /> <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /> <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /> <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /> <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /> </svg><span class="medium large">Engine</span></a><a class="nav-item" href="../components/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span class="medium large">Components</span></a><a class="nav-item" href="../stream/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span class="medium large">Land & stream</span></a><a class="nav-item" href="../charts/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /> <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /> <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /> <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /> <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /> </svg><span class="medium large">Charts</span></a><a class="nav-item" href="../lab/primitives.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /> <path d="M20 3v4" /> <path d="M22 5h-4" /> <path d="M4 17v2" /> <path d="M5 18H3" /> </svg><span class="medium large">Lab</span></a><a class="nav-item" href="../skills/system-css.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /> </svg><span class="medium large">Skills</span></a></div>
+	</nav>
+	<header class="pg-main-header column">
+		<div class="spread"><h1>The form canon</h1></div>
+		<nav class="row mobile" aria-label="Sections" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../skills/system-css.html">Skills</a></nav><nav class="tabs-underline scroll-x" aria-label="Engine"><a href="../engine/overview.html">Overview</a><a href="../engine/one-file-one-spine.html">ONE file, one spine</a><a href="../engine/the-painter-model.html">The painter model</a><a href="../engine/the-cascade-constitution.html">The cascade constitution</a><a href="../engine/layout.html">Layout</a><a href="../engine/components.html">Components</a><a href="../engine/semantic-hue-locks-vs-number.html">SEMANTIC HUE LOCKS vs NUMBER FORMATTING</a><a href="../engine/the-rhythm-ladder.html">The rhythm ladder</a><a href="../engine/authoring-checklist.html">Authoring checklist</a><a href="../engine/view-transitions-the-fouc-ledger.html">View transitions &amp; the FOUC ledger</a><a href="../engine/the-form-canon.html" aria-current="page">The form canon</a></nav>
+	</header>
+	<main class="pg-main column owns-scroll">
+		<section class="column measure" style="--measure: 80ch; --gap: 1lh;">
+<h2 id="the-form-canon-gf-173-per-mike--follow-this-exactly">THE FORM CANON (gf-173, per Mike — follow this EXACTLY)</h2>
+<p>The practice bench lives at /admin/ui?cs=forms; the engine rules live in
+the form/fieldset sections of system.css. If a product form doesn't look
+like the bench specimens, the product form is wrong.</p>
+<ul>
+<li><strong>Everything lives in <code>&lt;fieldset&gt;</code>s.</strong> A fieldset is ONE ROW of
+fields; <code>&lt;legend&gt;</code> names the group (the legend's own <code>&lt;small&gt;</code> is the
+GROUP state slot). A form-section heading is <code>&lt;h3&gt;</code>.</li>
+<li><strong>Every field — checkboxes included — is label → small → control:</strong>
+<code>&lt;label&gt;&lt;span&gt;Name&lt;/span&gt;&lt;small&gt;&lt;/small&gt;&lt;input/&gt;&lt;/label&gt;</code> (checkbox:
+<code>&lt;label&gt;&lt;input/&gt;&lt;span&gt;Text&lt;/span&gt;&lt;small&gt;&lt;/small&gt;&lt;/label&gt;</code>). The EMPTY
+<code>&lt;small&gt;&lt;/small&gt;</code> is mandatory — it reserves the 1lh state row so the
+layout never shifts when a message lands.</li>
+<li><strong><code>&lt;small&gt;</code> is STATE, almost never a caption.</strong> Self-descriptor hint
+text is a smell — if information is truly needed, it belongs in the
+page's info popover. State lights the slot through the canonical
+channels only: <code>aria-invalid=&quot;true&quot;</code> on the control (danger hue +
+message in that field's small) or <code>.suc/.inf/.wrn/.dgr</code> on the label
+or fieldset. Never a separate error div.</li>
+<li><strong>Everything fills the entire width</strong> — controls by the canon's own
+rules; a lone submit <code>button</code> in a <code>.column</code> does NOT stretch on its
+own, it takes <code>class=&quot;fill&quot;</code> (gf-313: the wizard's buttons). Row shares ride
+<code>--row-width: &lt;number&gt;</code> — a BARE NUMBER (it is a registered
+<code>&lt;number&gt;</code> property; a flex shorthand like <code>1 1 100%</code> is INVALID and
+silently falls back to 1). Since gf-173 labels flex under legended
+fieldsets too; buttons keep hugging.</li>
+<li><strong>The submit runs through datastar:</strong>
+<code>data-on:submit__prevent={&quot;@post('&quot;+url+&quot;', {contentType: 'form'})&quot;}</code>.
+A file input additionally requires <code>enctype=&quot;multipart/form-data&quot;</code> on
+the form (gf-52 — without it the bundle silently drops the file). A
+second endpoint on the same form = a <code>data-on:click</code> @post button
+(formaction can't fire under __prevent; nested forms are
+parser-dropped, gf-63).</li>
+<li><strong>The handler stores → publishes → answers 204.</strong> Never HTML back,
+never a redirect on a datastar form; the fat-morph re-lands truth.
+<code>required</code> generates the asterisk — never hand-write one.</li>
+<li><strong><code>&lt;div role=&quot;form&quot;&gt;</code></strong> is the sanctioned formless spelling for a
+CQRS group (checkboxes that post individually) — same recipe, no
+submit.</li>
+<li><strong>State rides the OUTLINE, never the surface (gf-174):</strong> a stated
+field keeps its neutral raised background; the locked hue colors only
+the border and the small (the engine re-hues the bg back to ambient —
+don't fight it, don't add tinted backgrounds).</li>
+<li><strong>Fieldsets breathe:</strong> the engine gives a fieldset 0.35lh after
+itself inside a form (gf-174) — never add manual spacers between
+groups. An <code>&lt;hr&gt;</code> may draw the seam between CONCERNS in one form; a
+<code>&lt;details&gt;&lt;summary&gt;</code> folds a rarely-touched tail (fields inside
+follow the same canon).</li>
+<li><strong>The segmented groove splits EVENLY (gf-175):</strong> chips share the
+groove equally (flex: 1) and the checked chip wears the ACTIVE state
+paint (--bg: 1, inverted ink — same as [data-ui-state=&quot;active&quot;]). Be
+prudent: don't wear the groove where the longest option can't fit its
+equal share.</li>
+<li><strong>The LOCKED form (gf-175):</strong> the reading state — NOT disabled.
+<code>data-ui-state=&quot;locked&quot;</code> on the form (field chrome stands down,
+controls sleep, buttons stay live) + real <code>readonly</code> on text controls
+for AT (aria-readonly doesn't apply to role=form). The state rides a
+SIGNAL + data-attr bindings so fat-morphs re-land it intact (the
+orgEdit precedent); Unlock flips the signal, Save re-locks through
+the normal 204+publish, Cancel just re-locks and the morph restores
+stored values. Specimen on the bench.</li>
+<li><strong>THE SINGLE-ROW FORM (gf-183, per Mike):</strong> for concise surfaces
+that must not hog space — a chat composer, a compact search, an
+inline sign-in. ONE legend-less <code>&lt;fieldset&gt;</code>, BARE controls
+(aria-label + placeholder carry the name; no label grid, no state
+small), the submit hugging its own width (buttons hug in every
+fieldset). Weight fields with <code>--row-width</code> as usual. The moment a
+field needs a visible name or a state slot it has outgrown the
+pattern — use the full canon.</li>
+<li><strong>THE ACTION ROW (gf-176, per Mike): submit bottom-RIGHT, cancel
+bottom-LEFT, SPREAD apart</strong> — <code>&lt;div class=&quot;spread&quot;&gt;</code> as the form's
+last row (cancel/destructive first, submit last; a lone submit rides
+an empty <code>&lt;span&gt;&lt;/span&gt;</code> on the left). Opposite-effect buttons get
+maximum visual separation so a user can't fat-finger the wrong one.
+Never a centered or adjacent pair.</li>
+<li><strong>THE DATABASE FLOWS (gf-176 — wired specimens on the lab's Forms
+bench):</strong>
+(1) EDIT/SAVE/CANCEL — the draft mechanism: Edit seeds signals from
+the stored value (the seed expression is server-rendered, so morphs
+keep it fresh), typing stays client-side, Cancel discards, Save posts
+signals → 204 → morph re-lands truth.
+(2) UNLOCK/AUTOSAVE/LOCK — no draft, no Save: the bound field posts
+on <code>data-on:input__debounce.500ms</code>, the morph carries the receipt
+(&quot;saved …&quot; in the legend's small), Lock re-sleeps the chrome.
+(3) SQL PREFLIGHT (gf-177) — the draft debounces into a CHECK op that
+validates WITHOUT writing (business rules + a uniqueness query, self
+excluded) and stores draft+verdict in a scratch row; the morph
+disables Save and speaks a CONCISE per-rule message in the error
+small (which speaks ONLY on error); Save re-validates and lets the
+real UNIQUE constraint backstop a race; Cancel clears the scratch —
+nothing was ever written.
+(4) DEBOUNCED STORED-STATE VALIDATION — the value stores raw; the
+RENDER judges it and the morph delivers aria-invalid + the message in
+the field's small. Validation is stored state re-rendered — never
+client truth; a second tab goes red at the same instant.</li>
+<li><strong>THE LAYOUT-SHIFT DOCTRINE (gf-178, per Mike): whenever possible,
+do not cause layout shift.</strong> Editing must not reflow the page. For
+edits with significant validation, use the ANCHORED SMALL DIALOG:
+<code>.modal.sm.anchored</code> — the subject wears <code>anchor-name</code>, the dialog
+wears <code>position-anchor</code> (the sanctioned inline pair). ⚠ Chrome gives
+DIALOGS no implicit invoker anchor yet (popovertarget does, commandfor
+on a dialog does NOT — verified live, gf-183): the trigger wears
+<code>anchor-name</code>, its click stamps <code>el.style.positionAnchor</code> on the
+dialog BEFORE <code>commandfor</code> opens it (pinned from the first paint), and
+the server re-stamps it by morph from the stored edit state. One
+dialog, many triggers. It opens pinned beside the subject in the top
+layer (zero shift), growing toward inline-START (edit triggers live
+at row ends), with a <code>min-inline-size</code> in the recipe — without one,
+auto width silently SHRINKS into a cramped position-area region
+instead of overflowing it, and <code>position-try-fallbacks</code> never fire
+(fallbacks trigger on overflow only — verified live, gf-184). The platform gives the focus
+trap + an inert page (exactly ONE edit open, by construction) and
+Escape/light-dismiss ARE cancel — wire <code>data-on:close</code> to the cancel
+op so an abandoned edit can never leak scratch state. One dialog per
+surface, always in the DOM (the selected-row idiom), content +
+anchor server-rendered from stored edit state, kept open across
+morphs by <code>data-preserve-attr=&quot;open&quot;</code>. Inline editing remains right
+ONLY for trivial single-value flips (a status select, a checkbox) —
+anything with preflight rules earns the dialog.</li>
+<li><strong><code>.stress</code> is the lab's resize handle</strong> (resize: horizontal) — for
+stress-testing specimens only; product surfaces size by composition.</li>
+<li><strong>Radios have two spellings:</strong> a PLAIN group rides the checkbox
+recipe (input → span → small, one label per option, per-option state
+smalls); a short exclusive choice worn like a control is the
+SEGMENTED <code>.tabs</code> groove — a <code>div role=&quot;group&quot;</code> with a <code>.legend</code>
+child (NOT a fieldset — its anonymous box breaks tile stretch). Both
+A label may carry an ICON before its span (gf-362: Manufacturer |
+Wholesaler | Retailer with factory · truck · store); a disabled option
+keeps its chip and says why in <code>title</code>.
+are specimens on /admin/ui?cs=forms.</li>
+</ul>
+
+		</section>
+	</main>
+</div>
+<script>document.addEventListener('datastar-ready',()=>{try{const t=localStorage.getItem('theme')||'';window.ds&&window.ds.signals&&window.ds.signals.set('theme',t)}catch(e){}})</script>
+</body>
+</html>
