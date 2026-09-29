@@ -15,7 +15,7 @@ var exceptions = map[string]string{
 	// the shell's app-side words — an app stamps them; the site has no rail toggle, account or version
 	"focus-fab": "focus mode's control — an app stamps it", "i-expand": "the rail's collapse glyph pair", "i-collapse": "the rail's collapse glyph pair",
 	"nav-search": "the rail's search item (EventOS's command palette)", "nav-account": "the rail's account item", "nav-version": "the rail's version foot",
-	"org-mark": "the org's logo mark in the rail", "scroll-y": "a component-scrolled surface — specimen owed (the roster)",
+	"org-mark": "the org's logo mark in the rail",
 	// PRODUCT COMPONENTS THE ENGINE CARRIES (the review of 2026-09-29): each is a specimen owed, or a move to the app's project layer
 	"otable": "the outline table (EventOS Portfolio) — specimen or project layer", "otable-head": "otable", "otable-row": "otable", "otable-node": "otable", "otable-name": "otable", "otable-cell": "otable", "otable-fold": "otable", "otable-text": "otable",
 	"p-search": "the command palette (EventOS) — specimen or project layer", "p-scopes": "palette", "p-results": "palette", "p-hint": "palette", "p-group": "palette", "p-row": "palette", "p-body": "palette", "p-title": "palette", "p-sub": "palette", "p-ret": "palette", "p-foot": "palette",
