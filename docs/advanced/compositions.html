@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="color-scheme" content="dark light"/>
-<title>Complex screens from primitives — system.css</title>
+<title>Screens from primitives — system.css</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=optional" rel="stylesheet"/>
@@ -24,7 +24,7 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 <div class="page">
 	<header class="pg-header spread" style="--gap: 0.5em;">
 		<a href="../index.html" class="row oneline" style="--gap: 0.5em;"><strong>system.css</strong><small style="--fg: -0.55;">the engine</small></a>
-		<span class="row oneline tablet desktop" style="--gap: 0.75em;"><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">hue</small><input type="range" min="0" max="360" step="5" data-bind:hue data-on:change="save('hue', $hue)" style="inline-size: 6em;"/><code data-text="$hue"></code></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">skin</small><select data-bind:skin data-on:change="save('skin', $skin)"><option value="">default</option><option value="material">material</option><option value="carbon">carbon</option></select></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">corners</small><select data-bind:radius data-on:change="save('radius', $radius)"><option value="">default</option><option value="0">square</option><option value="1">soft</option><option value="2">round</option><option value="3">pill</option></select></label><span class="button-group" role="group" aria-label="Size" style="--type: -1;"><button type="button" data-attr:aria-pressed="$size == 'sm' ? 'true' : 'false'" data-on:click="$size = 'sm'; save('size', $size)">S</button><button type="button" data-attr:aria-pressed="$size == 'md' ? 'true' : 'false'" data-on:click="$size = 'md'; save('size', $size)">M</button><button type="button" data-attr:aria-pressed="$size == 'lg' ? 'true' : 'false'" data-on:click="$size = 'lg'; save('size', $size)">L</button></span><span class="button-group" role="group" aria-label="Motion" style="--type: -1;"><button type="button" data-attr:aria-pressed="$motion == 'off' ? 'true' : 'false'" data-on:click="$motion = 'off'; save('motion', $motion)">Off</button><button type="button" data-attr:aria-pressed="$motion == 'on' ? 'true' : 'false'" data-on:click="$motion = 'on'; save('motion', $motion)">On</button><button type="button" data-attr:aria-pressed="$motion == 'debug' ? 'true' : 'false'" data-on:click="$motion = 'debug'; save('motion', $motion)">Debug</button></span><span class="button-group" role="group" aria-label="Theme" style="--type: -1;"><button type="button" data-attr:aria-pressed="$theme == '' ? 'true' : 'false'" data-on:click="$theme = ''; save('theme', $theme)">System</button><button type="button" data-attr:aria-pressed="$theme == 'light' ? 'true' : 'false'" data-on:click="$theme = 'light'; save('theme', $theme)">Light</button><button type="button" data-attr:aria-pressed="$theme == 'dark' ? 'true' : 'false'" data-on:click="$theme = 'dark'; save('theme', $theme)">Dark</button></span></span>
+		<span class="row oneline tablet desktop" style="--gap: 0.75em;"><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">hue</small><input type="range" min="0" max="360" step="5" data-bind:hue data-on:change="save('hue', $hue)" style="inline-size: 6em;"/><span class="number" data-text="$hue"></span></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">skin</small><select data-bind:skin data-on:change="save('skin', $skin)"><option value="">default</option><option value="material">material</option><option value="carbon">carbon</option></select></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">corners</small><select data-bind:radius data-on:change="save('radius', $radius)"><option value="">default</option><option value="0">square</option><option value="1">soft</option><option value="2">round</option><option value="3">pill</option></select></label><span class="button-group" role="group" aria-label="Size" style="--type: -1;"><button type="button" data-attr:aria-pressed="$size == 'sm' ? 'true' : 'false'" data-on:click="$size = 'sm'; save('size', $size)">S</button><button type="button" data-attr:aria-pressed="$size == 'md' ? 'true' : 'false'" data-on:click="$size = 'md'; save('size', $size)">M</button><button type="button" data-attr:aria-pressed="$size == 'lg' ? 'true' : 'false'" data-on:click="$size = 'lg'; save('size', $size)">L</button></span><span class="button-group" role="group" aria-label="Motion" style="--type: -1;"><button type="button" data-attr:aria-pressed="$motion == 'off' ? 'true' : 'false'" data-on:click="$motion = 'off'; save('motion', $motion)">Off</button><button type="button" data-attr:aria-pressed="$motion == 'on' ? 'true' : 'false'" data-on:click="$motion = 'on'; save('motion', $motion)">On</button><button type="button" data-attr:aria-pressed="$motion == 'debug' ? 'true' : 'false'" data-on:click="$motion = 'debug'; save('motion', $motion)">Debug</button></span><span class="button-group" role="group" aria-label="Theme" style="--type: -1;"><button type="button" data-attr:aria-pressed="$theme == '' ? 'true' : 'false'" data-on:click="$theme = ''; save('theme', $theme)">System</button><button type="button" data-attr:aria-pressed="$theme == 'light' ? 'true' : 'false'" data-on:click="$theme = 'light'; save('theme', $theme)">Light</button><button type="button" data-attr:aria-pressed="$theme == 'dark' ? 'true' : 'false'" data-on:click="$theme = 'dark'; save('theme', $theme)">Dark</button></span></span>
 		<span class="row oneline" style="--gap: 0.5em;">
 			<a href="https://github.com/Deufel/system-css" style="--type: -1;">GitHub</a>
 			<button type="button" class="icon mobile" aria-label="Theme" title="Theme: system → dark → light" data-on:click="$theme = $theme == '' ? 'dark' : ($theme == 'dark' ? 'light' : ''); save('theme', $theme)">
@@ -39,71 +39,56 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 	</nav>
 	<header class="pg-main-header column">
 		<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">system.css</a><a href="../advanced/wash.html">Advanced</a></nav>
-		<div class="spread"><h1>Complex screens from primitives</h1></div>
-		<details class="site-menu mobile column" style="--gap: 0.25lh;"><summary class="tag">Menu</summary><div class="row" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../advanced/wash.html">Advanced</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../demos/full-pages.html">Demos</a><a class="tag" href="../skills/system-css.html">Skills</a></div><div class="column" style="--gap: 0; --type: -1;"><a href="../advanced/wash.html">The wash</a><a href="../advanced/stack.html">The stack</a><a href="../advanced/compositions.html">Complex screens from primitives</a><a href="../advanced/canvas.html">Canvas and rise</a></div></details>
+		<div class="spread"><h1>Screens from primitives</h1></div>
+		<details class="site-menu mobile column" style="--gap: 0.25lh;"><summary class="tag">Menu</summary><div class="row" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../advanced/wash.html">Advanced</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../demos/full-pages.html">Demos</a><a class="tag" href="../skills/system-css.html">Skills</a></div><div class="column" style="--gap: 0; --type: -1;"><a href="../advanced/wash.html">The wash</a><a href="../advanced/stack.html">The stack</a><a href="../advanced/compositions.html">Screens from primitives</a><a href="../advanced/canvas.html">Canvas and rise</a></div></details>
 	</header>
-	<nav class="pg-toolbar spread-column tablet desktop" aria-label="Advanced"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">Advanced</small><a class="nav-item" href="../advanced/wash.html"><span class="medium large">The wash</span></a><a class="nav-item" href="../advanced/stack.html"><span class="medium large">The stack</span></a><a class="nav-item" href="../advanced/compositions.html" aria-current="page"><span class="medium large">Complex screens from primitives</span></a><a class="nav-item" href="../advanced/canvas.html"><span class="medium large">Canvas and rise</span></a></div></nav>
+	<nav class="pg-toolbar spread-column tablet desktop" aria-label="Advanced"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">Advanced</small><a class="nav-item" href="../advanced/wash.html"><span class="medium large">The wash</span></a><a class="nav-item" href="../advanced/stack.html"><span class="medium large">The stack</span></a><a class="nav-item" href="../advanced/compositions.html" aria-current="page"><span class="medium large">Screens from primitives</span></a><a class="nav-item" href="../advanced/canvas.html"><span class="medium large">Canvas and rise</span></a></div></nav>
 	<main class="pg-main column owns-scroll">
 		<section class="column measure" style="--measure: 3; --gap: 1lh;">
-<p>There is no dashboard component, no split view, no kanban. There are
-regions, a handful of primitives, the stack and the overlay slots, and
-every complex screen is those in some order. Six recipes that cover most
-of what an operations product asks for.</p>
-<h2 id="the-working-screen">The working screen</h2>
-<p>The shell with a rail, a toolbar rail for the view's members, the
-canvas for the work, an aside for context:</p>
+<p>There is no dashboard component, split view or kanban. A complex screen
+is regions, primitives, the stack and the overlay slots.</p>
+<h2 id="working-screen">Working screen</h2>
 <div class="column" style="--gap: 0;"><div class="spread" style="--type: -2; --fg: -0.55;"><small>html</small><copy-button code="&lt;div class=&#34;page&#34;&gt;
   &lt;header class=&#34;pg-header&#34;&gt;…&lt;/header&gt;
   &lt;nav class=&#34;pg-navigation spread-column tablet desktop&#34;&gt;…&lt;/nav&gt;
-  &lt;header class=&#34;pg-main-header column&#34;&gt;…crumbs, title, verbs…&lt;/header&gt;
-  &lt;nav class=&#34;pg-main-subheader&#34;&gt;&lt;div class=&#34;tabs-underline&#34;&gt;…views…&lt;/div&gt;&lt;/nav&gt;
-  &lt;nav class=&#34;pg-toolbar spread-column tablet desktop&#34;&gt;…the view&#39;s members…&lt;/nav&gt;
+  &lt;header class=&#34;pg-main-header column&#34;&gt;…&lt;/header&gt;
+  &lt;nav class=&#34;pg-main-subheader&#34;&gt;&lt;div class=&#34;tabs-underline&#34;&gt;…&lt;/div&gt;&lt;/nav&gt;
+  &lt;nav class=&#34;pg-toolbar spread-column tablet desktop&#34;&gt;…&lt;/nav&gt;
   &lt;main class=&#34;pg-main column owns-scroll&#34;&gt;…&lt;/main&gt;
   &lt;aside class=&#34;pg-aside desktop&#34;&gt;…&lt;/aside&gt;
 &lt;/div&gt;
 "><button type="button" class="icon" aria-label="Copy" title="Copy"><span class="copy-idle">⧉</span><span class="copy-done" hidden>✓</span></button></copy-button></div><pre><code class="html">&lt;div class=&quot;page&quot;&gt;
   &lt;header class=&quot;pg-header&quot;&gt;…&lt;/header&gt;
   &lt;nav class=&quot;pg-navigation spread-column tablet desktop&quot;&gt;…&lt;/nav&gt;
-  &lt;header class=&quot;pg-main-header column&quot;&gt;…crumbs, title, verbs…&lt;/header&gt;
-  &lt;nav class=&quot;pg-main-subheader&quot;&gt;&lt;div class=&quot;tabs-underline&quot;&gt;…views…&lt;/div&gt;&lt;/nav&gt;
-  &lt;nav class=&quot;pg-toolbar spread-column tablet desktop&quot;&gt;…the view's members…&lt;/nav&gt;
+  &lt;header class=&quot;pg-main-header column&quot;&gt;…&lt;/header&gt;
+  &lt;nav class=&quot;pg-main-subheader&quot;&gt;&lt;div class=&quot;tabs-underline&quot;&gt;…&lt;/div&gt;&lt;/nav&gt;
+  &lt;nav class=&quot;pg-toolbar spread-column tablet desktop&quot;&gt;…&lt;/nav&gt;
   &lt;main class=&quot;pg-main column owns-scroll&quot;&gt;…&lt;/main&gt;
   &lt;aside class=&quot;pg-aside desktop&quot;&gt;…&lt;/aside&gt;
 &lt;/div&gt;
 </code></pre></div>
-<p>The regions a screen does not use, it leaves out. The <a href="../demos/dashboard.html">dashboard
-demo</a> is this shape.</p>
+<p>Leave out unused regions. The <a href="../demos/dashboard.html">dashboard demo</a>
+is this shape.</p>
 <h2 id="tiles">Tiles</h2>
-<p>A <code>.grid</code> with <code>--grid-min</code> and <code>.card</code> children: as many columns as fit
-at that minimum, one on a phone, the <code>.row-wide</code> child taking the whole
-row for a hero tile. A tile is a <code>.column</code> of a caption, a <code>.num</code> and a
-sparkline; nothing is sized by hand.</p>
-<h2 id="the-roster-with-a-detail">The roster with a detail</h2>
-<p>The roster in <code>pg-main</code>, the detail in a right <code>.drawer</code> opened from the
-row. The row stays where it was; the drawer edits it; the stream re-lands
-both. On a wide screen the detail can be <code>pg-main-aside</code> instead, and the
-choice is one class.</p>
-<h2 id="a-chart-with-its-states">A chart with its states</h2>
-<p>A <code>.card</code> holding a <code>.stack</code>: the chart, and over it a <code>.glass</code> veil while
-the numbers refresh, or an <code>.alert</code> when there are none. The card never
-changes height between states.</p>
+<p><code>.grid</code> with <code>--grid-min</code> and <code>.card</code> children. <code>.row-wide</code> takes the
+whole row. A tile is a <code>.column</code> of a caption, a <code>.num</code> and a sparkline.</p>
+<h2 id="roster-with-a-detail">Roster with a detail</h2>
+<p>The roster in <code>pg-main</code>. The detail in a right <code>.drawer</code> opened from the
+row, or in <code>pg-main-aside</code> on a wide screen.</p>
+<h2 id="chart-with-states">Chart with states</h2>
+<p>A <code>.card</code> holding a <code>.stack</code>: the chart, a <code>.glass</code> veil while it
+refreshes, an <code>.alert</code> when empty. The card's height does not change.</p>
 <h2 id="overlays">Overlays</h2>
-<p><code>.hud</code> is a fixed, click-through grid with nine slots, <code>.tl</code> to <code>.br</code>: the
-fab cluster, the toast pile, a floating &quot;back to top&quot;. Nothing inside a
-region has to know about them, and a morph cannot disturb them.</p>
-<h2 id="the-three-zone-header">The three-zone header</h2>
-<p><code>.lcr</code> is a <code>1fr auto 1fr</code> grid: a left thing, a centred thing, a right
-thing, each aligned to its zone without a margin trick. A page header on
-a phone, a dialog's head, a toolbar's middle.</p>
-<h2 id="the-rule-under-all-of-them">The rule under all of them</h2>
-<p>Every one of these is composition: primitives, knobs, ARIA state,
-the regions. The day a screen seems to need a class of its own, it is
-either a specimen the lab lacks or a composition not yet found. Raise it
-at the bench; do not write the class.</p>
+<p><code>.hud</code> is a fixed, click-through grid with nine slots, <code>.tl</code> to <code>.br</code>:
+the fab cluster, the toast pile.</p>
+<h2 id="three-zone-header">Three-zone header</h2>
+<p><code>.lcr</code> is a <code>1fr auto 1fr</code> grid: left, centre, right.</p>
+<p>If a screen seems to need a class of its own, it is a specimen the lab
+lacks or a composition not yet found. Raise it at the lab.</p>
 
 		</section>
 	</main>
-	<aside class="pg-aside desktop"><nav class="toc column" aria-label="On this page" style="--gap: 0; --type: -1;"><small class="rail-head">On this page</small><a href="#the-working-screen">The working screen</a><a href="#tiles">Tiles</a><a href="#the-roster-with-a-detail">The roster with a detail</a><a href="#a-chart-with-its-states">A chart with its states</a><a href="#overlays">Overlays</a><a href="#the-three-zone-header">The three-zone header</a><a href="#the-rule-under-all-of-them">The rule under all of them</a></nav></aside><footer class="pg-main-footer spread" style="--type: -1;"><span><a href="../advanced/stack.html">← The stack</a></span><span><a href="../advanced/canvas.html">Canvas and rise →</a></span></footer>
+	<aside class="pg-aside desktop"><nav class="toc column" aria-label="On this page" style="--gap: 0; --type: -1;"><small class="rail-head">On this page</small><a href="#working-screen">Working screen</a><a href="#tiles">Tiles</a><a href="#roster-with-a-detail">Roster with a detail</a><a href="#chart-with-states">Chart with states</a><a href="#overlays">Overlays</a><a href="#three-zone-header">Three-zone header</a></nav></aside><footer class="pg-main-footer spread" style="--type: -1;"><span><a href="../advanced/stack.html">← The stack</a></span><span><a href="../advanced/canvas.html">Canvas and rise →</a></span></footer>
 </div>
 <script src="../static/highlight.js"></script>
 </body>

@@ -1,4 +1,4 @@
-dashboard.html	Operations dashboard	dark · hue 255 · corners 2	Stat tiles with sparklines, revenue over time, a ranked dot plot, horizontal bars on a shifted hue, a live list on the semantic locks, an invoice table and the aside — the ten-slot app shell.
-report.html	Quarterly report	light · material · hue 150	A long-form report on the reading measure with a contents aside: columns, horizontal bars and a ranked dot plot each on its own hue turn, the number family for valence and time, a pull quote on a lift.
-field.html	Field app	phone · hue 30 · pill corners · large type	A rep's day on the phone shell: the wash under everything, the live visit with its clock and a hold-to-confirm, planned and late visits on the semantic locks, a dock in the footer.
-landing.html	Landing page	dark · hue 320 · the wash	A marketing page on the wash: a hero on a viewport share with display type, a feature grid stepping the hue, a growth chart beside a quote on a lift, pricing tiers, a footer.
+dashboard.html	Operations dashboard	dark · hue 255 · corners 2	Stat tiles with sparklines, a line chart, a dot plot, horizontal bars, a live list, a table, an aside.
+report.html	Quarterly report	light · material · hue 150	A report on the reading measure with a contents aside: columns, horizontal bars, a dot plot, the number family, a quote.
+field.html	Field app	phone · hue 30 · pill corners · large type	The phone shell: a wash, a live visit with a hold-to-confirm, a dock.
+landing.html	Landing page	dark · hue 320 · the wash	A marketing page on the wash: a hero on a rise, a feature grid, a chart, pricing tiers.

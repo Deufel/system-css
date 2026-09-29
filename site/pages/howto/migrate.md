@@ -1,17 +1,16 @@
 ---
 title: Migrations
 section: howto
-order: 5
+order: 6
 ---
 
-The schema is a directory of numbered SQL files. The baseline is the
-whole declaration; every later file is one change; the runner applies
-them in order, once, each in its own transaction with a foreign-key
-check before commit, and records a checksum so a committed file can
-never change. The module lives at
+The schema is a directory of numbered SQL files. The first is the whole
+declaration. Each later file is one change. The runner applies them in
+order, once, each in a transaction with a foreign-key check before
+commit, and records a checksum. A committed file never changes. Module:
 [github.com/Deufel/migrate](https://github.com/Deufel/migrate).
 
-## Boot wiring
+## Boot
 
 ```go
 import "github.com/Deufel/migrate"
@@ -33,18 +32,17 @@ func open(path string) (*sql.DB, error) {
 }
 ```
 
-## The next change
+## Next change
 
 ```
 go run github.com/Deufel/migrate/cmd/migrate -dir db/migrations new add-visit-table
 ```
 
-A structure change is a rebuild written in SQL: create the new table,
-`INSERT … SELECT`, drop the old, rename, recreate the indexes. The
-declaration changes and the data follows in the same file. A file that
-strands a child row is refused whole.
+A structure change is written as SQL: create the new table, `INSERT …
+SELECT`, drop the old, rename, recreate indexes. A file that strands a
+child row is refused.
 
-## Reading the record
+## Status
 
 ```
 go run github.com/Deufel/migrate/cmd/migrate -db data/app.db -dir db/migrations status

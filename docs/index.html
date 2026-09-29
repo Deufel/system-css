@@ -24,7 +24,7 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 <div class="page">
 	<header class="pg-header spread" style="--gap: 0.5em;">
 		<a href="./index.html" class="row oneline" style="--gap: 0.5em;"><strong>system.css</strong><small style="--fg: -0.55;">the engine</small></a>
-		<span class="row oneline tablet desktop" style="--gap: 0.75em;"><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">hue</small><input type="range" min="0" max="360" step="5" data-bind:hue data-on:change="save('hue', $hue)" style="inline-size: 6em;"/><code data-text="$hue"></code></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">skin</small><select data-bind:skin data-on:change="save('skin', $skin)"><option value="">default</option><option value="material">material</option><option value="carbon">carbon</option></select></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">corners</small><select data-bind:radius data-on:change="save('radius', $radius)"><option value="">default</option><option value="0">square</option><option value="1">soft</option><option value="2">round</option><option value="3">pill</option></select></label><span class="button-group" role="group" aria-label="Size" style="--type: -1;"><button type="button" data-attr:aria-pressed="$size == 'sm' ? 'true' : 'false'" data-on:click="$size = 'sm'; save('size', $size)">S</button><button type="button" data-attr:aria-pressed="$size == 'md' ? 'true' : 'false'" data-on:click="$size = 'md'; save('size', $size)">M</button><button type="button" data-attr:aria-pressed="$size == 'lg' ? 'true' : 'false'" data-on:click="$size = 'lg'; save('size', $size)">L</button></span><span class="button-group" role="group" aria-label="Motion" style="--type: -1;"><button type="button" data-attr:aria-pressed="$motion == 'off' ? 'true' : 'false'" data-on:click="$motion = 'off'; save('motion', $motion)">Off</button><button type="button" data-attr:aria-pressed="$motion == 'on' ? 'true' : 'false'" data-on:click="$motion = 'on'; save('motion', $motion)">On</button><button type="button" data-attr:aria-pressed="$motion == 'debug' ? 'true' : 'false'" data-on:click="$motion = 'debug'; save('motion', $motion)">Debug</button></span><span class="button-group" role="group" aria-label="Theme" style="--type: -1;"><button type="button" data-attr:aria-pressed="$theme == '' ? 'true' : 'false'" data-on:click="$theme = ''; save('theme', $theme)">System</button><button type="button" data-attr:aria-pressed="$theme == 'light' ? 'true' : 'false'" data-on:click="$theme = 'light'; save('theme', $theme)">Light</button><button type="button" data-attr:aria-pressed="$theme == 'dark' ? 'true' : 'false'" data-on:click="$theme = 'dark'; save('theme', $theme)">Dark</button></span></span>
+		<span class="row oneline tablet desktop" style="--gap: 0.75em;"><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">hue</small><input type="range" min="0" max="360" step="5" data-bind:hue data-on:change="save('hue', $hue)" style="inline-size: 6em;"/><span class="number" data-text="$hue"></span></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">skin</small><select data-bind:skin data-on:change="save('skin', $skin)"><option value="">default</option><option value="material">material</option><option value="carbon">carbon</option></select></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">corners</small><select data-bind:radius data-on:change="save('radius', $radius)"><option value="">default</option><option value="0">square</option><option value="1">soft</option><option value="2">round</option><option value="3">pill</option></select></label><span class="button-group" role="group" aria-label="Size" style="--type: -1;"><button type="button" data-attr:aria-pressed="$size == 'sm' ? 'true' : 'false'" data-on:click="$size = 'sm'; save('size', $size)">S</button><button type="button" data-attr:aria-pressed="$size == 'md' ? 'true' : 'false'" data-on:click="$size = 'md'; save('size', $size)">M</button><button type="button" data-attr:aria-pressed="$size == 'lg' ? 'true' : 'false'" data-on:click="$size = 'lg'; save('size', $size)">L</button></span><span class="button-group" role="group" aria-label="Motion" style="--type: -1;"><button type="button" data-attr:aria-pressed="$motion == 'off' ? 'true' : 'false'" data-on:click="$motion = 'off'; save('motion', $motion)">Off</button><button type="button" data-attr:aria-pressed="$motion == 'on' ? 'true' : 'false'" data-on:click="$motion = 'on'; save('motion', $motion)">On</button><button type="button" data-attr:aria-pressed="$motion == 'debug' ? 'true' : 'false'" data-on:click="$motion = 'debug'; save('motion', $motion)">Debug</button></span><span class="button-group" role="group" aria-label="Theme" style="--type: -1;"><button type="button" data-attr:aria-pressed="$theme == '' ? 'true' : 'false'" data-on:click="$theme = ''; save('theme', $theme)">System</button><button type="button" data-attr:aria-pressed="$theme == 'light' ? 'true' : 'false'" data-on:click="$theme = 'light'; save('theme', $theme)">Light</button><button type="button" data-attr:aria-pressed="$theme == 'dark' ? 'true' : 'false'" data-on:click="$theme = 'dark'; save('theme', $theme)">Dark</button></span></span>
 		<span class="row oneline" style="--gap: 0.5em;">
 			<a href="https://github.com/Deufel/system-css" style="--type: -1;">GitHub</a>
 			<button type="button" class="icon mobile" aria-label="Theme" title="Theme: system → dark → light" data-on:click="$theme = $theme == '' ? 'dark' : ($theme == 'dark' ? 'light' : ''); save('theme', $theme)">
@@ -45,55 +45,44 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 	
 	<main class="pg-main column owns-scroll">
 		<section class="column measure" style="--measure: 3; --gap: 1lh;">
-<p><strong>system.css</strong> is a design <em>engine</em>, not a component library. You write
-semantic HTML and a handful of composition classes, then theme everything
-through a few inherited custom properties: <code>--hue</code>, <code>--bg</code>, <code>--fg</code>,
-<code>--type</code>, <code>--lift</code>, <code>--gap</code>. There is no <code>.btn-primary</code>. A button is a
-button; its look comes from the knobs it inherits.</p>
-<p>This site is the engine's dictionary and its law, generated from the same
-files an agent loads when it works on a project built on the stack:</p>
+<p>system.css is a design engine, not a component library. You write
+semantic HTML and a few composition classes, then set inherited custom
+properties: <code>--hue</code>, <code>--bg</code>, <code>--fg</code>, <code>--type</code>, <code>--lift</code>, <code>--gap</code>. There
+is no <code>.btn-primary</code>. A button is a button.</p>
+<p>This site is generated from the same files an agent loads to work on a
+project built on the stack.</p>
 <ul>
-<li><strong>How-to</strong> — start a project, author a page, a form, a rocket, the
-land-and-stream server, the migrations.</li>
-<li><strong>Engine</strong> — the painter model, the cascade constitution, layout, the
-rhythm ladder, the FOUC ledger, the form canon. The <code>system-css</code> skill,
-page by page.</li>
-<li><strong>Components</strong> — Datastar-driven components over a baked DOM, and the
-rocket state canon. The <code>datastar-components</code> skill.</li>
-<li><strong>Land &amp; stream</strong> — the server half: pure CQRS, the one view channel,
-morph at scale. The <code>land-and-stream</code> skill.</li>
-<li><strong>Charts</strong> — server-rendered SVG styled entirely through the engine.
-The <code>svg-charts</code> skill.</li>
-<li><strong>Lab</strong> — every specimen, live: primitives, compositions, colour, type,
-icons, state, ARIA, forms, charts, and the rocket benches.</li>
-<li><strong>Skills</strong> — the four skill files as an agent reads them, raw.</li>
+<li><strong>How-to</strong>: start a project, the shell, a page, a form, a rocket, the
+server, migrations.</li>
+<li><strong>Engine</strong>: the <code>system-css</code> skill, one page per section.</li>
+<li><strong>Components</strong>: the <code>datastar-components</code> skill.</li>
+<li><strong>Land &amp; stream</strong>: the <code>land-and-stream</code> skill, the server half.</li>
+<li><strong>Charts</strong>: the <code>svg-charts</code> skill.</li>
+<li><strong>Advanced</strong>: the wash, the stack, canvas and rise, composing screens.</li>
+<li><strong>Lab</strong>: every specimen, live.</li>
+<li><strong>Demos</strong>: full pages on the engine.</li>
+<li><strong>Skills</strong>: the four skill files, raw.</li>
 </ul>
-<h2 id="the-three-laws-in-one-breath">The three laws in one breath</h2>
+<h2 id="laws">Laws</h2>
 <ol>
-<li><strong>One file, one spine.</strong> The engine is a single stylesheet with a fixed
-<code>@layer</code> order. Layers decide the cascade; specificity is zero
-everywhere. A specificity fight is a system failure, never a patch.</li>
-<li><strong>No new classes.</strong> Every surface composes the existing primitives
-and the style API. A gap in the vocabulary is raised at the lab bench,
-never filled with a one-off class.</li>
-<li><strong>Navigation is the browser's.</strong> Plain links and redirects; the
-backend owns state; the fat morph is the stream's verb. Signals
-sparingly; statics are the only cache.</li>
+<li>One file, one spine. Layers decide the cascade. Specificity is zero.</li>
+<li>No new classes. Compose the primitives and the knobs. A gap is raised
+at the lab, not filled with a class.</li>
+<li>Knobs are steps, not lengths.</li>
+<li>Nothing shifts. A change of state or value does not move its
+neighbours.</li>
+<li>Navigation is the browser's. The server owns state. Signals are rare.</li>
 </ol>
-<h2 id="where-to-start">Where to start</h2>
-<p>Read <a href="howto/start.html">Start a project</a>, then keep the
-<a href="engine/overview.html">Engine overview</a> open while you build. When a
-page looks wrong, the <a href="lab/primitives.html">Lab</a> shows what right looks
-like.</p>
-<h2 id="the-sibling-library">The sibling library</h2>
-<p><a href="https://github.com/Deufel/migrate">migrate</a> runs the numbered SQL
-migrations for SQLite: one file per change, one transaction per file, a
-foreign-key check before commit, a checksum on record. Its README is its
-specification; <a href="howto/migrate.html">the how-to</a> shows the boot wiring.</p>
+<h2 id="start">Start</h2>
+<p>Read <a href="howto/start.html">Start a project</a>. Keep the
+<a href="engine/overview.html">Engine</a> open while you build. The
+<a href="lab/primitives.html">Lab</a> shows what correct looks like.</p>
+<p><a href="https://github.com/Deufel/migrate">migrate</a> runs the SQL migrations.
+<a href="howto/migrate.html">The how-to</a> shows the boot wiring.</p>
 
 		</section>
 	</main>
-	<aside class="pg-aside desktop"><nav class="toc column" aria-label="On this page" style="--gap: 0; --type: -1;"><small class="rail-head">On this page</small><a href="#the-three-laws-in-one-breath">The three laws in one breath</a><a href="#where-to-start">Where to start</a><a href="#the-sibling-library">The sibling library</a></nav></aside>
+	
 </div>
 <script src="./static/highlight.js"></script>
 </body>

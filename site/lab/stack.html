@@ -1,8 +1,8 @@
 <!-- Stack — THE LAB: a specimen of the engine, the dictionary of its vocabulary; edit here -->
 <div class="column" style="--gap: 1lh;" data-signals="{state: 'content', veil: false}">
 <div class="column" style="--gap: 0.25lh;">
-<strong>Stack — one cell, every layer</strong>
-<small style="--fg: -0.55;"><code>.stack</code> is a grid with a single named area; every child takes it. The children overlap and each fills the cell, so the cell is as tall as the tallest child. That is the point: <b>the same footprint for every state</b>. A form and its result, a skeleton and its content, a chart and its veil — swap them with <code>data-show</code> and nothing on the page moves.</small>
+<strong>Stack</strong>
+<small style="--fg: -0.55;"><code>.stack</code> is a grid with one area. Every child takes it. The cell is as tall as the tallest child, so swapping children with <code>data-show</code> moves nothing else.</small>
 </div>
 <div class="grid" style="--grid-min: 20rem;">
 <div class="card column" style="--gap: 0.5lh;"><strong>States in one footprint</strong>
@@ -20,7 +20,7 @@
 <div class="column glass card" data-show="$veil" style="display: none;"><strong>Refreshing…</strong><small style="--fg: -0.55;">the numbers behind stay in place</small></div>
 </div></div>
 <div class="card column" style="--gap: 0.5lh;"><strong>A caption on a frame</strong>
-<div class="stack"><div class="frame" style="--bg: 0.25;"><div class="bg" style="--bg: 0.25; --hue-shift: 40;"></div></div><div class="column" style="--gap: 0;"><span class="row oneline" style="--gap: 0.5em;"><span class="tag inf">venue</span><strong>Riverwalk Fest</strong></span><small style="--fg: -0.55;">the layer fills the frame; a card inside it would carry its own surface</small></div></div></div>
+<div class="stack"><div class="frame" style="--bg: 0.25;"><div class="bg" style="--bg: 0.25; --hue-shift: 40;"></div></div><div class="column" style="--gap: 0;"><span class="row oneline" style="--gap: 0.5em;"><span class="tag inf">venue</span><strong>Riverwalk Fest</strong></span><small style="--fg: -0.55;">the layer fills the frame</small></div></div></div>
 </div>
 <pre><code class="html">&lt;div class="stack"&gt;
   &lt;div class="column" data-show="$state == 'loading'" style="display: none;"&gt;…&lt;/div&gt;

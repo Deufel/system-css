@@ -4,27 +4,23 @@ section: advanced
 order: 1
 ---
 
-`.stack` is a grid with one named area, and every child takes it:
-
 ```css
 :where(.stack) { display: grid; grid-template-areas: "stack"; & > * { grid-area: stack } }
 ```
 
-So the children overlap, each fills the cell, and the cell is as tall as
-the tallest of them. That one property is the whole tool.
+Every child takes the one cell. They overlap, each fills it, and the
+cell is as tall as the tallest child.
 
-## The same footprint for every state
+## States in one footprint
 
-A region that can be loading, filled, empty or failed usually reflows as
-it changes. Put the four states in a stack and toggle them with
-`data-show`; the cell keeps the height of the tallest, and nothing else
-on the page moves while a request is in flight. The seed-hide law
-applies: a state that is false at land carries `style="display: none;"`
-so the landed HTML never paints two states for a frame.
+Put loading, content, empty and error in a stack and toggle them with
+`data-show`. The cell keeps the tallest height; nothing else moves while
+a request is in flight. A state false at land carries
+`style="display: none;"`.
 
 ```html
 <div class="stack">
-  <div class="column" data-show="$state == 'loading'" style="display: none;">…skeleton…</div>
+  <div class="column" data-show="$state == 'loading'" style="display: none;">…</div>
   <div class="column" data-show="$state == 'content'">…</div>
   <div class="alert inf" data-show="$state == 'empty'" style="display: none;"><div>Nothing yet.</div></div>
 </div>
@@ -32,18 +28,12 @@ so the landed HTML never paints two states for a frame.
 
 ## A layer over a thing
 
-A veil over a chart while it refreshes, a caption over a frame, a scrim
-with a message over a table: the layer is a `.glass` or a `.card` that
-fills the cell. It carries its own surface, so the thing beneath stays
-legible through the glass and hidden under the card, whichever you
-chose. Placement inside the cell is not the stack's job: a layer fills
-it. For a badge in a corner, use the `.hud` slots on a fixed overlay, or
-a `.spread` row above the thing.
+A `.glass` veil over a chart while it refreshes, a caption over a frame:
+the layer fills the cell and carries its own surface. Placement inside
+the cell is not the stack's job. For a corner badge use a `.spread` row
+above the thing, or the `.hud` slots on a fixed overlay.
 
-## Where it does not belong
+## Not for
 
-Anything that should push its neighbours. A stack hides height changes;
-a list that grows should grow. And never as a positioning trick for one
-element: a single child in a stack is a `.column`.
-
-The [Stack specimen](../lab/stack.html) has the three patterns live.
+Anything that should push its neighbours. A single child.
+[Specimen](../lab/stack.html).

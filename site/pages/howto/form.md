@@ -1,15 +1,12 @@
 ---
 title: Author a form
 section: howto
-order: 2
+order: 3
 ---
 
-Forms follow one canon exactly. Fieldsets own structure; every field is
-`label → small → control`; `small` is the STATE slot, never a caption;
-everything fills the width; Datastar submits; the handler answers 204
-and the stream re-lands the page.
-
-## The shape
+Fieldsets own structure. Each field is `label → small → control`. The
+`small` holds state, not a caption. Everything fills the width. Datastar
+submits. The handler answers 204 and the stream re-lands the page.
 
 ```html
 <form data-on:submit__prevent="@post('/o/1/settings/warehouses', {contentType: 'form'})">
@@ -41,20 +38,15 @@ and the stream re-lands the page.
 </form>
 ```
 
-## The rules that bite
+## Rules
 
-- The `small` under a field carries its state — the validation message,
-  a "saved" word — and is empty at rest. Captions go in the legend.
+- The field's `small` is empty at rest. It carries the validation
+  message or a "saved". Captions go in the legend.
 - `--row-width` on a label spans it across the fieldset's columns.
-- A stored value is judged by the render: `aria-invalid="true"` on the
-  control and the message in its `small`, never a client-side check the
-  server does not repeat.
-- The record form is THE EDIT CARD: a pencil unlocks, Cancel is a native
-  `type="reset"` (fields fall back to their stored values), Save posts.
-  One grammar for every record.
-- `@post(url, {contentType: 'form'})` ships the form's own fields, so no
-  signal has to mirror an input. Reach for signals only for state the
-  server does not hold.
-- A wizard lights the one control to press next with
-  `data-ui-state="guide"`; it never explains in prose what the control
-  already says.
+- The server judges a stored value: `aria-invalid="true"` on the control,
+  the message in its `small`.
+- A record's form is the edit card: a pencil unlocks, Cancel is a native
+  `type="reset"`, Save posts.
+- `@post(url, {contentType: 'form'})` sends the form's fields. No signal
+  mirrors an input.
+- A wizard lights the next control with `data-ui-state="guide"`.

@@ -24,7 +24,7 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 <div class="page">
 	<header class="pg-header spread" style="--gap: 0.5em;">
 		<a href="../index.html" class="row oneline" style="--gap: 0.5em;"><strong>system.css</strong><small style="--fg: -0.55;">the engine</small></a>
-		<span class="row oneline tablet desktop" style="--gap: 0.75em;"><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">hue</small><input type="range" min="0" max="360" step="5" data-bind:hue data-on:change="save('hue', $hue)" style="inline-size: 6em;"/><code data-text="$hue"></code></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">skin</small><select data-bind:skin data-on:change="save('skin', $skin)"><option value="">default</option><option value="material">material</option><option value="carbon">carbon</option></select></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">corners</small><select data-bind:radius data-on:change="save('radius', $radius)"><option value="">default</option><option value="0">square</option><option value="1">soft</option><option value="2">round</option><option value="3">pill</option></select></label><span class="button-group" role="group" aria-label="Size" style="--type: -1;"><button type="button" data-attr:aria-pressed="$size == 'sm' ? 'true' : 'false'" data-on:click="$size = 'sm'; save('size', $size)">S</button><button type="button" data-attr:aria-pressed="$size == 'md' ? 'true' : 'false'" data-on:click="$size = 'md'; save('size', $size)">M</button><button type="button" data-attr:aria-pressed="$size == 'lg' ? 'true' : 'false'" data-on:click="$size = 'lg'; save('size', $size)">L</button></span><span class="button-group" role="group" aria-label="Motion" style="--type: -1;"><button type="button" data-attr:aria-pressed="$motion == 'off' ? 'true' : 'false'" data-on:click="$motion = 'off'; save('motion', $motion)">Off</button><button type="button" data-attr:aria-pressed="$motion == 'on' ? 'true' : 'false'" data-on:click="$motion = 'on'; save('motion', $motion)">On</button><button type="button" data-attr:aria-pressed="$motion == 'debug' ? 'true' : 'false'" data-on:click="$motion = 'debug'; save('motion', $motion)">Debug</button></span><span class="button-group" role="group" aria-label="Theme" style="--type: -1;"><button type="button" data-attr:aria-pressed="$theme == '' ? 'true' : 'false'" data-on:click="$theme = ''; save('theme', $theme)">System</button><button type="button" data-attr:aria-pressed="$theme == 'light' ? 'true' : 'false'" data-on:click="$theme = 'light'; save('theme', $theme)">Light</button><button type="button" data-attr:aria-pressed="$theme == 'dark' ? 'true' : 'false'" data-on:click="$theme = 'dark'; save('theme', $theme)">Dark</button></span></span>
+		<span class="row oneline tablet desktop" style="--gap: 0.75em;"><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">hue</small><input type="range" min="0" max="360" step="5" data-bind:hue data-on:change="save('hue', $hue)" style="inline-size: 6em;"/><span class="number" data-text="$hue"></span></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">skin</small><select data-bind:skin data-on:change="save('skin', $skin)"><option value="">default</option><option value="material">material</option><option value="carbon">carbon</option></select></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">corners</small><select data-bind:radius data-on:change="save('radius', $radius)"><option value="">default</option><option value="0">square</option><option value="1">soft</option><option value="2">round</option><option value="3">pill</option></select></label><span class="button-group" role="group" aria-label="Size" style="--type: -1;"><button type="button" data-attr:aria-pressed="$size == 'sm' ? 'true' : 'false'" data-on:click="$size = 'sm'; save('size', $size)">S</button><button type="button" data-attr:aria-pressed="$size == 'md' ? 'true' : 'false'" data-on:click="$size = 'md'; save('size', $size)">M</button><button type="button" data-attr:aria-pressed="$size == 'lg' ? 'true' : 'false'" data-on:click="$size = 'lg'; save('size', $size)">L</button></span><span class="button-group" role="group" aria-label="Motion" style="--type: -1;"><button type="button" data-attr:aria-pressed="$motion == 'off' ? 'true' : 'false'" data-on:click="$motion = 'off'; save('motion', $motion)">Off</button><button type="button" data-attr:aria-pressed="$motion == 'on' ? 'true' : 'false'" data-on:click="$motion = 'on'; save('motion', $motion)">On</button><button type="button" data-attr:aria-pressed="$motion == 'debug' ? 'true' : 'false'" data-on:click="$motion = 'debug'; save('motion', $motion)">Debug</button></span><span class="button-group" role="group" aria-label="Theme" style="--type: -1;"><button type="button" data-attr:aria-pressed="$theme == '' ? 'true' : 'false'" data-on:click="$theme = ''; save('theme', $theme)">System</button><button type="button" data-attr:aria-pressed="$theme == 'light' ? 'true' : 'false'" data-on:click="$theme = 'light'; save('theme', $theme)">Light</button><button type="button" data-attr:aria-pressed="$theme == 'dark' ? 'true' : 'false'" data-on:click="$theme = 'dark'; save('theme', $theme)">Dark</button></span></span>
 		<span class="row oneline" style="--gap: 0.5em;">
 			<a href="https://github.com/Deufel/system-css" style="--type: -1;">GitHub</a>
 			<button type="button" class="icon mobile" aria-label="Theme" title="Theme: system → dark → light" data-on:click="$theme = $theme == '' ? 'dark' : ($theme == 'dark' ? 'light' : ''); save('theme', $theme)">
@@ -40,52 +40,44 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 	<header class="pg-main-header column">
 		<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">system.css</a><a href="../advanced/wash.html">Advanced</a></nav>
 		<div class="spread"><h1>The stack</h1></div>
-		<details class="site-menu mobile column" style="--gap: 0.25lh;"><summary class="tag">Menu</summary><div class="row" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../advanced/wash.html">Advanced</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../demos/full-pages.html">Demos</a><a class="tag" href="../skills/system-css.html">Skills</a></div><div class="column" style="--gap: 0; --type: -1;"><a href="../advanced/wash.html">The wash</a><a href="../advanced/stack.html">The stack</a><a href="../advanced/compositions.html">Complex screens from primitives</a><a href="../advanced/canvas.html">Canvas and rise</a></div></details>
+		<details class="site-menu mobile column" style="--gap: 0.25lh;"><summary class="tag">Menu</summary><div class="row" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../advanced/wash.html">Advanced</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../demos/full-pages.html">Demos</a><a class="tag" href="../skills/system-css.html">Skills</a></div><div class="column" style="--gap: 0; --type: -1;"><a href="../advanced/wash.html">The wash</a><a href="../advanced/stack.html">The stack</a><a href="../advanced/compositions.html">Screens from primitives</a><a href="../advanced/canvas.html">Canvas and rise</a></div></details>
 	</header>
-	<nav class="pg-toolbar spread-column tablet desktop" aria-label="Advanced"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">Advanced</small><a class="nav-item" href="../advanced/wash.html"><span class="medium large">The wash</span></a><a class="nav-item" href="../advanced/stack.html" aria-current="page"><span class="medium large">The stack</span></a><a class="nav-item" href="../advanced/compositions.html"><span class="medium large">Complex screens from primitives</span></a><a class="nav-item" href="../advanced/canvas.html"><span class="medium large">Canvas and rise</span></a></div></nav>
+	<nav class="pg-toolbar spread-column tablet desktop" aria-label="Advanced"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">Advanced</small><a class="nav-item" href="../advanced/wash.html"><span class="medium large">The wash</span></a><a class="nav-item" href="../advanced/stack.html" aria-current="page"><span class="medium large">The stack</span></a><a class="nav-item" href="../advanced/compositions.html"><span class="medium large">Screens from primitives</span></a><a class="nav-item" href="../advanced/canvas.html"><span class="medium large">Canvas and rise</span></a></div></nav>
 	<main class="pg-main column owns-scroll">
 		<section class="column measure" style="--measure: 3; --gap: 1lh;">
-<p><code>.stack</code> is a grid with one named area, and every child takes it:</p>
 <div class="column" style="--gap: 0;"><div class="spread" style="--type: -2; --fg: -0.55;"><small>css</small><copy-button code=":where(.stack) { display: grid; grid-template-areas: &#34;stack&#34;; &amp; &gt; * { grid-area: stack } }
 "><button type="button" class="icon" aria-label="Copy" title="Copy"><span class="copy-idle">⧉</span><span class="copy-done" hidden>✓</span></button></copy-button></div><pre><code class="css">:where(.stack) { display: grid; grid-template-areas: &quot;stack&quot;; &amp; &gt; * { grid-area: stack } }
 </code></pre></div>
-<p>So the children overlap, each fills the cell, and the cell is as tall as
-the tallest of them. That one property is the whole tool.</p>
-<h2 id="the-same-footprint-for-every-state">The same footprint for every state</h2>
-<p>A region that can be loading, filled, empty or failed usually reflows as
-it changes. Put the four states in a stack and toggle them with
-<code>data-show</code>; the cell keeps the height of the tallest, and nothing else
-on the page moves while a request is in flight. The seed-hide law
-applies: a state that is false at land carries <code>style=&quot;display: none;&quot;</code>
-so the landed HTML never paints two states for a frame.</p>
+<p>Every child takes the one cell. They overlap, each fills it, and the
+cell is as tall as the tallest child.</p>
+<h2 id="states-in-one-footprint">States in one footprint</h2>
+<p>Put loading, content, empty and error in a stack and toggle them with
+<code>data-show</code>. The cell keeps the tallest height; nothing else moves while
+a request is in flight. A state false at land carries
+<code>style=&quot;display: none;&quot;</code>.</p>
 <div class="column" style="--gap: 0;"><div class="spread" style="--type: -2; --fg: -0.55;"><small>html</small><copy-button code="&lt;div class=&#34;stack&#34;&gt;
-  &lt;div class=&#34;column&#34; data-show=&#34;$state == &#39;loading&#39;&#34; style=&#34;display: none;&#34;&gt;…skeleton…&lt;/div&gt;
+  &lt;div class=&#34;column&#34; data-show=&#34;$state == &#39;loading&#39;&#34; style=&#34;display: none;&#34;&gt;…&lt;/div&gt;
   &lt;div class=&#34;column&#34; data-show=&#34;$state == &#39;content&#39;&#34;&gt;…&lt;/div&gt;
   &lt;div class=&#34;alert inf&#34; data-show=&#34;$state == &#39;empty&#39;&#34; style=&#34;display: none;&#34;&gt;&lt;div&gt;Nothing yet.&lt;/div&gt;&lt;/div&gt;
 &lt;/div&gt;
 "><button type="button" class="icon" aria-label="Copy" title="Copy"><span class="copy-idle">⧉</span><span class="copy-done" hidden>✓</span></button></copy-button></div><pre><code class="html">&lt;div class=&quot;stack&quot;&gt;
-  &lt;div class=&quot;column&quot; data-show=&quot;$state == 'loading'&quot; style=&quot;display: none;&quot;&gt;…skeleton…&lt;/div&gt;
+  &lt;div class=&quot;column&quot; data-show=&quot;$state == 'loading'&quot; style=&quot;display: none;&quot;&gt;…&lt;/div&gt;
   &lt;div class=&quot;column&quot; data-show=&quot;$state == 'content'&quot;&gt;…&lt;/div&gt;
   &lt;div class=&quot;alert inf&quot; data-show=&quot;$state == 'empty'&quot; style=&quot;display: none;&quot;&gt;&lt;div&gt;Nothing yet.&lt;/div&gt;&lt;/div&gt;
 &lt;/div&gt;
 </code></pre></div>
 <h2 id="a-layer-over-a-thing">A layer over a thing</h2>
-<p>A veil over a chart while it refreshes, a caption over a frame, a scrim
-with a message over a table: the layer is a <code>.glass</code> or a <code>.card</code> that
-fills the cell. It carries its own surface, so the thing beneath stays
-legible through the glass and hidden under the card, whichever you
-chose. Placement inside the cell is not the stack's job: a layer fills
-it. For a badge in a corner, use the <code>.hud</code> slots on a fixed overlay, or
-a <code>.spread</code> row above the thing.</p>
-<h2 id="where-it-does-not-belong">Where it does not belong</h2>
-<p>Anything that should push its neighbours. A stack hides height changes;
-a list that grows should grow. And never as a positioning trick for one
-element: a single child in a stack is a <code>.column</code>.</p>
-<p>The <a href="../lab/stack.html">Stack specimen</a> has the three patterns live.</p>
+<p>A <code>.glass</code> veil over a chart while it refreshes, a caption over a frame:
+the layer fills the cell and carries its own surface. Placement inside
+the cell is not the stack's job. For a corner badge use a <code>.spread</code> row
+above the thing, or the <code>.hud</code> slots on a fixed overlay.</p>
+<h2 id="not-for">Not for</h2>
+<p>Anything that should push its neighbours. A single child.
+<a href="../lab/stack.html">Specimen</a>.</p>
 
 		</section>
 	</main>
-	<aside class="pg-aside desktop"><nav class="toc column" aria-label="On this page" style="--gap: 0; --type: -1;"><small class="rail-head">On this page</small><a href="#the-same-footprint-for-every-state">The same footprint for every state</a><a href="#a-layer-over-a-thing">A layer over a thing</a><a href="#where-it-does-not-belong">Where it does not belong</a></nav></aside><footer class="pg-main-footer spread" style="--type: -1;"><span><a href="../advanced/wash.html">← The wash</a></span><span><a href="../advanced/compositions.html">Complex screens from primitives →</a></span></footer>
+	<aside class="pg-aside desktop"><nav class="toc column" aria-label="On this page" style="--gap: 0; --type: -1;"><small class="rail-head">On this page</small><a href="#states-in-one-footprint">States in one footprint</a><a href="#a-layer-over-a-thing">A layer over a thing</a><a href="#not-for">Not for</a></nav></aside><footer class="pg-main-footer spread" style="--type: -1;"><span><a href="../advanced/wash.html">← The wash</a></span><span><a href="../advanced/compositions.html">Screens from primitives →</a></span></footer>
 </div>
 <script src="../static/highlight.js"></script>
 </body>

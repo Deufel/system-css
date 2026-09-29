@@ -27,7 +27,11 @@ project on the stack pins a tag. That shape decides the process.
    product, a gap found there is raised here and flows back through a
    tag; when the second project consumes the engine, both do. Neither
    edits its copy.
-6. **Addition by deletion.** A release that removes more lines than it
+6. **Nothing shifts.** A change of state or value must not move its
+   neighbours: fixed-width readouts (`.number`), the stack for states,
+   designed fold heights, declared table columns. A layout shift is a
+   defect.
+7. **Addition by deletion.** A release that removes more lines than it
    adds is celebrated in its tag message. Nothing in the process may
    charge a deletion.
 

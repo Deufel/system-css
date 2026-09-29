@@ -24,7 +24,7 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 <div class="page">
 	<header class="pg-header spread" style="--gap: 0.5em;">
 		<a href="../index.html" class="row oneline" style="--gap: 0.5em;"><strong>system.css</strong><small style="--fg: -0.55;">the engine</small></a>
-		<span class="row oneline tablet desktop" style="--gap: 0.75em;"><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">hue</small><input type="range" min="0" max="360" step="5" data-bind:hue data-on:change="save('hue', $hue)" style="inline-size: 6em;"/><code data-text="$hue"></code></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">skin</small><select data-bind:skin data-on:change="save('skin', $skin)"><option value="">default</option><option value="material">material</option><option value="carbon">carbon</option></select></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">corners</small><select data-bind:radius data-on:change="save('radius', $radius)"><option value="">default</option><option value="0">square</option><option value="1">soft</option><option value="2">round</option><option value="3">pill</option></select></label><span class="button-group" role="group" aria-label="Size" style="--type: -1;"><button type="button" data-attr:aria-pressed="$size == 'sm' ? 'true' : 'false'" data-on:click="$size = 'sm'; save('size', $size)">S</button><button type="button" data-attr:aria-pressed="$size == 'md' ? 'true' : 'false'" data-on:click="$size = 'md'; save('size', $size)">M</button><button type="button" data-attr:aria-pressed="$size == 'lg' ? 'true' : 'false'" data-on:click="$size = 'lg'; save('size', $size)">L</button></span><span class="button-group" role="group" aria-label="Motion" style="--type: -1;"><button type="button" data-attr:aria-pressed="$motion == 'off' ? 'true' : 'false'" data-on:click="$motion = 'off'; save('motion', $motion)">Off</button><button type="button" data-attr:aria-pressed="$motion == 'on' ? 'true' : 'false'" data-on:click="$motion = 'on'; save('motion', $motion)">On</button><button type="button" data-attr:aria-pressed="$motion == 'debug' ? 'true' : 'false'" data-on:click="$motion = 'debug'; save('motion', $motion)">Debug</button></span><span class="button-group" role="group" aria-label="Theme" style="--type: -1;"><button type="button" data-attr:aria-pressed="$theme == '' ? 'true' : 'false'" data-on:click="$theme = ''; save('theme', $theme)">System</button><button type="button" data-attr:aria-pressed="$theme == 'light' ? 'true' : 'false'" data-on:click="$theme = 'light'; save('theme', $theme)">Light</button><button type="button" data-attr:aria-pressed="$theme == 'dark' ? 'true' : 'false'" data-on:click="$theme = 'dark'; save('theme', $theme)">Dark</button></span></span>
+		<span class="row oneline tablet desktop" style="--gap: 0.75em;"><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">hue</small><input type="range" min="0" max="360" step="5" data-bind:hue data-on:change="save('hue', $hue)" style="inline-size: 6em;"/><span class="number" data-text="$hue"></span></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">skin</small><select data-bind:skin data-on:change="save('skin', $skin)"><option value="">default</option><option value="material">material</option><option value="carbon">carbon</option></select></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">corners</small><select data-bind:radius data-on:change="save('radius', $radius)"><option value="">default</option><option value="0">square</option><option value="1">soft</option><option value="2">round</option><option value="3">pill</option></select></label><span class="button-group" role="group" aria-label="Size" style="--type: -1;"><button type="button" data-attr:aria-pressed="$size == 'sm' ? 'true' : 'false'" data-on:click="$size = 'sm'; save('size', $size)">S</button><button type="button" data-attr:aria-pressed="$size == 'md' ? 'true' : 'false'" data-on:click="$size = 'md'; save('size', $size)">M</button><button type="button" data-attr:aria-pressed="$size == 'lg' ? 'true' : 'false'" data-on:click="$size = 'lg'; save('size', $size)">L</button></span><span class="button-group" role="group" aria-label="Motion" style="--type: -1;"><button type="button" data-attr:aria-pressed="$motion == 'off' ? 'true' : 'false'" data-on:click="$motion = 'off'; save('motion', $motion)">Off</button><button type="button" data-attr:aria-pressed="$motion == 'on' ? 'true' : 'false'" data-on:click="$motion = 'on'; save('motion', $motion)">On</button><button type="button" data-attr:aria-pressed="$motion == 'debug' ? 'true' : 'false'" data-on:click="$motion = 'debug'; save('motion', $motion)">Debug</button></span><span class="button-group" role="group" aria-label="Theme" style="--type: -1;"><button type="button" data-attr:aria-pressed="$theme == '' ? 'true' : 'false'" data-on:click="$theme = ''; save('theme', $theme)">System</button><button type="button" data-attr:aria-pressed="$theme == 'light' ? 'true' : 'false'" data-on:click="$theme = 'light'; save('theme', $theme)">Light</button><button type="button" data-attr:aria-pressed="$theme == 'dark' ? 'true' : 'false'" data-on:click="$theme = 'dark'; save('theme', $theme)">Dark</button></span></span>
 		<span class="row oneline" style="--gap: 0.5em;">
 			<a href="https://github.com/Deufel/system-css" style="--type: -1;">GitHub</a>
 			<button type="button" class="icon mobile" aria-label="Theme" title="Theme: system → dark → light" data-on:click="$theme = $theme == '' ? 'dark' : ($theme == 'dark' ? 'light' : ''); save('theme', $theme)">
@@ -40,36 +40,29 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 	<header class="pg-main-header column">
 		<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">system.css</a><a href="../howto/start.html">How-to</a></nav>
 		<div class="spread"><h1>Author a rocket</h1></div>
-		<details class="site-menu mobile column" style="--gap: 0.25lh;"><summary class="tag">Menu</summary><div class="row" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../advanced/wash.html">Advanced</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../demos/full-pages.html">Demos</a><a class="tag" href="../skills/system-css.html">Skills</a></div><div class="column" style="--gap: 0; --type: -1;"><a href="../howto/start.html">Start a project</a><a href="../howto/page.html">Author a page</a><a href="../howto/shell.html">The shell</a><a href="../howto/form.html">Author a form</a><a href="../howto/rocket.html">Author a rocket</a><a href="../howto/stream.html">Land and stream in Go</a><a href="../howto/migrate.html">Migrations</a></div></details>
+		<details class="site-menu mobile column" style="--gap: 0.25lh;"><summary class="tag">Menu</summary><div class="row" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../advanced/wash.html">Advanced</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../demos/full-pages.html">Demos</a><a class="tag" href="../skills/system-css.html">Skills</a></div><div class="column" style="--gap: 0; --type: -1;"><a href="../howto/start.html">Start a project</a><a href="../howto/shell.html">The shell</a><a href="../howto/page.html">Author a page</a><a href="../howto/form.html">Author a form</a><a href="../howto/rocket.html">Author a rocket</a><a href="../howto/stream.html">Land and stream in Go</a><a href="../howto/migrate.html">Migrations</a></div></details>
 	</header>
-	<nav class="pg-toolbar spread-column tablet desktop" aria-label="How-to"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">How-to</small><a class="nav-item" href="../howto/start.html"><span class="medium large">Start a project</span></a><a class="nav-item" href="../howto/page.html"><span class="medium large">Author a page</span></a><a class="nav-item" href="../howto/shell.html"><span class="medium large">The shell</span></a><a class="nav-item" href="../howto/form.html"><span class="medium large">Author a form</span></a><a class="nav-item" href="../howto/rocket.html" aria-current="page"><span class="medium large">Author a rocket</span></a><a class="nav-item" href="../howto/stream.html"><span class="medium large">Land and stream in Go</span></a><a class="nav-item" href="../howto/migrate.html"><span class="medium large">Migrations</span></a></div></nav>
+	<nav class="pg-toolbar spread-column tablet desktop" aria-label="How-to"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">How-to</small><a class="nav-item" href="../howto/start.html"><span class="medium large">Start a project</span></a><a class="nav-item" href="../howto/shell.html"><span class="medium large">The shell</span></a><a class="nav-item" href="../howto/page.html"><span class="medium large">Author a page</span></a><a class="nav-item" href="../howto/form.html"><span class="medium large">Author a form</span></a><a class="nav-item" href="../howto/rocket.html" aria-current="page"><span class="medium large">Author a rocket</span></a><a class="nav-item" href="../howto/stream.html"><span class="medium large">Land and stream in Go</span></a><a class="nav-item" href="../howto/migrate.html"><span class="medium large">Migrations</span></a></div></nav>
 	<main class="pg-main column owns-scroll">
 		<section class="column measure" style="--measure: 3; --gap: 1lh;">
-<p>A rocket is a web component for the one thing Datastar cannot do on its
-own: hold client state, or reach a browser API. Everything else is a
-Datastar attribute over a baked DOM. Before writing one, check that the
-component is not already a <code>select</code>, a <code>dialog</code>, a <code>popover</code>, or a signal.</p>
-<h2 id="the-contract">The contract</h2>
+<p>A rocket is a web component for what Datastar cannot do alone: hold
+client state or reach a browser API. Before writing one, check that the
+job is not a <code>select</code>, a <code>dialog</code>, a <code>popover</code> or a signal.</p>
+<h2 id="contract">Contract</h2>
 <ul>
-<li><strong>Light DOM only.</strong> No shadow root; the engine styles the host and its
-children like any element. The host's own box is sized by the engine's
-<code>:where(host)</code> rule, never by a stylesheet the rocket injects.</li>
-<li><strong>Morph-proof.</strong> A push morphs the whole page. Anything the rocket
-injects must survive that or re-inject itself from a MutationObserver;
-the cleanest rocket injects nothing.</li>
-<li><strong>Server-stamped <code>data-*</code> is the single source of truth.</strong> Props come
-down as attributes the server renders; the rocket never invents state
-the server does not know.</li>
-<li><strong>Events go up.</strong> The rocket dispatches a bubbling <code>CustomEvent</code>; a
-Datastar <code>data-on:&lt;event&gt;</code> on an ancestor posts it. The rocket never
-fetches.</li>
-<li><strong>No clocks.</strong> A number that ticks is rendered by the server from its
-record and re-landed by the stream. A counter that subtracts a server
-stamp from the phone's <code>Date.now()</code> is wrong by the phone's drift.</li>
+<li>Light DOM only. The engine styles the host and its children. The host's
+box comes from the engine's <code>:where(host)</code> rule, not from injected CSS.</li>
+<li>Morph-proof. A push morphs the page. Inject nothing, or re-inject from
+a MutationObserver.</li>
+<li>Server-stamped <code>data-*</code> is the state. The rocket invents none.</li>
+<li>Events go up. The rocket dispatches a bubbling <code>CustomEvent</code>; a
+<code>data-on:&lt;event&gt;</code> on an ancestor posts. The rocket never fetches.</li>
+<li>No clocks. A ticking number is rendered by the server and re-landed by
+the stream.</li>
 </ul>
-<h2 id="a-complete-example">A complete example</h2>
-<p>The visit tracker: a tap reads the device position once, fills the
-form's hidden fields, raises an event; the form posts itself.</p>
+<h2 id="example">Example</h2>
+<p>The visit tracker reads the device position once per tap, fills the
+form's hidden fields and raises an event. The form posts itself.</p>
 <div class="column" style="--gap: 0;"><div class="spread" style="--type: -2; --fg: -0.55;"><small>javascript</small><copy-button code="class ActivationTracker extends HTMLElement {
   constructor() { super(); this._onClick = this._onClick.bind(this); }
   connectedCallback() { this.addEventListener(&#39;click&#39;, this._onClick); }
@@ -134,25 +127,24 @@ customElements.define('activation-tracker', ActivationTracker);
   &lt;/activation-tracker&gt;
 &lt;/form&gt;
 </code></pre></div>
-<p>Event names are lowercase: Datastar lowercases attribute names, so
-<code>data-on:visitIn</code> would never fire.</p>
-<h2 id="every-rockets-requirements">Every rocket's requirements</h2>
-<p>Since Datastar v1.0.4, <strong>Rocket is free</strong>: <code>bundles/datastar-rocket.js</code> is
-core plus the <code>rocket</code> module, and it is the bundle this library ships at
-<code>static/datastar.js</code> and the site runs. Every rocket here imports
-<code>../datastar.js</code>, so a project that licenses <strong>Datastar Pro</strong> keeps its own
-bundle at that path and the same rockets run on it. What stays Pro is
-thirteen attributes and actions — <code>data-animate</code>, <code>data-custom-validity</code>,
+<p>Event names are lowercase. Datastar lowercases attribute names, so
+<code>data-on:visitIn</code> never fires.</p>
+<h2 id="requirements">Requirements</h2>
+<p>Datastar v1.0.4 moved Rocket out of Pro. <code>bundles/datastar-rocket.js</code> is
+core plus the <code>rocket</code> module. The library ships it at
+<code>static/datastar.js</code>; every rocket imports <code>../datastar.js</code>, so a project
+on Datastar Pro keeps its own bundle at that path. Thirteen attributes
+and actions remain Pro: <code>data-animate</code>, <code>data-custom-validity</code>,
 <code>data-match-media</code>, <code>data-on-raf</code>, <code>data-on-resize</code>, <code>data-persist</code>,
 <code>data-query-string</code>, <code>data-replace-url</code>, <code>data-scroll-into-view</code>,
-<code>data-view-transition</code>, <code>@clipboard</code>, <code>@fit</code>, <code>@intl</code> — and a component
-that uses one is marked <em>Pro only</em> below (none does today). An API means
-a key and a bill; a permission means the browser asks the person.</p>
+<code>data-view-transition</code>, <code>@clipboard</code>, <code>@fit</code>, <code>@intl</code>. A component that
+uses one is marked below. None does today. API means a key and a bill.
+Permission means the browser asks.</p>
 <div class="scroll-x"><table style="--type: -1;"><thead><tr><th>Rocket</th><th>Runtime</th><th>API</th><th>Depends on</th><th>Server</th><th>Shipped</th></tr></thead><tbody><tr><td><code>activation-tracker</code></td><td>core</td><td></td><td>the device's Geolocation API (a permission)</td><td>the check-in and check-out verbs</td><td>no (app)</td></tr><tr><td><code>bug-report</code></td><td>core + Rocket</td><td></td><td></td><td>the feedback lane (the app's, not the library's)</td><td>no (app)</td></tr><tr><td><code>combo-box</code></td><td>core + Rocket</td><td></td><td></td><td>an endpoint that morphs the listbox as the input's signal posts</td><td>yes</td></tr><tr><td><code>command-palette</code></td><td>core</td><td></td><td></td><td>a search endpoint the palette's input posts to</td><td>yes</td></tr><tr><td><code>copy-button</code></td><td>core + Rocket</td><td></td><td>the Clipboard API (a secure context)</td><td></td><td>yes</td></tr><tr><td><code>date-picker</code></td><td>core + Rocket</td><td></td><td></td><td></td><td>yes</td></tr><tr><td><code>day-picker</code></td><td>core + Rocket</td><td></td><td></td><td></td><td>yes</td></tr><tr><td><code>element-pick</code></td><td>core</td><td></td><td></td><td>the feedback lane (the app's, not the library's)</td><td>no (app)</td></tr><tr><td><code>exif</code></td><td>core</td><td></td><td>none — a dependency-free EXIF reader</td><td></td><td>yes</td></tr><tr><td><code>google-maps</code></td><td>core + Rocket</td><td>Google Maps JavaScript API — a key, billed</td><td></td><td></td><td>no (app)</td></tr><tr><td><code>group-pick</code></td><td>core + Rocket</td><td></td><td></td><td>the pick-or-make verbs (list · create · delete)</td><td>yes</td></tr><tr><td><code>hold-confirm</code></td><td>core</td><td></td><td></td><td></td><td>yes</td></tr><tr><td><code>image-input</code></td><td>core</td><td></td><td>exif.js; may read the device's position (Geolocation, a permission)</td><td></td><td>yes</td></tr><tr><td><code>mini-calc</code></td><td>core + Rocket</td><td></td><td></td><td></td><td>yes</td></tr><tr><td><code>mini-map</code></td><td>core + Rocket</td><td>Google Static Maps API — a key, billed</td><td></td><td></td><td>no (app)</td></tr><tr><td><code>toast-card</code></td><td>core + Rocket</td><td></td><td></td><td></td><td>yes</td></tr></tbody></table></div>
 
 		</section>
 	</main>
-	<aside class="pg-aside desktop"><nav class="toc column" aria-label="On this page" style="--gap: 0; --type: -1;"><small class="rail-head">On this page</small><a href="#the-contract">The contract</a><a href="#a-complete-example">A complete example</a><a href="#every-rockets-requirements">Every rocket's requirements</a></nav></aside><footer class="pg-main-footer spread" style="--type: -1;"><span><a href="../howto/form.html">← Author a form</a></span><span><a href="../howto/stream.html">Land and stream in Go →</a></span></footer>
+	<aside class="pg-aside desktop"><nav class="toc column" aria-label="On this page" style="--gap: 0; --type: -1;"><small class="rail-head">On this page</small><a href="#contract">Contract</a><a href="#example">Example</a><a href="#requirements">Requirements</a></nav></aside><footer class="pg-main-footer spread" style="--type: -1;"><span><a href="../howto/form.html">← Author a form</a></span><span><a href="../howto/stream.html">Land and stream in Go →</a></span></footer>
 </div>
 <script src="../static/highlight.js"></script>
 </body>

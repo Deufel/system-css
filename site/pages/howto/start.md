@@ -4,53 +4,40 @@ section: howto
 order: 0
 ---
 
-A project on this stack is a Go server, one SQLite file, one CSS file and
-one Datastar runtime. Nothing is built at the front; the server renders
-whole pages and the stream morphs them.
+A project is a Go server, one SQLite file, one CSS file and one Datastar
+runtime. There is no build step. The server renders whole pages; the
+stream morphs them.
 
-## The files
+## Files
 
 ```
-static/system.css        the engine — copy it from a release, never edit it in the app
-static/datastar.js       the Datastar runtime — the free bundle with Rocket the library ships, or the Pro bundle you license, at this same path
-static/rocket/*.js       the client-state components you actually use
-.claude/skills/          the four skills, copied whole — an agent loads them before touching UI
-db/migrations/0001-*.sql the schema, declared once; every later file one change
+static/system.css        the engine, from a release; never edited in the app
+static/datastar.js       the runtime: the free bundle with Rocket, or the Pro bundle
+static/rocket/*.js       the client-state components you use
+.claude/skills/          the four skills, copied whole
+db/migrations/0001-*.sql the schema; each later file is one change
 ```
 
 ## Getting the engine
 
-Three ways, in order of preference for a product:
-
-1. **The Go module.** `go get github.com/Deufel/system-css` and serve the
-   embedded files from your own origin, versioned and cached immutable:
+1. The Go module. `go get github.com/Deufel/system-css`. Serve the
+   embedded files from your origin, versioned and cached immutable.
 
    ```go
    import systemcss "github.com/Deufel/system-css"
-   // systemcss.Static() is an fs.FS: system.css, rocket/*.js
-   // systemcss.Skills() is an fs.FS: the four skills
+   // systemcss.Static(): system.css, rocket/*.js
+   // systemcss.Skills(): the four skills
    ```
 
-2. **The CDN**, for a prototype, a static site or a page that has no
-   server. jsDelivr serves every tag of the repository:
+2. The CDN, for a page without a server. Pin a tag:
 
    ```html
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Deufel/system-css@v0.1.0/static/system.css"/>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Deufel/system-css@v0.5.1/static/system.css"/>
    ```
 
-   Pin a tag, never `master`: a stylesheet that changes under a page is
-   the FOUC the ledger spent weeks on.
+3. A copy of `static/system.css` from a release. Do not edit it.
 
-3. **A copy** of `static/system.css` from a tagged release, when the
-   project cannot depend on Go or a CDN. Never edit the copy; raise gaps
-   in the repository.
-
-## The document head
-
-Every page carries the same head. The order matters: the colour scheme
-meta before any stylesheet (the interstitial frame between two documents
-is painted before CSS arrives), fonts with `display=optional`, the engine,
-then one Datastar runtime.
+## Head
 
 ```html
 <!doctype html>
@@ -64,13 +51,11 @@ then one Datastar runtime.
 </head>
 ```
 
-Version every static reference (`?v=` from a hash computed at boot) and
-cache them immutable: HTML can then never pair with a stale sheet.
+The color-scheme meta comes before the stylesheet: the frame between two
+documents paints before CSS arrives. Version each static URL with a hash
+computed at boot and cache it immutable.
 
-## The page shell
-
-The engine's grid has named regions. A page places its parts into them
-and nothing else; a region a page does not use collapses.
+## Shell
 
 ```html
 <div class="page">
@@ -81,28 +66,22 @@ and nothing else; a region a page does not use collapses.
 </div>
 ```
 
-Regions: `pg-banner` · `pg-header` · `pg-subheader` · `pg-navigation` ·
-`pg-toolbar` · `pg-main-header` · `pg-main-subheader` · `pg-main` ·
-`pg-main-aside` · `pg-main-footer` · `pg-aside` · `pg-footer`. This site
-is built on exactly that shell.
+Regions: `pg-banner` `pg-header` `pg-subheader` `pg-navigation`
+`pg-toolbar` `pg-main-header` `pg-main-subheader` `pg-main`
+`pg-main-aside` `pg-main-footer` `pg-aside` `pg-footer`. An unused region
+collapses. See [The shell](shell.html).
 
-## The contracts to copy on day one
+## Tests to add on day one
 
-A project on this stack keeps four tests green from its first commit.
-They are cheap to write and expensive to add later:
+- Inline geometry: a `style` attribute carries knobs and anchor plumbing
+  only. The count per template only goes down.
+- The ladders: `--gap` takes `0 · 0.25lh · 0.5lh · 1lh` or `0.25em ·
+  0.5em · 1em`; `--measure` takes `1 · 2 · 3`.
+- Every POST route names the role that may call it.
+- The schema is the migrations: one baseline, one file per change,
+  never edited after commit.
 
-- **Inline geometry** — a `style=` attribute may carry knobs (`--gap`,
-  `--bg`, `--type` …) and anchor plumbing, nothing else; the count per
-  template may only go down.
-- **The rhythm ladder** — `--gap` takes only its rungs: `0 · 0.25lh ·
-  0.5lh · 1lh` for block rhythm, `0.25em · 0.5em · 1em` for inline rows.
-- **Every POST classified** — each command route names the role that
-  may call it, and the table of classifications is the test.
-- **The schema is the migrations** — one baseline, one file per change,
-  never edited once committed; the runner records checksums.
+## Do not build
 
-## What not to build
-
-No client router, no history API, no client cache, no CSS-in-JS, no
-component framework. The browser navigates; the server renders; the
-stream morphs; the engine paints.
+A client router, the history API, a client cache, CSS-in-JS, a component
+framework.

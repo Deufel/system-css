@@ -237,6 +237,9 @@ order).
     --hue-lock: var(--hue-suc|--hue-dgr) + --fg: 0.85. Self-contained number
     formatters, independent of the .suc/.dgr component locks.
   - .num-flat — quiet neutral ink for unchanged values.
+  - .number — a live readout: mono, tabular, right-aligned, --digits
+    characters wide (default 3). A changing value never moves its
+    neighbours. NOTHING SHIFTS: a count, a clock, a slider value wears it.
   - .est — italic + ~ prefix: an estimate/projection.
   - .past — quieted ink (--fg: -0.55): a prior period.
   - .num-table — table modifier: all cells tabular; .num cells right-align.

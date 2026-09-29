@@ -24,7 +24,7 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 <div class="page">
 	<header class="pg-header spread" style="--gap: 0.5em;">
 		<a href="../index.html" class="row oneline" style="--gap: 0.5em;"><strong>system.css</strong><small style="--fg: -0.55;">the engine</small></a>
-		<span class="row oneline tablet desktop" style="--gap: 0.75em;"><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">hue</small><input type="range" min="0" max="360" step="5" data-bind:hue data-on:change="save('hue', $hue)" style="inline-size: 6em;"/><code data-text="$hue"></code></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">skin</small><select data-bind:skin data-on:change="save('skin', $skin)"><option value="">default</option><option value="material">material</option><option value="carbon">carbon</option></select></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">corners</small><select data-bind:radius data-on:change="save('radius', $radius)"><option value="">default</option><option value="0">square</option><option value="1">soft</option><option value="2">round</option><option value="3">pill</option></select></label><span class="button-group" role="group" aria-label="Size" style="--type: -1;"><button type="button" data-attr:aria-pressed="$size == 'sm' ? 'true' : 'false'" data-on:click="$size = 'sm'; save('size', $size)">S</button><button type="button" data-attr:aria-pressed="$size == 'md' ? 'true' : 'false'" data-on:click="$size = 'md'; save('size', $size)">M</button><button type="button" data-attr:aria-pressed="$size == 'lg' ? 'true' : 'false'" data-on:click="$size = 'lg'; save('size', $size)">L</button></span><span class="button-group" role="group" aria-label="Motion" style="--type: -1;"><button type="button" data-attr:aria-pressed="$motion == 'off' ? 'true' : 'false'" data-on:click="$motion = 'off'; save('motion', $motion)">Off</button><button type="button" data-attr:aria-pressed="$motion == 'on' ? 'true' : 'false'" data-on:click="$motion = 'on'; save('motion', $motion)">On</button><button type="button" data-attr:aria-pressed="$motion == 'debug' ? 'true' : 'false'" data-on:click="$motion = 'debug'; save('motion', $motion)">Debug</button></span><span class="button-group" role="group" aria-label="Theme" style="--type: -1;"><button type="button" data-attr:aria-pressed="$theme == '' ? 'true' : 'false'" data-on:click="$theme = ''; save('theme', $theme)">System</button><button type="button" data-attr:aria-pressed="$theme == 'light' ? 'true' : 'false'" data-on:click="$theme = 'light'; save('theme', $theme)">Light</button><button type="button" data-attr:aria-pressed="$theme == 'dark' ? 'true' : 'false'" data-on:click="$theme = 'dark'; save('theme', $theme)">Dark</button></span></span>
+		<span class="row oneline tablet desktop" style="--gap: 0.75em;"><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">hue</small><input type="range" min="0" max="360" step="5" data-bind:hue data-on:change="save('hue', $hue)" style="inline-size: 6em;"/><span class="number" data-text="$hue"></span></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">skin</small><select data-bind:skin data-on:change="save('skin', $skin)"><option value="">default</option><option value="material">material</option><option value="carbon">carbon</option></select></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">corners</small><select data-bind:radius data-on:change="save('radius', $radius)"><option value="">default</option><option value="0">square</option><option value="1">soft</option><option value="2">round</option><option value="3">pill</option></select></label><span class="button-group" role="group" aria-label="Size" style="--type: -1;"><button type="button" data-attr:aria-pressed="$size == 'sm' ? 'true' : 'false'" data-on:click="$size = 'sm'; save('size', $size)">S</button><button type="button" data-attr:aria-pressed="$size == 'md' ? 'true' : 'false'" data-on:click="$size = 'md'; save('size', $size)">M</button><button type="button" data-attr:aria-pressed="$size == 'lg' ? 'true' : 'false'" data-on:click="$size = 'lg'; save('size', $size)">L</button></span><span class="button-group" role="group" aria-label="Motion" style="--type: -1;"><button type="button" data-attr:aria-pressed="$motion == 'off' ? 'true' : 'false'" data-on:click="$motion = 'off'; save('motion', $motion)">Off</button><button type="button" data-attr:aria-pressed="$motion == 'on' ? 'true' : 'false'" data-on:click="$motion = 'on'; save('motion', $motion)">On</button><button type="button" data-attr:aria-pressed="$motion == 'debug' ? 'true' : 'false'" data-on:click="$motion = 'debug'; save('motion', $motion)">Debug</button></span><span class="button-group" role="group" aria-label="Theme" style="--type: -1;"><button type="button" data-attr:aria-pressed="$theme == '' ? 'true' : 'false'" data-on:click="$theme = ''; save('theme', $theme)">System</button><button type="button" data-attr:aria-pressed="$theme == 'light' ? 'true' : 'false'" data-on:click="$theme = 'light'; save('theme', $theme)">Light</button><button type="button" data-attr:aria-pressed="$theme == 'dark' ? 'true' : 'false'" data-on:click="$theme = 'dark'; save('theme', $theme)">Dark</button></span></span>
 		<span class="row oneline" style="--gap: 0.5em;">
 			<a href="https://github.com/Deufel/system-css" style="--type: -1;">GitHub</a>
 			<button type="button" class="icon mobile" aria-label="Theme" title="Theme: system → dark → light" data-on:click="$theme = $theme == '' ? 'dark' : ($theme == 'dark' ? 'light' : ''); save('theme', $theme)">
@@ -40,16 +40,14 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 	<header class="pg-main-header column">
 		<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">system.css</a><a href="../howto/start.html">How-to</a></nav>
 		<div class="spread"><h1>Author a form</h1></div>
-		<details class="site-menu mobile column" style="--gap: 0.25lh;"><summary class="tag">Menu</summary><div class="row" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../advanced/wash.html">Advanced</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../demos/full-pages.html">Demos</a><a class="tag" href="../skills/system-css.html">Skills</a></div><div class="column" style="--gap: 0; --type: -1;"><a href="../howto/start.html">Start a project</a><a href="../howto/page.html">Author a page</a><a href="../howto/shell.html">The shell</a><a href="../howto/form.html">Author a form</a><a href="../howto/rocket.html">Author a rocket</a><a href="../howto/stream.html">Land and stream in Go</a><a href="../howto/migrate.html">Migrations</a></div></details>
+		<details class="site-menu mobile column" style="--gap: 0.25lh;"><summary class="tag">Menu</summary><div class="row" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../advanced/wash.html">Advanced</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../demos/full-pages.html">Demos</a><a class="tag" href="../skills/system-css.html">Skills</a></div><div class="column" style="--gap: 0; --type: -1;"><a href="../howto/start.html">Start a project</a><a href="../howto/shell.html">The shell</a><a href="../howto/page.html">Author a page</a><a href="../howto/form.html">Author a form</a><a href="../howto/rocket.html">Author a rocket</a><a href="../howto/stream.html">Land and stream in Go</a><a href="../howto/migrate.html">Migrations</a></div></details>
 	</header>
-	<nav class="pg-toolbar spread-column tablet desktop" aria-label="How-to"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">How-to</small><a class="nav-item" href="../howto/start.html"><span class="medium large">Start a project</span></a><a class="nav-item" href="../howto/page.html"><span class="medium large">Author a page</span></a><a class="nav-item" href="../howto/shell.html"><span class="medium large">The shell</span></a><a class="nav-item" href="../howto/form.html" aria-current="page"><span class="medium large">Author a form</span></a><a class="nav-item" href="../howto/rocket.html"><span class="medium large">Author a rocket</span></a><a class="nav-item" href="../howto/stream.html"><span class="medium large">Land and stream in Go</span></a><a class="nav-item" href="../howto/migrate.html"><span class="medium large">Migrations</span></a></div></nav>
+	<nav class="pg-toolbar spread-column tablet desktop" aria-label="How-to"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">How-to</small><a class="nav-item" href="../howto/start.html"><span class="medium large">Start a project</span></a><a class="nav-item" href="../howto/shell.html"><span class="medium large">The shell</span></a><a class="nav-item" href="../howto/page.html"><span class="medium large">Author a page</span></a><a class="nav-item" href="../howto/form.html" aria-current="page"><span class="medium large">Author a form</span></a><a class="nav-item" href="../howto/rocket.html"><span class="medium large">Author a rocket</span></a><a class="nav-item" href="../howto/stream.html"><span class="medium large">Land and stream in Go</span></a><a class="nav-item" href="../howto/migrate.html"><span class="medium large">Migrations</span></a></div></nav>
 	<main class="pg-main column owns-scroll">
 		<section class="column measure" style="--measure: 3; --gap: 1lh;">
-<p>Forms follow one canon exactly. Fieldsets own structure; every field is
-<code>label → small → control</code>; <code>small</code> is the STATE slot, never a caption;
-everything fills the width; Datastar submits; the handler answers 204
-and the stream re-lands the page.</p>
-<h2 id="the-shape">The shape</h2>
+<p>Fieldsets own structure. Each field is <code>label → small → control</code>. The
+<code>small</code> holds state, not a caption. Everything fills the width. Datastar
+submits. The handler answers 204 and the stream re-lands the page.</p>
 <div class="column" style="--gap: 0;"><div class="spread" style="--type: -2; --fg: -0.55;"><small>html</small><copy-button code="&lt;form data-on:submit__prevent=&#34;@post(&#39;/o/1/settings/warehouses&#39;, {contentType: &#39;form&#39;})&#34;&gt;
   &lt;fieldset&gt;
     &lt;legend&gt;Warehouse &lt;small&gt;where the trucks load&lt;/small&gt;&lt;/legend&gt;
@@ -105,28 +103,23 @@ and the stream re-lands the page.</p>
   &lt;/div&gt;
 &lt;/form&gt;
 </code></pre></div>
-<h2 id="the-rules-that-bite">The rules that bite</h2>
+<h2 id="rules">Rules</h2>
 <ul>
-<li>The <code>small</code> under a field carries its state — the validation message,
-a &quot;saved&quot; word — and is empty at rest. Captions go in the legend.</li>
+<li>The field's <code>small</code> is empty at rest. It carries the validation
+message or a &quot;saved&quot;. Captions go in the legend.</li>
 <li><code>--row-width</code> on a label spans it across the fieldset's columns.</li>
-<li>A stored value is judged by the render: <code>aria-invalid=&quot;true&quot;</code> on the
-control and the message in its <code>small</code>, never a client-side check the
-server does not repeat.</li>
-<li>The record form is THE EDIT CARD: a pencil unlocks, Cancel is a native
-<code>type=&quot;reset&quot;</code> (fields fall back to their stored values), Save posts.
-One grammar for every record.</li>
-<li><code>@post(url, {contentType: 'form'})</code> ships the form's own fields, so no
-signal has to mirror an input. Reach for signals only for state the
-server does not hold.</li>
-<li>A wizard lights the one control to press next with
-<code>data-ui-state=&quot;guide&quot;</code>; it never explains in prose what the control
-already says.</li>
+<li>The server judges a stored value: <code>aria-invalid=&quot;true&quot;</code> on the control,
+the message in its <code>small</code>.</li>
+<li>A record's form is the edit card: a pencil unlocks, Cancel is a native
+<code>type=&quot;reset&quot;</code>, Save posts.</li>
+<li><code>@post(url, {contentType: 'form'})</code> sends the form's fields. No signal
+mirrors an input.</li>
+<li>A wizard lights the next control with <code>data-ui-state=&quot;guide&quot;</code>.</li>
 </ul>
 
 		</section>
 	</main>
-	<footer class="pg-main-footer spread" style="--type: -1;"><span><a href="../howto/shell.html">← The shell</a></span><span><a href="../howto/rocket.html">Author a rocket →</a></span></footer>
+	<footer class="pg-main-footer spread" style="--type: -1;"><span><a href="../howto/page.html">← Author a page</a></span><span><a href="../howto/rocket.html">Author a rocket →</a></span></footer>
 </div>
 <script src="../static/highlight.js"></script>
 </body>

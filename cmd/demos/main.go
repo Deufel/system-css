@@ -106,7 +106,7 @@ func dashboard() demo {
 <div class="column" style="--gap: 0.25lh;"><span class="row oneline" style="--gap: 0.5em;"><span class="avatar" style="--hue-shift: 300;">SA</span><span>Sasha added Blue Heron's brands</span></span><small style="--fg: -0.55;">1h ago</small></div>
 <div class="alert inf" role="note"><div>Usage resets in 8 days.</div></div></div></aside>
 </div>`
-	return demo{"dashboard.html", "Operations dashboard", "dark · hue 255 · corners 2", "Stat tiles with sparklines, revenue over time, a ranked dot plot, horizontal bars on a shifted hue, a live list on the semantic locks, an invoice table and the aside — the ten-slot app shell.", `data-ui-theme="dark" data-ui-size="md" data-ui-radius="2" style="--hue: 255;"`, body}
+	return demo{"dashboard.html", "Operations dashboard", "dark · hue 255 · corners 2", "Stat tiles with sparklines, a line chart, a dot plot, horizontal bars, a live list, a table, an aside.", `data-ui-theme="dark" data-ui-size="md" data-ui-radius="2" style="--hue: 255;"`, body}
 }
 
 func report() demo {
@@ -131,9 +131,9 @@ func report() demo {
 <blockquote class="card column" style="--gap: 0.25lh; --lift: 1;"><p style="--type: 1;">"The number we wanted was the September line: the first month the territory delivered more than it forecast."</p><small style="--fg: -0.55;">— the ops lead, month-end review</small></blockquote>
 <h2 id="outlook">Outlook</h2>
 <div class="grid" style="--grid-min: 12rem;"><div class="card column" style="--gap: 0;"><small style="--fg: -0.55;">Q4 forecast</small><span class="num est" style="--type: 2;">4,600</span><small class="past">Q4 2025: 3,910</small></div><div class="card column" style="--gap: 0;"><small style="--fg: -0.55;">Events booked</small><span class="num" style="--type: 2;">41 <span class="delta num-good">▲ 6</span></span><small class="past">same time last year: 35</small></div><div class="card column" style="--gap: 0;"><small style="--fg: -0.55;">Returns</small><span class="num" style="--type: 2;">1.9% <span class="delta num-bad">▲ 0.3</span></span><small class="past">target: under 1.5%</small></div></div>
-<p><small style="--fg: -0.55;">Colour encodes valence — a falling cost is good; typography encodes time — an estimate is italic, a prior period quiet. The two axes never collide.</small></p>
+<p><small style="--fg: -0.55;">Colour encodes valence. Typography encodes time.</small></p>
 </section></main>` + toc + `</div>`
-	return demo{"report.html", "Quarterly report", "light · material · hue 150", "A long-form report on the reading measure with a contents aside: columns, horizontal bars and a ranked dot plot each on its own hue turn, the number family for valence and time, a pull quote on a lift.", `data-ui-theme="light" data-ui-size="md" data-ui-skin="material" data-ui-radius="1" style="--hue: 150;"`, body}
+	return demo{"report.html", "Quarterly report", "light · material · hue 150", "A report on the reading measure with a contents aside: columns, horizontal bars, a dot plot, the number family, a quote.", `data-ui-theme="light" data-ui-size="md" data-ui-skin="material" data-ui-radius="1" style="--hue: 150;"`, body}
 }
 
 func field() demo {
@@ -147,11 +147,11 @@ func field() demo {
 <div class="card column" style="--gap: 0.25lh;"><div class="spread"><strong>Lockport Tasting</strong><span class="tag">planned</span></div><small style="--fg: -0.55;">Summit Imports · 15:30 · 4.2 mi</small><button type="button" class="pri">Check in</button></div>
 <div class="card column" style="--gap: 0.25lh;"><div class="spread"><strong>Harbor Market</strong><span class="tag wrn">late</span></div><small style="--fg: -0.55;">Blue Heron · planned 14:00</small><button type="button" class="sec">Reschedule</button></div>
 <div class="card column" style="--gap: 0.25lh;"><div class="spread"><strong>Depot Pop-up</strong><span class="tag">done</span></div><small style="--fg: -0.55;">Kestrel &amp; Co · 3h 10m on site · 2 expenses</small></div>
-<div class="alert inf" role="note"><div>Your position is read once per tap. The clock is the server's.</div></div>
+<div class="alert inf" role="note"><div>Position is read once per tap. The clock is the server's.</div></div>
 </section></main>
 <footer class="pg-footer"><nav class="row" aria-label="Dock" style="--gap: 0;"><a class="nav-item" href="#" aria-current="page"><span>Today</span></a><a class="nav-item" href="#"><span>Map</span></a><a class="nav-item" href="#"><span>Expenses</span></a><a class="nav-item" href="#"><span>Me</span></a></nav></footer>
 </div>`
-	return demo{"field.html", "Field app", "phone · hue 30 · pill corners · large type", "A rep's day on the phone shell: the wash under everything, the live visit with its clock and a hold-to-confirm, planned and late visits on the semantic locks, a dock in the footer.", `data-ui-theme="dark" data-ui-size="lg" data-ui-radius="3" style="--hue: 30;" data-signals="{done: false}"`, body}
+	return demo{"field.html", "Field app", "phone · hue 30 · pill corners · large type", "The phone shell: a wash, a live visit with a hold-to-confirm, a dock.", `data-ui-theme="dark" data-ui-size="lg" data-ui-radius="3" style="--hue: 30;" data-signals="{done: false}"`, body}
 }
 
 func landing() demo {
@@ -176,7 +176,7 @@ func landing() demo {
 </section></main>
 <footer class="pg-footer spread" style="--type: -1; --fg: -0.55;"><span>Lumen · built on system.css</span><span class="row" style="--gap: 0.5em;"><a href="#">Docs</a><a href="#">GitHub</a><a href="#">Status</a></span></footer>
 </div>`
-	return demo{"landing.html", "Landing page", "dark · hue 320 · the wash", "A marketing page on the wash: a hero on a viewport share with display type, a feature grid stepping the hue, a growth chart beside a quote on a lift, pricing tiers, a footer.", `data-ui-theme="dark" data-ui-size="md" data-ui-radius="1" style="--hue: 320;"`, body}
+	return demo{"landing.html", "Landing page", "dark · hue 320 · the wash", "A marketing page on the wash: a hero on a rise, a feature grid, a chart, pricing tiers.", `data-ui-theme="dark" data-ui-size="md" data-ui-radius="1" style="--hue: 320;"`, body}
 }
 
 func main() {

@@ -24,7 +24,7 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 <div class="page">
 	<header class="pg-header spread" style="--gap: 0.5em;">
 		<a href="../index.html" class="row oneline" style="--gap: 0.5em;"><strong>system.css</strong><small style="--fg: -0.55;">the engine</small></a>
-		<span class="row oneline tablet desktop" style="--gap: 0.75em;"><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">hue</small><input type="range" min="0" max="360" step="5" data-bind:hue data-on:change="save('hue', $hue)" style="inline-size: 6em;"/><code data-text="$hue"></code></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">skin</small><select data-bind:skin data-on:change="save('skin', $skin)"><option value="">default</option><option value="material">material</option><option value="carbon">carbon</option></select></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">corners</small><select data-bind:radius data-on:change="save('radius', $radius)"><option value="">default</option><option value="0">square</option><option value="1">soft</option><option value="2">round</option><option value="3">pill</option></select></label><span class="button-group" role="group" aria-label="Size" style="--type: -1;"><button type="button" data-attr:aria-pressed="$size == 'sm' ? 'true' : 'false'" data-on:click="$size = 'sm'; save('size', $size)">S</button><button type="button" data-attr:aria-pressed="$size == 'md' ? 'true' : 'false'" data-on:click="$size = 'md'; save('size', $size)">M</button><button type="button" data-attr:aria-pressed="$size == 'lg' ? 'true' : 'false'" data-on:click="$size = 'lg'; save('size', $size)">L</button></span><span class="button-group" role="group" aria-label="Motion" style="--type: -1;"><button type="button" data-attr:aria-pressed="$motion == 'off' ? 'true' : 'false'" data-on:click="$motion = 'off'; save('motion', $motion)">Off</button><button type="button" data-attr:aria-pressed="$motion == 'on' ? 'true' : 'false'" data-on:click="$motion = 'on'; save('motion', $motion)">On</button><button type="button" data-attr:aria-pressed="$motion == 'debug' ? 'true' : 'false'" data-on:click="$motion = 'debug'; save('motion', $motion)">Debug</button></span><span class="button-group" role="group" aria-label="Theme" style="--type: -1;"><button type="button" data-attr:aria-pressed="$theme == '' ? 'true' : 'false'" data-on:click="$theme = ''; save('theme', $theme)">System</button><button type="button" data-attr:aria-pressed="$theme == 'light' ? 'true' : 'false'" data-on:click="$theme = 'light'; save('theme', $theme)">Light</button><button type="button" data-attr:aria-pressed="$theme == 'dark' ? 'true' : 'false'" data-on:click="$theme = 'dark'; save('theme', $theme)">Dark</button></span></span>
+		<span class="row oneline tablet desktop" style="--gap: 0.75em;"><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">hue</small><input type="range" min="0" max="360" step="5" data-bind:hue data-on:change="save('hue', $hue)" style="inline-size: 6em;"/><span class="number" data-text="$hue"></span></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">skin</small><select data-bind:skin data-on:change="save('skin', $skin)"><option value="">default</option><option value="material">material</option><option value="carbon">carbon</option></select></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">corners</small><select data-bind:radius data-on:change="save('radius', $radius)"><option value="">default</option><option value="0">square</option><option value="1">soft</option><option value="2">round</option><option value="3">pill</option></select></label><span class="button-group" role="group" aria-label="Size" style="--type: -1;"><button type="button" data-attr:aria-pressed="$size == 'sm' ? 'true' : 'false'" data-on:click="$size = 'sm'; save('size', $size)">S</button><button type="button" data-attr:aria-pressed="$size == 'md' ? 'true' : 'false'" data-on:click="$size = 'md'; save('size', $size)">M</button><button type="button" data-attr:aria-pressed="$size == 'lg' ? 'true' : 'false'" data-on:click="$size = 'lg'; save('size', $size)">L</button></span><span class="button-group" role="group" aria-label="Motion" style="--type: -1;"><button type="button" data-attr:aria-pressed="$motion == 'off' ? 'true' : 'false'" data-on:click="$motion = 'off'; save('motion', $motion)">Off</button><button type="button" data-attr:aria-pressed="$motion == 'on' ? 'true' : 'false'" data-on:click="$motion = 'on'; save('motion', $motion)">On</button><button type="button" data-attr:aria-pressed="$motion == 'debug' ? 'true' : 'false'" data-on:click="$motion = 'debug'; save('motion', $motion)">Debug</button></span><span class="button-group" role="group" aria-label="Theme" style="--type: -1;"><button type="button" data-attr:aria-pressed="$theme == '' ? 'true' : 'false'" data-on:click="$theme = ''; save('theme', $theme)">System</button><button type="button" data-attr:aria-pressed="$theme == 'light' ? 'true' : 'false'" data-on:click="$theme = 'light'; save('theme', $theme)">Light</button><button type="button" data-attr:aria-pressed="$theme == 'dark' ? 'true' : 'false'" data-on:click="$theme = 'dark'; save('theme', $theme)">Dark</button></span></span>
 		<span class="row oneline" style="--gap: 0.5em;">
 			<a href="https://github.com/Deufel/system-css" style="--type: -1;">GitHub</a>
 			<button type="button" class="icon mobile" aria-label="Theme" title="Theme: system → dark → light" data-on:click="$theme = $theme == '' ? 'dark' : ($theme == 'dark' ? 'light' : ''); save('theme', $theme)">
@@ -40,16 +40,15 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 	<header class="pg-main-header column">
 		<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">system.css</a><a href="../howto/start.html">How-to</a></nav>
 		<div class="spread"><h1>Land and stream in Go</h1></div>
-		<details class="site-menu mobile column" style="--gap: 0.25lh;"><summary class="tag">Menu</summary><div class="row" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../advanced/wash.html">Advanced</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../demos/full-pages.html">Demos</a><a class="tag" href="../skills/system-css.html">Skills</a></div><div class="column" style="--gap: 0; --type: -1;"><a href="../howto/start.html">Start a project</a><a href="../howto/page.html">Author a page</a><a href="../howto/shell.html">The shell</a><a href="../howto/form.html">Author a form</a><a href="../howto/rocket.html">Author a rocket</a><a href="../howto/stream.html">Land and stream in Go</a><a href="../howto/migrate.html">Migrations</a></div></details>
+		<details class="site-menu mobile column" style="--gap: 0.25lh;"><summary class="tag">Menu</summary><div class="row" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../advanced/wash.html">Advanced</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../demos/full-pages.html">Demos</a><a class="tag" href="../skills/system-css.html">Skills</a></div><div class="column" style="--gap: 0; --type: -1;"><a href="../howto/start.html">Start a project</a><a href="../howto/shell.html">The shell</a><a href="../howto/page.html">Author a page</a><a href="../howto/form.html">Author a form</a><a href="../howto/rocket.html">Author a rocket</a><a href="../howto/stream.html">Land and stream in Go</a><a href="../howto/migrate.html">Migrations</a></div></details>
 	</header>
-	<nav class="pg-toolbar spread-column tablet desktop" aria-label="How-to"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">How-to</small><a class="nav-item" href="../howto/start.html"><span class="medium large">Start a project</span></a><a class="nav-item" href="../howto/page.html"><span class="medium large">Author a page</span></a><a class="nav-item" href="../howto/shell.html"><span class="medium large">The shell</span></a><a class="nav-item" href="../howto/form.html"><span class="medium large">Author a form</span></a><a class="nav-item" href="../howto/rocket.html"><span class="medium large">Author a rocket</span></a><a class="nav-item" href="../howto/stream.html" aria-current="page"><span class="medium large">Land and stream in Go</span></a><a class="nav-item" href="../howto/migrate.html"><span class="medium large">Migrations</span></a></div></nav>
+	<nav class="pg-toolbar spread-column tablet desktop" aria-label="How-to"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">How-to</small><a class="nav-item" href="../howto/start.html"><span class="medium large">Start a project</span></a><a class="nav-item" href="../howto/shell.html"><span class="medium large">The shell</span></a><a class="nav-item" href="../howto/page.html"><span class="medium large">Author a page</span></a><a class="nav-item" href="../howto/form.html"><span class="medium large">Author a form</span></a><a class="nav-item" href="../howto/rocket.html"><span class="medium large">Author a rocket</span></a><a class="nav-item" href="../howto/stream.html" aria-current="page"><span class="medium large">Land and stream in Go</span></a><a class="nav-item" href="../howto/migrate.html"><span class="medium large">Migrations</span></a></div></nav>
 	<main class="pg-main column owns-scroll">
 		<section class="column measure" style="--measure: 3; --gap: 1lh;">
-<p>Every page opens <code>/stream</code>. Commands answer 204 and publish; the stream
-re-renders the whole page for every open connection and sends it as one
-morph. The page is never assembled on the client from fragments.</p>
-<h2 id="the-skeleton">The skeleton</h2>
-<div class="column" style="--gap: 0;"><div class="spread" style="--type: -2; --fg: -0.55;"><small>go</small><copy-button code="// a command: write, publish, 204 — never a fragment
+<p>Every page opens <code>/stream</code>. A command answers 204 and publishes. The
+stream re-renders the whole page for each open connection and sends one
+morph. The client never assembles a page from fragments.</p>
+<div class="column" style="--gap: 0;"><div class="spread" style="--type: -2; --fg: -0.55;"><small>go</small><copy-button code="// a command: write, publish, 204
 func (h *Handler) Rename(w http.ResponseWriter, r *http.Request) {
 	orgID := pathID(r, &#34;org_id&#34;)
 	if err := h.DB.Rename(r.Context(), orgID, r.FormValue(&#34;name&#34;)); err != nil {
@@ -60,7 +59,7 @@ func (h *Handler) Rename(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
-// the stream: one SSE connection per open page; every org event re-lands it
+// the stream: one SSE connection per open page
 func (s *Stream) Serve(w http.ResponseWriter, r *http.Request) {
 	sse := datastar.NewSSE(w, r)
 	sub, _ := s.Bus.Subscribe(bus.OrgSubject(orgID))
@@ -70,12 +69,12 @@ func (s *Stream) Serve(w http.ResponseWriter, r *http.Request) {
 		case &lt;-r.Context().Done():
 			return
 		case &lt;-sub.C:
-			html, _ := s.Render.Page(r.Context(), path) // the WHOLE page
+			html, _ := s.Render.Page(r.Context(), path)
 			_ = sse.MergeFragments(html, datastar.WithSelector(&#34;body&#34;), datastar.WithMergeMode(datastar.FragmentMergeModeMorph))
 		}
 	}
 }
-"><button type="button" class="icon" aria-label="Copy" title="Copy"><span class="copy-idle">⧉</span><span class="copy-done" hidden>✓</span></button></copy-button></div><pre><code class="go">// a command: write, publish, 204 — never a fragment
+"><button type="button" class="icon" aria-label="Copy" title="Copy"><span class="copy-idle">⧉</span><span class="copy-done" hidden>✓</span></button></copy-button></div><pre><code class="go">// a command: write, publish, 204
 func (h *Handler) Rename(w http.ResponseWriter, r *http.Request) {
 	orgID := pathID(r, &quot;org_id&quot;)
 	if err := h.DB.Rename(r.Context(), orgID, r.FormValue(&quot;name&quot;)); err != nil {
@@ -86,7 +85,7 @@ func (h *Handler) Rename(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
-// the stream: one SSE connection per open page; every org event re-lands it
+// the stream: one SSE connection per open page
 func (s *Stream) Serve(w http.ResponseWriter, r *http.Request) {
 	sse := datastar.NewSSE(w, r)
 	sub, _ := s.Bus.Subscribe(bus.OrgSubject(orgID))
@@ -96,27 +95,23 @@ func (s *Stream) Serve(w http.ResponseWriter, r *http.Request) {
 		case &lt;-r.Context().Done():
 			return
 		case &lt;-sub.C:
-			html, _ := s.Render.Page(r.Context(), path) // the WHOLE page
+			html, _ := s.Render.Page(r.Context(), path)
 			_ = sse.MergeFragments(html, datastar.WithSelector(&quot;body&quot;), datastar.WithMergeMode(datastar.FragmentMergeModeMorph))
 		}
 	}
 }
 </code></pre></div>
-<p>The bus is embedded NATS; subjects are <code>org.&lt;id&gt;.&lt;table&gt;</code> and
+<p>The bus is embedded NATS. Subjects are <code>org.&lt;id&gt;.&lt;table&gt;</code> and
 <code>glb.&lt;table&gt;</code>. A coalescer folds a burst of publishes into one render.</p>
-<h2 id="the-laws-with-scars-attached">The laws with scars attached</h2>
+<h2 id="rules">Rules</h2>
 <ul>
-<li><strong>A render is O(page), never O(world).</strong> A page reads what it shows.
-Row count is the master lever: a roster's hot window is the rows on
-screen, the rest lands on demand.</li>
-<li><strong>Never answer a fragment on a table path.</strong> The one view channel is
-the stream; a command that returns HTML creates a second truth.</li>
-<li><strong>Seed-hide with inline <code>display: none</code>.</strong> An in-flow element whose
-<code>data-show</code> is false at land paints visible for a frame; the landed
-HTML itself is the floor.</li>
-<li><strong>Measure before you pin.</strong> Every threshold in the doctrine was found
-with a stopwatch on the real page; a cliff you have not measured is a
-guess.</li>
+<li>A render is O(page). A page reads what it shows. A roster's hot window
+is the rows on screen.</li>
+<li>Never answer a fragment on a table path. The stream is the one view
+channel.</li>
+<li>Seed-hide with inline <code>display: none</code>. An element whose <code>data-show</code> is
+false at land paints visible for a frame otherwise.</li>
+<li>Measure before you pin a threshold.</li>
 </ul>
 
 		</section>

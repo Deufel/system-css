@@ -1111,6 +1111,11 @@
   :where(.num-good) { --hue-lock: var(--hue-suc); --fg: 0.85; }
   :where(.num-bad)  { --hue-lock: var(--hue-dgr); --fg: 0.85; }
   :where(.num-flat) { --fg: -0.6; }
+  /* .number — a live numeric readout: mono, tabular, right-aligned, a fixed
+     width of --digits characters (default 3). A value that changes never
+     moves its neighbours. NOTHING SHIFTS is a law of the engine: a count,
+     a clock, a slider's value wears .number. (2026-09-29) */
+  :where(.number) { display: inline-block; font-family: var(--font-mono); font-variant-numeric: tabular-nums; min-inline-size: calc(var(--digits, 3) * 1ch); text-align: end; white-space: nowrap; }
 
   /* .focus-fab — the expand/collapse control docked bottom-right of pg-main.
      Shows the expand icon normally; when focus mode is active (page has the

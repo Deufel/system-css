@@ -24,7 +24,7 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 <div class="page">
 	<header class="pg-header spread" style="--gap: 0.5em;">
 		<a href="../index.html" class="row oneline" style="--gap: 0.5em;"><strong>system.css</strong><small style="--fg: -0.55;">the engine</small></a>
-		<span class="row oneline tablet desktop" style="--gap: 0.75em;"><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">hue</small><input type="range" min="0" max="360" step="5" data-bind:hue data-on:change="save('hue', $hue)" style="inline-size: 6em;"/><code data-text="$hue"></code></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">skin</small><select data-bind:skin data-on:change="save('skin', $skin)"><option value="">default</option><option value="material">material</option><option value="carbon">carbon</option></select></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">corners</small><select data-bind:radius data-on:change="save('radius', $radius)"><option value="">default</option><option value="0">square</option><option value="1">soft</option><option value="2">round</option><option value="3">pill</option></select></label><span class="button-group" role="group" aria-label="Size" style="--type: -1;"><button type="button" data-attr:aria-pressed="$size == 'sm' ? 'true' : 'false'" data-on:click="$size = 'sm'; save('size', $size)">S</button><button type="button" data-attr:aria-pressed="$size == 'md' ? 'true' : 'false'" data-on:click="$size = 'md'; save('size', $size)">M</button><button type="button" data-attr:aria-pressed="$size == 'lg' ? 'true' : 'false'" data-on:click="$size = 'lg'; save('size', $size)">L</button></span><span class="button-group" role="group" aria-label="Motion" style="--type: -1;"><button type="button" data-attr:aria-pressed="$motion == 'off' ? 'true' : 'false'" data-on:click="$motion = 'off'; save('motion', $motion)">Off</button><button type="button" data-attr:aria-pressed="$motion == 'on' ? 'true' : 'false'" data-on:click="$motion = 'on'; save('motion', $motion)">On</button><button type="button" data-attr:aria-pressed="$motion == 'debug' ? 'true' : 'false'" data-on:click="$motion = 'debug'; save('motion', $motion)">Debug</button></span><span class="button-group" role="group" aria-label="Theme" style="--type: -1;"><button type="button" data-attr:aria-pressed="$theme == '' ? 'true' : 'false'" data-on:click="$theme = ''; save('theme', $theme)">System</button><button type="button" data-attr:aria-pressed="$theme == 'light' ? 'true' : 'false'" data-on:click="$theme = 'light'; save('theme', $theme)">Light</button><button type="button" data-attr:aria-pressed="$theme == 'dark' ? 'true' : 'false'" data-on:click="$theme = 'dark'; save('theme', $theme)">Dark</button></span></span>
+		<span class="row oneline tablet desktop" style="--gap: 0.75em;"><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">hue</small><input type="range" min="0" max="360" step="5" data-bind:hue data-on:change="save('hue', $hue)" style="inline-size: 6em;"/><span class="number" data-text="$hue"></span></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">skin</small><select data-bind:skin data-on:change="save('skin', $skin)"><option value="">default</option><option value="material">material</option><option value="carbon">carbon</option></select></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">corners</small><select data-bind:radius data-on:change="save('radius', $radius)"><option value="">default</option><option value="0">square</option><option value="1">soft</option><option value="2">round</option><option value="3">pill</option></select></label><span class="button-group" role="group" aria-label="Size" style="--type: -1;"><button type="button" data-attr:aria-pressed="$size == 'sm' ? 'true' : 'false'" data-on:click="$size = 'sm'; save('size', $size)">S</button><button type="button" data-attr:aria-pressed="$size == 'md' ? 'true' : 'false'" data-on:click="$size = 'md'; save('size', $size)">M</button><button type="button" data-attr:aria-pressed="$size == 'lg' ? 'true' : 'false'" data-on:click="$size = 'lg'; save('size', $size)">L</button></span><span class="button-group" role="group" aria-label="Motion" style="--type: -1;"><button type="button" data-attr:aria-pressed="$motion == 'off' ? 'true' : 'false'" data-on:click="$motion = 'off'; save('motion', $motion)">Off</button><button type="button" data-attr:aria-pressed="$motion == 'on' ? 'true' : 'false'" data-on:click="$motion = 'on'; save('motion', $motion)">On</button><button type="button" data-attr:aria-pressed="$motion == 'debug' ? 'true' : 'false'" data-on:click="$motion = 'debug'; save('motion', $motion)">Debug</button></span><span class="button-group" role="group" aria-label="Theme" style="--type: -1;"><button type="button" data-attr:aria-pressed="$theme == '' ? 'true' : 'false'" data-on:click="$theme = ''; save('theme', $theme)">System</button><button type="button" data-attr:aria-pressed="$theme == 'light' ? 'true' : 'false'" data-on:click="$theme = 'light'; save('theme', $theme)">Light</button><button type="button" data-attr:aria-pressed="$theme == 'dark' ? 'true' : 'false'" data-on:click="$theme = 'dark'; save('theme', $theme)">Dark</button></span></span>
 		<span class="row oneline" style="--gap: 0.5em;">
 			<a href="https://github.com/Deufel/system-css" style="--type: -1;">GitHub</a>
 			<button type="button" class="icon mobile" aria-label="Theme" title="Theme: system → dark → light" data-on:click="$theme = $theme == '' ? 'dark' : ($theme == 'dark' ? 'light' : ''); save('theme', $theme)">
@@ -40,43 +40,33 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 	<header class="pg-main-header column">
 		<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">system.css</a><a href="../advanced/wash.html">Advanced</a></nav>
 		<div class="spread"><h1>The wash</h1></div>
-		<details class="site-menu mobile column" style="--gap: 0.25lh;"><summary class="tag">Menu</summary><div class="row" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../advanced/wash.html">Advanced</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../demos/full-pages.html">Demos</a><a class="tag" href="../skills/system-css.html">Skills</a></div><div class="column" style="--gap: 0; --type: -1;"><a href="../advanced/wash.html">The wash</a><a href="../advanced/stack.html">The stack</a><a href="../advanced/compositions.html">Complex screens from primitives</a><a href="../advanced/canvas.html">Canvas and rise</a></div></details>
+		<details class="site-menu mobile column" style="--gap: 0.25lh;"><summary class="tag">Menu</summary><div class="row" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../advanced/wash.html">Advanced</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../demos/full-pages.html">Demos</a><a class="tag" href="../skills/system-css.html">Skills</a></div><div class="column" style="--gap: 0; --type: -1;"><a href="../advanced/wash.html">The wash</a><a href="../advanced/stack.html">The stack</a><a href="../advanced/compositions.html">Screens from primitives</a><a href="../advanced/canvas.html">Canvas and rise</a></div></details>
 	</header>
-	<nav class="pg-toolbar spread-column tablet desktop" aria-label="Advanced"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">Advanced</small><a class="nav-item" href="../advanced/wash.html" aria-current="page"><span class="medium large">The wash</span></a><a class="nav-item" href="../advanced/stack.html"><span class="medium large">The stack</span></a><a class="nav-item" href="../advanced/compositions.html"><span class="medium large">Complex screens from primitives</span></a><a class="nav-item" href="../advanced/canvas.html"><span class="medium large">Canvas and rise</span></a></div></nav>
+	<nav class="pg-toolbar spread-column tablet desktop" aria-label="Advanced"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">Advanced</small><a class="nav-item" href="../advanced/wash.html" aria-current="page"><span class="medium large">The wash</span></a><a class="nav-item" href="../advanced/stack.html"><span class="medium large">The stack</span></a><a class="nav-item" href="../advanced/compositions.html"><span class="medium large">Screens from primitives</span></a><a class="nav-item" href="../advanced/canvas.html"><span class="medium large">Canvas and rise</span></a></div></nav>
 	<main class="pg-main column owns-scroll">
 		<section class="column measure" style="--measure: 3; --gap: 1lh;">
-<p>A page's tint. Two soft radial pools in the surface's own colour, fixed
-to the viewport, under everything. It is the hue made visible, and it
-re-themes with the hue slider and with day and night.</p>
+<p>Two radial pools in the surface's colour, fixed to the viewport, under
+everything. It follows the hue and the theme.</p>
 <div class="column" style="--gap: 0;"><div class="spread" style="--type: -2; --fg: -0.55;"><small>html</small><copy-button code="&lt;div class=&#34;page&#34;&gt;
   &lt;div class=&#34;wash&#34; aria-hidden=&#34;true&#34;&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;
-  &lt;header class=&#34;pg-header&#34;&gt;…&lt;/header&gt;
   …
 &lt;/div&gt;
 "><button type="button" class="icon" aria-label="Copy" title="Copy"><span class="copy-idle">⧉</span><span class="copy-done" hidden>✓</span></button></copy-button></div><pre><code class="html">&lt;div class=&quot;page&quot;&gt;
   &lt;div class=&quot;wash&quot; aria-hidden=&quot;true&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;
-  &lt;header class=&quot;pg-header&quot;&gt;…&lt;/header&gt;
   …
 &lt;/div&gt;
 </code></pre></div>
-<h2 id="how-it-paints">How it paints</h2>
 <ul>
-<li><code>.wash</code> is <code>position: fixed; inset: 0; z-index: -1</code> with <code>--bg: 0.26</code>:
-the engine resolves that <code>--bg</code> into the first pool's colour.</li>
-<li>The <code>&lt;i&gt;</code> inside is the second pool. It is a real child, at the same
-ladder step and <code>--hue-shift: 30</code>, because the engine resolves <code>--_bg</code>
-per element and a pseudo-element cannot carry its own hue.</li>
-<li>The host, <code>.page</code>, gets <code>isolation: isolate</code> through <code>:has(&gt; .wash)</code>,
-so the pools paint above the host's surface and under its content.
-Without the stacking context a negative z-index would fall behind the
-body.</li>
+<li><code>.wash</code> is <code>position: fixed; inset: 0; z-index: -1</code> at <code>--bg: 0.26</code>.
+The engine resolves that into the first pool.</li>
+<li>The <code>&lt;i&gt;</code> is the second pool: a real child at the same step with
+<code>--hue-shift: 30</code>. A pseudo-element cannot carry its own hue.</li>
+<li><code>:has(&gt; .wash)</code> gives the host <code>isolation: isolate</code>, so the pools paint
+above the host's surface and under its content.</li>
 </ul>
-<h2 id="when-to-use-it">When to use it</h2>
-<p>A landing page, a public shell, a phone app's home: surfaces that are
-mostly one region and want depth without a card. Not a dense working
-screen, where the cards already carry the depth and a wash under them
-is noise. One wash per page, first child, <code>aria-hidden</code>. The <a href="../lab/wash.html">Wash
-specimen</a> puts one on this site so you can move the hue.</p>
+<p>Use it on a landing page, a public shell, a phone home. Not on a dense
+working screen. One per page, first child, <code>aria-hidden</code>.
+<a href="../lab/wash.html">Specimen</a>.</p>
 
 		</section>
 	</main>
