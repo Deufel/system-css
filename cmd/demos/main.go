@@ -117,7 +117,7 @@ func report() demo {
 	body := `<div class="page">
 <header class="pg-header spread" style="--gap: 0.5em;"><span class="row oneline" style="--gap: 0.5em;"><strong>Northwind</strong><small style="--fg: -0.55;">reports</small></span><span class="row oneline" style="--gap: 0.5em;"><button type="button" class="sec">Print</button><button type="button" class="pri">Share</button></span></header>
 <header class="pg-main-header column"><nav class="crumbs"><a href="#">Reports</a><a href="#">Q3 2026</a></nav><div class="spread"><h1>Third quarter, in cases</h1><span class="tag">draft</span></div></header>
-<main class="pg-main column owns-scroll"><section class="column measure" style="--measure: 70ch; --gap: 1lh;">
+<main class="pg-main column owns-scroll"><section class="column measure" style="--measure: 2; --gap: 1lh;">
 <p style="--type: 1;">The quarter closed at <span class="num">1,510 cases <span class="delta num-good">▲ 19%</span></span> over the same quarter last year, on <span class="num">312 <span class="delta num-good">▲ 8</span></span> active accounts. Craft beer carried the growth; wine held; spirits fell for a second quarter.</p>
 <h2 id="volume">Volume</h2>
 <p>Monthly cases delivered, all classes. The July dip is the holiday week; September is the strongest month the territory has recorded.</p>
@@ -140,7 +140,7 @@ func field() demo {
 	body := `<div class="page"><div class="wash" aria-hidden="true"><i></i></div>
 <header class="pg-header spread" style="--gap: 0.5em;"><span class="row oneline" style="--gap: 0.5em;"><span class="avatar">JK</span><strong>Jonah</strong></span><span class="tag suc">on site · 1h 12m</span></header>
 <header class="pg-main-header column"><div class="spread"><h1>Today</h1><small style="--fg: -0.55;">Tue, Sep 29</small></div></header>
-<main class="pg-main column owns-scroll"><section class="column measure" style="--measure: 30rem; --gap: 0.5lh;">
+<main class="pg-main column owns-scroll"><section class="column measure" style="--measure: 1; --gap: 0.5lh;">
 <div class="card column" style="--gap: 0.5lh; --lift: 1;"><div class="spread"><strong>Riverwalk Fest</strong><span class="tag suc">live</span></div><small style="--fg: -0.55;">Riverside Beverage · 1 Main St, Joliet</small><div class="spread"><span class="num" style="--type: 2;">1h 12m</span><small style="--fg: -0.55;">since 13:36 · 46 m from the door</small></div>
 <div class="row" style="--gap: 0.5em;"><span class="tag">Penrose</span><span class="tag">Virtue</span><span class="tag">Half Acre</span></div>
 <fieldset data-on:confirm="$done = true"><hold-confirm class="dgr" data-ignore-morph><button type="button" class="fill">Hold to check out</button></hold-confirm></fieldset></div>
@@ -158,7 +158,7 @@ func landing() demo {
 	growth := []charts.Point{{Label: "'22", Val: 12}, {Label: "'23", Val: 31}, {Label: "'24", Val: 58}, {Label: "'25", Val: 96}, {Label: "'26", Val: 140}}
 	body := `<div class="page"><div class="wash" aria-hidden="true"><i></i></div>
 <header class="pg-header spread" style="--gap: 0.5em;"><strong>Lumen</strong><span class="row oneline" style="--gap: 0.5em;"><a href="#">Product</a><a href="#">Pricing</a><a href="#">Docs</a><button type="button" class="sec">Sign in</button><button type="button" class="pri">Start free</button></span></header>
-<main class="pg-main column owns-scroll"><section class="column measure" style="--measure: 64rem; --gap: 1lh;">
+<main class="pg-main column owns-scroll"><section class="column measure" style="--measure: 3; --gap: 1lh;">
 <div class="column rise" style="--rise: 55; --gap: 0.5lh; --type: 1;"><span class="tag inf">v2 · one file</span><h1 style="--type: 6;">Ship your interface at the speed of thought</h1><p style="--type: 1; --fg: -0.55;">One tiny CSS engine. Every surface, control and layout derives from type and a signed colour axis — so it just fits, in any theme, at any scale.</p><div class="row" style="--gap: 0.5em;"><button type="button" class="pri">Start free</button><button type="button" class="sec">Book a demo</button></div><small style="--fg: -0.55;">No credit card · 5-minute setup</small></div>
 <div class="grid" style="--grid-min: 16rem;">
 <div class="card column" style="--gap: 0.25lh;"><strong>Paint by knob</strong><small style="--fg: -0.55;">Set --hue, --bg, --fg, --type. There is no palette to pick from and nothing to name.</small></div>

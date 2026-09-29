@@ -12,12 +12,13 @@ order you will need it.
 
 Layout is `.row`, `.column`, `.spread` (a row with space between),
 `.grid` (auto-fit, `--grid-min` sets the column floor), `.lcr` (a
-left-centre-right header), `.oneline` (no wrap), `.measure` (a reading
-width, `--measure` sets it), `.card` (a lifted surface), `.scroll-x`,
+left-centre-right header), `.oneline` (no wrap), `.measure` (a centred
+surface; `--measure` is a rung, 1 a column · 2 reading · 3 working),
+`.card` (a lifted surface), `.scroll-x`,
 `.truncate`, `.prelines`.
 
 ```html
-<section class="column measure" style="--measure: 80ch; --gap: 1lh;">
+<section class="column measure" style="--measure: 3; --gap: 1lh;">
   <div class="grid" style="--grid-min: 20rem;">
     <div class="card column" style="--gap: 0.25lh;">
       <strong>Location</strong>

@@ -45,6 +45,23 @@ var gapRe = regexp.MustCompile(`--gap:\s*([0-9.]+(?:lh|em)?)`)
 
 var gapLadder = map[string]bool{"0": true, "0.25lh": true, "0.5lh": true, "1lh": true, "0.25em": true, "0.5em": true, "1em": true}
 
+// the measure ladder (2026-09-29): --measure is a rung — 1 a column · 2
+// reading · 3 working — never a length.
+var measureRe = regexp.MustCompile(`--measure:\s*([^;"}]+)`)
+
+var measureLadder = map[string]bool{"1": true, "2": true, "3": true}
+
+// OffLadderMeasures counts --measure values that are not a rung.
+func OffLadderMeasures(src string) int {
+	n := 0
+	for _, m := range measureRe.FindAllStringSubmatch(src, -1) {
+		if !measureLadder[strings.TrimSpace(m[1])] {
+			n++
+		}
+	}
+	return n
+}
+
 // OffLadderGaps counts --gap values off the ladder in templ source.
 func OffLadderGaps(src string) int {
 	n := 0

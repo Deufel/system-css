@@ -1537,12 +1537,17 @@
   :where(.stress)   { resize: horizontal; overflow: auto; min-inline-size: 14rem; }
   :where(.truncate) { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-inline-size: 0; }
 
-  /* .measure — center a work surface at a comfortable reading/working width.
-     Wide monitors stretched full-bleed forms into ribbons (a 7-column row at
-     2560px is mostly whitespace between controls); this caps the surface and
-     centers it, and simply fills the region on anything narrower. The knob:
-     set --measure on the element to widen/narrow per surface. */
-  :where(.measure) { inline-size: 100%; max-inline-size: var(--measure, 64rem); margin-inline: auto; }
+  /* .measure — THE MEASURE LADDER (2026-09-29, Mike: "reintroduce this
+     concept in a more general way"): a work surface centred at a width the
+     ENGINE owns. --measure is a RUNG, never a length — 1 a column (a wizard
+     station, a dialog-like card, a form alone) · 2 reading (settings
+     leaves, prose, a report; the default) · 3 working (a record page's
+     grid, a dashboard's cap) — and the rung becomes 40ch + 30ch a step:
+     40ch · 70ch · 100ch in the type's own unit, so a measure grows with
+     --type and the text-size preference on its own. It fills the region
+     on anything narrower. Ten hand-written widths across two trees were
+     the reason; the counter now checks the rungs like the gap ladder. */
+  :where(.measure) { inline-size: 100%; max-inline-size: calc(40ch + (var(--measure, 2) - 1) * 30ch); margin-inline: auto; }
 
   /* (.type-flow is RETIRED, gf-68 — --type inherits natively now; the
      class was the opt-in workaround and its utility-layer rule squashed
@@ -1934,7 +1939,7 @@
      measure, generous block rhythm. Parts are .guide-part rows: a leading
      glyph nudged to the first text line, then block-flow text. ── */
   :where(.guide) {
-    inline-size: 100%; max-inline-size: var(--measure, 46em); margin-inline: auto;
+    inline-size: 100%; max-inline-size: calc(40ch + (var(--measure, 2) - 1) * 30ch); margin-inline: auto; /* the reading rung of the measure ladder */
     padding-block: 1.5lh;
     display: flex; flex-direction: column; gap: var(--gap, 1lh);
   }

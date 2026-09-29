@@ -44,7 +44,7 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 	</header>
 	<nav class="pg-toolbar spread-column tablet desktop" aria-label="Advanced"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">Advanced</small><a class="nav-item" href="../advanced/wash.html"><span class="medium large">The wash</span></a><a class="nav-item" href="../advanced/stack.html" aria-current="page"><span class="medium large">The stack</span></a><a class="nav-item" href="../advanced/compositions.html"><span class="medium large">Complex screens from primitives</span></a><a class="nav-item" href="../advanced/canvas.html"><span class="medium large">Canvas and rise</span></a></div></nav>
 	<main class="pg-main column owns-scroll">
-		<section class="column measure" style="--measure: 80ch; --gap: 1lh;">
+		<section class="column measure" style="--measure: 3; --gap: 1lh;">
 <p><code>.stack</code> is a grid with one named area, and every child takes it:</p>
 <div class="column" style="--gap: 0;"><div class="spread" style="--type: -2; --fg: -0.55;"><small>css</small><copy-button code=":where(.stack) { display: grid; grid-template-areas: &#34;stack&#34;; &amp; &gt; * { grid-area: stack } }
 "><button type="button" class="icon" aria-label="Copy" title="Copy"><span class="copy-idle">⧉</span><span class="copy-done" hidden>✓</span></button></copy-button></div><pre><code class="css">:where(.stack) { display: grid; grid-template-areas: &quot;stack&quot;; &amp; &gt; * { grid-area: stack } }
