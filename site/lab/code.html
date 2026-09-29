@@ -1,0 +1,57 @@
+<!-- Code — THE LAB: a specimen of the engine, the dictionary of its vocabulary; edit here -->
+<div class="column" style="--gap: 1lh;">
+<div class="column" style="--gap: 0.25lh;">
+<strong>Code — syntax highlighting is the engine's</strong>
+<small style="--fg: -0.55;">A <code>&lt;pre&gt;&lt;code class="go"&gt;</code> block and a highlighter that registers tokens through the Custom Highlight API (assets/highlight.js here). The engine paints every token from its own signals — the theme's lightness pair, the page's hue turned per category — so the block follows the hue slider, the theme and the skin in the toolbar. No span, no class, no literal colour.</small>
+</div>
+<div class="grid" style="--grid-min: 22rem;">
+<div class="card column" style="--gap: 0.25lh;"><strong>Go</strong>
+<pre><code class="go">// a command: write, publish, 204
+func (h *Handler) Rename(w http.ResponseWriter, r *http.Request) {
+	orgID := pathID(r, "org_id")
+	if err := h.DB.Rename(r.Context(), orgID, r.FormValue("name")); err != nil {
+		http.Error(w, "save failed", 500)
+		return
+	}
+	h.publishOrg(orgID)
+	w.WriteHeader(http.StatusNoContent)
+}</code></pre></div>
+<div class="card column" style="--gap: 0.25lh;"><strong>CSS</strong>
+<pre><code class="css">/* one file, one spine */
+@layer reset, core.color, core.type, core.layout, theme, base, components, utility, media, skin, project;
+:where(.card) { --lift: 1; padding: 0.5lh 0.75em; border-radius: var(--cfg-radius); }
+:where(.row)  { display: flex; gap: var(--gap, 0.25lh); }</code></pre></div>
+<div class="card column" style="--gap: 0.25lh;"><strong>HTML</strong>
+<pre><code class="html">&lt;form data-on:submit__prevent="@post('/o/1/warehouses', {contentType: 'form'})"&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;Warehouse &lt;small&gt;where the trucks load&lt;/small&gt;&lt;/legend&gt;
+    &lt;label&gt;&lt;span&gt;Name&lt;/span&gt;&lt;small&gt;&lt;/small&gt;&lt;input name="name" required/&gt;&lt;/label&gt;
+  &lt;/fieldset&gt;
+&lt;/form&gt;</code></pre></div>
+<div class="card column" style="--gap: 0.25lh;"><strong>SQLite</strong>
+<pre><code class="sqlite">-- 0009-visit.sql — one row per rep per activation
+CREATE TABLE org_visit (
+	id            INTEGER PRIMARY KEY,
+	activation    INTEGER NOT NULL REFERENCES org_activation(id) ON DELETE CASCADE,
+	checked_in_at TEXT    NOT NULL,
+	in_distance_m INTEGER NOT NULL DEFAULT -1
+) STRICT;
+SELECT CAST((julianday('now') - julianday(checked_in_at)) * 86400 AS INTEGER) FROM org_visit WHERE id = ?;</code></pre></div>
+<div class="card column" style="--gap: 0.25lh;"><strong>JavaScript</strong>
+<pre><code class="javascript">// a rocket: events up, props down, nothing injected
+class HoldConfirm extends HTMLElement {
+  connectedCallback() { this.addEventListener('pointerdown', this.start); }
+  start = (e) =&gt; { this.timer = setTimeout(() =&gt; this.dispatchEvent(new CustomEvent('confirm', { bubbles: true })), 1500); };
+}
+customElements.define('hold-confirm', HoldConfirm);</code></pre></div>
+<div class="card column" style="--gap: 0.25lh;"><strong>Python</strong>
+<pre><code class="python">@dataclass
+class Visit:
+    """One rep's time on site."""
+    checked_in: datetime
+    distance_m: int = -1
+
+    def on_site(self, now: datetime) -&gt; int:
+        return int((now - self.checked_in).total_seconds())</code></pre></div>
+</div>
+</div>

@@ -1,41 +1,11 @@
 /* site.css — the docs site's own rules, in the project layer the engine
-   reserves for an app. The highlighter (highlight.js, the Custom Highlight
-   API) paints tokens through ::highlight(), which takes colour only; every
-   colour here is derived from the element's own ink and the engine's
-   semantic hues — no literal colour. */
+   reserves for an app. Syntax highlighting is the ENGINE's (its utility
+   layer paints ::highlight() tokens from --cfg-dark, --hue and
+   --hue-shift); this sheet holds only what the site alone needs. */
 @layer project {
-  ::highlight(css-comment), ::highlight(html-comment), ::highlight(python-comment),
-  ::highlight(javascript-comment), ::highlight(go-comment), ::highlight(sqlite-comment) {
-    color: oklch(from currentColor l 0 h / 0.55);
-  }
-  ::highlight(css-punctuation), ::highlight(html-bracket), ::highlight(python-punctuation),
-  ::highlight(javascript-punctuation), ::highlight(go-punctuation), ::highlight(sqlite-punctuation),
-  ::highlight(python-operator), ::highlight(javascript-operator), ::highlight(go-operator), ::highlight(sqlite-operator) {
-    color: oklch(from currentColor l 0 h / 0.7);
-  }
-  ::highlight(css-string), ::highlight(html-value), ::highlight(python-string),
-  ::highlight(javascript-string), ::highlight(go-string), ::highlight(sqlite-string) {
-    color: oklch(from currentColor l 0.12 var(--hue-suc));
-  }
-  ::highlight(css-atrule), ::highlight(html-tag), ::highlight(python-keyword),
-  ::highlight(javascript-keyword), ::highlight(go-keyword), ::highlight(sqlite-keyword) {
-    color: oklch(from currentColor l 0.14 var(--hue-inf));
-  }
-  ::highlight(css-property), ::highlight(html-attribute), ::highlight(python-builtin),
-  ::highlight(javascript-builtin), ::highlight(go-builtin), ::highlight(sqlite-type), ::highlight(sqlite-function) {
-    color: oklch(from currentColor l 0.1 calc(var(--hue-inf) + 40));
-  }
-  ::highlight(css-selector), ::highlight(python-function), ::highlight(python-class),
-  ::highlight(javascript-function), ::highlight(javascript-class), ::highlight(go-function), ::highlight(go-class),
-  ::highlight(sqlite-identifier), ::highlight(python-decorator), ::highlight(javascript-decorator) {
-    color: oklch(from currentColor l 0.12 var(--hue-wrn));
-  }
-  ::highlight(css-number), ::highlight(css-unit), ::highlight(css-var-name), ::highlight(python-number),
-  ::highlight(javascript-number), ::highlight(go-number), ::highlight(sqlite-number), ::highlight(sqlite-parameter),
-  ::highlight(html-entity), ::highlight(html-doctype) {
-    color: oklch(from currentColor l 0.12 var(--hue-dgr));
-  }
-  /* the phone's menu: sections and this section's pages, plain links */
   :where(.site-menu) > :where(summary) { list-style: none; cursor: pointer; }
   :where(.site-menu) > :where(summary)::-webkit-details-marker { display: none; }
+  :where(.pg-aside) > :where(.toc) { position: sticky; inset-block-start: 0; }
+  :where(.demo-frame) { inline-size: 100%; aspect-ratio: 16 / 10; border: 1px solid var(--border); border-radius: var(--cfg-radius); background: var(--_bg); overflow: hidden; }
+  :where(.demo-frame) > :where(iframe) { inline-size: 200%; block-size: 200%; border: 0; transform: scale(0.5); transform-origin: 0 0; pointer-events: none; }
 }

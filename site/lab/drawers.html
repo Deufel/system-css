@@ -1,0 +1,38 @@
+<!-- Drawers — THE LAB: a specimen of the engine, the dictionary of its vocabulary; edit here -->
+<div class="column" style="--gap: 1lh;">
+<div class="column" style="--gap: 0.25lh;">
+<strong>Drawers — a panel that slides in from an edge</strong>
+<small style="--fg: -0.55;">A native <code>&lt;dialog class="drawer"&gt;</code> with one edge word — <code>.left</code> · <code>.right</code> · <code>.top</code> · <code>.bottom</code> — opened by <code>showModal()</code>, closed by <code>closedby="any"</code> (a click outside, Escape). The engine owns the slide, the scrim and the timing, all on the motion clock: set the toolbar's motion to Debug and watch the anatomy at a tenth of the speed; Off removes it. <code>.glass</code> frosts the scrim. <code>.drawer-grow</code> lets the panel take its content's height. On a live page every dialog carries <code>data-preserve-attr="open"</code>, or a push morphs it shut.</small>
+</div>
+<div class="row" style="--gap: 0.5em;">
+<button type="button" onclick="document.getElementById('dr-left').showModal()">Left</button>
+<button type="button" onclick="document.getElementById('dr-right').showModal()">Right</button>
+<button type="button" onclick="document.getElementById('dr-top').showModal()">Top</button>
+<button type="button" onclick="document.getElementById('dr-bottom').showModal()">Bottom</button>
+<button type="button" class="sec" onclick="document.getElementById('dr-glass').showModal()">Right · glass</button>
+</div>
+<dialog id="dr-left" class="drawer left bg" closedby="any" aria-label="Left drawer" data-preserve-attr="open">
+<div class="column" style="--gap: 0.5lh;"><div class="spread"><strong>Left</strong><button type="button" class="icon" aria-label="Close" onclick="this.closest('dialog').close()">×</button></div>
+<small style="--fg: -0.55;">The primary navigation on a phone lives here: the rail's items, one per line.</small>
+<a class="nav-item" href="#" aria-current="page"><span>Home</span></a><a class="nav-item" href="#"><span>Events</span></a><a class="nav-item" href="#"><span>Settings</span></a></div>
+</dialog>
+<dialog id="dr-right" class="drawer right bg" closedby="any" aria-label="Right drawer" data-preserve-attr="open">
+<div class="column" style="--gap: 0.5lh;"><div class="spread"><strong>Right</strong><button type="button" class="icon" aria-label="Close" onclick="this.closest('dialog').close()">×</button></div>
+<small style="--fg: -0.55;">A record's detail beside the roster: the row stays in view, the panel edits it.</small>
+<form><fieldset><legend>Warehouse</legend><label><span>Name</span><small></small><input value="North dock"/></label><label><span>Kind</span><small></small><select><option>Warehouse</option><option>Office</option></select></label></fieldset><div class="spread"><button type="reset" class="sec">Cancel</button><button type="button" class="pri" onclick="this.closest('dialog').close()">Save</button></div></form></div>
+</dialog>
+<dialog id="dr-top" class="drawer top bg" closedby="any" aria-label="Top drawer" data-preserve-attr="open">
+<div class="column" style="--gap: 0.5lh;"><div class="spread"><strong>Top</strong><button type="button" class="icon" aria-label="Close" onclick="this.closest('dialog').close()">×</button></div>
+<small style="--fg: -0.55;">Notifications: a band under the header, the page still visible beneath.</small>
+<div class="row" style="--gap: 0.5em;"><span class="tag inf">action</span><span>Your passkey is ready to add.</span></div></div>
+</dialog>
+<dialog id="dr-bottom" class="drawer bottom bg" closedby="any" aria-label="Bottom drawer" data-preserve-attr="open">
+<div class="column" style="--gap: 0.5lh;"><div class="spread"><strong>Bottom</strong><button type="button" class="icon" aria-label="Close" onclick="this.closest('dialog').close()">×</button></div>
+<small style="--fg: -0.55;">A phone's sheet: the verbs for the thing the thumb is on.</small>
+<div class="row" style="--gap: 0.5em;"><button type="button">Edit</button><button type="button">Move</button><button type="button" class="dgr">Delete</button></div></div>
+</dialog>
+<dialog id="dr-glass" class="drawer right bg glass" closedby="any" aria-label="Glass drawer" data-preserve-attr="open">
+<div class="column" style="--gap: 0.5lh;"><div class="spread"><strong>Right · glass</strong><button type="button" class="icon" aria-label="Close" onclick="this.closest('dialog').close()">×</button></div>
+<small style="--fg: -0.55;">The frost lives on the backdrop, so the page beneath is sampled reliably.</small></div>
+</dialog>
+</div>

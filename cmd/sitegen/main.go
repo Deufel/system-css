@@ -58,6 +58,7 @@ var sections = []*section{
 	{Key: "stream", Label: "Land & stream", Icon: "boxes"},
 	{Key: "charts", Label: "Charts", Icon: "palette"},
 	{Key: "lab", Label: "Lab", Icon: "sparkles", Tabs: []tab{{"engine", "Engine"}, {"rockets", "Rockets"}}},
+	{Key: "demos", Label: "Demos", Icon: "boxes"},
 	{Key: "skills", Label: "Skills", Icon: "pencil"},
 }
 
@@ -69,7 +70,28 @@ var skillSections = []struct{ skill, section string }{
 // labLabels — the lab's page labels in the rail's order (the rockets follow).
 var labLabels = []struct{ key, label string }{
 	{"primitives", "Primitives"}, {"compositions", "Compositions"}, {"color", "Color"}, {"type", "Type"}, {"icons", "Icons"},
-	{"state", "State"}, {"aria", "ARIA"}, {"forms", "Forms"}, {"charts", "Charts"},
+	{"state", "State"}, {"aria", "ARIA"}, {"forms", "Forms"}, {"charts", "Charts"}, {"code", "Code"}, {"drawers", "Drawers"}, {"motion", "Motion"},
+}
+
+// demos — full pages built on the engine alone, each a standalone
+// document previewed in a frame and opened whole (site/demos/*.html).
+var demos = []struct{ file, title, tag, blurb string }{
+	{"demo-dashboard.html", "SaaS dashboard", ".page", "Metric cards, a live table, a storage meter and an activity rail on the ten-slot app shell."},
+	{"demo-calendar.html", "Calendar app", ".page", "A month grid with hue-coded events, a mini-calendar, filters and a day detail pane."},
+	{"demo-marketing.html", "Marketing page", "xl · tw", "A landing page on the marketing scale — hero, features, pricing tiers and a quote."},
+	{"demo-palette.html", "Command palette", "dark · kbd", "A scoped fuzzy-search overlay — grouped results, match highlighting, type tags and keyboard hints, all from primitives."},
+}
+
+// demosPage — the Demos section's one page: the frames, and this site
+// as the documentation shell.
+func demosPage() *page {
+	var sb strings.Builder
+	sb.WriteString(`<p>Full pages built with nothing but the engine — no bespoke stylesheet beyond a few lines each. Every one is a standalone document with its own theme, hue and size, previewed here and opened whole. This site is the fifth: the documentation shell, on the same grid, with the toolbar above driving the engine live.</p><div class="grid" style="--grid-min: 20rem;">`)
+	for _, d := range demos {
+		sb.WriteString(`<div class="card column" style="--gap: 0.5lh;"><div class="demo-frame"><iframe src="../demos/` + d.file + `" title="` + d.title + `" loading="lazy"></iframe></div><div class="spread"><strong>` + d.title + `</strong><span class="tag">` + d.tag + `</span></div><small style="--fg: -0.55;">` + d.blurb + `</small><a href="../demos/` + d.file + `" target="_blank" rel="noopener"><button type="button" class="sec fill">Open full page ↗</button></a></div>`)
+	}
+	sb.WriteString(`<div class="card column" style="--gap: 0.5lh;"><div class="demo-frame"><iframe src="../index.html" title="This site" loading="lazy"></iframe></div><div class="spread"><strong>The documentation shell</strong><span class="tag">.page · rail · toolbar · aside</span></div><small style="--fg: -0.55;">This site: the rail for sections, tabs for a section's views, the toolbar rail for a view's pages, the aside for the page's own contents.</small><a href="../index.html"><button type="button" class="sec fill">Open ↗</button></a></div></div>`)
+	return &page{Section: "demos", Slug: "full-pages", Title: "Full pages", Body: sb.String(), Raw: true}
 }
 
 // proOnly — the attributes and actions that stayed in Datastar Pro after
@@ -185,6 +207,7 @@ func main() {
 	must(os.MkdirAll(outDir, 0o755))
 	must(copyTree("static", filepath.Join(outDir, "static")))
 	must(copyTree(filepath.Join("site", "assets"), filepath.Join(outDir, "assets")))
+	must(copyTree(filepath.Join("site", "demos"), filepath.Join(outDir, "demos")))
 	must(os.WriteFile(filepath.Join(outDir, ".nojekyll"), nil, 0o644))
 	icons := loadIcons()
 
@@ -239,6 +262,7 @@ func main() {
 		body = needsCard(key) + body
 		bySection["lab"].Pages = append(bySection["lab"].Pages, &page{Section: "lab", Tab: "rockets", Slug: "rocket-" + key, Title: key, Order: 100 + i, Body: body, Raw: true})
 	}
+	bySection["demos"].Pages = append(bySection["demos"].Pages, demosPage())
 	for _, s := range sections {
 		sort.SliceStable(s.Pages, func(i, j int) bool { return s.Pages[i].Order < s.Pages[j].Order })
 	}
@@ -397,6 +421,19 @@ func render(markdown string) string {
 	})
 }
 
+var codeBlock = regexp.MustCompile(`(?s)<pre><code class="([a-z]+)">(.*?)</code></pre>`)
+
+// copyable — every fenced block gets its language word and a copy button
+// (the copy-button rocket: the button and both glyphs server-rendered in
+// the host, the text in the host's code attribute).
+func copyable(body string) string {
+	return codeBlock.ReplaceAllStringFunc(body, func(m string) string {
+		g := codeBlock.FindStringSubmatch(m)
+		text := htmlesc.EscapeString(htmlesc.UnescapeString(g[2]))
+		return `<div class="column" style="--gap: 0;"><div class="spread" style="--type: -2; --fg: -0.55;"><small>` + g[1] + `</small><copy-button code="` + text + `"><button type="button" class="icon" aria-label="Copy" title="Copy"><span class="copy-idle">⧉</span><span class="copy-done" hidden>✓</span></button></copy-button></div>` + m + `</div>`
+	})
+}
+
 var h2html = regexp.MustCompile(`<h2 id="([^"]+)">(.+?)</h2>`)
 
 // toc — the page's h2 list, when it has three or more.
@@ -406,7 +443,7 @@ func toc(body string) string {
 		return ""
 	}
 	var sb strings.Builder
-	sb.WriteString(`<nav class="card column" aria-label="On this page" style="--gap: 0; --type: -1;"><strong>On this page</strong>`)
+	sb.WriteString(`<nav class="toc column" aria-label="On this page" style="--gap: 0; --type: -1;"><small class="rail-head">On this page</small>`)
 	for _, m := range ms {
 		sb.WriteString(`<a href="#` + m[1] + `">` + stripTags(m[2]) + `</a>`)
 	}
@@ -438,10 +475,13 @@ func navItem(href, label, icon string, current bool) string {
 }
 
 // shell — the page on the engine's own grid, on the shell grammar:
-// pg-header (the brand, the theme), pg-navigation (n1: the sections),
+// pg-header (the brand, THE TOOLBAR — hue, skin, corners, size, motion,
+// theme — every knob a stored signal stamped on <html>, the way an app's
+// server stamps a preference), pg-navigation (n1: the sections),
 // pg-main-header (crumbs, the title, the phone's menu), pg-main-subheader
-// (n2: the section's views, only when it has more than one),
-// pg-toolbar (n3: the pages of the view), pg-main (the content).
+// (n2: the section's views, only when it has more than one), pg-toolbar
+// (n3: the pages of the view), pg-main (the content), pg-aside (the page's
+// own contents), pg-main-footer (the previous and the next page).
 func shell(pg *page, cur *section, icons map[string]string) string {
 	root := "./"
 	if pg.Section != "" {
@@ -521,21 +561,60 @@ func shell(pg *page, cur *section, icons map[string]string) string {
 	crumbs += `</nav>`
 	body := pg.Body
 	measure := `<section class="column measure" style="--measure: 80ch; --gap: 1lh;">`
+	aside := ""
 	if pg.Raw {
 		measure = `<section class="column" style="--gap: 1lh;">`
 	} else {
-		body = toc(body) + body
+		body = copyable(body)
+		if t := toc(body); t != "" {
+			aside = `<aside class="pg-aside desktop">` + t + `</aside>`
+		}
 	}
-	// ONE runtime: the free bundle with Rocket, at the path the rockets import
+	// the previous and the next page of the view
+	foot := ""
+	for i, p := range view {
+		if p != pg {
+			continue
+		}
+		var prev, next string
+		if i > 0 {
+			prev = `<a href="` + href(pg, view[i-1]) + `">← ` + htmlesc.EscapeString(view[i-1].Title) + `</a>`
+		}
+		if i+1 < len(view) {
+			next = `<a href="` + href(pg, view[i+1]) + `">` + htmlesc.EscapeString(view[i+1].Title) + ` →</a>`
+		}
+		if prev != "" || next != "" {
+			foot = `<footer class="pg-main-footer spread" style="--type: -1;"><span>` + prev + `</span><span>` + next + `</span></footer>`
+		}
+	}
 	scripts := `<script type="module" src="` + root + `static/datastar.js"></script>`
 	rockets, _ := filepath.Glob("static/rocket/*.js")
 	for _, r := range rockets {
-		if filepath.Base(r) != "exif.js" { // a plain module image-input imports; not a component
+		if filepath.Base(r) != "exif.js" {
 			scripts += `<script type="module" src="` + root + `static/rocket/` + filepath.Base(r) + `"></script>`
 		}
 	}
+	// THE TOOLBAR's signals: read once from storage, written on every change
+	signals := `{theme: ls('theme', ''), size: ls('size', 'md'), skin: ls('skin', ''), radius: ls('radius', ''), motion: ls('motion', 'on'), hue: Number(ls('hue', '255'))}`
+	group := func(name, sig string, opts [][2]string) string {
+		var b strings.Builder
+		b.WriteString(`<span class="button-group" role="group" aria-label="` + name + `" style="--type: -1;">`)
+		for _, o := range opts {
+			b.WriteString(`<button type="button" data-attr:aria-pressed="$` + sig + ` == '` + o[0] + `' ? 'true' : 'false'" data-on:click="$` + sig + ` = '` + o[0] + `'; save('` + sig + `', $` + sig + `)">` + o[1] + `</button>`)
+		}
+		b.WriteString(`</span>`)
+		return b.String()
+	}
+	toolbar := `<span class="row oneline tablet desktop" style="--gap: 0.75em;">` +
+		`<label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">hue</small><input type="range" min="0" max="360" step="5" data-bind:hue data-on:change="save('hue', $hue)" style="inline-size: 6em;"/><code data-text="$hue"></code></label>` +
+		`<label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">skin</small><select data-bind:skin data-on:change="save('skin', $skin)"><option value="">default</option><option value="material">material</option><option value="carbon">carbon</option></select></label>` +
+		`<label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">corners</small><select data-bind:radius data-on:change="save('radius', $radius)"><option value="">default</option><option value="0">square</option><option value="1">soft</option><option value="2">round</option><option value="3">pill</option></select></label>` +
+		group("Size", "size", [][2]string{{"sm", "S"}, {"md", "M"}, {"lg", "L"}}) +
+		group("Motion", "motion", [][2]string{{"off", "Off"}, {"on", "On"}, {"debug", "Debug"}}) +
+		group("Theme", "theme", [][2]string{{"", "System"}, {"light", "Light"}, {"dark", "Dark"}}) +
+		`</span>`
 	return `<!doctype html>
-<html lang="en" data-signals="{theme: (function () { try { return localStorage.getItem('theme') || '' } catch (e) { return '' } })()}" data-attr:data-ui-theme="$theme != '' ? $theme : false">
+<html lang="en" data-signals="` + signals + `" data-attr:data-ui-theme="$theme != '' ? $theme : false" data-attr:data-ui-size="$size" data-attr:data-ui-skin="$skin != '' ? $skin : false" data-attr:data-ui-radius="$radius != '' ? $radius : false" data-attr:data-ui-motion="$motion" data-style="{'--hue': $hue}">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
@@ -543,19 +622,26 @@ func shell(pg *page, cur *section, icons map[string]string) string {
 <title>` + htmlesc.EscapeString(pg.Title) + ` — system.css</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=optional" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=optional" rel="stylesheet"/>
 <link rel="stylesheet" href="` + root + `static/system.css"/>
 <link rel="stylesheet" href="` + root + `assets/site.css"/>
-<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-ui-theme',t)}catch(e){}</script>
+<script>
+// the stored knobs, before first paint (the interstitial frame is pre-CSS);
+// ls/save are the one storage seam the signals use
+function ls(k, d) { try { var v = localStorage.getItem('ui.' + k); return v === null ? d : v } catch (e) { return d } }
+function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (e) {} }
+(function () { var h = document.documentElement; var t = ls('theme', ''); if (t) h.setAttribute('data-ui-theme', t); ['size', 'skin', 'radius', 'motion'].forEach(function (k) { var v = ls(k, ''); if (v) h.setAttribute('data-ui-' + k, v) }); h.style.setProperty('--hue', ls('hue', '255')) })();
+</script>
 ` + scripts + `
 </head>
 <body>
 <div class="page">
 	<header class="pg-header spread" style="--gap: 0.5em;">
 		<a href="` + root + `index.html" class="row oneline" style="--gap: 0.5em;"><strong>system.css</strong><small style="--fg: -0.55;">the engine</small></a>
+		` + toolbar + `
 		<span class="row oneline" style="--gap: 0.5em;">
 			<a href="https://github.com/Deufel/system-css" style="--type: -1;">GitHub</a>
-			<button type="button" class="icon" aria-label="Theme" title="Theme: system → dark → light" data-on:click="$theme = $theme == '' ? 'dark' : ($theme == 'dark' ? 'light' : ''); try { localStorage.setItem('theme', $theme) } catch (e) {}">
+			<button type="button" class="icon mobile" aria-label="Theme" title="Theme: system → dark → light" data-on:click="$theme = $theme == '' ? 'dark' : ($theme == 'dark' ? 'light' : ''); save('theme', $theme)">
 				<span data-show="$theme == ''" style="display: none;">` + icons["monitor"] + `</span>
 				<span data-show="$theme == 'dark'" style="display: none;">` + icons["moon"] + `</span>
 				<span data-show="$theme == 'light'" style="display: none;">` + icons["sun"] + `</span>
@@ -576,6 +662,7 @@ func shell(pg *page, cur *section, icons map[string]string) string {
 ` + body + `
 		</section>
 	</main>
+	` + aside + foot + `
 </div>
 <script src="` + root + `assets/highlight.js"></script>
 </body>
