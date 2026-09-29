@@ -26,12 +26,17 @@ var exceptions = map[string]string{
 	"gs-trigger": "the global search trigger (EventOS)", "gs-tlabel": "global search",
 	"heat-month": "the calendar heatmap — specimen owed (the Charts page)", "tab-toggles": "toggle tags in a tab strip — specimen owed",
 	"hud-pop": "an anchored surface off a hud fab — specimen owed", "kicker": "a tiny group label — specimen owed", "stub-slot": "a designed placeholder — specimen owed",
+	// shell regions the docs shell leaves out — the shell how-to names them; EventOS's screens wear them
+	"pg-banner": "the one full-width band — an app's system message", "pg-subheader": "a band under the header", "pg-main-aside": "the main-scoped flank",
+	// specimens owed for the bigger words
+	"roster": "THE SERVER-DRIVEN TABLE — the lab's largest debt; its lens strip, bulk list and scroll", "chart-host": "the chart card's chrome (host · title · legend) — specimen owed on the Charts page", "chart-title": "chart chrome", "chart-legend": "chart chrome",
 }
 
 var (
 	cssComment = regexp.MustCompile(`(?s)/\*.*?\*/`)
 	classTok   = regexp.MustCompile(`\.([a-zA-Z][\w-]*)`)
 	wordTok    = regexp.MustCompile(`[A-Za-z][\w-]*`)
+	classAttr  = regexp.MustCompile(`class="([^"]*)"`)
 )
 
 // TestVocabulary — THE LAB IS THE DICTIONARY: every class the engine
@@ -43,18 +48,27 @@ func TestVocabulary(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	var hay strings.Builder
-	for _, pat := range []string{"site/lab/*.html", "site/demos/*.html", "static/rocket/*.js", "docs/index.html", "docs/*/*.html"} {
+	// WORN means a class attribute's value (a mention in prose is not a
+	// wearer): the specimens, the demos and the site's own shell. A rocket
+	// wears through JavaScript, so its words count whole.
+	worn := map[string]bool{}
+	for _, pat := range []string{"site/lab/*.html", "site/demos/*.html", "docs/index.html", "docs/lab/primitives.html", "docs/demos/full-pages.html"} {
 		files, _ := filepath.Glob(pat)
 		for _, f := range files {
 			b, _ := os.ReadFile(f)
-			hay.Write(b)
-			hay.WriteByte('\n')
+			for _, m := range classAttr.FindAllStringSubmatch(string(b), -1) {
+				for _, c := range strings.Fields(m[1]) {
+					worn[c] = true
+				}
+			}
 		}
 	}
-	worn := map[string]bool{}
-	for _, w := range wordTok.FindAllString(hay.String(), -1) {
-		worn[w] = true
+	rockets, _ := filepath.Glob("static/rocket/*.js")
+	for _, f := range rockets {
+		b, _ := os.ReadFile(f)
+		for _, w := range wordTok.FindAllString(string(b), -1) {
+			worn[w] = true
+		}
 	}
 	seen := map[string]bool{}
 	var missing []string

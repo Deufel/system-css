@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="color-scheme" content="dark light"/>
-<title>Code — system.css</title>
+<title>Vocabulary — system.css</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=optional" rel="stylesheet"/>
@@ -39,73 +39,30 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 	</nav>
 	<header class="pg-main-header column">
 		<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">system.css</a><a href="../lab/primitives.html">Lab</a><a href="../lab/primitives.html">Engine</a></nav>
-		<div class="spread"><h1>Code</h1></div>
+		<div class="spread"><h1>Vocabulary</h1></div>
 		<details class="site-menu mobile column" style="--gap: 0.25lh;"><summary class="tag">Menu</summary><div class="row" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../advanced/wash.html">Advanced</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../demos/full-pages.html">Demos</a><a class="tag" href="../skills/system-css.html">Skills</a></div><div class="column" style="--gap: 0; --type: -1;"><a href="../lab/primitives.html">Primitives</a><a href="../lab/compositions.html">Compositions</a><a href="../lab/color.html">Color</a><a href="../lab/type.html">Type</a><a href="../lab/icons.html">Icons</a><a href="../lab/state.html">State</a><a href="../lab/aria.html">ARIA</a><a href="../lab/forms.html">Forms</a><a href="../lab/charts.html">Charts</a><a href="../lab/code.html">Code</a><a href="../lab/drawers.html">Drawers</a><a href="../lab/motion.html">Motion</a><a href="../lab/wash.html">Wash</a><a href="../lab/stack.html">Stack</a><a href="../lab/vocabulary.html">Vocabulary</a></div></details>
 	</header>
-	<nav class="pg-main-subheader" aria-label="Lab"><div class="tabs-underline" style="--type: -1;"><a href="../lab/primitives.html" aria-current="page">Engine</a><a href="../lab/rocket-activation-tracker.html">Rockets</a></div></nav><nav class="pg-toolbar spread-column tablet desktop" aria-label="Engine"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">Engine</small><a class="nav-item" href="../lab/primitives.html"><span class="medium large">Primitives</span></a><a class="nav-item" href="../lab/compositions.html"><span class="medium large">Compositions</span></a><a class="nav-item" href="../lab/color.html"><span class="medium large">Color</span></a><a class="nav-item" href="../lab/type.html"><span class="medium large">Type</span></a><a class="nav-item" href="../lab/icons.html"><span class="medium large">Icons</span></a><a class="nav-item" href="../lab/state.html"><span class="medium large">State</span></a><a class="nav-item" href="../lab/aria.html"><span class="medium large">ARIA</span></a><a class="nav-item" href="../lab/forms.html"><span class="medium large">Forms</span></a><a class="nav-item" href="../lab/charts.html"><span class="medium large">Charts</span></a><a class="nav-item" href="../lab/code.html" aria-current="page"><span class="medium large">Code</span></a><a class="nav-item" href="../lab/drawers.html"><span class="medium large">Drawers</span></a><a class="nav-item" href="../lab/motion.html"><span class="medium large">Motion</span></a><a class="nav-item" href="../lab/wash.html"><span class="medium large">Wash</span></a><a class="nav-item" href="../lab/stack.html"><span class="medium large">Stack</span></a><a class="nav-item" href="../lab/vocabulary.html"><span class="medium large">Vocabulary</span></a></div></nav>
+	<nav class="pg-main-subheader" aria-label="Lab"><div class="tabs-underline" style="--type: -1;"><a href="../lab/primitives.html" aria-current="page">Engine</a><a href="../lab/rocket-activation-tracker.html">Rockets</a></div></nav><nav class="pg-toolbar spread-column tablet desktop" aria-label="Engine"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">Engine</small><a class="nav-item" href="../lab/primitives.html"><span class="medium large">Primitives</span></a><a class="nav-item" href="../lab/compositions.html"><span class="medium large">Compositions</span></a><a class="nav-item" href="../lab/color.html"><span class="medium large">Color</span></a><a class="nav-item" href="../lab/type.html"><span class="medium large">Type</span></a><a class="nav-item" href="../lab/icons.html"><span class="medium large">Icons</span></a><a class="nav-item" href="../lab/state.html"><span class="medium large">State</span></a><a class="nav-item" href="../lab/aria.html"><span class="medium large">ARIA</span></a><a class="nav-item" href="../lab/forms.html"><span class="medium large">Forms</span></a><a class="nav-item" href="../lab/charts.html"><span class="medium large">Charts</span></a><a class="nav-item" href="../lab/code.html"><span class="medium large">Code</span></a><a class="nav-item" href="../lab/drawers.html"><span class="medium large">Drawers</span></a><a class="nav-item" href="../lab/motion.html"><span class="medium large">Motion</span></a><a class="nav-item" href="../lab/wash.html"><span class="medium large">Wash</span></a><a class="nav-item" href="../lab/stack.html"><span class="medium large">Stack</span></a><a class="nav-item" href="../lab/vocabulary.html" aria-current="page"><span class="medium large">Vocabulary</span></a></div></nav>
 	<main class="pg-main column owns-scroll">
 		<section class="column" style="--gap: 1lh;">
-<!-- Code — THE LAB: a specimen of the engine, the dictionary of its vocabulary; edit here -->
+<!-- Vocabulary — THE LAB: a specimen of the engine, the dictionary of its vocabulary; edit here -->
 <div class="column" style="--gap: 1lh;">
-<div class="column" style="--gap: 0.25lh;">
-<strong>Code — syntax highlighting is the engine's</strong>
-<small style="--fg: -0.55;">A <code>&lt;pre&gt;&lt;code class="go"&gt;</code> block and a highlighter that registers tokens through the Custom Highlight API (assets/highlight.js here). The engine paints every token from its own signals — the theme's lightness pair, the page's hue turned per category — so the block follows the hue slider, the theme and the skin in the toolbar. No span, no class, no literal colour.</small>
-</div>
-<div class="grid" style="--grid-min: 22rem;">
-<div class="card column" style="--gap: 0.25lh;"><strong>Go</strong>
-<pre><code class="go">// a command: write, publish, 204
-func (h *Handler) Rename(w http.ResponseWriter, r *http.Request) {
-	orgID := pathID(r, "org_id")
-	if err := h.DB.Rename(r.Context(), orgID, r.FormValue("name")); err != nil {
-		http.Error(w, "save failed", 500)
-		return
-	}
-	h.publishOrg(orgID)
-	w.WriteHeader(http.StatusNoContent)
-}</code></pre></div>
-<div class="card column" style="--gap: 0.25lh;"><strong>CSS</strong>
-<pre><code class="css">/* one file, one spine */
-@layer reset, core.color, core.type, core.layout, theme, base, components, utility, media, skin, project;
-:where(.card) { --lift: 1; padding: 0.5lh 0.75em; border-radius: var(--cfg-radius); }
-:where(.row)  { display: flex; gap: var(--gap, 0.25lh); }</code></pre></div>
-<div class="card column" style="--gap: 0.25lh;"><strong>HTML</strong>
-<pre><code class="html">&lt;form data-on:submit__prevent="@post('/o/1/warehouses', {contentType: 'form'})"&gt;
-  &lt;fieldset&gt;
-    &lt;legend&gt;Warehouse &lt;small&gt;where the trucks load&lt;/small&gt;&lt;/legend&gt;
-    &lt;label&gt;&lt;span&gt;Name&lt;/span&gt;&lt;small&gt;&lt;/small&gt;&lt;input name="name" required/&gt;&lt;/label&gt;
-  &lt;/fieldset&gt;
-&lt;/form&gt;</code></pre></div>
-<div class="card column" style="--gap: 0.25lh;"><strong>SQLite</strong>
-<pre><code class="sqlite">-- 0009-visit.sql — one row per rep per activation
-CREATE TABLE org_visit (
-	id            INTEGER PRIMARY KEY,
-	activation    INTEGER NOT NULL REFERENCES org_activation(id) ON DELETE CASCADE,
-	checked_in_at TEXT    NOT NULL,
-	in_distance_m INTEGER NOT NULL DEFAULT -1
-) STRICT;
-SELECT CAST((julianday('now') - julianday(checked_in_at)) * 86400 AS INTEGER) FROM org_visit WHERE id = ?;</code></pre></div>
-<div class="card column" style="--gap: 0.25lh;"><strong>JavaScript</strong>
-<pre><code class="javascript">// a rocket: events up, props down, nothing injected
-class HoldConfirm extends HTMLElement {
-  connectedCallback() { this.addEventListener('pointerdown', this.start); }
-  start = (e) =&gt; { this.timer = setTimeout(() =&gt; this.dispatchEvent(new CustomEvent('confirm', { bubbles: true })), 1500); };
-}
-customElements.define('hold-confirm', HoldConfirm);</code></pre></div>
-<div class="card column" style="--gap: 0.25lh;"><strong>Python</strong>
-<pre><code class="python">@dataclass
-class Visit:
-    """One rep's time on site."""
-    checked_in: datetime
-    distance_m: int = -1
-
-    def on_site(self, now: datetime) -&gt; int:
-        return int((now - self.checked_in).total_seconds())</code></pre></div>
+<div class="column" style="--gap: 0.25lh;"><strong>Vocabulary — the small words, each worn once</strong><small style="--fg: -0.55;">The engine is a closed vocabulary and the lab is its dictionary: a word with no specimen is undemoed, and the vocabulary guard says so. These are the utilities too small for a page of their own.</small></div>
+<div class="grid" style="--grid-min: 18rem;">
+<div class="card column" style="--gap: 0.25lh;"><strong>Text</strong><p class="centered">.centered — text-align: center</p><p class="nowrap">.nowrap — a line that never wraps, however long it grows, however narrow the card</p><p class="clip">.clip — the hugging column model's absorber: this cell gives way to its neighbours before it wraps them</p><p class="prelines">.prelines — white-space: pre-line
+a second line, as written</p><p><a class="link" href="#">.link — the link voice on any element</a> · <span class="clickable">.clickable — the pointer's cursor on a span</span></p></div>
+<div class="card column" style="--gap: 0.25lh;"><strong>Numbers</strong><span class="num">312 <span class="delta num-good">▲ 8%</span></span><span class="num">1,204 <span class="delta num-bad">▼ 3%</span></span><span class="num">44 <span class="delta num-flat">— 0%</span></span><small style="--fg: -0.55;">.num-flat — the quiet ink for a value that did not move</small></div>
+<div class="card column" style="--gap: 0.25lh;"><strong>Tiers</strong><small style="--fg: -0.55;">.c-mobile · .c-tablet · .c-desktop gate on the nearest container's width, not the viewport; resize the window.</small><div class="container"><div class="row c-mobile"><span class="tag">this container is narrow</span></div><div class="row c-tablet"><span class="tag">this container is mid</span></div><div class="row c-desktop"><span class="tag">this container is wide</span></div></div></div>
+<div class="card column" style="--gap: 0.25lh;"><strong>Grids</strong><small style="--fg: -0.55;">.ngrid — an explicit grid of --cols × --rows; .hero — the cell that takes the whole row.</small><div class="ngrid" style="--cols: 3; --rows: 2; --gap: 0.25lh;"><div class="card hero centered" style="--bg: 0.08;">hero</div><div class="card centered" style="--bg: 0.04;">1</div><div class="card centered" style="--bg: 0.04;">2</div><div class="card centered" style="--bg: 0.04;">3</div></div></div>
+<div class="card column" style="--gap: 0.25lh;"><strong>Tree</strong><small style="--fg: -0.55;">.tree — nested lists of links, the map of a settings area.</small><nav class="tree" aria-label="A tree"><ul><li><a href="#">General</a><ul><li><a href="#">Info</a></li><li><a href="#" aria-current="page">Territory</a></li></ul></li><li><a href="#">Portfolio</a></li><li><a href="#">Users</a></li></ul></nav></div>
+<div class="card column grow" style="--gap: 0.25lh;"><strong>Grow</strong><small style="--fg: -0.55;">.grow — the block-axis complement of .fill: take the leftover space in a flex chain and stay shrinkable, so an inner .scroll-y becomes the scroller.</small><div class="column grow"><div class="scroll-y" style="--type: -1;"><p>a scrolling surface under a fixed head</p><p>the region does not scroll</p><p>the inner surface does</p><p>and the head stays</p></div></div></div>
+<div class="card column" style="--gap: 0.25lh;"><strong>Rail glyphs</strong><small style="--fg: -0.55;">.nav-icon — the icon-only rail item; .drawer-grow — a drawer that takes its content's height.</small><div class="row" style="--gap: 0.5em;"><a class="nav-item nav-icon" href="#" aria-label="Home"><span>⌂</span></a><button type="button" class="sec" onclick="document.getElementById('vo-drawer').showModal()">.drawer-grow</button></div><dialog id="vo-drawer" class="drawer drawer-grow top bg" closedby="any" aria-label="A drawer that grows" data-preserve-attr="open"><div class="column measure grow" style="--measure: 40rem;"><strong>As tall as its content</strong><small style="--fg: -0.55;">.drawer-grow lets the panel take its content's height instead of the edge's default.</small></div></dialog></div>
 </div>
 </div>
 
 		</section>
 	</main>
-	<footer class="pg-main-footer spread" style="--type: -1;"><span><a href="../lab/charts.html">← Charts</a></span><span><a href="../lab/drawers.html">Drawers →</a></span></footer>
+	<footer class="pg-main-footer spread" style="--type: -1;"><span><a href="../lab/stack.html">← Stack</a></span><span></span></footer>
 </div>
 <script src="../static/highlight.js"></script>
 </body>
