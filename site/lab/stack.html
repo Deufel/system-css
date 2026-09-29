@@ -1,0 +1,30 @@
+<!-- Stack — THE LAB: a specimen of the engine, the dictionary of its vocabulary; edit here -->
+<div class="column" style="--gap: 1lh;" data-signals="{state: 'content', veil: false}">
+<div class="column" style="--gap: 0.25lh;">
+<strong>Stack — one cell, every layer</strong>
+<small style="--fg: -0.55;"><code>.stack</code> is a grid with a single named area; every child takes it. The children overlap and each fills the cell, so the cell is as tall as the tallest child. That is the point: <b>the same footprint for every state</b>. A form and its result, a skeleton and its content, a chart and its veil — swap them with <code>data-show</code> and nothing on the page moves.</small>
+</div>
+<div class="grid" style="--grid-min: 20rem;">
+<div class="card column" style="--gap: 0.5lh;"><strong>States in one footprint</strong>
+<div class="row" style="--gap: 0.25em; --type: -1;"><button type="button" data-attr:aria-pressed="$state == 'loading' ? 'true' : 'false'" data-on:click="$state = 'loading'">Loading</button><button type="button" data-attr:aria-pressed="$state == 'content' ? 'true' : 'false'" data-on:click="$state = 'content'">Content</button><button type="button" data-attr:aria-pressed="$state == 'empty' ? 'true' : 'false'" data-on:click="$state = 'empty'">Empty</button><button type="button" data-attr:aria-pressed="$state == 'error' ? 'true' : 'false'" data-on:click="$state = 'error'">Error</button></div>
+<div class="stack">
+<div class="column" data-show="$state == 'loading'" style="display: none;"><div class="card" style="--bg: 0.04;">&nbsp;</div><div class="card" style="--bg: 0.04;">&nbsp;</div><div class="card" style="--bg: 0.04;">&nbsp;</div></div>
+<div class="column" data-show="$state == 'content'"><span class="spread"><span>Riverwalk Fest</span><span class="tag suc">live</span></span><span class="spread"><span>Lockport Tasting</span><span class="tag">planned</span></span><span class="spread"><span>Harbor Market</span><span class="tag wrn">late</span></span></div>
+<div class="alert inf" role="note" data-show="$state == 'empty'" style="display: none;"><div>No visits today.</div></div>
+<div class="alert dgr" role="alert" data-show="$state == 'error'" style="display: none;"><div>The list could not be read. Try again.</div></div>
+</div></div>
+<div class="card column" style="--gap: 0.5lh;"><strong>A veil over a chart</strong>
+<div class="row" style="--gap: 0.25em; --type: -1;"><button type="button" data-on:click="$veil = !$veil" data-text="$veil ? 'Lift the veil' : 'Veil it'"></button></div>
+<div class="stack">
+<svg viewBox="0 0 240 90" style="inline-size: 100%; block-size: auto; --fg: -0.5;" role="img" aria-label="a sample series"><polyline fill="none" stroke="currentColor" stroke-width="2" style="--fg: 1;" points="0,70 40,50 80,58 120,30 160,38 200,14 240,20"/><polygon fill="currentColor" fill-opacity="0.1" style="--fg: 1;" points="0,90 0,70 40,50 80,58 120,30 160,38 200,14 240,20 240,90"/></svg>
+<div class="column glass card" data-show="$veil" style="display: none;"><strong>Refreshing…</strong><small style="--fg: -0.55;">the numbers behind stay in place</small></div>
+</div></div>
+<div class="card column" style="--gap: 0.5lh;"><strong>A caption on a frame</strong>
+<div class="stack"><div class="frame" style="--bg: 0.25;"><div class="bg" style="--bg: 0.25; --hue-shift: 40;"></div></div><div class="column" style="--gap: 0;"><span class="row oneline" style="--gap: 0.5em;"><span class="tag inf">venue</span><strong>Riverwalk Fest</strong></span><small style="--fg: -0.55;">the layer fills the frame; a card inside it would carry its own surface</small></div></div></div>
+</div>
+<pre><code class="html">&lt;div class="stack"&gt;
+  &lt;div class="column" data-show="$state == 'loading'" style="display: none;"&gt;…&lt;/div&gt;
+  &lt;div class="column" data-show="$state == 'content'"&gt;…&lt;/div&gt;
+  &lt;div class="alert inf" data-show="$state == 'empty'" style="display: none;"&gt;…&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
