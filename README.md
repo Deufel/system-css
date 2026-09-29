@@ -24,9 +24,12 @@ of it (`docs/`, GitHub Pages).
 go run ./cmd/sitegen
 ```
 
-The lab specimens under `site/lab/` are exported from the EventOS UI lab
-(`go run ./cmd/labexport ../system-css/site/lab` there); the lab is the
-dictionary, this site publishes it.
+`site/lab/` IS the lab: every specimen of the engine as an HTML fragment,
+the dictionary of its vocabulary, embedded as `systemcss.Lab()` so a
+project's stale sweep knows which engine words are demonstrated. A new
+engine word gets its specimen here first. `static/datastar.js` is the
+free Datastar bundle with Rocket (v1.0.4); a project on Datastar Pro
+keeps its own bundle at that path.
 
 ## The sibling
 

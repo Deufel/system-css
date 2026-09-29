@@ -13,7 +13,7 @@
  * single source of truth) and swaps the glyphs for 1.6s via [hidden].
  * A morph during the swap resets to the idle glyph — harmless.
  */
-import { rocket } from '/static/datastar.js';
+import { rocket } from '../datastar.js';
 
 rocket('copy-button', {
   mode: 'light', // system.css owns the look; shadow DOM would wall it off

@@ -99,7 +99,9 @@ custom element and want it painted, add .bg or let a pg-* region rule do it.
    the lab bench, with Mike), never a silent new class. Class sprawl
    "enables a corruption that is mathematically impossible to overcome
    after a certain point." Corollary: every NEW component or convention
-   is demoed on /admin/ui and aligned with Mike BEFORE product use.
+   is demoed in THE LAB (system-css/site/lab, published at
+   https://deufel.github.io/system-css/lab/) and aligned with Mike BEFORE
+   product use.
 
 Enforcement is Go now (the cowork-era conformance.py is long gone):
 `go test ./...` runs view/ratchet_test.go — the INLINE-GEOMETRY ratchet
@@ -375,7 +377,8 @@ bug), and only then read the VT rules.
 
 ## THE FORM CANON (gf-173, per Mike — follow this EXACTLY)
 
-The practice bench lives at /admin/ui?cs=forms; the engine rules live in
+The practice bench is the lab's Forms page (site/lab/forms.html,
+https://deufel.github.io/system-css/lab/forms.html); the engine rules live in
 the form/fieldset sections of system.css. If a product form doesn't look
 like the bench specimens, the product form is wrong.
 
@@ -503,4 +506,4 @@ like the bench specimens, the product form is wrong.
   A label may carry an ICON before its span (gf-362: Manufacturer |
   Wholesaler | Retailer with factory · truck · store); a disabled option
   keeps its chip and says why in `title`.
-  are specimens on /admin/ui?cs=forms.
+  are specimens on the lab's Forms page.

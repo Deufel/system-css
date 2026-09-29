@@ -54,6 +54,14 @@ func TestEmbed(t *testing.T) {
 			t.Errorf("static: %s missing", p)
 		}
 	}
+	for _, p := range []string{"primitives.html", "forms.html", "rocket-hold-confirm.html"} {
+		if _, err := fs.Stat(Lab(), p); err != nil {
+			t.Errorf("lab: %s missing", p)
+		}
+	}
+	if b, _ := fs.ReadFile(Static(), "datastar.js"); !strings.Contains(string(b), "Rocket") || strings.Contains(string(b), "Datastar Pro") {
+		t.Error("static/datastar.js is not the free bundle with Rocket")
+	}
 	for _, s := range []string{"system-css", "datastar-components", "land-and-stream", "svg-charts"} {
 		if _, err := fs.Stat(Skills(), s+"/SKILL.md"); err != nil {
 			t.Errorf("skill %s missing", s)

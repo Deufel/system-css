@@ -358,7 +358,7 @@ The worked example: the connector wizard (`connWizDialog` in
 stepped dialog whose station is derived from what the org has saved,
 each command a 204 + org publish, the page's own fat-morph re-landing
 the next station. (The CSV import wizard that first carried this armor
-retired with the seam; the lab's mock at /admin/ui keeps its shape.)
+retired with the seam; the lab's mock (system-css/site/lab) keeps its shape.)
 
 Two more morph/fetch traps, verified in the bundle source (gf-52):
 

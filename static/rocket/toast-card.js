@@ -17,7 +17,7 @@
 // user's own morph removes the node — the slide runs for whatever the
 // morph leaves it. The server stamps data-preserve-attr="data-ui-state"
 // so an unrelated morph cannot snap an in-flight exit back upright.
-import { rocket } from "/static/datastar.js";
+import { rocket } from '../datastar.js';
 
 rocket("toast-card", {
   mode: "light", // system.css owns the look; shadow DOM would wall it off

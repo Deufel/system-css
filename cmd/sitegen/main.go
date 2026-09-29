@@ -30,7 +30,6 @@ import (
 
 const (
 	outDir = "docs"
-	cdn    = "https://cdn.jsdelivr.net/gh/starfederation/datastar@1.0.0/bundles/datastar.js"
 )
 
 // page is one output document.
@@ -73,15 +72,17 @@ var labLabels = []struct{ key, label string }{
 	{"state", "State"}, {"aria", "ARIA"}, {"forms", "Forms"}, {"charts", "Charts"},
 }
 
-// liveRockets — the rockets that run on core Datastar; the rest import
-// the Pro runtime's rocket module and are shown as code.
-var liveRockets = []string{"hold-confirm", "command-palette", "image-input", "exif"}
+// proOnly — the attributes and actions that stayed in Datastar Pro after
+// Rocket went free (v1.0.4): a rocket or a specimen using one is marked.
+var proOnly = []string{"data-animate", "data-custom-validity", "data-match-media", "data-on-raf", "data-on-resize", "data-persist",
+	"data-query-string", "data-replace-url", "data-scroll-into-view", "data-view-transition", "@clipboard", "@fit", "@intl"}
 
 // need — what a rocket requires beyond the engine: the Datastar PRO
 // rocket module, a paid or permissioned API, another file, a server
 // endpoint the page must answer; and whether the library ships it.
 type need struct {
-	Pro     bool
+	Rocket  bool   // imports the rocket module (free since Datastar v1.0.4)
+	Pro     string // Pro-only attributes or actions it uses ("" = none)
 	API     string // a key, a billing account, a permission
 	Deps    string // other files or browser capabilities
 	Server  string // what the page's server must answer
@@ -95,17 +96,17 @@ var rocketNeeds = map[string]need{
 	"command-palette":    {Shipped: true, Server: "a search endpoint the palette's input posts to"},
 	"exif":               {Shipped: true, Deps: "none — a dependency-free EXIF reader"},
 	"image-input":        {Shipped: true, Deps: "exif.js; may read the device's position (Geolocation, a permission)"},
-	"copy-button":        {Shipped: true, Pro: true, Deps: "the Clipboard API (a secure context)"},
-	"date-picker":        {Shipped: true, Pro: true},
-	"day-picker":         {Shipped: true, Pro: true},
-	"combo-box":          {Shipped: true, Pro: true, Server: "an endpoint that morphs the listbox as the input's signal posts"},
-	"group-pick":         {Shipped: true, Pro: true, Server: "the pick-or-make verbs (list · create · delete)"},
-	"mini-calc":          {Shipped: true, Pro: true},
-	"toast-card":         {Shipped: true, Pro: true},
-	"google-maps":        {Pro: true, API: "Google Maps JavaScript API — a key, billed"},
-	"mini-map":           {Pro: true, API: "Google Static Maps API — a key, billed"},
+	"copy-button":        {Shipped: true, Rocket: true, Deps: "the Clipboard API (a secure context)"},
+	"date-picker":        {Shipped: true, Rocket: true},
+	"day-picker":         {Shipped: true, Rocket: true},
+	"combo-box":          {Shipped: true, Rocket: true, Server: "an endpoint that morphs the listbox as the input's signal posts"},
+	"group-pick":         {Shipped: true, Rocket: true, Server: "the pick-or-make verbs (list · create · delete)"},
+	"mini-calc":          {Shipped: true, Rocket: true},
+	"toast-card":         {Shipped: true, Rocket: true},
+	"google-maps":        {Rocket: true, API: "Google Maps JavaScript API — a key, billed"},
+	"mini-map":           {Rocket: true, API: "Google Static Maps API — a key, billed"},
 	"activation-tracker": {Deps: "the device's Geolocation API (a permission)", Server: "the check-in and check-out verbs"},
-	"bug-report":         {Pro: true, Server: "the feedback lane (the app's, not the library's)"},
+	"bug-report":         {Rocket: true, Server: "the feedback lane (the app's, not the library's)"},
 	"element-pick":       {Server: "the feedback lane (the app's, not the library's)"},
 }
 
@@ -120,10 +121,13 @@ func needsCard(key string) string {
 	}
 	var sb strings.Builder
 	sb.WriteString(`<div class="card column" style="--gap: 0.25lh; --type: -1;"><strong>Requires</strong>`)
-	if n.Pro {
-		sb.WriteString(row("Runtime", `Datastar <b>Pro</b> — imports its <code>rocket</code> module from <code>/static/datastar.js</code>`))
+	if n.Rocket {
+		sb.WriteString(row("Runtime", `Datastar with <b>Rocket</b> (free since v1.0.4) — imports <code>rocket</code> from <code>../datastar.js</code>`))
 	} else {
-		sb.WriteString(row("Runtime", "Datastar core (the free build)"))
+		sb.WriteString(row("Runtime", "Datastar core"))
+	}
+	if n.Pro != "" {
+		sb.WriteString(row("Pro only", n.Pro))
 	}
 	if n.API != "" {
 		sb.WriteString(row("API", n.API))
@@ -155,8 +159,11 @@ func needsTable() string {
 	for _, k := range keys {
 		n := rocketNeeds[k]
 		rt, sh := "core", "yes"
-		if n.Pro {
-			rt = "<b>Pro</b>"
+		if n.Rocket {
+			rt = "core + Rocket"
+		}
+		if n.Pro != "" {
+			rt += " · <b>Pro</b>: " + n.Pro
 		}
 		if !n.Shipped {
 			sh = "no (app)"
@@ -226,8 +233,8 @@ func main() {
 		key := strings.TrimSuffix(strings.TrimPrefix(filepath.Base(f), "rocket-"), ".html")
 		b, _ := os.ReadFile(f)
 		body := string(b)
-		if !contains(liveRockets, key) {
-			body = `<div class="alert inf" role="note"><div>This bench needs what the card below names and the site does not load it: the markup is shown, the behaviour runs in an app that has it.</div></div>` + body
+		if n := rocketNeeds[key]; n.API != "" || n.Server != "" {
+			body = `<div class="alert inf" role="note"><div>This bench needs what the card below names — a key or a server — and a static site has neither: the markup and the behaviour are shown, the data is not.</div></div>` + body
 		}
 		body = needsCard(key) + body
 		bySection["lab"].Pages = append(bySection["lab"].Pages, &page{Section: "lab", Tab: "rockets", Slug: "rocket-" + key, Title: key, Order: 100 + i, Body: body, Raw: true})
@@ -519,9 +526,13 @@ func shell(pg *page, cur *section, icons map[string]string) string {
 	} else {
 		body = toc(body) + body
 	}
-	scripts := ""
-	for _, r := range liveRockets {
-		scripts += `<script type="module" src="` + root + `static/rocket/` + r + `.js"></script>`
+	// ONE runtime: the free bundle with Rocket, at the path the rockets import
+	scripts := `<script type="module" src="` + root + `static/datastar.js"></script>`
+	rockets, _ := filepath.Glob("static/rocket/*.js")
+	for _, r := range rockets {
+		if filepath.Base(r) != "exif.js" { // a plain module image-input imports; not a component
+			scripts += `<script type="module" src="` + root + `static/rocket/` + filepath.Base(r) + `"></script>`
+		}
 	}
 	return `<!doctype html>
 <html lang="en" data-signals="{theme: (function () { try { return localStorage.getItem('theme') || '' } catch (e) { return '' } })()}" data-attr:data-ui-theme="$theme != '' ? $theme : false">
@@ -536,7 +547,6 @@ func shell(pg *page, cur *section, icons map[string]string) string {
 <link rel="stylesheet" href="` + root + `static/system.css"/>
 <link rel="stylesheet" href="` + root + `assets/site.css"/>
 <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-ui-theme',t)}catch(e){}</script>
-<script type="module" src="` + cdn + `"></script>
 ` + scripts + `
 </head>
 <body>

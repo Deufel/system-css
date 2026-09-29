@@ -40,7 +40,7 @@
  * owning the load-order rule. They are namespaced `dp*` so the two sets can
  * never collide on window.
  */
-import { rocket } from '/static/datastar.js';
+import { rocket } from '../datastar.js';
 
 const dpPad = n => String(n).padStart(2, '0');
 const dpIsoOf = d => d.getFullYear() + '-' + dpPad(d.getMonth() + 1) + '-' + dpPad(d.getDate());

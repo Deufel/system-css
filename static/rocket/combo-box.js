@@ -33,7 +33,7 @@
  * NOTE: the import below is ABSOLUTE (/static/datastar.js) — a relative
  * './datastar.js' would resolve inside /static/rocket/ and 404.
  */
-import { rocket } from '/static/datastar.js';
+import { rocket } from '../datastar.js';
 
 const comboSetup = (strict) => ({ host, cleanup }) => {
     const input = host.querySelector('input');

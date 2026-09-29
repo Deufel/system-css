@@ -11,8 +11,7 @@
 <link rel="stylesheet" href="../static/system.css"/>
 <link rel="stylesheet" href="../assets/site.css"/>
 <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-ui-theme',t)}catch(e){}</script>
-<script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar@1.0.0/bundles/datastar.js"></script>
-<script type="module" src="../static/rocket/hold-confirm.js"></script><script type="module" src="../static/rocket/command-palette.js"></script><script type="module" src="../static/rocket/image-input.js"></script><script type="module" src="../static/rocket/exif.js"></script>
+<script type="module" src="../static/datastar.js"></script><script type="module" src="../static/rocket/combo-box.js"></script><script type="module" src="../static/rocket/command-palette.js"></script><script type="module" src="../static/rocket/copy-button.js"></script><script type="module" src="../static/rocket/date-picker.js"></script><script type="module" src="../static/rocket/day-picker.js"></script><script type="module" src="../static/rocket/group-pick.js"></script><script type="module" src="../static/rocket/hold-confirm.js"></script><script type="module" src="../static/rocket/image-input.js"></script><script type="module" src="../static/rocket/mini-calc.js"></script><script type="module" src="../static/rocket/toast-card.js"></script>
 </head>
 <body>
 <div class="page">
@@ -43,7 +42,7 @@ one Datastar runtime. Nothing is built at the front; the server renders
 whole pages and the stream morphs them.</p>
 <h2 id="the-files">The files</h2>
 <pre><code>static/system.css        the engine — copy it from a release, never edit it in the app
-static/datastar.js       the Datastar runtime (core from the CDN, or the Pro bundle you license)
+static/datastar.js       the Datastar runtime — the free bundle with Rocket the library ships, or the Pro bundle you license, at this same path
 static/rocket/*.js       the client-state components you actually use
 .claude/skills/          the four skills, copied whole — an agent loads them before touching UI
 db/migrations/0001-*.sql the schema, declared once; every later file one change

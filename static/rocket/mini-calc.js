@@ -10,7 +10,7 @@
  *
  * mode:'light' so system.css tokens apply. Import is ABSOLUTE (subfolder).
  */
-import { rocket } from '/static/datastar.js';
+import { rocket } from '../datastar.js';
 
 // ---- pure reducers: take state, return new state; never mutate, never read globals ----
 const cFmt = (x) => {

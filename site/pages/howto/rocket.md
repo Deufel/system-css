@@ -74,10 +74,16 @@ Event names are lowercase: Datastar lowercases attribute names, so
 
 ## Every rocket's requirements
 
-Two runtimes exist. A product on this stack ships **Datastar Pro** (its
-`rocket` module is what most of these components import); this library
-and its site run the **free core build**, so only the rockets marked
-*core* run live in the Lab. An API means a key and a bill; a permission
-means the browser asks the person.
+Since Datastar v1.0.4, **Rocket is free**: `bundles/datastar-rocket.js` is
+core plus the `rocket` module, and it is the bundle this library ships at
+`static/datastar.js` and the site runs. Every rocket here imports
+`../datastar.js`, so a project that licenses **Datastar Pro** keeps its own
+bundle at that path and the same rockets run on it. What stays Pro is
+thirteen attributes and actions — `data-animate`, `data-custom-validity`,
+`data-match-media`, `data-on-raf`, `data-on-resize`, `data-persist`,
+`data-query-string`, `data-replace-url`, `data-scroll-into-view`,
+`data-view-transition`, `@clipboard`, `@fit`, `@intl` — and a component
+that uses one is marked *Pro only* below (none does today). An API means
+a key and a bill; a permission means the browser asks the person.
 
 <!-- needs-table -->

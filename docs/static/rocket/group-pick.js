@@ -52,7 +52,7 @@
  *
  * NOTE: the import below is ABSOLUTE (/static/datastar.js).
  */
-import { rocket } from '/static/datastar.js';
+import { rocket } from '../datastar.js';
 
 rocket('group-pick', {
   mode: 'light',

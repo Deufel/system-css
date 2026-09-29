@@ -12,7 +12,7 @@ whole pages and the stream morphs them.
 
 ```
 static/system.css        the engine — copy it from a release, never edit it in the app
-static/datastar.js       the Datastar runtime (core from the CDN, or the Pro bundle you license)
+static/datastar.js       the Datastar runtime — the free bundle with Rocket the library ships, or the Pro bundle you license, at this same path
 static/rocket/*.js       the client-state components you actually use
 .claude/skills/          the four skills, copied whole — an agent loads them before touching UI
 db/migrations/0001-*.sql the schema, declared once; every later file one change

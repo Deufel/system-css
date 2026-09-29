@@ -29,7 +29,7 @@
  * a subfolder, a relative './datastar.js' would resolve to static/rocket/ and 404.
  * Requires system.css on the page for tokens.
  */
-import { rocket } from '/static/datastar.js';
+import { rocket } from '../datastar.js';
 
 // ---- pure date helpers (props-down, no signals) ----
   const pad = n => String(n).padStart(2,'0');
