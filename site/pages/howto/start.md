@@ -18,6 +18,33 @@ static/rocket/*.js       the client-state components you actually use
 db/migrations/0001-*.sql the schema, declared once; every later file one change
 ```
 
+## Getting the engine
+
+Three ways, in order of preference for a product:
+
+1. **The Go module.** `go get github.com/Deufel/system-css` and serve the
+   embedded files from your own origin, versioned and cached immutable:
+
+   ```go
+   import systemcss "github.com/Deufel/system-css"
+   // systemcss.Static() is an fs.FS: system.css, rocket/*.js
+   // systemcss.Skills() is an fs.FS: the four skills
+   ```
+
+2. **The CDN**, for a prototype, a static site or a page that has no
+   server. jsDelivr serves every tag of the repository:
+
+   ```html
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Deufel/system-css@v0.1.0/static/system.css"/>
+   ```
+
+   Pin a tag, never `master`: a stylesheet that changes under a page is
+   the FOUC the ledger spent weeks on.
+
+3. **A copy** of `static/system.css` from a tagged release, when the
+   project cannot depend on Go or a CDN. Never edit the copy; raise gaps
+   in the repository.
+
 ## The document head
 
 Every page carries the same head. The order matters: the colour scheme

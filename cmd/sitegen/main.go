@@ -35,15 +35,19 @@ const (
 
 // page is one output document.
 type page struct {
-	Section, Slug, Title, Summary string
-	Order                         int
-	Body                          string // rendered HTML
-	Raw                           bool   // a lab fragment: not markdown
+	Section, Tab, Slug, Title, Summary string
+	Order                              int
+	Body                               string // rendered HTML
+	Raw                                bool   // a lab fragment: not markdown, no measure
 }
+
+// tab is one VIEW of a section (n2) — few, never a table of contents.
+type tab struct{ Key, Label string }
 
 // section is one rail item; its pages are the tabs.
 type section struct {
 	Key, Label, Icon string
+	Tabs             []tab
 	Pages            []*page
 }
 
@@ -54,7 +58,7 @@ var sections = []*section{
 	{Key: "components", Label: "Components", Icon: "boxes"},
 	{Key: "stream", Label: "Land & stream", Icon: "boxes"},
 	{Key: "charts", Label: "Charts", Icon: "palette"},
-	{Key: "lab", Label: "Lab", Icon: "sparkles"},
+	{Key: "lab", Label: "Lab", Icon: "sparkles", Tabs: []tab{{"engine", "Engine"}, {"rockets", "Rockets"}}},
 	{Key: "skills", Label: "Skills", Icon: "pencil"},
 }
 
@@ -83,6 +87,7 @@ func main() {
 	must(os.RemoveAll(outDir))
 	must(os.MkdirAll(outDir, 0o755))
 	must(copyTree("static", filepath.Join(outDir, "static")))
+	must(copyTree(filepath.Join("site", "assets"), filepath.Join(outDir, "assets")))
 	must(os.WriteFile(filepath.Join(outDir, ".nojekyll"), nil, 0o644))
 	icons := loadIcons()
 
@@ -119,7 +124,7 @@ func main() {
 	// the lab
 	for i, l := range labLabels {
 		if b, err := os.ReadFile(filepath.Join("site", "lab", l.key+".html")); err == nil {
-			bySection["lab"].Pages = append(bySection["lab"].Pages, &page{Section: "lab", Slug: l.key, Title: l.label, Order: i, Body: string(b), Raw: true})
+			bySection["lab"].Pages = append(bySection["lab"].Pages, &page{Section: "lab", Tab: "engine", Slug: l.key, Title: l.label, Order: i, Body: string(b), Raw: true})
 		}
 	}
 	rockets, _ := filepath.Glob("site/lab/rocket-*.html")
@@ -131,7 +136,7 @@ func main() {
 		if !contains(liveRockets, key) {
 			body = `<div class="alert inf" role="note"><div>This bench imports the Datastar Pro runtime's <code>rocket</code> module, which the site does not load; the markup is shown, the behaviour runs in an app that ships Pro.</div></div>` + body
 		}
-		bySection["lab"].Pages = append(bySection["lab"].Pages, &page{Section: "lab", Slug: "rocket-" + key, Title: "Rocket · " + key, Order: 100 + i, Body: body, Raw: true})
+		bySection["lab"].Pages = append(bySection["lab"].Pages, &page{Section: "lab", Tab: "rockets", Slug: "rocket-" + key, Title: key, Order: 100 + i, Body: body, Raw: true})
 	}
 	for _, s := range sections {
 		sort.SliceStable(s.Pages, func(i, j int) bool { return s.Pages[i].Order < s.Pages[j].Order })
@@ -272,10 +277,23 @@ func shortTitle(t string) string {
 	return t
 }
 
+// langClass — goldmark's `language-x` becomes the highlighter's bare
+// language word (js → javascript, sql → sqlite).
+var langClass = regexp.MustCompile(`class="language-([a-z0-9]+)"`)
+
 func render(markdown string) string {
 	var buf bytes.Buffer
 	must(md.Convert([]byte(markdown), &buf))
-	return buf.String()
+	return langClass.ReplaceAllStringFunc(buf.String(), func(m string) string {
+		l := langClass.FindStringSubmatch(m)[1]
+		switch l {
+		case "js":
+			l = "javascript"
+		case "sql":
+			l = "sqlite"
+		}
+		return `class="` + l + `"`
+	})
 }
 
 var h2html = regexp.MustCompile(`<h2 id="([^"]+)">(.+?)</h2>`)
@@ -310,49 +328,101 @@ func loadIcons() map[string]string {
 	return out
 }
 
-// shell — the page on the engine's own grid: pg-header (the title, the
-// theme), pg-navigation (the sections), pg-main-header (the section's
-// pages as tabs), pg-main (the content, on a measure).
+func navItem(href, label, icon string, current bool) string {
+	aria := ""
+	if current {
+		aria = ` aria-current="page"`
+	}
+	return `<a class="nav-item" href="` + href + `"` + aria + `>` + icon + `<span class="medium large">` + htmlesc.EscapeString(label) + `</span></a>`
+}
+
+// shell — the page on the engine's own grid, on the shell grammar:
+// pg-header (the brand, the theme), pg-navigation (n1: the sections),
+// pg-main-header (crumbs, the title, the phone's menu), pg-main-subheader
+// (n2: the section's views, only when it has more than one),
+// pg-toolbar (n3: the pages of the view), pg-main (the content).
 func shell(pg *page, cur *section, icons map[string]string) string {
 	root := "./"
 	if pg.Section != "" {
 		root = "../"
 	}
+	var view []*page
+	for _, p := range cur.Pages {
+		if p.Tab == pg.Tab {
+			view = append(view, p)
+		}
+	}
+	railLabel := cur.Label
+	for _, t := range cur.Tabs {
+		if t.Key == pg.Tab {
+			railLabel = t.Label
+		}
+	}
 	var nav strings.Builder
 	for _, s := range sections {
-		if len(s.Pages) == 0 {
-			continue
+		if len(s.Pages) > 0 {
+			nav.WriteString(navItem(href(pg, s.Pages[0]), s.Label, icons[s.Icon], s == cur))
 		}
-		first := s.Pages[0]
-		aria := ""
-		if s == cur {
-			aria = ` aria-current="page"`
-		}
-		nav.WriteString(`<a class="nav-item" href="` + href(pg, first) + `"` + aria + `>` + icons[s.Icon] + `<span class="medium large">` + s.Label + `</span></a>`)
 	}
 	var tabs strings.Builder
-	if len(cur.Pages) > 1 {
-		tabs.WriteString(`<nav class="tabs-underline scroll-x" aria-label="` + cur.Label + `">`)
-		for _, p := range cur.Pages {
-			cls := ""
-			if p == pg {
-				cls = ` aria-current="page"`
+	if len(cur.Tabs) > 1 {
+		tabs.WriteString(`<nav class="pg-main-subheader" aria-label="` + cur.Label + `"><div class="tabs-underline" style="--type: -1;">`)
+		for _, t := range cur.Tabs {
+			var first *page
+			for _, p := range cur.Pages {
+				if p.Tab == t.Key {
+					first = p
+					break
+				}
 			}
-			tabs.WriteString(`<a href="` + href(pg, p) + `"` + cls + `>` + htmlesc.EscapeString(p.Title) + `</a>`)
+			if first == nil {
+				continue
+			}
+			aria := ""
+			if t.Key == pg.Tab {
+				aria = ` aria-current="page"`
+			}
+			tabs.WriteString(`<a href="` + href(pg, first) + `"` + aria + `>` + t.Label + `</a>`)
 		}
-		tabs.WriteString(`</nav>`)
+		tabs.WriteString(`</div></nav>`)
 	}
-	var mobile strings.Builder
-	mobile.WriteString(`<nav class="row mobile" aria-label="Sections" style="--gap: 0.5em; --type: -1;">`)
+	var rail strings.Builder
+	if len(view) > 1 {
+		rail.WriteString(`<nav class="pg-toolbar spread-column tablet desktop" aria-label="` + railLabel + `"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">` + railLabel + `</small>`)
+		for _, p := range view {
+			rail.WriteString(navItem(href(pg, p), p.Title, "", p == pg))
+		}
+		rail.WriteString(`</div></nav>`)
+	}
+	var menu strings.Builder
+	menu.WriteString(`<details class="site-menu mobile column" style="--gap: 0.25lh;"><summary class="tag">Menu</summary><div class="row" style="--gap: 0.5em; --type: -1;">`)
 	for _, s := range sections {
-		if len(s.Pages) == 0 {
-			continue
+		if len(s.Pages) > 0 {
+			menu.WriteString(`<a class="tag" href="` + href(pg, s.Pages[0]) + `">` + s.Label + `</a>`)
 		}
-		mobile.WriteString(`<a class="tag" href="` + href(pg, s.Pages[0]) + `">` + s.Label + `</a>`)
 	}
-	mobile.WriteString(`</nav>`)
+	menu.WriteString(`</div>`)
+	if len(view) > 1 {
+		menu.WriteString(`<div class="column" style="--gap: 0; --type: -1;">`)
+		for _, p := range view {
+			menu.WriteString(`<a href="` + href(pg, p) + `">` + htmlesc.EscapeString(p.Title) + `</a>`)
+		}
+		menu.WriteString(`</div>`)
+	}
+	menu.WriteString(`</details>`)
+	crumbs := `<nav class="crumbs" aria-label="Breadcrumb"><a href="` + root + `index.html">system.css</a>`
+	if cur.Key != "" {
+		crumbs += `<a href="` + href(pg, cur.Pages[0]) + `">` + cur.Label + `</a>`
+		if railLabel != cur.Label {
+			crumbs += `<a href="` + href(pg, view[0]) + `">` + railLabel + `</a>`
+		}
+	}
+	crumbs += `</nav>`
 	body := pg.Body
-	if !pg.Raw {
+	measure := `<section class="column measure" style="--measure: 80ch; --gap: 1lh;">`
+	if pg.Raw {
+		measure = `<section class="column" style="--gap: 1lh;">`
+	} else {
 		body = toc(body) + body
 	}
 	scripts := ""
@@ -370,6 +440,7 @@ func shell(pg *page, cur *section, icons map[string]string) string {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=optional" rel="stylesheet"/>
 <link rel="stylesheet" href="` + root + `static/system.css"/>
+<link rel="stylesheet" href="` + root + `assets/site.css"/>
 <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-ui-theme',t)}catch(e){}</script>
 <script type="module" src="` + cdn + `"></script>
 ` + scripts + `
@@ -391,15 +462,18 @@ func shell(pg *page, cur *section, icons map[string]string) string {
 		<div class="column">` + nav.String() + `</div>
 	</nav>
 	<header class="pg-main-header column">
+		` + crumbs + `
 		<div class="spread"><h1>` + htmlesc.EscapeString(pg.Title) + `</h1></div>
-		` + mobile.String() + tabs.String() + `
+		` + menu.String() + `
 	</header>
+	` + tabs.String() + rail.String() + `
 	<main class="pg-main column owns-scroll">
-		<section class="column measure" style="--measure: 80ch; --gap: 1lh;">
+		` + measure + `
 ` + body + `
 		</section>
 	</main>
 </div>
+<script src="` + root + `assets/highlight.js"></script>
 </body>
 </html>
 `
