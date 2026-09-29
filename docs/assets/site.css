@@ -1,7 +1,7 @@
 /* site.css — the docs site's own rules, in the project layer the engine
-   reserves for an app. Syntax highlighting is the ENGINE's (its utility
-   layer paints ::highlight() tokens from --cfg-dark, --hue and
-   --hue-shift); this sheet holds only what the site alone needs. */
+   reserves for an app. Syntax highlighting is the engine's companion
+   sheet static/highlight.css (loaded with static/highlight.js); this sheet
+   holds only what the site alone needs. */
 @layer project {
   :where(.site-menu) > :where(summary) { list-style: none; cursor: pointer; }
   :where(.site-menu) > :where(summary)::-webkit-details-marker { display: none; }

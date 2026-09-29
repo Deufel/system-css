@@ -204,43 +204,6 @@
    beats a component's own hue/ink).
    ════════════════════════════════════════════════════════════════════ */
 @layer utility {
-  /* ── SYNTAX HIGHLIGHTING — the Custom Highlight API (pairs with a
-     highlighter that registers tokens as <lang>-<kind>: comment · string ·
-     number/unit · punctuation/operator · identifier · function/class/
-     builtin). ::highlight() honours colour only and does not resolve
-     currentColor, but it DOES read inheriting custom properties — so every
-     token is oklch over the engine's own signals: --cfg-dark picks the
-     lightness pair, the hue is the page's --hue + --hue-shift turned per
-     category. Change the theme, the hue or the skin and the code follows;
-     no literal colour, nothing to re-theme (ported from the 2025 engine). ── */
-  ::highlight(css-comment), ::highlight(html-comment), ::highlight(python-comment),
-  ::highlight(javascript-comment), ::highlight(go-comment), ::highlight(sqlite-comment) {
-    color: oklch(calc(58% * (1 - var(--cfg-dark)) + 62% * var(--cfg-dark)) 0.02 calc(var(--hue) + var(--hue-shift)));
-  }
-  ::highlight(css-string), ::highlight(html-value), ::highlight(python-string),
-  ::highlight(javascript-string), ::highlight(go-string), ::highlight(sqlite-string) {
-    color: oklch(calc(45% * (1 - var(--cfg-dark)) + 75% * var(--cfg-dark)) 0.13 calc(var(--hue) + var(--hue-shift) - 36));
-  }
-  ::highlight(css-number), ::highlight(css-unit), ::highlight(python-number),
-  ::highlight(javascript-number), ::highlight(go-number), ::highlight(sqlite-number) {
-    color: oklch(calc(45% * (1 - var(--cfg-dark)) + 75% * var(--cfg-dark)) 0.13 calc(var(--hue) + var(--hue-shift) - 24));
-  }
-  ::highlight(css-punctuation), ::highlight(html-bracket), ::highlight(python-operator), ::highlight(python-punctuation),
-  ::highlight(javascript-operator), ::highlight(javascript-punctuation), ::highlight(go-operator), ::highlight(go-punctuation),
-  ::highlight(sqlite-operator), ::highlight(sqlite-punctuation) {
-    color: oklch(calc(45% * (1 - var(--cfg-dark)) + 75% * var(--cfg-dark)) 0.09 calc(var(--hue) + var(--hue-shift) - 12));
-  }
-  ::highlight(css-property), ::highlight(css-var-name), ::highlight(css-selector), ::highlight(css-atrule),
-  ::highlight(html-tag), ::highlight(html-attribute), ::highlight(html-doctype), ::highlight(html-entity),
-  ::highlight(sqlite-identifier), ::highlight(sqlite-parameter), ::highlight(python-decorator), ::highlight(javascript-decorator) {
-    color: oklch(calc(45% * (1 - var(--cfg-dark)) + 75% * var(--cfg-dark)) 0.13 calc(var(--hue) + var(--hue-shift) + 12));
-  }
-  ::highlight(python-function), ::highlight(python-class), ::highlight(python-builtin), ::highlight(python-keyword),
-  ::highlight(javascript-function), ::highlight(javascript-class), ::highlight(javascript-builtin), ::highlight(javascript-keyword),
-  ::highlight(go-function), ::highlight(go-class), ::highlight(go-builtin), ::highlight(go-keyword),
-  ::highlight(sqlite-function), ::highlight(sqlite-type), ::highlight(sqlite-keyword) {
-    color: oklch(calc(45% * (1 - var(--cfg-dark)) + 75% * var(--cfg-dark)) 0.14 calc(var(--hue) + var(--hue-shift) + 24));
-  }
   /* .active — THE transient-highlight utility (gf-191, per Mike): the
      standard active-row paint for CLIENT-owned, momentary emphasis (a
      combobox's keyboard row, a rocket's "this one"). Global on purpose —

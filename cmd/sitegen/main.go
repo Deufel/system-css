@@ -624,6 +624,7 @@ func shell(pg *page, cur *section, icons map[string]string) string {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=optional" rel="stylesheet"/>
 <link rel="stylesheet" href="` + root + `static/system.css"/>
+<link rel="stylesheet" href="` + root + `static/highlight.css"/>
 <link rel="stylesheet" href="` + root + `assets/site.css"/>
 <script>
 // the stored knobs, before first paint (the interstitial frame is pre-CSS);
@@ -664,7 +665,7 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 	</main>
 	` + aside + foot + `
 </div>
-<script src="` + root + `assets/highlight.js"></script>
+<script src="` + root + `static/highlight.js"></script>
 </body>
 </html>
 `

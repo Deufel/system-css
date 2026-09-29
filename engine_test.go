@@ -46,6 +46,18 @@ func TestEngineLaws(t *testing.T) {
 	if strings.LastIndex(css, `[data-ui-radius="3"]`) < strings.Index(css, `[data-ui-skin="material"]`) {
 		t.Error("the corners choice does not outrank the skins (declare [data-ui-radius] after the skin blocks)")
 	}
+	if strings.Contains(css, "::highlight(") {
+		t.Error("syntax highlighting belongs in static/highlight.css, not the engine every page loads")
+	}
+	hl, err := fs.ReadFile(Static(), "highlight.css")
+	if err != nil {
+		t.Fatal("static/highlight.css missing")
+	}
+	for _, line := range strings.Split(string(hl), "\n") {
+		if strings.Contains(line, "color:") && !strings.Contains(line, "var(--cfg-dark)") {
+			t.Errorf("highlight.css: a token colour not derived from the engine's signals: %s", strings.TrimSpace(line))
+		}
+	}
 	if strings.Contains(css, "#") && regexp.MustCompile(`(?m)^\s*#[a-zA-Z]`).MatchString(css) {
 		t.Error("an ID selector")
 	}
