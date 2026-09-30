@@ -2610,7 +2610,7 @@
      keeps its lower half free for the soft keyboard. */
   :where(.modal) {
     --_dur: calc(var(--cfg-motion) * 0.2s);
-    position: fixed; inset: 0; margin: 8vh auto auto;
+    position: fixed; inset: 0; margin: 4vh auto auto;
     inline-size: min(28rem, 94vw); max-block-size: min(85svh, 44rem);
     overflow: auto; overscroll-behavior: contain;
     padding: 0.5lh; border: 0; border-radius: var(--cfg-radius);
