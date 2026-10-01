@@ -17,16 +17,17 @@ func TestUtilitiesCatalog(t *testing.T) {
 	if len(us) < 30 {
 		t.Fatalf("only %d utility rules — the layer parser lost blocks", len(us))
 	}
-	byWord := map[string]Utility{}
+	byWord, noteOf := map[string]Utility{}, map[string]string{}
 	for _, u := range us {
 		if u.Selector == "" || u.Rule == "" {
 			t.Errorf("line %d: an empty selector or rule: %+v", u.Line, u)
 		}
 		for _, w := range u.Words {
 			byWord[w] = u
+			noteOf[w] += u.Note
 		}
 	}
-	for _, w := range []string{"measure", "fill", "grow", "truncate", "glass", "suc", "oneline", "scroll-x", "np", "active"} {
+	for _, w := range []string{"content-1", "content-2", "content-3", "fill", "grow", "truncate", "glass", "suc", "oneline", "scroll-x", "np", "active"} {
 		if _, ok := byWord[w]; !ok {
 			t.Errorf(".%s is not in the catalog", w)
 		}
@@ -34,14 +35,14 @@ func TestUtilitiesCatalog(t *testing.T) {
 	if u := byWord["np"]; !strings.HasPrefix(u.Selector, "@media print") {
 		t.Errorf(".np should carry its media prefix, got %q", u.Selector)
 	}
-	if u := byWord["measure"]; !strings.Contains(u.Note, "RUNG") || !strings.Contains(u.Rule, "40ch") {
-		t.Errorf("the measure's note and rule should be its own: %+v", u)
+	if u := byWord["content-2"]; !strings.Contains(noteOf["content-1"], "CONTENT LADDER") || !strings.Contains(u.Rule, "var(--content)") {
+		t.Errorf("the content ladder's note and rule should be its own: %+v / %q", u, noteOf["content-1"])
 	}
 	if _, ok := byWord["card"]; ok && byWord["card"].Selector == ":where(.card)" {
 		t.Error("the components layer leaked into the catalog")
 	}
-	if w := Wearers(); len(w["measure"]) == 0 || len(w["grow"]) == 0 {
-		t.Errorf("the lab wears .measure and .grow; wearers: %d words", len(w))
+	if w := Wearers(); len(w["content-1"]) == 0 || len(w["grow"]) == 0 {
+		t.Errorf("the lab wears .content-1 and .grow; wearers: %d words", len(w))
 	}
 }
 

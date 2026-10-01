@@ -144,6 +144,17 @@
     --surf-bg: 0;
     --cfg-dark: 0;                     /* exported mode flag (downstream layers key on it) */
 
+    /* ── THE CONTENT LADDER (2026-10-01, Mike: the Open Props spelling —
+       .content-1 · .content-2 · .content-3): the three widths a surface
+       may take, in ch so they resolve in the WEARER's type and grow with
+       --type and the text-size preference; 94vw keeps a floating surface
+       off the viewport's edges. 1 a column (a wizard station, a confirm,
+       a form alone) · 2 reading (a settings leaf, prose, the default
+       dialog) · 3 working (a record page's grid, a workbench dialog). */
+    --content-1: min(40ch, 94vw);
+    --content-2: min(70ch, 94vw);
+    --content-3: min(100ch, 94vw);
+
     /* ── engine tuning (plain numbers; ink-pole L pairs are 0–1) ── */
     --fg-ink-d: 0.16; --fg-ink-l: 0.96;   /* neutral ink L on light / dark hosts */
     --fg-chr-d: 0.45; --fg-chr-l: 0.80;   /* chroma  ink L on light / dark hosts */
@@ -1542,17 +1553,18 @@
   :where(.stress)   { resize: horizontal; overflow: auto; min-inline-size: 14rem; }
   :where(.truncate) { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-inline-size: 0; }
 
-  /* .measure — THE MEASURE LADDER (2026-09-29, Mike: "reintroduce this
-     concept in a more general way"): a work surface centred at a width the
-     ENGINE owns. --measure is a RUNG, never a length — 1 a column (a wizard
-     station, a dialog-like card, a form alone) · 2 reading (settings
-     leaves, prose, a report; the default) · 3 working (a record page's
-     grid, a dashboard's cap) — and the rung becomes 40ch + 30ch a step:
-     40ch · 70ch · 100ch in the type's own unit, so a measure grows with
-     --type and the text-size preference on its own. It fills the region
-     on anything narrower. Ten hand-written widths across two trees were
-     the reason; the counter now checks the rungs like the gap ladder. */
-  :where(.measure) { inline-size: 100%; max-inline-size: calc(40ch + (var(--measure, 2) - 1) * 30ch); margin-inline: auto; }
+  /* .content-1 · .content-2 · .content-3 — a surface centred at a rung of
+     THE CONTENT LADDER (the tokens in theme; 2026-10-01, replacing
+     .measure + --measure, which said the word twice): the class names the
+     rung, the rule is one for all three. It fills anything narrower. The
+     dialog wears the same words — .modal reads --content with rung 2 as
+     its default, so a confirm is a .modal.content-1 and a workbench a
+     .modal.content-3; one ladder, two kinds of surface. Rosters take no
+     rung: they fill the canvas. */
+  :where(.content-1) { --content: var(--content-1); }
+  :where(.content-2) { --content: var(--content-2); }
+  :where(.content-3) { --content: var(--content-3); }
+  :where(.content-1, .content-2, .content-3) { inline-size: 100%; max-inline-size: var(--content); margin-inline: auto; }
 
   /* (.type-flow is RETIRED, gf-68 — --type inherits natively now; the
      class was the opt-in workaround and its utility-layer rule squashed
@@ -2604,14 +2616,16 @@
     &:where(.top)    { --_translate-closed: 0 -100%; inset: 0 0 auto 0; inline-size: 100vw; block-size: min(85svh,240px); border-radius: 0 0 var(--cfg-radius) var(--cfg-radius); }
     &:where(.bottom) { --_translate-closed: 0 100%;  inset: auto 0 0 0; inline-size: 100vw; block-size: min(85svh,240px); border-radius: var(--cfg-radius) var(--cfg-radius) 0 0; }
   }
-  /* THREE dialog sizes, TOP-PINNED (gf-71): md is the default (forms,
-     edits), .sm the focused confirm, .lg the workbench (import wizard).
+  /* THE DIALOG, TOP-PINNED (gf-71): its width is a rung of THE CONTENT
+     LADDER — reading (.content-2) by default, .content-1 the focused
+     confirm, .content-3 the workbench (the import wizard); the utility
+     classes set --content, the geometry is the same three declarations.
      Top-pinning means a growing dialog only grows downward, and a phone
      keeps its lower half free for the soft keyboard. */
   :where(.modal) {
     --_dur: calc(var(--cfg-motion) * 0.2s);
     position: fixed; inset: 0; margin: 4vh auto auto;
-    inline-size: min(28rem, 94vw); max-block-size: min(85svh, 44rem);
+    inline-size: 100%; max-inline-size: var(--content, var(--content-2)); max-block-size: min(85svh, 44rem);
     overflow: auto; overscroll-behavior: contain;
     padding: 0.5lh; border: 0; border-radius: var(--cfg-radius);
     --bg: 0.1; background-color: var(--_bg); --surf: var(--_bg); --surf-bg: var(--bg);
@@ -2621,8 +2635,6 @@
     &:not(:is([open], :popover-open)) { opacity: 0; scale: 0.96; }
     @starting-style { &:is([open], :popover-open) { opacity: 0; scale: 0.96; } }
   }
-  :where(.modal.sm) { inline-size: min(22rem, 94vw); }
-  :where(.modal.lg) { inline-size: min(54rem, 94vw); }
   /* ── .modal.anchored — the small dialog PINNED TO ITS SUBJECT (gf-178,
      per Mike): a modal edit that opens beside the thing it edits. THE
      LAYOUT-SHIFT DOCTRINE: whenever possible, editing must not reflow

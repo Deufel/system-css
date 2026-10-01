@@ -44,14 +44,14 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 	</header>
 	<nav class="pg-toolbar spread-column tablet desktop" aria-label="How-to"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">How-to</small><a class="nav-item" href="../howto/start.html"><span class="medium large">Start a project</span></a><a class="nav-item" href="../howto/shell.html"><span class="medium large">The shell</span></a><a class="nav-item" href="../howto/page.html" aria-current="page"><span class="medium large">Author a page</span></a><a class="nav-item" href="../howto/form.html"><span class="medium large">Author a form</span></a><a class="nav-item" href="../howto/rocket.html"><span class="medium large">Author a rocket</span></a><a class="nav-item" href="../howto/stream.html"><span class="medium large">Land and stream in Go</span></a><a class="nav-item" href="../howto/migrate.html"><span class="medium large">Migrations</span></a></div></nav>
 	<main class="pg-main column owns-scroll">
-		<section class="column measure" style="--measure: 3; --gap: 1lh;">
+		<section class="column content-3" style="--gap: 1lh;">
 <h2 id="compose">Compose</h2>
 <p><code>.row</code>, <code>.column</code>, <code>.spread</code> (space between), <code>.grid</code> (auto-fit;
 <code>--grid-min</code> sets the column floor), <code>.lcr</code> (left, centre, right),
-<code>.oneline</code> (no wrap), <code>.measure</code> (centred; <code>--measure</code> is a rung: 1
+<code>.oneline</code> (no wrap), <code>.content-1/2/3</code> (centred at a rung of the content ladder: 1
 column, 2 reading, 3 working), <code>.card</code>, <code>.scroll-x</code>, <code>.truncate</code>,
 <code>.prelines</code>.</p>
-<div class="column" style="--gap: 0;"><div class="spread" style="--type: -2; --fg: -0.55;"><small>html</small><copy-button code="&lt;section class=&#34;column measure&#34; style=&#34;--measure: 3; --gap: 1lh;&#34;&gt;
+<div class="column" style="--gap: 0;"><div class="spread" style="--type: -2; --fg: -0.55;"><small>html</small><copy-button code="&lt;section class=&#34;column content-3&#34; style=&#34;--gap: 1lh;&#34;&gt;
   &lt;div class=&#34;grid&#34; style=&#34;--grid-min: 20rem;&#34;&gt;
     &lt;div class=&#34;card column&#34; style=&#34;--gap: 0.25lh;&#34;&gt;
       &lt;strong&gt;Location&lt;/strong&gt;
@@ -60,7 +60,7 @@ column, 2 reading, 3 working), <code>.card</code>, <code>.scroll-x</code>, <code
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/section&gt;
-"><button type="button" class="icon" aria-label="Copy" title="Copy"><span class="copy-idle">⧉</span><span class="copy-done" hidden>✓</span></button></copy-button></div><pre><code class="html">&lt;section class=&quot;column measure&quot; style=&quot;--measure: 3; --gap: 1lh;&quot;&gt;
+"><button type="button" class="icon" aria-label="Copy" title="Copy"><span class="copy-idle">⧉</span><span class="copy-done" hidden>✓</span></button></copy-button></div><pre><code class="html">&lt;section class=&quot;column content-3&quot; style=&quot;--gap: 1lh;&quot;&gt;
   &lt;div class=&quot;grid&quot; style=&quot;--grid-min: 20rem;&quot;&gt;
     &lt;div class=&quot;card column&quot; style=&quot;--gap: 0.25lh;&quot;&gt;
       &lt;strong&gt;Location&lt;/strong&gt;

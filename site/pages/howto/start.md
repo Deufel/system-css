@@ -76,7 +76,7 @@ collapses. See [The shell](shell.html).
 - Inline geometry: a `style` attribute carries knobs and anchor plumbing
   only. The count per template only goes down.
 - The ladders: `--gap` takes `0 · 0.25lh · 0.5lh · 1lh` or `0.25em ·
-  0.5em · 1em`; `--measure` takes `1 · 2 · 3`.
+  0.5em · 1em`; a surface's width is a rung of the content ladder: `.content-1 · .content-2 · .content-3`.
 - Every POST route names the role that may call it.
 - The schema is the migrations: one baseline, one file per change,
   never edited after commit.

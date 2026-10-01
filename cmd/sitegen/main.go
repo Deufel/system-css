@@ -620,7 +620,7 @@ func shell(pg *page, cur *section, icons map[string]string) string {
 	}
 	crumbs += `</nav>`
 	body := pg.Body
-	measure := `<section class="column measure" style="--measure: 3; --gap: 1lh;">`
+	measure := `<section class="column content-3" style="--gap: 1lh;">`
 	aside := ""
 	if pg.Raw {
 		measure = `<section class="column" style="--gap: 1lh;">`

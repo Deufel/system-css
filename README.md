@@ -11,7 +11,7 @@ skills (`.claude/skills/`), the lab (`site/lab/`) and the docs site
 
 - One file, one spine. Layers decide the cascade; specificity is zero.
 - No new classes. Compose the primitives and the knobs.
-- Knobs are steps, not lengths: `--type`, `--gap`, `--measure`, `--rise`.
+- Knobs are steps, not lengths: `--type`, `--gap`, `--rise`; a surface's width is a rung, `.content-1/2/3`.
 - Nothing shifts. A changing value, an opened state, a loaded row must not move its neighbours.
 - Navigation is the browser's. The server owns state.
 

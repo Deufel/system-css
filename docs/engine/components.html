@@ -44,7 +44,7 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 	</header>
 	<nav class="pg-toolbar spread-column tablet desktop" aria-label="Engine"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">Engine</small><a class="nav-item" href="../engine/overview.html"><span class="medium large">Overview</span></a><a class="nav-item" href="../engine/one-file-one-spine.html"><span class="medium large">ONE file, one spine</span></a><a class="nav-item" href="../engine/the-painter-model.html"><span class="medium large">The painter model</span></a><a class="nav-item" href="../engine/the-cascade-constitution.html"><span class="medium large">The cascade constitution</span></a><a class="nav-item" href="../engine/layout.html"><span class="medium large">Layout</span></a><a class="nav-item" href="../engine/components.html" aria-current="page"><span class="medium large">Components</span></a><a class="nav-item" href="../engine/semantic-hue-locks-vs-number.html"><span class="medium large">Semantic hue locks vs number formatting</span></a><a class="nav-item" href="../engine/the-rhythm-ladder.html"><span class="medium large">The rhythm ladder</span></a><a class="nav-item" href="../engine/authoring-checklist.html"><span class="medium large">Authoring checklist</span></a><a class="nav-item" href="../engine/view-transitions-the-fouc-ledger.html"><span class="medium large">View transitions &amp; the FOUC ledger</span></a><a class="nav-item" href="../engine/the-form-canon.html"><span class="medium large">The form canon</span></a><a class="nav-item" href="../engine/utilities.html"><span class="medium large">Utilities</span></a></div></nav>
 	<main class="pg-main column owns-scroll">
-		<section class="column measure" style="--measure: 3; --gap: 1lh;">
+		<section class="column content-3" style="--gap: 1lh;">
 <h2 id="components-styled-semantics--a-few-classes">COMPONENTS (styled semantics + a few classes)</h2>
 <p>.card (lifted surface panel), .tag (small pill; pair with a hue helper),
 .avatar, .crumbs (--type: -3, a crumb <a> is a BARE link — the recipe restates nothing base owns, gf-334), .tree
@@ -75,8 +75,8 @@ a square control never stretches. Know what a class IS before composing
 it: .sec is a skin-layer BUTTON voice — on a wrapper it paints a ghost
 box (the gf-46 button-group scar). Voices, locks, and recipes attach to
 specific anatomy.</p>
-<p>Dialogs are native <dialog class="modal"> in three engine sizes (.sm 22rem ·
-default 28rem · .lg 54rem, all glass, top-pinned), opened by a one-line
+<p>Dialogs are native <dialog class="modal"> at a rung of the content ladder
+(.content-2 by default · .content-1 the confirm · .content-3 the workbench, all glass, top-pinned), opened by a one-line
 showModal() onclick and closed declaratively (closedby=&quot;any&quot;;
 data-preserve-attr=&quot;open&quot; is MANDATORY on every dialog on a live page — a push morphs the whole page and closes it under the person (gf-357)). popover +
 popovertarget drive menus — and a closed .menu popover must get

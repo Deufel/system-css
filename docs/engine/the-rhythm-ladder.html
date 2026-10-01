@@ -44,7 +44,7 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 	</header>
 	<nav class="pg-toolbar spread-column tablet desktop" aria-label="Engine"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">Engine</small><a class="nav-item" href="../engine/overview.html"><span class="medium large">Overview</span></a><a class="nav-item" href="../engine/one-file-one-spine.html"><span class="medium large">ONE file, one spine</span></a><a class="nav-item" href="../engine/the-painter-model.html"><span class="medium large">The painter model</span></a><a class="nav-item" href="../engine/the-cascade-constitution.html"><span class="medium large">The cascade constitution</span></a><a class="nav-item" href="../engine/layout.html"><span class="medium large">Layout</span></a><a class="nav-item" href="../engine/components.html"><span class="medium large">Components</span></a><a class="nav-item" href="../engine/semantic-hue-locks-vs-number.html"><span class="medium large">Semantic hue locks vs number formatting</span></a><a class="nav-item" href="../engine/the-rhythm-ladder.html" aria-current="page"><span class="medium large">The rhythm ladder</span></a><a class="nav-item" href="../engine/authoring-checklist.html"><span class="medium large">Authoring checklist</span></a><a class="nav-item" href="../engine/view-transitions-the-fouc-ledger.html"><span class="medium large">View transitions &amp; the FOUC ledger</span></a><a class="nav-item" href="../engine/the-form-canon.html"><span class="medium large">The form canon</span></a><a class="nav-item" href="../engine/utilities.html"><span class="medium large">Utilities</span></a></div></nav>
 	<main class="pg-main column owns-scroll">
-		<section class="column measure" style="--measure: 3; --gap: 1lh;">
+		<section class="column content-3" style="--gap: 1lh;">
 <h2 id="the-rhythm-ladder-gf-231-per-mike--prevent-drift">THE RHYTHM LADDER (gf-231, per Mike — &quot;prevent drift&quot;)</h2>
 <p><code>--gap</code> takes ONLY these rungs — a usage site picks a rung, never a
 number: block rhythm <code>0 · 0.25lh (default) · 0.5lh · 1lh</code>; inline rows
@@ -54,14 +54,17 @@ off-ladder values per .templ and the count may only go down (event/home
 are clean; admin/settings carry the grandfathered debt — snap values
 when you touch a site). Same spirit for every knob: the engine owns
 the scale, templates pick steps.</p>
-<p>THE MEASURE LADDER (2026-09-29): <code>.measure</code> centres a surface at a width
-the engine owns, and <code>--measure</code> is a RUNG, never a length — <code>1</code> a
-column (a wizard station, a dialog-like card, a form alone) · <code>2</code>
-reading (settings leaves, prose, a report; the default) · <code>3</code> working (a
-record page's grid, a dashboard's cap). The rung is 40ch + 30ch a step in
-the type's own unit, so it grows with <code>--type</code> and the text-size
-preference. Rosters take no measure: they fill the canvas. The counter
-checks the rungs the way it checks gaps; a length here is a regression.</p>
+<p>THE CONTENT LADDER (2026-10-01, the Open Props spelling; it replaced
+<code>.measure</code> + <code>--measure</code>): <code>.content-1</code> · <code>.content-2</code> · <code>.content-3</code>
+centre a surface at a width the engine owns — <code>1</code> a column (a wizard
+station, a confirm, a form alone; 40ch) · <code>2</code> reading (a settings leaf,
+prose, a report; 70ch) · <code>3</code> working (a record page's grid, a workbench;
+100ch), in the wearer's own ch so a surface grows with <code>--type</code> and the
+text-size preference, filling anything narrower. THE DIALOG WEARS THE
+SAME WORDS: <code>.modal</code> is <code>.content-2</code> by default, a confirm is
+<code>.modal.content-1</code>, a workbench <code>.modal.content-3</code> (<code>.sm</code>/<code>.lg</code> are
+gone). Rosters take no rung: they fill the canvas. A width written as a
+length is a regression.</p>
 
 		</section>
 	</main>

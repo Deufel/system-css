@@ -215,8 +215,8 @@ it: .sec is a skin-layer BUTTON voice — on a wrapper it paints a ghost
 box (the gf-46 button-group scar). Voices, locks, and recipes attach to
 specific anatomy.
 
-Dialogs are native <dialog class="modal"> in three engine sizes (.sm 22rem ·
-default 28rem · .lg 54rem, all glass, top-pinned), opened by a one-line
+Dialogs are native <dialog class="modal"> at a rung of the content ladder
+(.content-2 by default · .content-1 the confirm · .content-3 the workbench, all glass, top-pinned), opened by a one-line
 showModal() onclick and closed declaratively (closedby="any";
 data-preserve-attr="open" is MANDATORY on every dialog on a live page — a push morphs the whole page and closes it under the person (gf-357)). popover +
 popovertarget drive menus — and a closed .menu popover must get
@@ -265,14 +265,17 @@ are clean; admin/settings carry the grandfathered debt — snap values
 when you touch a site). Same spirit for every knob: the engine owns
 the scale, templates pick steps.
 
-THE MEASURE LADDER (2026-09-29): `.measure` centres a surface at a width
-the engine owns, and `--measure` is a RUNG, never a length — `1` a
-column (a wizard station, a dialog-like card, a form alone) · `2`
-reading (settings leaves, prose, a report; the default) · `3` working (a
-record page's grid, a dashboard's cap). The rung is 40ch + 30ch a step in
-the type's own unit, so it grows with `--type` and the text-size
-preference. Rosters take no measure: they fill the canvas. The counter
-checks the rungs the way it checks gaps; a length here is a regression.
+THE CONTENT LADDER (2026-10-01, the Open Props spelling; it replaced
+`.measure` + `--measure`): `.content-1` · `.content-2` · `.content-3`
+centre a surface at a width the engine owns — `1` a column (a wizard
+station, a confirm, a form alone; 40ch) · `2` reading (a settings leaf,
+prose, a report; 70ch) · `3` working (a record page's grid, a workbench;
+100ch), in the wearer's own ch so a surface grows with `--type` and the
+text-size preference, filling anything narrower. THE DIALOG WEARS THE
+SAME WORDS: `.modal` is `.content-2` by default, a confirm is
+`.modal.content-1`, a workbench `.modal.content-3` (`.sm`/`.lg` are
+gone). Rosters take no rung: they fill the canvas. A width written as a
+length is a regression.
 
 ## Authoring checklist
 
@@ -487,7 +490,7 @@ like the bench specimens, the product form is wrong.
 - **THE LAYOUT-SHIFT DOCTRINE (gf-178, per Mike): whenever possible,
   do not cause layout shift.** Editing must not reflow the page. For
   edits with significant validation, use the ANCHORED SMALL DIALOG:
-  `.modal.sm.anchored` — the subject wears `anchor-name`, the dialog
+  `.modal.content-1.anchored` — the subject wears `anchor-name`, the dialog
   wears `position-anchor` (the sanctioned inline pair). ⚠ Chrome gives
   DIALOGS no implicit invoker anchor yet (popovertarget does, commandfor
   on a dialog does NOT — verified live, gf-183): the trigger wears

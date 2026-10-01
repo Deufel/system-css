@@ -44,7 +44,7 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 	</header>
 	<nav class="pg-toolbar spread-column tablet desktop" aria-label="How-to"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">How-to</small><a class="nav-item" href="../howto/start.html" aria-current="page"><span class="medium large">Start a project</span></a><a class="nav-item" href="../howto/shell.html"><span class="medium large">The shell</span></a><a class="nav-item" href="../howto/page.html"><span class="medium large">Author a page</span></a><a class="nav-item" href="../howto/form.html"><span class="medium large">Author a form</span></a><a class="nav-item" href="../howto/rocket.html"><span class="medium large">Author a rocket</span></a><a class="nav-item" href="../howto/stream.html"><span class="medium large">Land and stream in Go</span></a><a class="nav-item" href="../howto/migrate.html"><span class="medium large">Migrations</span></a></div></nav>
 	<main class="pg-main column owns-scroll">
-		<section class="column measure" style="--measure: 3; --gap: 1lh;">
+		<section class="column content-3" style="--gap: 1lh;">
 <p>A project is a Go server, one SQLite file, one CSS file and one Datastar
 runtime. There is no build step. The server renders whole pages; the
 stream morphs them.</p>
@@ -123,7 +123,7 @@ collapses. See <a href="shell.html">The shell</a>.</p>
 <ul>
 <li>Inline geometry: a <code>style</code> attribute carries knobs and anchor plumbing
 only. The count per template only goes down.</li>
-<li>The ladders: <code>--gap</code> takes <code>0 · 0.25lh · 0.5lh · 1lh</code> or <code>0.25em · 0.5em · 1em</code>; <code>--measure</code> takes <code>1 · 2 · 3</code>.</li>
+<li>The ladders: <code>--gap</code> takes <code>0 · 0.25lh · 0.5lh · 1lh</code> or <code>0.25em · 0.5em · 1em</code>; a surface's width is a rung of the content ladder: <code>.content-1 · .content-2 · .content-3</code>.</li>
 <li>Every POST route names the role that may call it.</li>
 <li>The schema is the migrations: one baseline, one file per change,
 never edited after commit.</li>

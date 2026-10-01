@@ -8,12 +8,12 @@ order: 2
 
 `.row`, `.column`, `.spread` (space between), `.grid` (auto-fit;
 `--grid-min` sets the column floor), `.lcr` (left, centre, right),
-`.oneline` (no wrap), `.measure` (centred; `--measure` is a rung: 1
+`.oneline` (no wrap), `.content-1/2/3` (centred at a rung of the content ladder: 1
 column, 2 reading, 3 working), `.card`, `.scroll-x`, `.truncate`,
 `.prelines`.
 
 ```html
-<section class="column measure" style="--measure: 3; --gap: 1lh;">
+<section class="column content-3" style="--gap: 1lh;">
   <div class="grid" style="--grid-min: 20rem;">
     <div class="card column" style="--gap: 0.25lh;">
       <strong>Location</strong>

@@ -44,7 +44,7 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 	</header>
 	<nav class="pg-toolbar spread-column tablet desktop" aria-label="Engine"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">Engine</small><a class="nav-item" href="../engine/overview.html"><span class="medium large">Overview</span></a><a class="nav-item" href="../engine/one-file-one-spine.html"><span class="medium large">ONE file, one spine</span></a><a class="nav-item" href="../engine/the-painter-model.html"><span class="medium large">The painter model</span></a><a class="nav-item" href="../engine/the-cascade-constitution.html"><span class="medium large">The cascade constitution</span></a><a class="nav-item" href="../engine/layout.html"><span class="medium large">Layout</span></a><a class="nav-item" href="../engine/components.html"><span class="medium large">Components</span></a><a class="nav-item" href="../engine/semantic-hue-locks-vs-number.html"><span class="medium large">Semantic hue locks vs number formatting</span></a><a class="nav-item" href="../engine/the-rhythm-ladder.html"><span class="medium large">The rhythm ladder</span></a><a class="nav-item" href="../engine/authoring-checklist.html"><span class="medium large">Authoring checklist</span></a><a class="nav-item" href="../engine/view-transitions-the-fouc-ledger.html"><span class="medium large">View transitions &amp; the FOUC ledger</span></a><a class="nav-item" href="../engine/the-form-canon.html" aria-current="page"><span class="medium large">The form canon</span></a><a class="nav-item" href="../engine/utilities.html"><span class="medium large">Utilities</span></a></div></nav>
 	<main class="pg-main column owns-scroll">
-		<section class="column measure" style="--measure: 3; --gap: 1lh;">
+		<section class="column content-3" style="--gap: 1lh;">
 <h2 id="the-form-canon-gf-173-per-mike--follow-this-exactly">THE FORM CANON (gf-173, per Mike — follow this EXACTLY)</h2>
 <p>The practice bench is the lab's Forms page (site/lab/forms.html,
 <a href="https://deufel.github.io/system-css/lab/forms.html);">https://deufel.github.io/system-css/lab/forms.html);</a> the engine rules live in
@@ -144,7 +144,7 @@ client truth; a second tab goes red at the same instant.</li>
 <li><strong>THE LAYOUT-SHIFT DOCTRINE (gf-178, per Mike): whenever possible,
 do not cause layout shift.</strong> Editing must not reflow the page. For
 edits with significant validation, use the ANCHORED SMALL DIALOG:
-<code>.modal.sm.anchored</code> — the subject wears <code>anchor-name</code>, the dialog
+<code>.modal.content-1.anchored</code> — the subject wears <code>anchor-name</code>, the dialog
 wears <code>position-anchor</code> (the sanctioned inline pair). ⚠ Chrome gives
 DIALOGS no implicit invoker anchor yet (popovertarget does, commandfor
 on a dialog does NOT — verified live, gf-183): the trigger wears

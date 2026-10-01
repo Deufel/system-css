@@ -44,7 +44,7 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 	</header>
 	<nav class="pg-toolbar spread-column tablet desktop" aria-label="Skills"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">Skills</small><a class="nav-item" href="../skills/system-css.html" aria-current="page"><span class="medium large">system-css</span></a><a class="nav-item" href="../skills/datastar-components.html"><span class="medium large">datastar-components</span></a><a class="nav-item" href="../skills/land-and-stream.html"><span class="medium large">land-and-stream</span></a><a class="nav-item" href="../skills/svg-charts.html"><span class="medium large">svg-charts</span></a></div></nav>
 	<main class="pg-main column owns-scroll">
-		<section class="column measure" style="--measure: 3; --gap: 1lh;">
+		<section class="column content-3" style="--gap: 1lh;">
 <hr>
 <h2 id="scope-general-the-engine-travels-the-eventos-paths-inside-are-examples">name: system-css
 description: Author HTML/UI with system.css — an OKLCH + type-driven design engine where components are styled semantic elements themed by inherited custom properties (--hue, --bg, --fg, --lift, --type), not variant classes. Use when building or editing pages, components, forms, tables, dashboards, or app shells on system.css; when the user mentions system.css, the painter/engine model, the .page shell and pg-* regions, the revert-layer gates (.mobile/.tablet/.desktop), the .row/.column/.grid primitives, the .card/.tag/.avatar/.tabs-underline/.search-box components, the semantic hue locks (.suc/.inf/.wrn/.dgr), the number family (.num/.delta/.num-good/.est/.past), or the Laws of authoring. Do NOT use for Tailwind, Bootstrap, or Material work — this engine rejects palette-of-decisions frameworks.
@@ -242,8 +242,8 @@ a square control never stretches. Know what a class IS before composing
 it: .sec is a skin-layer BUTTON voice — on a wrapper it paints a ghost
 box (the gf-46 button-group scar). Voices, locks, and recipes attach to
 specific anatomy.</p>
-<p>Dialogs are native <dialog class="modal"> in three engine sizes (.sm 22rem ·
-default 28rem · .lg 54rem, all glass, top-pinned), opened by a one-line
+<p>Dialogs are native <dialog class="modal"> at a rung of the content ladder
+(.content-2 by default · .content-1 the confirm · .content-3 the workbench, all glass, top-pinned), opened by a one-line
 showModal() onclick and closed declaratively (closedby=&quot;any&quot;;
 data-preserve-attr=&quot;open&quot; is MANDATORY on every dialog on a live page — a push morphs the whole page and closes it under the person (gf-357)). popover +
 popovertarget drive menus — and a closed .menu popover must get
@@ -290,14 +290,17 @@ off-ladder values per .templ and the count may only go down (event/home
 are clean; admin/settings carry the grandfathered debt — snap values
 when you touch a site). Same spirit for every knob: the engine owns
 the scale, templates pick steps.</p>
-<p>THE MEASURE LADDER (2026-09-29): <code>.measure</code> centres a surface at a width
-the engine owns, and <code>--measure</code> is a RUNG, never a length — <code>1</code> a
-column (a wizard station, a dialog-like card, a form alone) · <code>2</code>
-reading (settings leaves, prose, a report; the default) · <code>3</code> working (a
-record page's grid, a dashboard's cap). The rung is 40ch + 30ch a step in
-the type's own unit, so it grows with <code>--type</code> and the text-size
-preference. Rosters take no measure: they fill the canvas. The counter
-checks the rungs the way it checks gaps; a length here is a regression.</p>
+<p>THE CONTENT LADDER (2026-10-01, the Open Props spelling; it replaced
+<code>.measure</code> + <code>--measure</code>): <code>.content-1</code> · <code>.content-2</code> · <code>.content-3</code>
+centre a surface at a width the engine owns — <code>1</code> a column (a wizard
+station, a confirm, a form alone; 40ch) · <code>2</code> reading (a settings leaf,
+prose, a report; 70ch) · <code>3</code> working (a record page's grid, a workbench;
+100ch), in the wearer's own ch so a surface grows with <code>--type</code> and the
+text-size preference, filling anything narrower. THE DIALOG WEARS THE
+SAME WORDS: <code>.modal</code> is <code>.content-2</code> by default, a confirm is
+<code>.modal.content-1</code>, a workbench <code>.modal.content-3</code> (<code>.sm</code>/<code>.lg</code> are
+gone). Rosters take no rung: they fill the canvas. A width written as a
+length is a regression.</p>
 <h2 id="authoring-checklist">Authoring checklist</h2>
 <ul>
 <li>Theme by setting --hue / --bg / --lift / --fg / --type, not classes.</li>
@@ -521,7 +524,7 @@ client truth; a second tab goes red at the same instant.</li>
 <li><strong>THE LAYOUT-SHIFT DOCTRINE (gf-178, per Mike): whenever possible,
 do not cause layout shift.</strong> Editing must not reflow the page. For
 edits with significant validation, use the ANCHORED SMALL DIALOG:
-<code>.modal.sm.anchored</code> — the subject wears <code>anchor-name</code>, the dialog
+<code>.modal.content-1.anchored</code> — the subject wears <code>anchor-name</code>, the dialog
 wears <code>position-anchor</code> (the sanctioned inline pair). ⚠ Chrome gives
 DIALOGS no implicit invoker anchor yet (popovertarget does, commandfor
 on a dialog does NOT — verified live, gf-183): the trigger wears

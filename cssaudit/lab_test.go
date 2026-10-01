@@ -37,9 +37,6 @@ func TestLabAtZero(t *testing.T) {
 		if n := OffLadderGaps(src); n != 0 {
 			t.Errorf("%s: %d --gap values off the ladder", filepath.Base(f), n)
 		}
-		if n := OffLadderMeasures(src); n != 0 {
-			t.Errorf("%s: %d --measure values that are not a rung (1 · 2 · 3)", filepath.Base(f), n)
-		}
 		if strings.Contains(src, "!important") {
 			t.Errorf("%s: !important", filepath.Base(f))
 		}
