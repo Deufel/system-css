@@ -2610,7 +2610,7 @@
      keeps its lower half free for the soft keyboard. */
   :where(.modal) {
     --_dur: calc(var(--cfg-motion) * 0.2s);
-    position: fixed; inset: 0; margin: 8vh auto auto;
+    position: fixed; inset: 0; margin: 4vh auto auto;
     inline-size: min(28rem, 94vw); max-block-size: min(85svh, 44rem);
     overflow: auto; overscroll-behavior: contain;
     padding: 0.5lh; border: 0; border-radius: var(--cfg-radius);
@@ -2765,8 +2765,14 @@
   /* a modal that holds a tabpanel is a column: the head (identity, tabs)
      stays put and the panel — .grow.scroll-y in the markup — does the
      scrolling (feedback #158, 2026-09-24) */
-  :where(.modal[open]:has(> .column > [role="tabpanel"])) { display: flex; flex-direction: column; overflow: hidden; }
-  :where(.modal[open]) > :where(.column:has(> [role="tabpanel"])) { flex: 1 1 auto; min-block-size: 0; }
+  /* the tabbed modal is a column while it CLOSES too (EventOS feedback
+     #184): display is held by the discrete transition after [open]
+     drops, so only display may depend on [open] — a direction that
+     dropped with it flipped the fading dialog to a row and its content
+     went skinny mid-fade */
+  :where(.modal:has(> .column > [role="tabpanel"])) { flex-direction: column; overflow: hidden; }
+  :where(.modal[open]:has(> .column > [role="tabpanel"])) { display: flex; }
+  :where(.modal) > :where(.column:has(> [role="tabpanel"])) { flex: 1 1 auto; min-block-size: 0; }
   :where(.modal):has(> .palette) {
     inline-size: min(92vw, 40rem); padding: 0; overflow: hidden;
     margin-block-start: 9vh; margin-block-end: auto;
