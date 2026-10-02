@@ -3119,7 +3119,9 @@
 	   zeroed because spacing rides the toasts' own sibling
 	   margins (the engine collapses a leaving card's whole
 	   footprint, so the stack glides shut). */
-	.hud > .br.toasts { --gap: 0; max-block-size: 100%; overflow: hidden auto; }
+	/* scrollbar-gutter stable (EventOS feedback #197, Mike): the pile's
+	   scrollbar appearing or leaving must not shift the cards' width */
+	.hud > .br.toasts { --gap: 0; max-block-size: 100%; overflow: hidden auto; scrollbar-gutter: stable; }
 	/* (overflow-x hidden, not auto: a card sliding past the edge is
 	   scrollable overflow, and a scroll container with overflow-y alone
 	   grows a horizontal scrollbar for the slide — the pile shifted by
