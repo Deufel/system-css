@@ -23,6 +23,15 @@ skills (`.claude/skills/`), the lab (`site/lab/`) and the docs site
 3. Copy `.claude/skills/` into your project.
 4. Read the How-to.
 
+## Mail
+
+`static/mail.css` is THE MICRO EDITION for HTML mail: literal sRGB baked
+from the anchors at the default hue, light and dark through
+`prefers-color-scheme`, every selector under `.mail`, inlined whole in the
+mail's `<head><style>`. A mail client keeps none of the engine proper —
+no custom properties, `oklch()`, layers, scopes or `:where()` — and
+`mail_test.go` refuses them there. The how-to "Mail" shows the one card.
+
 ## Regenerate the site
 
 ```

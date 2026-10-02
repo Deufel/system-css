@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="color-scheme" content="dark light"/>
-<title>Author a rocket — system.css</title>
+<title>Mail — system.css</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=optional" rel="stylesheet"/>
@@ -39,112 +39,64 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 	</nav>
 	<header class="pg-main-header column">
 		<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">system.css</a><a href="../howto/start.html">How-to</a></nav>
-		<div class="spread"><h1>Author a rocket</h1></div>
+		<div class="spread"><h1>Mail</h1></div>
 		<details class="site-menu mobile column" style="--gap: 0.25lh;"><summary class="tag">Menu</summary><div class="row" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../advanced/wash.html">Advanced</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../demos/full-pages.html">Demos</a><a class="tag" href="../skills/system-css.html">Skills</a></div><div class="column" style="--gap: 0; --type: -1;"><a href="../howto/start.html">Start a project</a><a href="../howto/shell.html">The shell</a><a href="../howto/page.html">Author a page</a><a href="../howto/form.html">Author a form</a><a href="../howto/rocket.html">Author a rocket</a><a href="../howto/stream.html">Land and stream in Go</a><a href="../howto/migrate.html">Migrations</a><a href="../howto/mail.html">Mail</a></div></details>
 	</header>
-	<nav class="pg-toolbar spread-column tablet desktop" aria-label="How-to"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">How-to</small><a class="nav-item" href="../howto/start.html"><span class="medium large">Start a project</span></a><a class="nav-item" href="../howto/shell.html"><span class="medium large">The shell</span></a><a class="nav-item" href="../howto/page.html"><span class="medium large">Author a page</span></a><a class="nav-item" href="../howto/form.html"><span class="medium large">Author a form</span></a><a class="nav-item" href="../howto/rocket.html" aria-current="page"><span class="medium large">Author a rocket</span></a><a class="nav-item" href="../howto/stream.html"><span class="medium large">Land and stream in Go</span></a><a class="nav-item" href="../howto/migrate.html"><span class="medium large">Migrations</span></a><a class="nav-item" href="../howto/mail.html"><span class="medium large">Mail</span></a></div></nav>
+	<nav class="pg-toolbar spread-column tablet desktop" aria-label="How-to"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">How-to</small><a class="nav-item" href="../howto/start.html"><span class="medium large">Start a project</span></a><a class="nav-item" href="../howto/shell.html"><span class="medium large">The shell</span></a><a class="nav-item" href="../howto/page.html"><span class="medium large">Author a page</span></a><a class="nav-item" href="../howto/form.html"><span class="medium large">Author a form</span></a><a class="nav-item" href="../howto/rocket.html"><span class="medium large">Author a rocket</span></a><a class="nav-item" href="../howto/stream.html"><span class="medium large">Land and stream in Go</span></a><a class="nav-item" href="../howto/migrate.html"><span class="medium large">Migrations</span></a><a class="nav-item" href="../howto/mail.html" aria-current="page"><span class="medium large">Mail</span></a></div></nav>
 	<main class="pg-main column owns-scroll">
 		<section class="column content-3" style="--gap: 1lh;">
-<p>A rocket is a web component for what Datastar cannot do alone: hold
-client state or reach a browser API. Before writing one, check that the
-job is not a <code>select</code>, a <code>dialog</code>, a <code>popover</code> or a signal.</p>
-<h2 id="contract">Contract</h2>
-<ul>
-<li>Light DOM only. The engine styles the host and its children. The host's
-box comes from the engine's <code>:where(host)</code> rule, not from injected CSS.</li>
-<li>Morph-proof. A push morphs the page. Inject nothing, or re-inject from
-a MutationObserver.</li>
-<li>Server-stamped <code>data-*</code> is the state. The rocket invents none.</li>
-<li>Events go up. The rocket dispatches a bubbling <code>CustomEvent</code>; a
-<code>data-on:&lt;event&gt;</code> on an ancestor posts. The rocket never fetches.</li>
-<li>No clocks. A ticking number is rendered by the server and re-landed by
-the stream.</li>
-</ul>
-<h2 id="example">Example</h2>
-<p>The visit tracker reads the device position once per tap, fills the
-form's hidden fields and raises an event. The form posts itself.</p>
-<div class="column" style="--gap: 0;"><div class="spread" style="--type: -2; --fg: -0.55;"><small>javascript</small><copy-button code="class ActivationTracker extends HTMLElement {
-  constructor() { super(); this._onClick = this._onClick.bind(this); }
-  connectedCallback() { this.addEventListener(&#39;click&#39;, this._onClick); }
-  disconnectedCallback() { this.removeEventListener(&#39;click&#39;, this._onClick); }
-  _onClick(e) {
-    const btn = e.target.closest(&#39;[data-trk-action]&#39;);
-    if (!btn || !this.contains(btn) || btn.hasAttribute(&#39;aria-busy&#39;)) return;
-    const name = btn.getAttribute(&#39;data-trk-action&#39;) === &#39;out&#39; ? &#39;visitout&#39; : &#39;visitin&#39;;
-    const form = this.closest(&#39;form&#39;);
-    btn.setAttribute(&#39;aria-busy&#39;, &#39;true&#39;);
-    const done = (detail) =&gt; {
-      btn.removeAttribute(&#39;aria-busy&#39;);
-      for (const k of [&#39;lat&#39;, &#39;lng&#39;, &#39;acc&#39;]) {
-        const f = form &amp;&amp; form.querySelector(&#39;input[name=&#34;v&#39; + k + &#39;&#34;]&#39;);
-        if (f) f.value = String(detail[k]);
-      }
-      this.dispatchEvent(new CustomEvent(name, { bubbles: true, detail }));
-    };
-    navigator.geolocation.getCurrentPosition(
-      (p) =&gt; done({ lat: p.coords.latitude, lng: p.coords.longitude, acc: p.coords.accuracy }),
-      () =&gt; done({ lat: 0, lng: 0, acc: 0 }),
-      { enableHighAccuracy: true, timeout: 12000, maximumAge: 30000 });
-  }
-}
-customElements.define(&#39;activation-tracker&#39;, ActivationTracker);
-"><button type="button" class="icon" aria-label="Copy" title="Copy"><span class="copy-idle">⧉</span><span class="copy-done" hidden>✓</span></button></copy-button></div><pre><code class="javascript">class ActivationTracker extends HTMLElement {
-  constructor() { super(); this._onClick = this._onClick.bind(this); }
-  connectedCallback() { this.addEventListener('click', this._onClick); }
-  disconnectedCallback() { this.removeEventListener('click', this._onClick); }
-  _onClick(e) {
-    const btn = e.target.closest('[data-trk-action]');
-    if (!btn || !this.contains(btn) || btn.hasAttribute('aria-busy')) return;
-    const name = btn.getAttribute('data-trk-action') === 'out' ? 'visitout' : 'visitin';
-    const form = this.closest('form');
-    btn.setAttribute('aria-busy', 'true');
-    const done = (detail) =&gt; {
-      btn.removeAttribute('aria-busy');
-      for (const k of ['lat', 'lng', 'acc']) {
-        const f = form &amp;&amp; form.querySelector('input[name=&quot;v' + k + '&quot;]');
-        if (f) f.value = String(detail[k]);
-      }
-      this.dispatchEvent(new CustomEvent(name, { bubbles: true, detail }));
-    };
-    navigator.geolocation.getCurrentPosition(
-      (p) =&gt; done({ lat: p.coords.latitude, lng: p.coords.longitude, acc: p.coords.accuracy }),
-      () =&gt; done({ lat: 0, lng: 0, acc: 0 }),
-      { enableHighAccuracy: true, timeout: 12000, maximumAge: 30000 });
-  }
-}
-customElements.define('activation-tracker', ActivationTracker);
+<p>A mail client runs none of the engine. Gmail strips custom properties,
+<code>oklch()</code>, <code>@layer</code>, <code>@scope</code>, <code>:where()</code> and container queries; Outlook
+desktop keeps only inline <code>style</code> attributes. So the engine ships a
+MICRO EDITION, <code>static/mail.css</code>: literal sRGB baked from the anchors at
+the default hue, light and dark through <code>prefers-color-scheme</code>, every
+selector scoped under <code>.mail</code>, and the column rung as the card's measure.</p>
+<h2 id="what-a-mail-is">What a mail is</h2>
+<p>One card. The classes are the engine's names at their mail size:</p>
+<div class="column" style="--gap: 0;"><div class="spread" style="--type: -2; --fg: -0.55;"><small>html</small><copy-button code="&lt;!doctype html&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta charset=&#34;utf-8&#34;&gt;&lt;meta name=&#34;color-scheme&#34; content=&#34;light dark&#34;&gt;
+&lt;style&gt;/* static/mail.css, inlined whole */&lt;/style&gt;&lt;/head&gt;
+&lt;body class=&#34;mail&#34;&gt;
+  &lt;div class=&#34;card&#34;&gt;
+    &lt;p class=&#34;kicker&#34;&gt;Sign in&lt;/p&gt;
+    &lt;h1&gt;Your EventOS sign-in code&lt;/h1&gt;
+    &lt;p&gt;Enter it on the page that asked. It expires in ten minutes.&lt;/p&gt;
+    &lt;p class=&#34;code&#34;&gt;123456&lt;/p&gt;
+    &lt;p class=&#34;foot&#34;&gt;If you didn&#39;t request this, ignore this email.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/body&gt;&lt;/html&gt;
+"><button type="button" class="icon" aria-label="Copy" title="Copy"><span class="copy-idle">⧉</span><span class="copy-done" hidden>✓</span></button></copy-button></div><pre><code class="html">&lt;!doctype html&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;color-scheme&quot; content=&quot;light dark&quot;&gt;
+&lt;style&gt;/* static/mail.css, inlined whole */&lt;/style&gt;&lt;/head&gt;
+&lt;body class=&quot;mail&quot;&gt;
+  &lt;div class=&quot;card&quot;&gt;
+    &lt;p class=&quot;kicker&quot;&gt;Sign in&lt;/p&gt;
+    &lt;h1&gt;Your EventOS sign-in code&lt;/h1&gt;
+    &lt;p&gt;Enter it on the page that asked. It expires in ten minutes.&lt;/p&gt;
+    &lt;p class=&quot;code&quot;&gt;123456&lt;/p&gt;
+    &lt;p class=&quot;foot&quot;&gt;If you didn't request this, ignore this email.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/body&gt;&lt;/html&gt;
 </code></pre></div>
-<div class="column" style="--gap: 0;"><div class="spread" style="--type: -2; --fg: -0.55;"><small>html</small><copy-button code="&lt;form data-on:visitin=&#34;@post(&#39;/o/1/activations/7/checkin&#39;, {contentType: &#39;form&#39;})&#34;&gt;
-  &lt;input type=&#34;hidden&#34; name=&#34;vlat&#34; value=&#34;0&#34;/&gt; …
-  &lt;activation-tracker class=&#34;column&#34;&gt;
-    &lt;button type=&#34;button&#34; class=&#34;pri&#34; data-trk-action=&#34;in&#34;&gt;Check in&lt;/button&gt;
-  &lt;/activation-tracker&gt;
-&lt;/form&gt;
-"><button type="button" class="icon" aria-label="Copy" title="Copy"><span class="copy-idle">⧉</span><span class="copy-done" hidden>✓</span></button></copy-button></div><pre><code class="html">&lt;form data-on:visitin=&quot;@post('/o/1/activations/7/checkin', {contentType: 'form'})&quot;&gt;
-  &lt;input type=&quot;hidden&quot; name=&quot;vlat&quot; value=&quot;0&quot;/&gt; …
-  &lt;activation-tracker class=&quot;column&quot;&gt;
-    &lt;button type=&quot;button&quot; class=&quot;pri&quot; data-trk-action=&quot;in&quot;&gt;Check in&lt;/button&gt;
-  &lt;/activation-tracker&gt;
-&lt;/form&gt;
-</code></pre></div>
-<p>Event names are lowercase. Datastar lowercases attribute names, so
-<code>data-on:visitIn</code> never fires.</p>
-<h2 id="requirements">Requirements</h2>
-<p>Datastar v1.0.4 moved Rocket out of Pro. <code>bundles/datastar-rocket.js</code> is
-core plus the <code>rocket</code> module. The library ships it at
-<code>static/datastar.js</code>; every rocket imports <code>../datastar.js</code>, so a project
-on Datastar Pro keeps its own bundle at that path. Thirteen attributes
-and actions remain Pro: <code>data-animate</code>, <code>data-custom-validity</code>,
-<code>data-match-media</code>, <code>data-on-raf</code>, <code>data-on-resize</code>, <code>data-persist</code>,
-<code>data-query-string</code>, <code>data-replace-url</code>, <code>data-scroll-into-view</code>,
-<code>data-view-transition</code>, <code>@clipboard</code>, <code>@fit</code>, <code>@intl</code>. A component that
-uses one is marked below. None does today. API means a key and a bill.
-Permission means the browser asks.</p>
-<div class="scroll-x"><table style="--type: -1;"><thead><tr><th>Rocket</th><th>Runtime</th><th>API</th><th>Depends on</th><th>Server</th><th>Shipped</th></tr></thead><tbody><tr><td><code>activation-tracker</code></td><td>core</td><td></td><td>the device's Geolocation API (a permission)</td><td>the check-in and check-out verbs</td><td>no (app)</td></tr><tr><td><code>bug-report</code></td><td>core + Rocket</td><td></td><td></td><td>the feedback lane (the app's, not the library's)</td><td>no (app)</td></tr><tr><td><code>combo-box</code></td><td>core + Rocket</td><td></td><td></td><td>an endpoint that morphs the listbox as the input's signal posts</td><td>yes</td></tr><tr><td><code>command-palette</code></td><td>core</td><td></td><td></td><td>a search endpoint the palette's input posts to</td><td>yes</td></tr><tr><td><code>copy-button</code></td><td>core + Rocket</td><td></td><td>the Clipboard API (a secure context)</td><td></td><td>yes</td></tr><tr><td><code>date-picker</code></td><td>core + Rocket</td><td></td><td></td><td></td><td>yes</td></tr><tr><td><code>day-picker</code></td><td>core + Rocket</td><td></td><td></td><td></td><td>yes</td></tr><tr><td><code>element-pick</code></td><td>core</td><td></td><td></td><td>the feedback lane (the app's, not the library's)</td><td>no (app)</td></tr><tr><td><code>exif</code></td><td>core</td><td></td><td>none — a dependency-free EXIF reader</td><td></td><td>yes</td></tr><tr><td><code>google-maps</code></td><td>core + Rocket</td><td>Google Maps JavaScript API — a key, billed</td><td></td><td></td><td>no (app)</td></tr><tr><td><code>group-pick</code></td><td>core + Rocket</td><td></td><td></td><td>the pick-or-make verbs (list · create · delete)</td><td>yes</td></tr><tr><td><code>hold-confirm</code></td><td>core</td><td></td><td></td><td></td><td>yes</td></tr><tr><td><code>image-input</code></td><td>core</td><td></td><td>exif.js; may read the device's position (Geolocation, a permission)</td><td></td><td>yes</td></tr><tr><td><code>mini-calc</code></td><td>core + Rocket</td><td></td><td></td><td></td><td>yes</td></tr><tr><td><code>mini-map</code></td><td>core + Rocket</td><td>Google Static Maps API — a key, billed</td><td></td><td></td><td>no (app)</td></tr><tr><td><code>toast-card</code></td><td>core + Rocket</td><td></td><td></td><td></td><td>yes</td></tr></tbody></table></div>
+<p>A button is <code>&lt;a class=&quot;btn&quot; href=&quot;…&quot;&gt;Open&lt;/a&gt;</code>. Send it as
+<code>multipart/alternative</code> with the plain text first — the text part is
+what deliverability and screen readers read; the HTML part is the same
+words dressed.</p>
+<h2 id="laws">Laws</h2>
+<ol>
+<li>Literal CSS only: <code>mail_test.go</code> refuses a custom property, <code>oklch()</code>,
+a layer, a scope, <code>:where()</code>, a container query.</li>
+<li>Every selector starts with <code>.mail</code>.</li>
+<li>The renderer repeats the three colours that matter as inline styles
+(the card's background and ink, the button) for clients that drop the
+head style.</li>
+<li>The hue is the default (255). A per-org hue in mail would mean baking
+per org at send time; not taken.</li>
+</ol>
 
 		</section>
 	</main>
-	<aside class="pg-aside desktop"><nav class="toc column" aria-label="On this page" style="--gap: 0; --type: -1;"><small class="rail-head">On this page</small><a href="#contract">Contract</a><a href="#example">Example</a><a href="#requirements">Requirements</a></nav></aside><footer class="pg-main-footer spread" style="--type: -1;"><span><a href="../howto/form.html">← Author a form</a></span><span><a href="../howto/stream.html">Land and stream in Go →</a></span></footer>
+	<footer class="pg-main-footer spread" style="--type: -1;"><span><a href="../howto/migrate.html">← Migrations</a></span><span></span></footer>
 </div>
 <script src="../static/highlight.js"></script>
 </body>
