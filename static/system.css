@@ -1184,8 +1184,12 @@
      the start padding centres the first, the gradient paints six cells
      of the field's own surface and no seventh. The engine's focus ring
      rings the whole field — a single control, one ring. ── */
+  /* the code's host measures the room (EventOS gf-476): six cells and
+     five gaps fit any width the field is given — a column-rung card was
+     clipping the sixth */
+  :where(label, fieldset):has(> input[autocomplete="one-time-code"]) { container-type: inline-size; }
   :where(input[autocomplete="one-time-code"]) {
-    --_cell: 2.4em; --_gap: 0.4em;
+    --_gap: 0.4em; --_cell: min(2.4em, (100cqi - 5 * var(--_gap)) / 6);
     font-family: var(--font-mono); font-variant-numeric: tabular-nums; --type: 2;
     inline-size: calc(var(--_cell) * 6 + var(--_gap) * 6); max-inline-size: 100%;
     block-size: calc(var(--_cell) * 1.25); padding: 0;
