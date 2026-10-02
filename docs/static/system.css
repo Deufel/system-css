@@ -1332,6 +1332,20 @@
     background-color: var(--_bg); --surf: var(--_bg); --surf-bg: var(--bg);
   }
   :where(.Card) { border-color: var(--focus); }
+  /* .veil — a glass card laid over its .stack sibling (Mike, 2026-10-02:
+     the lab's "column glass card" veil as one word): the card's edge, the
+     frosted surface, its content centred both ways. What it covers stays
+     in place underneath; lift it by removing it (data-show, or the server
+     leaving it out). */
+  :where(.veil) {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: var(--gap, 0.5lh); padding: 1lh 1em; text-align: center;
+    border: 1px solid var(--border); border-radius: var(--cfg-radius);
+    background-color: color-mix(in oklch, var(--_bg) calc(var(--glass-alpha, 0.65) * 100%), transparent);
+    -webkit-backdrop-filter: blur(var(--glass-blur, 0.5lh));
+    backdrop-filter: blur(var(--glass-blur, 0.5lh));
+    --surf: var(--_bg); --surf-bg: var(--bg);
+  }
   /* .surface — a lift step with no drawn line; consumer-painter (does NOT
      republish --surf-bg — the cycle rule), so nested surfaces step off
      the nearest absolute surface, not off each other. */
@@ -1448,7 +1462,7 @@
      wound; the law was always about the FRAME OWNER, not the DOM
      distance. The recessed panel survives where it earns its keep:
      standalone page forms outside framed hosts.) */
-  :where(.card, .modal, .menu) :where(form, [role="form"]) {
+  :where(.card, .modal, .menu, .veil) :where(form, [role="form"]) {
     --bg: 0; background: none;
     padding: 0; border: 0; border-radius: 0;
   }
