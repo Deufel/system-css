@@ -489,10 +489,15 @@ FIVE laws; a new rocket that deviates is wrong until proven otherwise:
 
 1. **Client-owned state rides an ATTRIBUTE on the host**, shielded by
    `data-preserve-attr` in the server markup — never a JS-only flag.
-   (dialog `open`, `data-ui-state` for a popover/leaving toast,
-   `data-ignore` for maps.) An attribute survives inspection, gives
-   CSS a hook, and morphs can be told to keep it; a closure variable
-   dies silently.
+   (dialog `open`, `data-ui-state` for a popover, `aria-expanded` for
+   a toast's fold, `data-ignore` for maps.) An attribute survives
+   inspection, gives CSS a hook, and morphs can be told to keep it; a
+   closure variable dies silently. THE CONVERSE (gf-470): state the
+   SERVER can know is the server's, un-shielded — the toast's own word
+   (`unread` · `read` · `leaving`) is stamped from seen_at and a
+   just-dismissed grace window; the rocket only echoes it a round trip
+   early, and the next morph agrees. A preserved attribute the server
+   also renders is two truths — the server's can never land.
 2. **Observers RESTORE and RE-HOME; they never DECIDE.** A
    MutationObserver may re-home derived state (the highlight the morph
    swapped out from under you, command-palette's resetActive) and
