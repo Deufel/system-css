@@ -29,6 +29,10 @@
   background: #1467c2; color: #fafcfe; text-decoration: none; font-weight: 600; }
 .mail a { color: #1467c2; }
 .mail .foot { margin: 16px 0 0; font-size: 13px; color: #595e64; }
+/* only the code selects (EventOS, Mike): the card's words are read, the
+   six digits are taken — a long press on a phone lands on the one thing */
+.mail .card, .mail .card * { -webkit-user-select: none; user-select: none; }
+.mail .code { -webkit-user-select: text; user-select: text; }
 @media (prefers-color-scheme: dark) {
   .mail { background: #020306; color: #eff2f6; }
   .mail .card { background: #181b1f; color: #eff2f6; border-color: #33383f; }
