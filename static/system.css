@@ -2795,6 +2795,9 @@
     transition: block-size var(--_dur) ease, opacity var(--_dur) ease, display var(--_dur) allow-discrete;
   }
   :where(.toast:has([data-toast-expand][aria-expanded="true"])) > :where(.toast-body) { display: flex; block-size: auto; opacity: 1; }
+  /* an opened card shows its whole title (EventOS feedback #205): the
+     one line is the resting card's, never the read one's */
+  :where(.toast:has([data-toast-expand][aria-expanded="true"])) > :where(.row) > :where(strong) { white-space: normal; overflow: visible; }
   @starting-style { :where(.toast:has([data-toast-expand][aria-expanded="true"])) > :where(.toast-body) { block-size: 0; opacity: 0; } }
   /* the expand glyph is a chevron: pointing on at rest, down when open */
   :where(.toast) [data-toast-expand] svg { transition: rotate var(--_dur) ease; }
