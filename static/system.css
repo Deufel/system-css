@@ -764,6 +764,11 @@
      auto-min). Chain it from a region's child down to a .scroll-y and
      the INNER surface becomes the scroller instead of the region. */
   :where(.grow) { flex: 1 1 auto; min-block-size: 0; }
+  /* a growing box with an aspect (mini-map) takes the share its column
+     has left, not its aspect: beside a sibling card that sets the row,
+     it absorbs the difference (EventOS local feedback #28); 3lh keeps
+     it legible when there is no share */
+  :where(mini-map.grow) { aspect-ratio: auto; flex-basis: 0; min-block-size: 3lh; }
   /* .container — the generic self-measuring wrapper: content inside it
      gates on ITS width (cards in a grid, widgets in a flank). */
   :where(.container) { container-type: inline-size; }
