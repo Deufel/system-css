@@ -43,14 +43,8 @@ rocket("toast-card", {
     const onLeave = () => clearTimeout(dwell);
     const onClick = (e) => {
       const expand = e.target.closest("[data-toast-expand]");
-      if (expand) {
-        const open = expand.getAttribute("aria-expanded") !== "true";
-        expand.setAttribute("aria-expanded", open);
-        // the fold's state is the server's to keep (EventOS feedback #212:
-        // an open toast stays open across navigations): `fold` tells it
-        host.dispatchEvent(new CustomEvent("fold", { bubbles: true, detail: { open } }));
-        read();
-      }
+      // the fold's state is the server's to keep (EventOS feedback #212): `fold` tells it
+      if (expand) { const open = expand.getAttribute("aria-expanded") !== "true"; expand.setAttribute("aria-expanded", open); host.dispatchEvent(new CustomEvent("fold", { bubbles: true, detail: { open } })); read(); }
       else if (e.target.closest("[data-toast-trash]")) leave("trash");
       else if (e.target.closest("[data-toast-dismiss]")) leave("dismiss");
     };
