@@ -176,7 +176,7 @@ rocket('group-pick', {
             if (active >= 0) { visible()[active]?.querySelector('[data-gp-pick]')?.click(); close(); }
           }
           break;
-        case 'Escape': if (list.matches(':popover-open')) { e.stopPropagation(); close(); } break;
+        case 'Escape': if (list.matches(':popover-open')) { e.preventDefault(); e.stopPropagation(); close(); } break; // preventDefault: keeps the modal open (EventOS #237)
         case 'Tab': close(); break;
       }
     };

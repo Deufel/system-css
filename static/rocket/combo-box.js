@@ -111,7 +111,7 @@ const comboSetup = (strict) => ({ host, cleanup }) => {
           }
           break;
         case 'Escape':
-          if (list.matches(':popover-open')) { e.stopPropagation(); close(); }
+          if (list.matches(':popover-open')) { e.preventDefault(); e.stopPropagation(); close(); } // preventDefault: a modal's close request rides the keydown (EventOS #237)
           break;
         case 'Tab': close(); break;
       }
