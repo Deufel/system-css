@@ -1276,7 +1276,7 @@
   }
   /* custom-element hosts (Rocket) are inline by default — let them fill the
      field row when their trigger is a .field. */
-  :where(date-picker, day-picker, multi-select, single-select):has(> .field) { display: block; inline-size: 100%; }
+  :where(date-picker, day-picker, multi-select, single-select):has(.field) { display: block; inline-size: 100%; }
   /* the combobox pair (gf-191): host is the control slot; its input or
      committed .field chip-box fills it. */
   :where(combo-box, combo-select, group-pick) { display: block; inline-size: 100%; }
@@ -1521,7 +1521,7 @@
      display:grid dropped the input onto the grid's second row, under the
      box (the gf-22 lab caught it live on the roster search). The recipe
      is for labeled FIELDS; a search-box labels nothing. */
-  :where(form, [role="form"]) :where(label:has(> input, > select, > textarea, > .field, > date-picker, > multi-select, > single-select, > combo-box, > combo-select, > group-pick):not(.search-box):not(:has(> input:is([type="checkbox"], [type="radio"])))) {
+  :where(form, [role="form"]) :where(label:has(> input, > select, > textarea, > .field, > date-picker, > day-picker, > multi-select, > single-select, > combo-box, > combo-select, > group-pick):not(.search-box):not(:has(> input:is([type="checkbox"], [type="radio"])))) {
     display: grid;
     grid-template-columns: auto 1fr;
     grid-template-rows: 1lh auto;
@@ -1531,7 +1531,7 @@
       --type: -1; --fg: -0.8; grid-column: 2; justify-self: start;
       block-size: 1lh; display: inline-flex; align-items: center; line-height: 1;
     }
-    & > :where(input, select, textarea, .field, date-picker, multi-select, single-select, combo-box, combo-select, group-pick) { grid-column: 1 / -1; inline-size: 100%; }
+    & > :where(input, select, textarea, .field, date-picker, day-picker, multi-select, single-select, combo-box, combo-select, group-pick) { grid-column: 1 / -1; inline-size: 100%; }
     &:where(:has(:where(input, select, textarea):required)) > :where(span)::after {
       content: " *"; --hue-lock: var(--hue-dgr); --fg: 0.8;
     }
