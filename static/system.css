@@ -244,8 +244,8 @@
      (0.65 — a dialog over its dimmed backdrop) · --glass-blur (0.5lh).
      Needs content BEHIND it to read as glass. TWO RULES (EventOS
      2026-10-05, toasts over a map unreadable): an overlay that must read
-     over ANYTHING — a toast, a hud card — raises --glass-alpha (the toast
-     wears 0.88); and quiet is INK (--fg), never opacity on the card —
+     over ANYTHING — a hud card — raises --glass-alpha (0.88; a toast wears
+     0.75 and shows a little of what is behind it); and quiet is INK (--fg), never opacity on the card —
      opacity multiplies into the glass and the words go with it. */
   :where(.glass) {
     /* alpha via color-mix-with-transparent: PLAIN substitution of --_bg,
@@ -2763,7 +2763,7 @@
   :where(.toast) {
     --_dur: calc(var(--cfg-motion) * 0.2s);
     --type: -1;
-    --glass-alpha: 0.88; /* reads over anything behind it (the .glass rule) */
+    --glass-alpha: 0.75; /* a toast shows what is behind it, a little (Mike 2026-10-05: 0.88 read opaque over a dark map; 0.65 too thin, gf-519) */
     display: flex; flex-direction: column; gap: var(--gap, 0.25lh);
     inline-size: 20rem; max-inline-size: calc(100vw - 2lh);
     overflow: clip;
