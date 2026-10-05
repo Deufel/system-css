@@ -41,11 +41,6 @@ rocket("toast-card", {
     const leave = (verb) => { clearTimeout(dwell); if (host.dataset.uiState !== "leaving") go("leaving", verb); };
     const onEnter = () => { if (host.dataset.uiState === "unread") dwell = setTimeout(read, 2000); };
     const onLeave = () => clearTimeout(dwell);
-    // A RECEIPT LEAVES BY ITSELF (EventOS feedback #272): the server stamps
-    // data-ttl (seconds) on a toast that only confirms; the card dismisses
-    // itself when it runs out — the same event the x would post.
-    const ttl = Number(host.dataset.ttl || 0) * 1000;
-    const life = ttl > 0 ? setTimeout(() => leave("dismiss"), ttl) : 0;
     const onClick = (e) => {
       const expand = e.target.closest("[data-toast-expand]");
       // the fold's state is the server's to keep (EventOS feedback #212): `fold` tells it
@@ -61,7 +56,6 @@ rocket("toast-card", {
       host.removeEventListener("pointerenter", onEnter);
       host.removeEventListener("pointerleave", onLeave);
       clearTimeout(dwell);
-      clearTimeout(life);
     });
   },
 });
