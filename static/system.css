@@ -2819,7 +2819,7 @@
   } }
   /* .prelines — multi-line producer text (the pipeline's per-table
      lines) keeps its newlines wherever it renders (drawer, toast). */
-  :where(.prelines) { white-space: pre-line; }
+  :where(.prelines) { white-space: pre-line; overflow-wrap: anywhere; } /* a person's text: a long token wraps instead of widening its card (EventOS feedback #284) */
 
   /* copy-button (gf-164): the glyph wrappers dissolve into the icon
      button's own layout; the [hidden] one stays gone (UA default). */
