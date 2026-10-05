@@ -2943,8 +2943,10 @@
     /* EXPLICIT rows (--lanes is the week's server-set knob): the day
        cell's 1 / -1 must span every lane, and -1 only counts explicit
        lines. The trailing fr absorbs min-block-size on quiet weeks. */
-    grid-template-rows: 1lh repeat(var(--lanes, 1), 0.95lh) minmax(0, 1fr);
-    min-block-size: 3lh; border-block-start: 1px solid var(--border);
+    /* a lane is the bar's own line (EventOS feedback #283, 2026-10-05: no
+       space above and below the words — more events stack in a week) */
+    grid-template-rows: 1lh repeat(var(--lanes, 1), 0.8lh) minmax(0, 1fr);
+    min-block-size: 2.8lh; border-block-start: 1px solid var(--border);
   }
   :where(.cal-d) {
     grid-column: var(--gc); grid-row: 1 / -1;
@@ -2971,7 +2973,7 @@
   :where(.cal-b.cont-l) { border-start-start-radius: 0; border-end-start-radius: 0; margin-inline-start: 0; }
   :where(.cal-b.cont-r) { border-start-end-radius: 0; border-end-end-radius: 0; margin-inline-end: 0; }
   @container (width < 560px) {
-    :where(.cal-wk) { grid-template-rows: 1lh repeat(var(--lanes, 1), 0.8lh) minmax(0, 1fr); min-block-size: 2.8lh; }
+    :where(.cal-wk) { grid-template-rows: 1lh repeat(var(--lanes, 1), 0.75lh) minmax(0, 1fr); min-block-size: 2.6lh; }
     :where(.cal-b) > :where(span) { --type: -3; }
   }
   :where(.cal-cards) {
