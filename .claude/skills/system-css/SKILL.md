@@ -197,7 +197,7 @@ which is why corner badges shear without it), .roster (THE SERVER-DRIVEN
 TABLE: one class on the div holding a roster's head, form and table;
 truncating cells, the hugging column model with .clip absorbers, tonal
 head and hover, 1lh head controls that wake on hover, the shadowed
-.scroll-x — all CSS over server markup, zero client state), .focus-fab, .glass utility,
+.scroll-x — all CSS over server markup, zero client state), .focus-fab, .glass (the surface at --glass-alpha over a --glass-blur of what is behind; 0.65 is a dialog over its dimmed backdrop; an overlay that must read over anything — a toast — wears 0.88; quiet is ink, never opacity on glass: opacity multiplies into it),
 .hud overlay slots (t/c/b row × l/c/r column; corner slots pad 1lh, the
 centre none — a scope zeroes it when the top row must be one line,
 gf-358; a .fab-1/2/3 inside a .hud is frozen to 2.4lh), .wash (gf-359 — a

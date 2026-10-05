@@ -240,8 +240,13 @@
   :where(.bw) { --chroma: 0; }
 
   /* frosted surface — the engine's own resolved surface, translucent,
-     over a backdrop blur. Publishes like .bg. Knobs: --glass-alpha ·
-     --glass-blur. Needs content BEHIND it to read as glass. */
+     over a backdrop blur. Publishes like .bg. Knobs: --glass-alpha
+     (0.65 — a dialog over its dimmed backdrop) · --glass-blur (0.5lh).
+     Needs content BEHIND it to read as glass. TWO RULES (EventOS
+     2026-10-05, toasts over a map unreadable): an overlay that must read
+     over ANYTHING — a toast, a hud card — raises --glass-alpha (the toast
+     wears 0.88); and quiet is INK (--fg), never opacity on the card —
+     opacity multiplies into the glass and the words go with it. */
   :where(.glass) {
     /* alpha via color-mix-with-transparent: PLAIN substitution of --_bg,
        the one consumption pattern the engine promises (RCS re-parsing of
@@ -2757,6 +2762,9 @@
      directions are gated by --cfg-motion (0 = instant). ── */
   :where(.toast) {
     --_dur: calc(var(--cfg-motion) * 0.2s);
+    /* a toast reads over anything behind it — a map, a photo, a table —
+       so its glass is nearly opaque (the .glass rule's two rules) */
+    --glass-alpha: 0.88;
     /* one width for every card — the stack reads as a column, not a
        ragged pile; the viewport cap keeps small screens honest. */
     inline-size: 24rem; max-inline-size: calc(100vw - 2lh);
@@ -2809,7 +2817,7 @@
   :where(.toast:has([data-toast-expand][aria-expanded="true"])) [data-toast-expand] svg { rotate: 90deg; }
   /* READ (feedback #101): the notice the viewer's pointer rested on —
      still in the pile, no longer calling */
-  :where(.toast[data-ui-state="read"]) { opacity: 0.72; }
+  :where(.toast[data-ui-state="read"]) { --fg: -0.6; } /* quiet ink; never opacity on glass */
   /* OUT: the slide first, the collapse second, then gone */
   :where(.toast[data-ui-state="leaving"]) {
     opacity: 0; translate: 100% 0;
