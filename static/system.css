@@ -668,6 +668,11 @@
   :where(.hud) {
     position: fixed; inset: 0; display: grid; grid-template-areas: "hud";
     pointer-events: none; z-index: 1;
+    /* a hud CLEARS THE BANNER (EventOS gf-527, 2026-10-05): the pg-banner
+       is the page's top track — one line and its padding — and a fixed
+       hud over a page that shows one starts beneath it, or the mark and
+       the doors would paint over the words */
+    .page:has(> .pg-banner) ~ & { inset-block-start: 1.5lh; }
     & > :where(*) { grid-area: hud; justify-self: center; align-self: center; pointer-events: auto; }
     /* slot ALIGNMENT lives in @layer utility below: slot classes must beat
        component defaults (e.g. the fab recipe's place-self) — a slot is a
