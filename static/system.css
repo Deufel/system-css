@@ -2743,101 +2743,76 @@
     }
   }
 
-  /* ── toast — the notification hud's card (canonical since gf-42; born
-     in the app's project layer, promoted once the shape settled; rev 3
-     gf-470, feedback #196 #197 #198). ONE LINE AT REST: the tone glyph,
-     the title (never a link — a toast must not pull the reader out of
-     their flow), the verb group (expand · delete · dismiss, the same
-     three on every card). THE FOLD, .toast-body — the words, the verb
-     or link row, the age — opens under the expand verb's aria-expanded
-     (the rocket flips it, :has() reads it). ONE STATE WORD on the host,
-     data-ui-state, stamped by the server (seen_at and a just-dismissed
-     grace window, time math in SQL) and echoed a round trip early by
-     the <toast-card> rocket: "unread" paints the dot, "read" quiets,
-     "leaving" plays the exit — no second element, nothing a morph can
-     add or remove twice (the old badge <i> beside the attribute was the
-     doubled stack of #198).
-     THE MOTION (feedback #197): entrance and exit are one choreography
-     reversed, two beats of --_dur each. IN — the pile makes room (the
-     box grows from 0, the neighbours glide up), THEN the card slides in
-     from the edge and fades up. OUT — the card slides to the edge and
-     fades, THEN its box collapses so the neighbours glide shut, and at
-     the end display flips to none (allow-discrete). The box holds
-     through the slide, so nothing above a leaving card moves until the
-     card itself is gone. The node outlives the exit because the server
-     keeps rendering a just-dismissed toast as leaving for a grace window:
-     the morph that answers the verb keeps the node (no mid-slide
-     removal — the layout jump of #197), and the first morph after the
-     window removes a node that is already display: none. Both
-     directions are gated by --cfg-motion (0 = instant). ── */
+  /* ── toast — THE NOTIFICATION CARD, ONE SHAPE (the toast contract,
+     EventOS gf-535, 2026-10-05; canonical since gf-42, rev 3 gf-470).
+     The markup is the whole vocabulary and this rule lays it out by
+     nesting:
+       <toast-card class="toast card glass {tone}" data-ui-state="unread|read|leaving">
+         <header> glyph · <strong>title · <menu>verbs </header>   one line at rest
+         <progress>                                                 optional, the row's bar
+         <section> the words · the verb · the age </section>       the fold
+       </toast-card>
+     The header's [aria-expanded] (a button in the menu, the SERVER's
+     word) opens the fold; the host's ONE state word, stamped by the
+     server, paints the dot (unread), quiets (read) or plays the exit
+     (leaving). No other class, no other hook. The preview is small: one
+     type step down, 20rem. The choreography of gf-470 stands: IN — the
+     box grows, then the slide; OUT — the slide, then the collapse, then
+     display none (allow-discrete); the server renders a put-away card
+     as leaving for a grace window so the morph never cuts the exit. ── */
   :where(.toast) {
     --_dur: calc(var(--cfg-motion) * 0.2s);
-    /* a toast reads over anything behind it — a map, a photo, a table —
-       so its glass is nearly opaque (the .glass rule's two rules) */
-    --glass-alpha: 0.88;
-    /* one width for every card — the stack reads as a column, not a
-       ragged pile; the viewport cap keeps small screens honest. */
-    inline-size: 24rem; max-inline-size: calc(100vw - 2lh);
+    --type: -1;
+    --glass-alpha: 0.88; /* reads over anything behind it (the .glass rule) */
+    display: flex; flex-direction: column; gap: var(--gap, 0.25lh);
+    inline-size: 20rem; max-inline-size: calc(100vw - 2lh);
     overflow: clip;
     opacity: 1; translate: 0 0;
-    /* IN: the box first, the slide second (a transition reads the
-       timing of the state it ENTERS, so the rest state owns the entrance) */
     transition: block-size var(--_dur) ease-out, margin-block var(--_dur) ease-out,
                 padding-block var(--_dur) ease-out, border-block-width var(--_dur) ease-out,
                 opacity var(--_dur) ease-out var(--_dur), translate var(--_dur) ease-out var(--_dur),
                 display calc(2 * var(--_dur)) allow-discrete;
+    & + :where(.toast) { margin-block-start: 0.25lh; } /* the pile's spacing rides the cards, so a leaving card's whole footprint collapses */
+    & > :where(header) {
+      display: flex; align-items: center; gap: 0.5em; min-inline-size: 0;
+      & > :where(svg) { inline-size: 1.25em; block-size: 1.25em; flex: none; }
+      & > :where(strong) { flex: 1; min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      & > :where(menu) { display: flex; flex: none; order: 2; margin: 0; padding: 0; margin-inline-start: auto; }
+    }
+    & > :where(progress) { inline-size: 100%; }
+    /* THE FOLD: closed it is not a flex item; open it grows from 0 */
+    & > :where(section) {
+      display: none; flex-direction: column; gap: var(--gap, 0.25lh);
+      overflow: hidden; block-size: 0; opacity: 0;
+      transition: block-size var(--_dur) ease, opacity var(--_dur) ease, display var(--_dur) allow-discrete;
+      & > :where(p) { margin: 0; --fg: -0.6; }
+      & > :where(small) { --fg: -0.6; }
+    }
+    &:has(> header [aria-expanded="true"]) {
+      & > :where(section) { display: flex; block-size: auto; opacity: 1; }
+      & > :where(header) > :where(strong) { white-space: normal; overflow: visible; } /* an opened card shows its whole title (#205) */
+      & > header [aria-expanded] svg { rotate: 90deg; }
+    }
+    & > header [aria-expanded] svg { transition: rotate var(--_dur) ease; }
+    /* THE UNREAD DOT (#137, #198): a pseudo of the header, the state word its only switch */
+    &[data-ui-state="unread"] > :where(header)::after {
+      content: ""; order: 1; flex: none;
+      inline-size: 0.5em; block-size: 0.5em; border-radius: 50%;
+      background-color: var(--focus);
+    }
+    &[data-ui-state="read"] { --fg: -0.6; } /* quiet ink; never opacity on glass */
+    /* OUT: the slide first, the collapse second, then gone */
+    &[data-ui-state="leaving"] {
+      opacity: 0; translate: 100% 0;
+      block-size: 0; margin-block: 0; padding-block: 0; border-block-width: 0;
+      display: none;
+      transition: opacity var(--_dur) ease-in, translate var(--_dur) ease-in,
+                  block-size var(--_dur) ease-out var(--_dur), margin-block var(--_dur) ease-out var(--_dur),
+                  padding-block var(--_dur) ease-out var(--_dur), border-block-width var(--_dur) ease-out var(--_dur),
+                  display calc(2 * var(--_dur)) allow-discrete;
+    }
   }
-  /* stack spacing rides the TOASTS (sibling margin), not the stack's gap:
-     a leaving card's whole footprint — height AND spacing — collapses in
-     one beat, so the neighbours glide instead of snapping. (The
-     interpolate-size: allow-keywords on html lets auto block-size
-     animate; engines without it skip the glide, never the layout.) */
-  :where(.toast) + :where(.toast) { margin-block-start: 0.25lh; }
-  /* fixed anatomy: the card is a COLUMN — the header row, an optional
-     progress bar (a live producer's state stays in view), the fold. In
-     the row the tone glyph and the verb cluster are identical boxes on
-     every card — the glyph never scales, the verbs pin to the end edge
-     (order 2, after the dot) — and the title is the one flexible thing. */
-  :where(.toast) > :where(.row) > :where(svg) { inline-size: 1.25em; block-size: 1.25em; flex: none; }
-  :where(.toast) > :where(.row) > :where(strong) { flex: 1; min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  :where(.toast) > :where(.row) > :where(.toast-verbs) { flex: none; order: 2; margin-inline-start: auto; }
-  /* THE UNREAD DOT (feedback #137, rev 2 #198): a pseudo of the header
-     row, after the title and before the verbs, in the tone's vibrant
-     edge; the host's state word is its only switch. */
-  :where(.toast[data-ui-state="unread"]) > :where(.row)::after {
-    content: ""; order: 1; flex: none;
-    inline-size: 0.5em; block-size: 0.5em; border-radius: 50%;
-    background-color: var(--focus);
-  }
-  /* THE FOLD: closed it is not a flex item (no gap spent on it); open it
-     grows from 0 under the expand verb's aria-expanded — display rides
-     allow-discrete so the unfold animates up and the fold animates shut. */
-  :where(.toast) > :where(.toast-body) {
-    display: none; flex-direction: column; gap: var(--gap, 0.25lh);
-    overflow: hidden; block-size: 0; opacity: 0;
-    transition: block-size var(--_dur) ease, opacity var(--_dur) ease, display var(--_dur) allow-discrete;
-  }
-  :where(.toast:has([data-toast-expand][aria-expanded="true"])) > :where(.toast-body) { display: flex; block-size: auto; opacity: 1; }
-  /* an opened card shows its whole title (EventOS feedback #205): the
-     one line is the resting card's, never the read one's */
-  :where(.toast:has([data-toast-expand][aria-expanded="true"])) > :where(.row) > :where(strong) { white-space: normal; overflow: visible; }
-  @starting-style { :where(.toast:has([data-toast-expand][aria-expanded="true"])) > :where(.toast-body) { block-size: 0; opacity: 0; } }
-  /* the expand glyph is a chevron: pointing on at rest, down when open */
-  :where(.toast) [data-toast-expand] svg { transition: rotate var(--_dur) ease; }
-  :where(.toast:has([data-toast-expand][aria-expanded="true"])) [data-toast-expand] svg { rotate: 90deg; }
-  /* READ (feedback #101): the notice the viewer's pointer rested on —
-     still in the pile, no longer calling */
-  :where(.toast[data-ui-state="read"]) { --fg: -0.6; } /* quiet ink; never opacity on glass */
-  /* OUT: the slide first, the collapse second, then gone */
-  :where(.toast[data-ui-state="leaving"]) {
-    opacity: 0; translate: 100% 0;
-    block-size: 0; margin-block: 0; padding-block: 0; border-block-width: 0;
-    display: none;
-    transition: opacity var(--_dur) ease-in, translate var(--_dur) ease-in,
-                block-size var(--_dur) ease-out var(--_dur), margin-block var(--_dur) ease-out var(--_dur),
-                padding-block var(--_dur) ease-out var(--_dur), border-block-width var(--_dur) ease-out var(--_dur),
-                display calc(2 * var(--_dur)) allow-discrete;
-  }
+  @starting-style { :where(.toast:has(> header [aria-expanded="true"])) > :where(section) { block-size: 0; opacity: 0; } }
   @starting-style { :where(.toast) {
     opacity: 0; translate: 100% 0;
     block-size: 0; margin-block: 0; padding-block: 0; border-block-width: 0;
