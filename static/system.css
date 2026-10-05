@@ -2532,6 +2532,11 @@
     :where(select), :where(select)::picker(select) { appearance: base-select; }
     :where(select) {
       display: inline-flex; align-items: center;
+      /* the chosen option is ONE line (EventOS feedback #271, 2026-10-05): a
+         base-select lays its selected content out as flex text and a long
+         option wrapped the control to two lines; the control keeps its row
+         and the words clip, the picker shows them whole */
+      min-inline-size: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
       &::picker-icon {
         --fg: -0.5; margin-inline-start: auto;
         transition: rotate calc(var(--cfg-motion) * 0.15s) ease;
@@ -3301,6 +3306,14 @@
 	.county-map path { fill: currentColor; fill-opacity: 0.06; stroke: currentColor; stroke-opacity: 0.35; stroke-width: 0.7; vector-effect: non-scaling-stroke; cursor: pointer; }
 	.county-map path:hover { fill-opacity: 0.22; }
 	.county-map path.on { --fg: 1; fill-opacity: 0.6; stroke-opacity: 0.9; }
+	/* THE GLANCE (EventOS feedback #279, 2026-10-05): the same recipe read
+	   only, at a fixed share of the rhythm — 10 lines tall, as wide as
+	   its cell, the state letterboxed inside — so a settings split sizes
+	   by the theme, not by the map's own ratio; no pointer, no hover */
+	.county-map[data-ui-state="glance"] { block-size: 10lh; max-inline-size: none; }
+	.county-map[data-ui-state="glance"] path { cursor: default; }
+	.county-map[data-ui-state="glance"] path:hover { fill-opacity: 0.06; }
+	.county-map[data-ui-state="glance"] path.on:hover { fill-opacity: 0.6; }
 
 	/* HOME full-bleed canvas + the timeline (2026-08-31, per
 	   Mike: the letterbox dies — a dashboard fills its screen) */
