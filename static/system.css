@@ -1333,6 +1333,13 @@
        cross-axis fill + aspect-ratio ballooned the whole button. */
     align-self: center;
   }
+  /* ── lock — THE LOCK (EventOS gf-559): an icon button whose shackle
+     swings open as it is pressed; aria-pressed is the state, the path's
+     d transitions where the browser can (Chromium, Firefox), the motion
+     is --cfg-motion's. The glyph is lucide's lock, the open form its
+     lock-open shackle. */
+  :where(button.lock, .btn.lock) > :where(svg) > :where(path:last-child) { transition: d calc(var(--cfg-motion) * 0.3s) ease; }
+  :where(button.lock, .btn.lock):where([aria-pressed="true"]) > :where(svg) > :where(path:last-child) { d: path("M7 11V7a5 5 0 0 1 9.9-1"); }
   :where(.btn-touch):where(button, .btn) {
     min-block-size: max(44px, var(--_control-h)); min-inline-size: max(44px, var(--_control-h));
     aspect-ratio: 1; padding: 0;
