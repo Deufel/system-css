@@ -636,10 +636,10 @@
      of the width by --h hundredths of the height (the .rise API), wrapping
      in rows, the shares of a row summing to 100. Every area is its own
      inline-size container, so what it holds gates on the tiers; the
-     spacing is the area's own padding, never a gap (a gap breaks the
-     sum); the area's one child fills it. */
+     spacing is the area's own padding at the standard rung (0.25lh), never
+     a gap (a gap breaks the sum); the area's one child fills it. */
   :where(.areas) { display: flex; flex-wrap: wrap; align-content: stretch; container-type: size; flex: 1 1 auto; min-block-size: 0; overflow: hidden; }
-  :where(.areas) > * { inline-size: calc(var(--w, 100) * 1cqi); block-size: calc(var(--h, 50) * 1cqb); container-type: inline-size; min-inline-size: 0; min-block-size: 0; padding: calc(var(--gap, 0.5lh) / 2); }
+  :where(.areas) > * { inline-size: calc(var(--w, 100) * 1cqi); block-size: calc(var(--h, 50) * 1cqb); container-type: inline-size; min-inline-size: 0; min-block-size: 0; padding: calc(var(--gap, 0.25lh) / 2); }
   :where(.areas) > * > * { block-size: 100%; overflow: hidden; }
   :where(.stack) { display: grid; grid-template-areas: "stack"; & > * { grid-area: stack } }
   /* .rise — an EXPLICIT viewport share (2026-08-31, per Mike: explicit
@@ -942,7 +942,7 @@
        container with nothing to fill collapses to nothing, so the areas
        stack at their natural height and the frame-filling section lets go */
     :where(.areas) { display: block; container-type: inline-size; overflow: visible; }
-    :where(.areas) > * { inline-size: auto; block-size: auto; }
+    :where(.areas) > * { inline-size: calc(var(--w, 100) * 1%); block-size: auto; display: inline-block; vertical-align: top; }
     :where(.areas) > * > * { block-size: auto; overflow: visible; }
     :where(section.owns-scroll) { block-size: auto; display: block; }
   }
