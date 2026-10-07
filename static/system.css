@@ -620,6 +620,22 @@
      one-column phone grid never grows an implicit column). */
   :where(.grid > .row-wide) { grid-column: 1 / -1; }
   :where(.ngrid) { display: grid; gap: var(--gap, 0.25lh); grid-template-columns: repeat(var(--cols, 2), 1fr); grid-template-rows: repeat(var(--rows, 2), 1fr); grid-auto-rows: auto; }
+  /* ── bento — THE BIG-PAGE GRID (EventOS gf-571, Mike 2026-10-07: "an
+     auto-adjusting bento grid: auto-fill and spans of 1, 2, 3 or the
+     row, by the content"). Cells of --cell (18rem) fill the width and
+     flow DENSE, so a late small card fills an earlier hole; rows are at
+     least --row (10lh) and grow with their content. A child spans with
+     .span-2 / .span-3, or takes the whole row with .row-wide; the spans
+     fall with the grid's own width (a container query on the bento), so
+     a phone is one column with nothing clipped. A card that must scroll
+     scrolls itself (overflow on the card), never the page. ── */
+  :where(.bento) { display: grid; gap: var(--gap, 0.5lh); grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--cell, 18rem)), 1fr)); grid-auto-rows: minmax(var(--row, 10lh), auto); grid-auto-flow: dense; container-type: inline-size; }
+  :where(.bento) > :where(.span-2) { grid-column: span 2; }
+  :where(.bento) > :where(.span-3) { grid-column: span 3; }
+  :where(.bento) > :where(.row-wide) { grid-column: 1 / -1; }
+  :where(.bento) > :where(.tall) { grid-row: span 2; }
+  @container (inline-size < 56rem) { :where(.bento) > :where(.span-3) { grid-column: span 2; } }
+  @container (inline-size < 38rem) { :where(.bento) > :where(.span-2, .span-3) { grid-column: span 1; } }
   :where(.stack) { display: grid; grid-template-areas: "stack"; & > * { grid-area: stack } }
   /* .rise — an EXPLICIT viewport share (2026-08-31, per Mike: explicit
      dynamic units, never flex negotiation, no magic lengths): the block
