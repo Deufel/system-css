@@ -30,7 +30,7 @@
   <path d="M3 6h18" />
   <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
 </svg>
-</button></div><div class="row" style="--gap: 0.5em;"><nav class="button-group" aria-label="Group"><button type="button" class="btn">One</button> <button type="button" class="btn" aria-pressed="true">Two</button> <button type="button" class="btn">Three</button></nav></div></div><div class="card column" style="--gap: 0.5lh;"><strong>Tags, badges &amp; numbers</strong><div class="row" style="--gap: 0.25em; flex-wrap: wrap;"><span class="tag">plain</span> <span class="tag suc">suc</span> <span class="tag inf">inf</span> <span class="tag wrn">wrn</span> <span class="tag dgr">dgr</span> <span class="avatar" style="--bg: 0.5;">AB<i class="badge">3</i></span></div><div class="row" style="--gap: 1em;"><span class="num">312 CE <span class="delta num-good">▲ 8%</span></span> <span class="num">$4.1k <span class="delta num-bad">▼ 3%</span></span> <span class="num est">~88 CE</span> <span class="num past">241 CE</span></div></div><div class="card column" style="--gap: 0.5lh;"><strong>Alerts</strong><div class="alert inf"><div>Info — the quiet standing message.</div></div><div class="alert" style="--hue-lock: var(--hue-wrn);"><div>Warning — mind the fuse.</div></div><div class="alert" style="--hue-lock: var(--hue-dgr);"><div>Danger — the red that gf-36 fixed.</div></div></div><div class="card column" style="--gap: 0.5lh;"><strong>Menu &amp; dialog</strong><div class="row" style="--gap: 0.5em;"><button type="button" popovertarget="uilab-menu" style="anchor-name: --uilabmenu;">Open menu</button> <menu id="uilab-menu" class="menu" popover style="position-anchor: --uilabmenu; --type: -1;"><a href="#" aria-current="page">Active row</a> <a href="#">Plain row</a><hr><button type="button">Button row</button></menu><button type="button" onclick="document.getElementById(&#39;uilab-dialog-sm&#39;).showModal()">Dialog sm</button> <button type="button" onclick="document.getElementById(&#39;uilab-dialog&#39;).showModal()">Dialog md</button> <button type="button" onclick="document.getElementById(&#39;uilab-dialog-lg&#39;).showModal()">Dialog lg</button></div><dialog id="uilab-dialog-sm" class="modal glass content-1" closedby="any" aria-label="Small dialog"><div class="column" style="--gap: 0.5lh;"><div class="spread"><h3 class="row oneline" style="--type: 1; --gap: 0.5em;"><svg
+</button></div><div class="row" style="--gap: 0.5em;"><nav class="button-group" aria-label="Group"><button type="button" class="btn">One</button> <button type="button" class="btn" aria-pressed="true">Two</button> <button type="button" class="btn">Three</button></nav></div></div><div class="card column" style="--gap: 0.5lh;"><strong>Tags, badges &amp; numbers</strong><div class="row" style="--gap: 0.25em; flex-wrap: wrap;"><span class="tag">plain</span> <span class="tag suc">suc</span> <span class="tag inf">inf</span> <span class="tag wrn">wrn</span> <span class="tag dgr">dgr</span> <span class="avatar" style="--bg: 0.5;">AB<i class="badge">3</i></span></div><div class="row" style="--gap: 1em;"><span class="num">312 CE <span class="delta num-good">▲ 8%</span></span> <span class="num">$4.1k <span class="delta num-bad">▼ 3%</span></span> <span class="num est">~88 CE</span> <span class="num past">241 CE</span></div></div><div class="card column" style="--gap: 0.5lh;"><strong>Alerts</strong><div class="alert inf"><div>Info — the quiet standing message.</div></div><div class="alert" style="--hue-lock: var(--hue-wrn);"><div>Warning — mind the fuse.</div></div><div class="alert" style="--hue-lock: var(--hue-dgr);"><div>Danger — the red that gf-36 fixed.</div></div></div><div class="card column" style="--gap: 0.5lh;"><strong>Menu &amp; dialog</strong><div class="row" style="--gap: 0.5em;"><button type="button" popovertarget="uilab-menu" style="anchor-name: --uilabmenu;">Open menu</button> <menu id="uilab-menu" class="menu" popover style="position-anchor: --uilabmenu; --type: -1;"><a href="#" aria-current="page">Active row</a> <a href="#">Plain row</a><hr><button type="button">Button row</button></menu><button type="button" commandfor="uilab-dialog-sm" command="show-modal">Dialog sm</button> <button type="button" commandfor="uilab-dialog" command="show-modal">Dialog md</button> <button type="button" commandfor="uilab-dialog-lg" command="show-modal">Dialog lg</button></div><dialog id="uilab-dialog-sm" class="modal glass content-1" closedby="any" aria-label="Small dialog"><div class="column" style="--gap: 0.5lh;"><div class="spread"><h3 class="row oneline" style="--type: 1; --gap: 0.5em;"><svg
   xmlns="http://www.w3.org/2000/svg"
   width="1em"
   height="1em"
@@ -45,7 +45,7 @@
   <path d="M12 16v-4" />
   <path d="M12 8h.01" />
 </svg>
-<span>Small — sm</span></h3><button type="button" class="icon" data-on:click="document.getElementById(&#39;uilab-dialog-sm&#39;).matches(&#39;:popover-open&#39;) ? document.getElementById(&#39;uilab-dialog-sm&#39;).hidePopover() : document.getElementById(&#39;uilab-dialog-sm&#39;).close()" aria-label="Close" style="--bg: 0; --fg: -0.5; --type: -1;"><svg
+<span>Small — sm</span></h3><button type="button" class="icon" data-on:click="el.closest(&#39;dialog&#39;).matches(&#39;:popover-open&#39;) ? el.closest(&#39;dialog&#39;).hidePopover() : el.closest(&#39;dialog&#39;).close()" aria-label="Close" style="--bg: 0; --fg: -0.5; --type: -1;"><svg
   xmlns="http://www.w3.org/2000/svg"
   width="1em"
   height="1em"
@@ -74,7 +74,7 @@
   <path d="M12 16v-4" />
   <path d="M12 8h.01" />
 </svg>
-<span>Medium — the default</span></h3><button type="button" class="icon" data-on:click="document.getElementById(&#39;uilab-dialog&#39;).matches(&#39;:popover-open&#39;) ? document.getElementById(&#39;uilab-dialog&#39;).hidePopover() : document.getElementById(&#39;uilab-dialog&#39;).close()" aria-label="Close" style="--bg: 0; --fg: -0.5; --type: -1;"><svg
+<span>Medium — the default</span></h3><button type="button" class="icon" data-on:click="el.closest(&#39;dialog&#39;).matches(&#39;:popover-open&#39;) ? el.closest(&#39;dialog&#39;).hidePopover() : el.closest(&#39;dialog&#39;).close()" aria-label="Close" style="--bg: 0; --fg: -0.5; --type: -1;"><svg
   xmlns="http://www.w3.org/2000/svg"
   width="1em"
   height="1em"
@@ -103,7 +103,7 @@
   <path d="M12 16v-4" />
   <path d="M12 8h.01" />
 </svg>
-<span>Large — lg</span></h3><button type="button" class="icon" data-on:click="document.getElementById(&#39;uilab-dialog-lg&#39;).matches(&#39;:popover-open&#39;) ? document.getElementById(&#39;uilab-dialog-lg&#39;).hidePopover() : document.getElementById(&#39;uilab-dialog-lg&#39;).close()" aria-label="Close" style="--bg: 0; --fg: -0.5; --type: -1;"><svg
+<span>Large — lg</span></h3><button type="button" class="icon" data-on:click="el.closest(&#39;dialog&#39;).matches(&#39;:popover-open&#39;) ? el.closest(&#39;dialog&#39;).hidePopover() : el.closest(&#39;dialog&#39;).close()" aria-label="Close" style="--bg: 0; --fg: -0.5; --type: -1;"><svg
   xmlns="http://www.w3.org/2000/svg"
   width="1em"
   height="1em"

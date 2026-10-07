@@ -312,7 +312,7 @@ rocket('event-date-picker', {
           data-attr:data-ui-selected="!!($$da && cellIso($$v,i)===$$da)"
           data-on:click="$$clicked=cellIso($$v,i); @pick()"></button>
       </template>
-      <button data-on:click="@commit(); document.getElementById('evpop').hidePopover()">Confirm</button>
+      <button data-on:click="@commit(); el.closest('[popover]').hidePopover()">Confirm</button>
     </div>
   `,
 });
