@@ -628,6 +628,19 @@
   :where(.bento) > :where(.span-2) { grid-column: span 2; }
   :where(.bento) > :where(.row-wide) { grid-column: 1 / -1; }
   @container (inline-size < 38rem) { :where(.bento) > :where(.span-2) { grid-column: span 1; } }
+
+  /* ── areas — THE FILLED CONTAINER (EventOS gf-578, Mike 2026-10-07: "cqi
+     units for width and height, a full container filled; the areas
+     restructure with .small/.medium/.large and .c-*"): a SIZE container
+     whose children carve it in container units — each area --w hundredths
+     of the width by --h hundredths of the height (the .rise API), wrapping
+     in rows, the shares of a row summing to 100. Every area is its own
+     inline-size container, so what it holds gates on the tiers; the
+     spacing is the area's own padding, never a gap (a gap breaks the
+     sum); the area's one child fills it. */
+  :where(.areas) { display: flex; flex-wrap: wrap; align-content: stretch; container-type: size; flex: 1 1 auto; min-block-size: 0; overflow: hidden; }
+  :where(.areas) > * { inline-size: calc(var(--w, 100) * 1cqi); block-size: calc(var(--h, 50) * 1cqb); container-type: inline-size; min-inline-size: 0; min-block-size: 0; padding: calc(var(--gap, 0.5lh) / 2); }
+  :where(.areas) > * > * { block-size: 100%; overflow: hidden; }
   :where(.stack) { display: grid; grid-template-areas: "stack"; & > * { grid-area: stack } }
   /* .rise — an EXPLICIT viewport share (2026-08-31, per Mike: explicit
      dynamic units, never flex negotiation, no magic lengths): the block
