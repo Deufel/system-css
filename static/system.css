@@ -1030,6 +1030,11 @@
      pixel on a dense screen, and never the full-then-faint flicker a
      1px rule shows across DPRs */
   :where(hr)  { border: 0; block-size: 0.5px; background: var(--border); margin-block: 1lh; }
+  /* .vr — THE VERTICAL RULE (EventOS gf-591, Mike 2026-10-07): hr's line
+     stood on end, on the inline-start edge of the element that begins a
+     new column — a grid area, a flex item — so the seam rides the
+     content and needs no track of its own. hr's ink, hr's weight. */
+  :where(.vr) { border-inline-start: 0.5px solid var(--border); padding-inline-start: 0.5em; }
 
   /* links — engine-native: chromatic ink, hover = full chroma + hue turn.
      The transition is why --fg / --hue-shift stay registered. */
