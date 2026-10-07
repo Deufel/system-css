@@ -2289,7 +2289,7 @@
        a submit is not a field — which is exactly what makes the
        SINGLE-ROW form work: bare controls share the row, the button
        takes only its own width. */
-    :scope > :where(button) { flex: 0 0 auto; }
+    :scope > :where(button) { flex: 0 0 auto; align-self: end; } /* on the controls' line, under the labels' row (EventOS feedback #382) */
     :scope > :where(legend) {
       display: flex; align-items: baseline; gap: 0.5em;
       flex: 1 0 100%;
