@@ -1,3 +1,9 @@
+> **Superseded (2026-10-08).** The engine lives on as `mike.css` in
+> [github.com/Deufel/css](https://github.com/Deufel/css) — one file, twelve
+> layers, a CDN at a tag, an AGENTS.md. This repository is kept for its
+> history (the `shape` branch holds the re-layering) and is no longer
+> maintained.
+
 # system.css
 
 One CSS file, one Datastar runtime, one SQLite file. This repository holds
