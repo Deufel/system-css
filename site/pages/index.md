@@ -1,11 +1,11 @@
 ---
-title: system.css
+title: mike.css
 section:
 order: 0
 summary: One CSS file, one Datastar runtime, one SQLite file.
 ---
 
-system.css is a design engine, not a component library. You write
+mike.css (the system-css module) is a design engine, not a component library. You write
 semantic HTML and a few composition classes, then set inherited custom
 properties: `--hue`, `--bg`, `--fg`, `--type`, `--lift`, `--gap`. There
 is no `.btn-primary`. A button is a button.

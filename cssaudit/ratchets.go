@@ -62,13 +62,13 @@ func OffLadderGaps(src string) int {
 var anatomyRe = regexp.MustCompile(`\.(nav-item|nav-icon|menu|modal|toast|badge|search-box)\b|\bthead\b|\btbody\b`)
 
 // AnatomyReach counts anatomy reaches inside the PRODUCT COMPONENTS block
-// of system.css; -1 when the block is not found.
+// of the engine (mike.css, @layer block); -1 when the block is not found.
 func AnatomyReach(systemCSS string) int {
 	i := strings.Index(systemCSS, "PRODUCT COMPONENTS")
 	if i < 0 {
 		return -1
 	}
-	k := strings.Index(systemCSS[i:], "@layer components {")
+	k := strings.Index(systemCSS[i:], "@layer block {")
 	if k < 0 {
 		return -1
 	}

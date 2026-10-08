@@ -11,7 +11,7 @@ stream morphs them.
 ## Files
 
 ```
-static/system.css        the engine, from a release; never edited in the app
+static/mike.css          the engine, from a release; never edited in the app
 static/datastar.js       the runtime: the free bundle with Rocket, or the Pro bundle
 static/rocket/*.js       the client-state components you use
 .claude/skills/          the four skills, copied whole
@@ -25,17 +25,17 @@ db/migrations/0001-*.sql the schema; each later file is one change
 
    ```go
    import systemcss "github.com/Deufel/system-css"
-   // systemcss.Static(): system.css, rocket/*.js
+   // systemcss.Static(): mike.css, rocket/*.js
    // systemcss.Skills(): the four skills
    ```
 
 2. The CDN, for a page without a server. Pin a tag:
 
    ```html
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Deufel/system-css@v0.5.1/static/system.css"/>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Deufel/system-css@v1.0.0/static/mike.css"/>
    ```
 
-3. A copy of `static/system.css` from a release. Do not edit it.
+3. A copy of `static/mike.css` from a release. Do not edit it.
 
 ## Head
 
@@ -46,7 +46,7 @@ db/migrations/0001-*.sql the schema; each later file is one change
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
   <meta name="color-scheme" content="dark"/>
-  <link rel="stylesheet" href="/static/system.css?v=…"/>
+  <link rel="stylesheet" href="/static/mike.css?v=…"/>
   <script type="module" src="/static/datastar.js"></script>
 </head>
 ```

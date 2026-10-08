@@ -28,11 +28,11 @@ pages of a view; the lens below the title composes within a page.
 ## Gates
 
 Responsiveness is show and hide, not a second layout. `.mobile`,
-`.tablet` and `.desktop` hide an element outside its band; the media
-layer restores it with `display: revert-layer`:
+`.tablet` and `.desktop` hide an element outside its band; the visibility
+layer, the spine's last, restores it with `display: revert-layer`:
 
 ```css
-@layer media {
+@layer visibility {
   .mobile, .tablet, .desktop { display: none; }
   @media (width < 576px)          { .mobile  { display: revert-layer } }
   @media (576px <= width < 768px) { .tablet  { display: revert-layer } }

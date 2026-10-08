@@ -19,7 +19,7 @@ and are IMPORTED, never copied.
 
 The thing that makes this stack different from every other charting approach: **you
 never write a color.** No hex, no `rgb()`, no `oklch()` literal, no `fill="steelblue"`.
-Every stroke and fill is `currentColor`, and the system.css engine computes that color
+Every stroke and fill is `currentColor`, and the mike.css engine computes that color
 from a single number — `--fg` — that you set on the element or its group. Get this one
 idea right and the rest is just coordinate math.
 
@@ -33,7 +33,7 @@ view/statusbar.go.
 
 ## The one mechanism you must understand: `--fg` → `currentColor`
 
-system.css computes ink for **every element** (`@layer core.color { :where(*) { … color: oklch(…) } }`),
+mike.css computes ink for **every element** (`@layer core.color { :where(*) { … color: oklch(…) } }`),
 and bridges SVG with `:where(svg) { color: currentColor }`. So the recipe is always:
 
 1. Set `--fg` (and `--hue-shift` when you want color) on an SVG element or a `<g>`.
@@ -197,7 +197,7 @@ in the chart and its legend by construction.
 - Legend = tags tinted by their series hue on a borderless `.surface` at
   `--lift: -0.2`, overlaid in RESERVED margin space (mr accounts for it).
 - Title = `hgroup` with `h3` + `small`, HTML over the chart (.chart-host /
-  .chart-title / .chart-legend, engine recipes in static/system.css), never
+  .chart-title / .chart-legend, engine recipes in static/mike.css), never
   drawn in the SVG.
 - A single series gets NO legend — the title names it.
 - Sorted marks wherever order is free (ranking reads instantly); ONE axis,

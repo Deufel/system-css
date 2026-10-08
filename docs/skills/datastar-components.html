@@ -4,11 +4,11 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="color-scheme" content="dark light"/>
-<title>datastar-components — system.css</title>
+<title>datastar-components — mike.css</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=optional" rel="stylesheet"/>
-<link rel="stylesheet" href="../static/system.css"/>
+<link rel="stylesheet" href="../static/mike.css"/>
 <link rel="stylesheet" href="../static/highlight.css"/>
 <link rel="stylesheet" href="../assets/site.css"/>
 <script>
@@ -23,7 +23,7 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 <body>
 <div class="page">
 	<header class="pg-header spread" style="--gap: 0.5em;">
-		<a href="../index.html" class="row oneline" style="--gap: 0.5em;"><strong>system.css</strong><small style="--fg: -0.55;">the engine</small></a>
+		<a href="../index.html" class="row oneline" style="--gap: 0.5em;"><strong>mike.css</strong><small style="--fg: -0.55;">the engine</small></a>
 		<span class="row oneline tablet desktop" style="--gap: 0.75em;"><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">hue</small><input type="range" min="0" max="360" step="5" data-bind:hue data-on:change="save('hue', $hue)" style="inline-size: 6em;"/><span class="number" data-text="$hue"></span></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">skin</small><select data-bind:skin data-on:change="save('skin', $skin)"><option value="">default</option><option value="material">material</option><option value="carbon">carbon</option></select></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">corners</small><select data-bind:radius data-on:change="save('radius', $radius)"><option value="">default</option><option value="0">square</option><option value="1">soft</option><option value="2">round</option><option value="3">pill</option></select></label><span class="button-group" role="group" aria-label="Size" style="--type: -1;"><button type="button" data-attr:aria-pressed="$size == 'sm' ? 'true' : 'false'" data-on:click="$size = 'sm'; save('size', $size)">S</button><button type="button" data-attr:aria-pressed="$size == 'md' ? 'true' : 'false'" data-on:click="$size = 'md'; save('size', $size)">M</button><button type="button" data-attr:aria-pressed="$size == 'lg' ? 'true' : 'false'" data-on:click="$size = 'lg'; save('size', $size)">L</button></span><span class="button-group" role="group" aria-label="Motion" style="--type: -1;"><button type="button" data-attr:aria-pressed="$motion == 'off' ? 'true' : 'false'" data-on:click="$motion = 'off'; save('motion', $motion)">Off</button><button type="button" data-attr:aria-pressed="$motion == 'on' ? 'true' : 'false'" data-on:click="$motion = 'on'; save('motion', $motion)">On</button><button type="button" data-attr:aria-pressed="$motion == 'debug' ? 'true' : 'false'" data-on:click="$motion = 'debug'; save('motion', $motion)">Debug</button></span><span class="button-group" role="group" aria-label="Theme" style="--type: -1;"><button type="button" data-attr:aria-pressed="$theme == '' ? 'true' : 'false'" data-on:click="$theme = ''; save('theme', $theme)">System</button><button type="button" data-attr:aria-pressed="$theme == 'light' ? 'true' : 'false'" data-on:click="$theme = 'light'; save('theme', $theme)">Light</button><button type="button" data-attr:aria-pressed="$theme == 'dark' ? 'true' : 'false'" data-on:click="$theme = 'dark'; save('theme', $theme)">Dark</button></span></span>
 		<span class="row oneline" style="--gap: 0.5em;">
 			<a href="https://github.com/Deufel/system-css" style="--type: -1;">GitHub</a>
@@ -38,7 +38,7 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 		<div class="column"><a class="nav-item" href="../index.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /> <path d="M20 3v4" /> <path d="M22 5h-4" /> <path d="M4 17v2" /> <path d="M5 18H3" /> </svg><span class="medium large">Home</span></a><a class="nav-item" href="../howto/start.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /> </svg><span class="medium large">How-to</span></a><a class="nav-item" href="../engine/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /> <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /> <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /> <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /> <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /> </svg><span class="medium large">Engine</span></a><a class="nav-item" href="../components/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span class="medium large">Components</span></a><a class="nav-item" href="../stream/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span class="medium large">Land &amp; stream</span></a><a class="nav-item" href="../charts/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /> <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /> <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /> <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /> <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /> </svg><span class="medium large">Charts</span></a><a class="nav-item" href="../advanced/wash.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span class="medium large">Advanced</span></a><a class="nav-item" href="../lab/primitives.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /> <path d="M20 3v4" /> <path d="M22 5h-4" /> <path d="M4 17v2" /> <path d="M5 18H3" /> </svg><span class="medium large">Lab</span></a><a class="nav-item" href="../demos/full-pages.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span class="medium large">Demos</span></a><a class="nav-item" href="../skills/system-css.html" aria-current="page"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /> </svg><span class="medium large">Skills</span></a></div>
 	</nav>
 	<header class="pg-main-header column">
-		<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">system.css</a><a href="../skills/system-css.html">Skills</a></nav>
+		<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">mike.css</a><a href="../skills/system-css.html">Skills</a></nav>
 		<div class="spread"><h1>datastar-components</h1></div>
 		<details class="site-menu mobile column" style="--gap: 0.25lh;"><summary class="tag">Menu</summary><div class="row" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../advanced/wash.html">Advanced</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../demos/full-pages.html">Demos</a><a class="tag" href="../skills/system-css.html">Skills</a></div><div class="column" style="--gap: 0; --type: -1;"><a href="../skills/system-css.html">system-css</a><a href="../skills/datastar-components.html">datastar-components</a><a href="../skills/land-and-stream.html">land-and-stream</a><a href="../skills/svg-charts.html">svg-charts</a></div></details>
 	</header>
@@ -53,7 +53,7 @@ scope: general</h2>
 <p>These components are <strong>HTML, not a framework app</strong>. There is no build step, no
 virtual DOM, and no client-side templating. The markup <em>is</em> the component;
 <a href="https://data-star.dev">Datastar</a> attributes make it reactive, and
-system.css styles it (static/system.css — read the system-css skill). State lives in <strong>signals</strong>, not in
+mike.css styles it (static/mike.css — read the system-css skill). State lives in <strong>signals</strong>, not in
 form fields — with the land-and-stream qualifier stated up front: signals
 hold COMPONENT-EPHEMERAL state (draft, hover, shown month) and act as
 TRANSPORT for commands; anything a view renders is STORE truth, and a
@@ -80,7 +80,7 @@ take signal values as arguments and return a value/boolean
 (<code>cellIsToday($cal.v, i)</code>, <code>cbFilter($cb.q)</code>). They never read globals or
 mutate — they're props-down. <code>data-on:click</code> is events-up: it mutates the
 signal, the bindings recompute.</li>
-<li><strong>Layout from system.css primitives in the markup; the rest from the API.</strong>
+<li><strong>Layout from the engine's primitives in the markup; the rest from the API.</strong>
 See &quot;Don't hand-roll layout&quot; below.</li>
 </ol>
 <h2 id="datastar-bindings-these-components-use">Datastar bindings these components use</h2>
@@ -208,10 +208,10 @@ class-shaped things — toggling a layout primitive, or the container-band
 <code>data-ui-*</code>/ARIA, not that every reactive toggle is an attribute.</p>
 </blockquote>
 <h3 id="where-component-css-lives">Where component CSS lives</h3>
-<p>Wrap each component's rules in <code>@layer components</code> (with a comment banner) and
+<p>Wrap each component's rules in <code>@layer block</code> (with a comment banner) and
 <strong>nest the state inside the structural class</strong>, so an element and its states
 read as one block:</p>
-<div class="column" style="--gap: 0;"><div class="spread" style="--type: -2; --fg: -0.55;"><small>css</small><copy-button code="@layer components {
+<div class="column" style="--gap: 0;"><div class="spread" style="--type: -2; --fg: -0.55;"><small>css</small><copy-button code="@layer block {
   /* calendar — standalone month surface */
   .cal .ngrid &gt; button {
     aspect-ratio: 1; display: grid; place-items: center; --bg: 0.3;
@@ -221,7 +221,7 @@ read as one block:</p>
     &amp;[data-ui-selected] { outline: 2px solid var(--focus); }
   }
 }
-"><button type="button" class="icon" aria-label="Copy" title="Copy"><span class="copy-idle">⧉</span><span class="copy-done" hidden>✓</span></button></copy-button></div><pre><code class="css">@layer components {
+"><button type="button" class="icon" aria-label="Copy" title="Copy"><span class="copy-idle">⧉</span><span class="copy-done" hidden>✓</span></button></copy-button></div><pre><code class="css">@layer block {
   /* calendar — standalone month surface */
   .cal .ngrid &gt; button {
     aspect-ratio: 1; display: grid; place-items: center; --bg: 0.3;
@@ -234,42 +234,18 @@ read as one block:</p>
 </code></pre></div>
 <p>Your components then become genuine peers of <code>.card</code>/<code>.tag</code> in the same layer,
 so the cascade stays predictable instead of &quot;app CSS wins by being unlayered.&quot;
-The framework declares the spine up front (<code>@layer reset, core.color, core.type, core.layout, theme, base, components, utility, media, skin, view-transitions;</code>), so an
-appended <code>@layer components {}</code> block <em>joins</em> that layer after the framework's
-components — it doesn't become a new top layer. Do <strong>not</strong> put component rules
-in <code>project</code> (or leave them unlayered): they would out-cascade the <code>media</code>
-layer and break the revert-layer gates (<code>.small</code>/<code>.medium</code>/<code>.c-*</code>). Reactive
+The engine declares the spine up front (<code>@layer reset, core.color, core.type, core.shell, core.shape, theme, base, composition, block, utility, exception, visibility;</code>), so an appended <code>@layer block {}</code> block <em>joins</em> that layer after
+the engine's blocks — it doesn't become a new top layer. A product keeps its
+blocks in ONE sheet of its own (EventOS: static/blocks.css), one <code>&lt;blk-*&gt;</code>
+rule each (the block contract in the system-css skill). Do <strong>not</strong> leave
+component rules unlayered: they would out-cascade the <code>visibility</code> layer and
+break the revert-layer gates (<code>.small</code>/<code>.medium</code>/<code>.c-*</code>/the shapes). Reactive
 paints are unaffected: <code>data-style:--bg</code> and inline <code>style=&quot;--bg:…&quot;</code> are inline
 styles, which beat any layer.</p>
-<h2 id="dont-hand-roll-layout--compose-primitives">Don't hand-roll layout — compose primitives</h2>
-<p>A well-built component is <strong>almost no custom CSS</strong>. Push every layout decision
-into system.css classes in the markup; keep only shape and the type/color API in
-your stylesheet.</p>
-<ul>
-<li><strong>Layout → primitives in markup:</strong> <code>.card</code> (surface), <code>.column</code>/<code>.row</code>,
-<code>.spread</code> (space-between), <code>.lcr</code> (start/center/end), <code>.ngrid</code> with
-<code>style=&quot;--cols:7&quot;</code> (fixed-column grid), <code>.grid</code> (auto-fit),
-<code>.menu</code> (anchored popover; note <code>.center</code> is TEXT centering, a utility —
-not a box-centering primitive). Never write <code>display</code>/<code>flex</code>/<code>grid</code> in component CSS.</li>
-<li><strong>Type &amp; color → the API only:</strong> <code>--type</code> (size), <code>--bg</code> (surfaces), <code>--fg</code>
-(ink). E.g. <code>.cal b { --type:-1; --fg:-0.9 }</code>.</li>
-<li><strong>State → <code>data-ui-*</code></strong> attributes (above) + <code>.tag[data-ui-state=&quot;on|off&quot;]</code>.</li>
-<li><strong>Shape → <code>aspect-ratio</code>.</strong> This is the <em>one</em> geometric thing you set yourself
-(square day cells, square keys). Add <code>min-inline-size:0</code> so 1fr grid tracks can
-shrink, and <code>display:grid; place-items:center</code> to center the glyph.</li>
-</ul>
-<blockquote>
-<p>Rule of thumb: a component rarely needs more than ~10 lines of custom CSS. The
-month calendar is 8–9 lines total (square + number color + the two
-<code>data-ui-*</code> outlines + the <code>--bg</code> in/out tints). If you're writing flexbox,
-you're fighting the system — reach for a primitive.</p>
-</blockquote>
-<h2 id="container-responsive-no-media-queries-no-js">Container-responsive (no media queries, no JS)</h2>
-<p>Make one component render differently by <strong>width of its own box</strong>:</p>
 <ol>
 <li>Put <code>.container</code> on a wrapper (it sets <code>container-type: inline-size</code>).</li>
 <li>Give a child both a <strong>gate class</strong> and a <strong>layout primitive</strong>:
-<code>class=&quot;medium column&quot;</code>. The gate class (in the media layer) hides it with
+<code>class=&quot;medium column&quot;</code>. The gate class (in the visibility layer) hides it with
 <code>display:none</code> out of band; in band it becomes <code>display: revert-layer</code>,
 which restores the value from the earlier layer — i.e. <code>.column</code>'s flex.
 <strong>The primitive is load-bearing:</strong> a bare <code>.medium</code> with no composed display
@@ -395,7 +371,7 @@ have only a few Rocket components: date/time pickers, combobox, token input.</p>
 Object.assign(window, { cellDay, cellIso, cellInMonth, cellIsToday, som, monthLabel, fmtPretty });
 
 rocket(&#39;event-date-picker&#39;, {
-  mode: &#39;light&#39;,                                  // inherit system.css; shadow DOM walls it off
+  mode: &#39;light&#39;,                                  // inherit the engine; shadow DOM walls it off
   props: ({ oneOf, string }) =&gt; ({
     mode:     oneOf(&#39;single&#39;,&#39;range&#39;).default(&#39;single&#39;),
     value:    string.default(&#39;&#39;),                 // committed start ISO; reflects to attribute
@@ -425,7 +401,7 @@ rocket(&#39;event-date-picker&#39;, {
 Object.assign(window, { cellDay, cellIso, cellInMonth, cellIsToday, som, monthLabel, fmtPretty });
 
 rocket('event-date-picker', {
-  mode: 'light',                                  // inherit system.css; shadow DOM walls it off
+  mode: 'light',                                  // inherit the engine; shadow DOM walls it off
   props: ({ oneOf, string }) =&gt; ({
     mode:     oneOf('single','range').default('single'),
     value:    string.default(''),                 // committed start ISO; reflects to attribute
@@ -571,7 +547,7 @@ Rocket-specific counterpart to the vanilla presence rule above.)</p>
 </li>
 <li>
 <p><strong><code>mode: 'light'</code></strong> so the component lives in the page's DOM/CSS and inherits
-system.css tokens. Shadow DOM (<code>open</code>/<code>closed</code>) would wall off the stylesheet;
+the engine's tokens. Shadow DOM (<code>open</code>/<code>closed</code>) would wall off the stylesheet;
 only reach for it if you <em>want</em> encapsulation and theme purely via custom props.</p>
 </li>
 <li>
@@ -706,7 +682,7 @@ handler clearing them and setting the dialog's own <code>_sent</code> flag
 
 		</section>
 	</main>
-	<aside class="pg-aside desktop"><nav class="toc column" aria-label="On this page" style="--gap: 0; --type: -1;"><small class="rail-head">On this page</small><a href="#the-recipe--every-component-follows-it">The recipe — every component follows it</a><a href="#datastar-bindings-these-components-use">Datastar bindings these components use</a><a href="#state-belongs-in-data-ui--not-data-">State belongs in data-ui-*, not data-*</a><a href="#dont-hand-roll-layout--compose-primitives">Don't hand-roll layout — compose primitives</a><a href="#container-responsive-no-media-queries-no-js">Container-responsive (no media queries, no JS)</a><a href="#anchored-popover-combobox--menu">Anchored popover (combobox / menu)</a><a href="#the-six-components">The six components</a><a href="#rocket-components-datastar-pro--when-to-reach-for-them">Rocket components (Datastar Pro) — when to reach for them</a><a href="#the-stepped-dialog-wizard-grammar--three-templs-one-signal-gf-314315">The stepped dialog (wizard) grammar — three templs, one signal (gf-314/315)</a><a href="#morph-armor--protecting-clientwizard-state-from-server-morphs">Morph armor — protecting client/wizard state from server morphs</a><a href="#the-active-utility-gf-191-per-mike">THE .active UTILITY (gf-191, per Mike)</a><a href="#the-rocket-state-canon-gf-191-per-mike-there-should-be-canon">THE ROCKET STATE CANON (gf-191, per Mike: &quot;there should be canon</a><a href="#pre-ship-checklist">Pre-ship checklist</a><a href="#one-bad-expression-takes-the-whole-page-down-gf-175">One bad expression takes the whole page down (gf-175)</a><a href="#dialogs-on-a-live-page">Dialogs on a live page</a></nav></aside><footer class="pg-main-footer spread" style="--type: -1;"><span><a href="../skills/system-css.html">← system-css</a></span><span><a href="../skills/land-and-stream.html">land-and-stream →</a></span></footer>
+	<aside class="pg-aside desktop"><nav class="toc column" aria-label="On this page" style="--gap: 0; --type: -1;"><small class="rail-head">On this page</small><a href="#the-recipe--every-component-follows-it">The recipe — every component follows it</a><a href="#datastar-bindings-these-components-use">Datastar bindings these components use</a><a href="#state-belongs-in-data-ui--not-data-">State belongs in data-ui-*, not data-*</a><a href="#anchored-popover-combobox--menu">Anchored popover (combobox / menu)</a><a href="#the-six-components">The six components</a><a href="#rocket-components-datastar-pro--when-to-reach-for-them">Rocket components (Datastar Pro) — when to reach for them</a><a href="#the-stepped-dialog-wizard-grammar--three-templs-one-signal-gf-314315">The stepped dialog (wizard) grammar — three templs, one signal (gf-314/315)</a><a href="#morph-armor--protecting-clientwizard-state-from-server-morphs">Morph armor — protecting client/wizard state from server morphs</a><a href="#the-active-utility-gf-191-per-mike">THE .active UTILITY (gf-191, per Mike)</a><a href="#the-rocket-state-canon-gf-191-per-mike-there-should-be-canon">THE ROCKET STATE CANON (gf-191, per Mike: &quot;there should be canon</a><a href="#pre-ship-checklist">Pre-ship checklist</a><a href="#one-bad-expression-takes-the-whole-page-down-gf-175">One bad expression takes the whole page down (gf-175)</a><a href="#dialogs-on-a-live-page">Dialogs on a live page</a></nav></aside><footer class="pg-main-footer spread" style="--type: -1;"><span><a href="../skills/system-css.html">← system-css</a></span><span><a href="../skills/land-and-stream.html">land-and-stream →</a></span></footer>
 </div>
 <script src="../static/highlight.js"></script>
 </body>

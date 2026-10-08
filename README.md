@@ -1,7 +1,7 @@
 # system.css
 
 One CSS file, one Datastar runtime, one SQLite file. This repository holds
-the engine (`static/system.css`), the rockets (`static/rocket/`), the four
+the engine (`static/mike.css`), the rockets (`static/rocket/`), the four
 skills (`.claude/skills/`), the lab (`site/lab/`) and the docs site
 (`docs/`, GitHub Pages).
 
@@ -9,7 +9,7 @@ skills (`.claude/skills/`), the lab (`site/lab/`) and the docs site
 
 ## Laws
 
-- One file, one spine. Layers decide the cascade; specificity is zero.
+- One file, one spine of twelve layers. Layers decide the cascade; specificity is zero. A block (a `<blk-*>` tag) owns one rule in `@layer block` and reads the shape of its cell.
 - No new classes. Compose the primitives and the knobs.
 - Knobs are steps, not lengths: `--type`, `--gap`, `--rise`; a surface's width is a rung, `.content-1/2/3`.
 - Nothing shifts. A changing value, an opened state, a loaded row must not move its neighbours.
@@ -18,7 +18,7 @@ skills (`.claude/skills/`), the lab (`site/lab/`) and the docs site
 ## Use it
 
 1. `go get github.com/Deufel/system-css`, or the CDN at a tag, or a copy of
-   `static/system.css` from a release. Do not edit the copy.
+   `static/mike.css` from a release. Do not edit the copy.
 2. Load one Datastar runtime at `static/datastar.js`.
 3. Copy `.claude/skills/` into your project.
 4. Read the How-to.

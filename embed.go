@@ -9,7 +9,7 @@
 // rockets import `../datastar.js`, so either bundle is the one runtime.
 // The same files reach the browser from a CDN at a tag:
 //
-//	https://cdn.jsdelivr.net/gh/Deufel/system-css@v0.1.0/static/system.css
+//	https://cdn.jsdelivr.net/gh/Deufel/system-css@v1.0.0/static/mike.css
 package systemcss
 
 import (

@@ -1,12 +1,12 @@
 ---
 name: system-css
-description: Author HTML/UI with system.css — an OKLCH + type-driven design engine where components are styled semantic elements themed by inherited custom properties (--hue, --bg, --fg, --lift, --type), not variant classes. Use when building or editing pages, components, forms, tables, dashboards, or app shells on system.css; when the user mentions system.css, the painter/engine model, the .page shell and pg-* regions, the revert-layer gates (.mobile/.tablet/.desktop), the .row/.column/.grid primitives, the .card/.tag/.avatar/.tabs-underline/.search-box components, the semantic hue locks (.suc/.inf/.wrn/.dgr), the number family (.num/.delta/.num-good/.est/.past), or the Laws of authoring. Do NOT use for Tailwind, Bootstrap, or Material work — this engine rejects palette-of-decisions frameworks.
+description: Author HTML/UI with mike.css (the system-css module) — an OKLCH + type-driven design engine where components are styled semantic elements themed by inherited custom properties (--hue, --bg, --fg, --lift, --type), not variant classes. Use when building or editing pages, components, forms, tables, dashboards, or app shells on system.css; when the user mentions system.css, the painter/engine model, the .page shell and pg-* regions, the revert-layer gates (.mobile/.tablet/.desktop), the .row/.column/.grid primitives, the .card/.tag/.avatar/.tabs-underline/.search-box components, the semantic hue locks (.suc/.inf/.wrn/.dgr), the number family (.num/.delta/.num-good/.est/.past), or the Laws of authoring. Do NOT use for Tailwind, Bootstrap, or Material work — this engine rejects palette-of-decisions frameworks.
 scope: general (the engine travels; the EventOS paths inside are examples)
 ---
 
-# system.css — the engine
+# mike.css — the engine
 
-system.css is a small design **engine**, not a component library. You style
+mike.css (the `system-css` module) is a small design **engine**, not a component library. You style
 semantic HTML (button, table, form) and a handful of composition classes, then
 theme everything by setting a few inherited custom properties. There are no
 .btn-primary / .btn-lg variant classes. A button is a button; its appearance
@@ -14,13 +14,28 @@ comes from the --bg/--fg/--hue it inherits.
 
 ## ONE file, one spine
 
-The engine is a SINGLE file: `static/system.css`, edited in-repo (the old
-four-file split and the "canonical source lives elsewhere / read-mostly"
-doctrine are both retired). Concern boundaries survive as @layer sections
-inside the file, opened by one spine statement:
+The engine is a SINGLE file: `static/mike.css`, authored in the library
+(github.com/Deufel/system-css) and synced into a product, never edited
+there. Concern boundaries are @layer sections inside the file, opened by
+one spine statement of TWELVE layers (2026-10-08, the re-layering):
 
-    @layer reset, core.color, core.type, core.layout, theme, base,
-           components, utility, media, skin, view-transitions;
+    @layer reset,
+           core.color, core.type, core.shell, core.shape,   /* the four cores */
+           theme, base,                                      /* config · bare defaults */
+           composition, block, utility,                      /* primitives · blocks · helpers */
+           exception, visibility;                            /* states, modes · the gates, last */
+
+- the four cores are orthogonal (shell and shape read type's lh only);
+- `theme` holds ALL config; `base` the bare-element defaults;
+- `composition` the layout primitives (.row .column .grid .stack …);
+- `block` the components — a `<blk-*>` tag owns one rule here, and a
+  PRODUCT'S blocks live in the product's own sheet in this same layer;
+- `utility` the closed helper list, late so a helper beats a block;
+- `exception` what overrides a block from outside: shipped variants
+  (skins, radius), standing states (data-ui-state), modes (print,
+  focus, view transitions);
+- `visibility` the display gates — revert-layer — LAST, so a gate
+  outranks every display a block ever sets.
 
 Layers, not source order, decide the cascade — read the whole file before
 changing it (the layer order IS the cascade; a rule's position in the file
@@ -69,21 +84,22 @@ custom element and want it painted, add .bg or let a pg-* region rule do it.
 
 1. Layers decide the cascade. Within a layer, specificity is ZERO. Every
    selector is wrapped in :where(...), and :not() guards go INSIDE the
-   :where(). No ID selectors, no !important outside the media and skin layers
-   (config switches that must out-cascade), no specificity battles. A
+   :where(). No ID selectors, no !important anywhere but a print block
+   (an important declaration inverts the layer order and would beat the
+   gates), no specificity battles. A
    specificity conflict is a SYSTEM FAILURE requiring root-cause review — never
    patch it with a more-specific selector.
 2. Do not touch engine internals when the public API suffices. Internal vars
    are --_-prefixed (--_bg, --_sem-ink). Author with the public knobs above. If
    you find yourself reaching for --_sem-ink, stop — you almost certainly want
    --hue-lock + --fg instead.
-3. The right LAYER owns the change. Region surfaces (pg-* --bg) ship in the
-   skin layer; an app recipe that has settled graduates into the engine's
-   own components layer (the project layer RETIRED 2026-09-01, gf-133 —
-   ProjectStyles is gone); a public page's one-off look lives in that
-   page's own `@scope` block (the landing's idiom). A rule
-   in the wrong layer is silently out-cascaded — that is a layer-placement
-   bug, never a specificity problem to fight.
+3. The right LAYER owns the change. A skin's region surfaces (pg-* --bg)
+   ship in `exception`; a product's component is a `<blk-*>` rule in the
+   product's own sheet in `block` (THE BLOCK CONTRACT below); a general
+   word that three blocks want graduates into the engine; a public page's
+   one-off look lives in that page's own `@scope` block (the landing's
+   idiom). A rule in the wrong layer is silently out-cascaded — that is a
+   layer-placement bug, never a specificity problem to fight.
 4. **NO NEW CSS CLASSES (gf-185, per Mike, at maximum emphasis).** The
    engine's whole point is explicit declarative HTML composed from the
    EXISTING composition classes + the style API (--type/--bg/--fg/
@@ -107,9 +123,10 @@ Enforcement is Go now (the cowork-era conformance.py is long gone):
 `go test ./...` runs view/ratchet_test.go — the INLINE-GEOMETRY ratchet
 (style= is sanctioned only for --knobs, anchor-name/position-anchor, and
 commented one-offs; per-.templ counts may only go DOWN), the icon 24px-box
-ratchet, and the anatomy-reach ratchet (project CSS may not restyle engine
-anatomy). The cssaudit package charts lines-per-layer complexity on the
-admin Metrics page. Keep them all green.
+ratchet, and the blocks' locality test (every top-level selector in the
+product's blocks.css is a `<blk-*>` tag; nothing in it is !important). The
+cssaudit package charts lines-per-layer complexity on the admin Metrics
+page. Keep them all green.
 
 ## LAYOUT — the page shell and primitives
 
@@ -144,8 +161,8 @@ Flow primitives: .row / .column (flex), .grid (auto-fit with --grid-min),
 .spread (space-between row), .lcr (left-center-right 3-zone grid — used for
 headers), .flank, .oneline (nowrap), .stack (overlap).
 
-Responsive gates (revert-layer trick, in the media layer) — TWO FAMILIES, TWO
-JOBS:
+Responsive gates (revert-layer trick, in the visibility layer) — THREE
+FAMILIES, THREE JOBS:
 - Viewport gates: .mobile / .tablet / .desktop show an element only at that
   viewport width. Container equivalents (LAYOUT band family): .c-mobile /
   .c-tablet / .c-desktop, same breakpoints (576px / 768px) measured on the
@@ -157,16 +174,71 @@ JOBS:
   at every type size, so rail content gates on the tiers instead of inferring
   density from attributes.
 - .fine / .coarse gate on pointer type.
-- ORIENTATION and HEIGHT gates (gf-608): .c-portrait / .c-landscape (landscape
-  = wider than 3:2) and .c-short / .c-tall (tall = 10em and up). They answer
-  only inside a SIZE container — a `.block` — never a width-only .container.
-THE BLOCK (gf-608, Mike: "each block is able to manage itself"): `.block` is
-a size query container with ONE child, its body — a flex column in portrait,
-a row in landscape (the words first, the big thing beside them). It fills the
-cell a grid track, a `.frame` or a `.stress` hands it and never sizes itself
-(size containment collapses it under an auto-height parent). A block is pure
-composition: the engine's tiers and gates inside, no per-block CSS; the lab's
-Compositions page carries the specimen. `.stress` resizes both axes.
+- THE SHAPE GATES (core.shape + visibility, 2026-10-08): a part lists the
+  shapes it belongs in — `spot line rail · slip sheet · tile panel · strip
+  banner` — and shows only in those. They answer the nearest `.cell`.
+  (`.c-portrait/.c-landscape/.c-short/.c-tall` and `.block` of gf-608 are
+  superseded by the shapes; `.block` stays as an alias of `.cell` until no
+  template wears it.)
+
+## THE SHAPE AND THE BLOCK CONTRACT (mike.css, Mike 2026-10-08)
+
+"Each block is able to manage itself." The shell establishes the page
+chrome; pg-main is a container that can be a dynamic grid; a `<blk-*>`
+component in a grid cell arranges itself for the cell it is given.
+
+THE CELL (`core.shape`): any element marked `.cell` is a size query
+container named `shape` — a grid track, a region, a chip. A cell never
+measures its own content (size containment collapses it under an
+auto-height parent, and a flex-grown cell answers with its flex base
+size, nothing): the layout hands a cell its size. A cell is EXACTLY ONE
+SHAPE, in lh of the cell's own line so `--type` and `--scale` move the
+boundaries with the text:
+
+    spot    w < 2lh, h < 2lh          the glyph alone
+    line    w ≥ 2lh, h < 2lh          one run, clipped
+    rail    w < 2lh, h ≥ 2lh          vertical writing
+    slip | sheet   ratio < 7/8        tall: short side (w) < 6lh | ≥ 6lh
+    tile | panel   7/8 ≤ ratio < 15/8 square-ish: min(w,h) < 6lh | ≥ 6lh
+    strip | banner ratio ≥ 15/8       wide: short side (h) < 6lh | ≥ 6lh
+
+THE BLOCK (`@layer block`): the tag is the component and its only hook —
+`<blk-kpi>`, `<blk-location>`. ONE rule per block, in the product's own
+sheet (EventOS: static/blocks.css), and nothing about the block anywhere
+else (law 3, locality):
+
+    @layer block {
+      :where(blk-location) {
+        display: grid; …                                 /* its own box */
+        & :where(header) { … }                           /* its parts, by element */
+        &:where([data-ui-state~="armed"]) { … }          /* its states, ~= tokens */
+        @container shape (aspect-ratio >= 15/8) { … }    /* its ARRANGEMENT per shape */
+      }
+    }
+
+- parts are semantic elements (header h3 small strong figure ul li time
+  mark progress footer …); a part CLASS (.ring .dot .av) is meaningful
+  only inside its block;
+- a part declares WHICH SHAPES it belongs in with the shape classes
+  (`<small class="line strip banner">`); the block's rule never sets
+  visibility — the gate layer owns the only two states, none and
+  revert-layer, so a part may use any display;
+- arrangement per shape is `@container shape (…)` INSIDE the block's rule;
+- colour and type through the knobs (`--hue --hue-shift --bg --lift --fg
+  --type --scale --gap`), inline only where a value is DATA (an avatar's
+  hue); helpers from the closed utility list (.suc .inf .wrn .dgr .num …);
+- state is `data-ui-state="a b"` tokens matched `~=`, after native and
+  ARIA state (disabled, aria-pressed, :open);
+- every selector `:where()`-wrapped; no !important; nothing reaches
+  outside the tag.
+
+A block is written FOR THE BENCH FIRST: the product's Layout bench puts
+one block in a resizable `.cell` with a shape tag that names the shape;
+every shape is looked at before any page wears the block. The lab's
+Shapes page is the engine's own specimen: the shape locker, a resizable
+region whose `<blk-board>` of nine cells reads the region's shape, and
+seven demo blocks that read their cell's.
+
 Container rule: gate classes go on a dedicated wrapper div, never on a styled
 leaf component, and the gated element must also carry a layout primitive
 (revert-layer restores the primitive's display, not a default).
@@ -188,7 +260,7 @@ canon (4)); a wizard lights the one control to click next with
 data-ui-state="guide" (a still ring + a slow glow, motion-gated; the
 set-up walk that first used it retired in gf-313).
 
-Print: @media print (in the media layer) strips every region except pg-main*,
+Print: @media print (in the exception layer) strips every region except pg-main*,
 drops surfaces to white while keeping borders, forces black ink. The screen is
 the themed medium; paper is austere.
 
@@ -221,7 +293,7 @@ gf-364's picker paints by --fg groups).
 Anatomy glyphs are DECLARED boxes: flex-frozen, exempt from the reset's
 fluid max-inline-size cap (the 4px-glyph bug), and .icon self-centers —
 a square control never stretches. Know what a class IS before composing
-it: .sec is a skin-layer BUTTON voice — on a wrapper it paints a ghost
+it: .sec is a BUTTON voice (an exception-layer variant) — on a wrapper it paints a ghost
 box (the gf-46 button-group scar). Voices, locks, and recipes attach to
 specific anatomy.
 
@@ -243,7 +315,7 @@ order).
   (success/info/warning/danger) against local context so a button, tag, or SVG
   graph stays that color no matter what --hue surrounds it. They set --hue-lock
   (+ the commit flag). They are NOT text/number colorers.
-- The number family (separate concern, in system.css utility layer):
+- The number family (separate concern, in the utility layer):
   - .num — a value+delta cluster: white-space: nowrap + tabular figures,
     auto-spaces a child .delta. Keeps "312 CE ▲ 8%" on one line.
   - .delta — small tabular indicator (▲ 8%), never wraps. Layout only.
@@ -294,8 +366,8 @@ length is a regression.
 ## Authoring checklist
 
 - Theme by setting --hue / --bg / --lift / --fg / --type, not classes.
-- Never write a hex color. Never write an ID selector or !important (outside
-  media/skin). Never fight specificity — find the root cause.
+- Never write a hex color. Never write an ID selector or !important (a
+  print block is the one place). Never fight specificity — find the root cause.
 - Gate responsiveness with .mobile/.tablet/.desktop on wrapper divs.
 - Use native dialog (commandfor + command="show-modal", closedby) and popover
   (popovertarget) for dynamic UI; Datastar only where the logic is more than
@@ -303,10 +375,10 @@ length is a regression.
 - Inline style= carries ONLY knobs (--bg/--fg/--type/--gap…) or anchor
   plumbing — the geometry ratchet counts everything else, and counts may
   only go down. Run `go test ./...` after every CSS change.
-- Engine changes go in static/system.css in the right layer; a settled app
-  recipe graduates into the engine's components layer, a public page's
-  one-off look rides its own `@scope` block — never unlayered, never a
-  project layer (retired gf-133).
+- Engine changes go in the library's static/mike.css in the right layer;
+  a product's component is a `<blk-*>` rule in the product's blocks.css
+  (`@layer block`); a public page's one-off look rides its own `@scope`
+  block — never unlayered.
 - VERIFY WITH EYES, not imagination: a throwaway GEN_* preview test
   (a specimen in the lab, site/lab) or `go run ./cmd/snap`, then READ the
   PNGs. And remember staticfs caches assets at boot — restart the app
@@ -321,14 +393,14 @@ the old document held open (SSE alive four seconds past the new GET)
 waiting for a snapshot that never completed, then the transition timed
 out, skipped, and showed the white interstitial; cross-origin
 navigations ran in 21ms. All cost, no cross-fade. The opt-in is
-commented out in the view-transitions layer with the evidence; the
+commented out in the exception layer (the old view-transitions layer) with the evidence; the
 `html[data-vt-ran]` pagereveal probe stays armed — any re-enable
 experiment starts by uncommenting the opt-in and watching that probe,
 and MUST verify the ~4s stall stays gone. The baked `meta
 color-scheme` keeps plain document swaps dark-to-dark.
 
-The nav cross-blur lived in `@layer view-transitions` (the spine's last
-layer; the old `project` tail is retired) as `@view-transition
+The nav cross-blur lived in `@layer view-transitions` (now a slice of
+`exception`; the old `project` tail is retired) as `@view-transition
 { navigation: auto }` plus explicit animations. The navigation-flash
 bugs run to ground so far; each is a LAW now:
 
@@ -370,7 +442,7 @@ bugs run to ground so far; each is a LAW now:
   rocket-injected sheet (gf-198).** hold-confirm's
   `display:inline-flex` lived only in JS injectCSS — the pre-upgrade
   frame rendered the host inline and reflowed on connect. Every
-  custom-element host is sized by system.css's `:where(host)` rules
+  custom-element host is sized by the engine's `:where(host)` rules
   (date-picker, day-picker, combo-box…); a rocket's injected CSS may
   add BEHAVIOR chrome only, never the host's own box.
 - **The INTERSTITIAL frame is pre-CSS — bake `meta color-scheme`
@@ -410,7 +482,7 @@ bug), and only then read the VT rules.
 
 The practice bench is the lab's Forms page (site/lab/forms.html,
 https://deufel.github.io/system-css/lab/forms.html); the engine rules live in
-the form/fieldset sections of system.css. If a product form doesn't look
+the form/fieldset sections of mike.css. If a product form doesn't look
 like the bench specimens, the product form is wrong.
 
 - **Everything lives in `<fieldset>`s.** A fieldset is ONE ROW of

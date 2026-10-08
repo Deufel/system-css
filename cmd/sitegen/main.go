@@ -73,11 +73,11 @@ var skillSections = []struct{ skill, section string }{
 // labLabels — the lab's page labels in the rail's order (the rockets follow).
 var labLabels = []struct{ key, label string }{
 	{"primitives", "Primitives"}, {"compositions", "Compositions"}, {"color", "Color"}, {"type", "Type"}, {"icons", "Icons"},
-	{"state", "State"}, {"aria", "ARIA"}, {"forms", "Forms"}, {"charts", "Charts"}, {"code", "Code"}, {"drawers", "Drawers"}, {"motion", "Motion"}, {"wash", "Wash"}, {"stack", "Stack"}, {"vocabulary", "Vocabulary"},
+	{"state", "State"}, {"aria", "ARIA"}, {"forms", "Forms"}, {"charts", "Charts"}, {"code", "Code"}, {"drawers", "Drawers"}, {"motion", "Motion"}, {"wash", "Wash"}, {"stack", "Stack"}, {"shapes", "Shapes"}, {"vocabulary", "Vocabulary"},
 }
 
 // utilitiesPage — THE UTILITY CATALOG: every rule of the engine's utility
-// layer read from system.css itself (systemcss.Utilities), one row per
+// layer read from mike.css itself (systemcss.Utilities), one row per
 // rule — the words, the selector, the declarations, the comment above
 // it, and the lab pages that wear each word (systemcss.Wearers). Nothing
 // here is hand-written: a rule added to the layer appears on the next
@@ -92,7 +92,7 @@ func utilitiesPage(order int) *page {
 		labLabel[l.key] = l.label
 	}
 	var sb strings.Builder
-	sb.WriteString(`<p>The utility layer of <code>system.css</code>, read from the file at build time: ` + strconv.Itoa(len(us)) + ` rules. A utility is a single-purpose word a usage site composes with the primitives; it cascades after the components so it wins where it is worn. The note is the comment above the rule; the wearers are the lab pages whose markup carries the word.</p>`)
+	sb.WriteString(`<p>The utility layer of <code>mike.css</code>, read from the file at build time: ` + strconv.Itoa(len(us)) + ` rules. A utility is a single-purpose word a usage site composes with the primitives; it cascades after the blocks so it wins where it is worn. The note is the comment above the rule; the wearers are the lab pages whose markup carries the word.</p>`)
 	sb.WriteString(`<div class="scroll-x"><table style="--type: -1;"><thead><tr><th>Word</th><th>Selector</th><th>Rule</th><th>Note</th><th>Worn in the lab</th></tr></thead><tbody>`)
 	for _, u := range us {
 		sb.WriteString(`<tr><td class="oneline">`)
@@ -611,7 +611,7 @@ func shell(pg *page, cur *section, icons map[string]string) string {
 		menu.WriteString(`</div>`)
 	}
 	menu.WriteString(`</details>`)
-	crumbs := `<nav class="crumbs" aria-label="Breadcrumb"><a href="` + root + `index.html">system.css</a>`
+	crumbs := `<nav class="crumbs" aria-label="Breadcrumb"><a href="` + root + `index.html">mike.css</a>`
 	if cur.Key != "" {
 		crumbs += `<a href="` + href(pg, cur.Pages[0]) + `">` + cur.Label + `</a>`
 		if railLabel != cur.Label {
@@ -679,11 +679,11 @@ func shell(pg *page, cur *section, icons map[string]string) string {
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="color-scheme" content="dark light"/>
-<title>` + htmlesc.EscapeString(pg.Title) + ` — system.css</title>
+<title>` + htmlesc.EscapeString(pg.Title) + ` — mike.css</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=optional" rel="stylesheet"/>
-<link rel="stylesheet" href="` + root + `static/system.css"/>
+<link rel="stylesheet" href="` + root + `static/mike.css"/>
 <link rel="stylesheet" href="` + root + `static/highlight.css"/>
 <link rel="stylesheet" href="` + root + `assets/site.css"/>
 <script>
@@ -698,7 +698,7 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 <body>
 <div class="page">
 	<header class="pg-header spread" style="--gap: 0.5em;">
-		<a href="` + root + `index.html" class="row oneline" style="--gap: 0.5em;"><strong>system.css</strong><small style="--fg: -0.55;">the engine</small></a>
+		<a href="` + root + `index.html" class="row oneline" style="--gap: 0.5em;"><strong>mike.css</strong><small style="--fg: -0.55;">the engine</small></a>
 		` + toolbar + `
 		<span class="row oneline" style="--gap: 0.5em;">
 			<a href="https://github.com/Deufel/system-css" style="--type: -1;">GitHub</a>

@@ -1,6 +1,6 @@
 // demos — full pages built on the engine alone, generated: the geometry
 // of every chart computed by the charts package, every surface painted
-// by system.css, not a rule of CSS written by hand. Each page sets its
+// by mike.css, not a rule of CSS written by hand. Each page sets its
 // own theme, hue, skin, corners and size at the root — the colour engine
 // on display — and obeys the laws it demonstrates (no inline geometry:
 // knobs only). Output: site/demos/*.html, committed; the site frames them.
@@ -30,11 +30,11 @@ func head(title, root string) string {
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="color-scheme" content="dark light"/>
-<title>` + title + ` — a system.css demo</title>
+<title>` + title + ` — a mike.css demo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=optional" rel="stylesheet"/>
-<link rel="stylesheet" href="../static/system.css"/>
+<link rel="stylesheet" href="../static/mike.css"/>
 <script type="module" src="../static/datastar.js"></script>
 <script type="module" src="../static/rocket/hold-confirm.js"></script>
 </head>
@@ -162,7 +162,7 @@ func landing() demo {
 <div class="column rise" style="--rise: 55; --gap: 0.5lh; --type: 1;"><span class="tag inf">v2 · one file</span><h1 style="--type: 6;">Ship your interface at the speed of thought</h1><p style="--type: 1; --fg: -0.55;">One tiny CSS engine. Every surface, control and layout derives from type and a signed colour axis — so it just fits, in any theme, at any scale.</p><div class="row" style="--gap: 0.5em;"><button type="button" class="pri">Start free</button><button type="button" class="sec">Book a demo</button></div><small style="--fg: -0.55;">No credit card · 5-minute setup</small></div>
 <div class="grid" style="--grid-min: 16rem;">
 <div class="card column" style="--gap: 0.25lh;"><strong>Paint by knob</strong><small style="--fg: -0.55;">Set --hue, --bg, --fg, --type. There is no palette to pick from and nothing to name.</small></div>
-<div class="card column" style="--gap: 0.25lh; --hue-shift: 60;"><strong>One spine</strong><small style="--fg: -0.55;">Eleven layers decide the cascade. Specificity is zero everywhere, forever.</small></div>
+<div class="card column" style="--gap: 0.25lh; --hue-shift: 60;"><strong>One spine</strong><small style="--fg: -0.55;">Twelve layers decide the cascade. Specificity is zero everywhere, forever.</small></div>
 <div class="card column" style="--gap: 0.25lh; --hue-shift: 120;"><strong>Charts from ink</strong><small style="--fg: -0.55;">SVG painted by currentColor; a series is a hue turn, weight is --fg.</small></div>
 <div class="card column" style="--gap: 0.25lh; --hue-shift: 180;"><strong>The shell is CSS</strong><small style="--fg: -0.55;">Named regions, gates that roll a layer back, no script at first paint.</small></div>
 </div>
@@ -174,7 +174,7 @@ func landing() demo {
 <div class="card column" style="--gap: 0.5lh;"><strong>Pro</strong><span class="num" style="--type: 4;">$149<small style="--fg: -0.55;">/mo</small></span><small style="--fg: -0.55;">a design system of your own, on the engine</small><button type="button" class="sec fill">Talk to us</button></div>
 </div>
 </section></main>
-<footer class="pg-footer spread" style="--type: -1; --fg: -0.55;"><span>Lumen · built on system.css</span><span class="row" style="--gap: 0.5em;"><a href="#">Docs</a><a href="#">GitHub</a><a href="#">Status</a></span></footer>
+<footer class="pg-footer spread" style="--type: -1; --fg: -0.55;"><span>Lumen · built on mike.css</span><span class="row" style="--gap: 0.5em;"><a href="#">Docs</a><a href="#">GitHub</a><a href="#">Status</a></span></footer>
 </div>`
 	return demo{"landing.html", "Landing page", "dark · hue 320 · the wash", "A marketing page on the wash: a hero on a rise, a feature grid, a chart, pricing tiers.", `data-ui-theme="dark" data-ui-size="md" data-ui-radius="1" style="--hue: 320;"`, body}
 }

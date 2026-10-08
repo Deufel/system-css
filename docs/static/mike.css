@@ -1,63 +1,166 @@
 /* ════════════════════════════════════════════════════════════════════
-   color.css — the COLOUR concern. Standalone, orthogonal, complete.
+   mike.css — one file, twelve cascade positions, four engines.
 
-   ARCHITECTURE (locked)
-   A theme is three anchor COLOURS per bank — the poles of the bipolar
-   scale — plus a contrast flip:
+   THE SPINE (declared once, below; the only place layer order is set)
+     reset          the modern reset — no sizes, no colours
+     core.color     surfaces and ink as positions on a three-anchor walk
+     core.type      the type scale IS the spacing system (lh / em only)
+     core.shell     the .page shell: the pg-* regions and their anatomy
+     core.shape     the self-describing cell: a block knows its own shape
+     theme          ALL config — every knob has its single home here
+     base           bare-element defaults (consumes the cores)
+     composition    the layout primitives (.row .column .grid .bento …)
+     block          the components — <blk-*>, styled HTML, one callout each
+     utility        call-site helpers — late, so a helper beats a block
+     exception      what overrides a block from outside: shipped variants,
+                    standing states (data-ui-state), modes (print, focus,
+                    view transitions)
+     visibility     the display gates — revert-layer; LAST, so a gate out-
+                    ranks every display a block ever sets
 
-       --anchor-neg    the surface at --bg: −1   (the neutral floor)
-       --anchor-zero   the surface at --bg:  0   (the paper)
-       --anchor-pos    the surface at --bg: +1   (full chroma)
+   The four cores are orthogonal: each reads nothing from the others
+   (shell and shape read type's lh — the one sanctioned direction).
+   Everything from composition down is a CONSUMER and may read all four.
 
-   Surfaces are a piecewise-linear color-mix() walk through the anchors.
-   Anchors are re-hued live (relative color syntax keeps the picked L/C,
-   swaps in --hue + --hue-shift, or a --hue-lock). Ink is the same walk
-   pointed outward — from the host surface toward an ink pole whose
-   lightness is derived FROM the host colour itself, so ink is surface-
-   aware with no published lightness channel. Dark-ramp shape (deep-sea,
-   inverted, mono) is anchor PLACEMENT, not curve parameters.
+   THE THREE LAWS
+   1 Zero specificity. Every selector is :where()-wrapped; within a layer
+     only source order breaks a tie. A specificity fight is a bug.
+   2 No !important. Important declarations invert layer order and would
+     beat the gates. (Two remain in print rules, inherited; see CAVEATS.)
+   3 Locality. A block's parts, states and shape arrangements nest inside
+     its one rule; nothing about a block lives anywhere else. Visibility
+     is the single exception, by design: a part declares WHICH shapes it
+     belongs in (a class list = a set), and the gate layer owns the only
+     two states, none and revert-layer — so a part may use any display.
 
-   ORTHOGONALITY
-   This file loads standalone: no reset, no type, no layout required.
-   It reads nothing from the other concerns (the lone lh is a knob
-   default on .glass). In the system it occupies the spine positions
-   core.color · theme · utility.
+   THE VOCABULARY A TEMPLATE MAY USE
+     <blk-*>          a block; the tag is the hook
+     .cell            a frame that measures itself (core.shape) — a slot,
+                      a region, a chip; blocks inside read ITS shape
+     shape classes    spot line rail slip sheet tile panel strip banner —
+                      on PARTS, the shapes they appear in (visibility)
+     gates            .mobile .tablet .desktop · .small .medium .large ·
+                      .c-* · .fine .coarse (visibility)
+     helpers          .suc .inf .wrn .dgr · .num · .bg · .bw · .glass …
+                      (utility — the closed list)
+     state            data-ui-state="…" tokens, matched ~= ; native and
+                      ARIA state first (disabled, aria-pressed, :open)
+     engine           --hue --hue-shift --hue-lock --bg --lift --fg
+                      --type --scale --gap — inline where a value is data
 
-   PUBLIC API:   --hue · --hue-shift · --hue-lock · --bg · --fg · --lift
-   OUTPUTS:      color (resolved ink) · --border · --focus ·
-                 --cfg-dark (mode flag exported for downstream layers)
-   UTILITY KNOB: --chroma (1 → mono at 0; the .bw mechanism)
+   DERIVATION: a mechanical re-layering of system.css (2026-10-08) — every
+   rule body carried verbatim, re-homed on the new spine:
+     core.layout → core.shell + composition (split at the primitives)
+     components  → block        utility → utility      media → visibility
+     skin        → exception    view-transitions → exception
+     + core.shape (new)         + the shape gates (visibility, new)
+   Comments inside carried-over sections may still name the old layers.
 
-   THE PAINTER CONTRACT (two channels: --surf is the host COLOUR for ink,
-   --surf-bg is the host POSITION for lift):
-     absolute publisher (card, region, .bg):
-         background-color: var(--_bg); --surf: var(--_bg); --surf-bg: var(--bg);
-     consumer-painter (anything that reads --lift — button, nav item):
-         background-color: var(--_bg); --surf: var(--_bg);
-         /* NEVER --surf-bg: reading --lift while publishing --surf-bg
-            forms the self-cycle; lift resolves against the HOST. */
-
-   /* REGISTRATIONS: five. Registration is reserved for inherits:false
-   (--bg · --lift · --_sem-ink) and animatability (--fg · --hue-shift).
-   Typed registrations require an initial-value (spec), so the five keep
-   theirs as their single home; ALL other config lives in @layer theme.
+   CAVEATS (to resolve when the templates are migrated)
+   · .icon was the icon-button modifier; the icon SHAPE is therefore
+     named spot. If the modifier is renamed instead, rename the gate.
+   · .block (gf-608) is kept as an alias of .cell and also answers the
+     old `@container block` name; its body rule stays but any <blk-*>
+     child arranges itself and wins.
+   · .c-portrait/.c-landscape/.c-short/.c-tall are superseded by the
+     shapes; left in place for existing templates.
+   · two !important remain, both in print rules.
    ════════════════════════════════════════════════════════════════════ */
+@layer reset,
+       core.color, core.type, core.shell, core.shape,   /* the four cores — orthogonal, standalone */
+       theme, base,                                      /* all config · bare-element defaults */
+       composition, block, utility,                      /* layout primitives · components · call-site helpers */
+       exception, visibility;                            /* states, variants, modes · the display gates, last */
 
-/* THE SPINE — identical in every core file (idempotent: first declaration
-   wins and all copies agree), so plain <link> tags in any order — or a
-   simple concat — produce the same cascade. No @import, no server needed. */
-@layer reset, core.color, core.type, core.layout, theme, base,
-       components, utility, media, skin, view-transitions;
+/* ── registrations — the only @property declarations; everything else is config in theme ── */
+@property --bg { syntax: "<number>"; inherits: false; initial-value: 0 }
+/* a surface's position must not leak to children */
+@property --fg { syntax: "<number>"; inherits: true;  initial-value: -0.85 }
+/* animated (link hover) */
+@property --hue-shift { syntax: "<number>"; inherits: true;  initial-value: 0 }
+/* animated (link hover) */
+@property --lift { syntax: "*";        inherits: false }
+/* must not inherit; MUST have no default anywhere — unset → guaranteed-invalid → --_pos falls back to --bg */
+@property --gap { syntax: "*";        inherits: false }
+/* per-composition rhythm knob (style API); must not leak into nested compositions — unset → guaranteed-invalid → the primitive's own default */
+@property --rise { syntax: "*";        inherits: false }
+/* .rise's cqb share (style API); must not leak into nested sized canvases */
+@property --_sem-ink { syntax: "*";        inherits: false }
+/* ════════════════════════════════════════════════════════════════════
+   type.css — the TYPE concern. Standalone, orthogonal, complete.
 
-@property --bg        { syntax: "<number>"; inherits: false; initial-value: 0 }     /* a surface's position must not leak to children */
-@property --fg        { syntax: "<number>"; inherits: true;  initial-value: -0.85 } /* animated (link hover) */
-@property --hue-shift { syntax: "<number>"; inherits: true;  initial-value: 0 }     /* animated (link hover) */
-@property --lift      { syntax: "*";        inherits: false }                       /* must not inherit; MUST have no default anywhere — unset → guaranteed-invalid → --_pos falls back to --bg */
-@property --gap       { syntax: "*";        inherits: false }                       /* per-composition rhythm knob (style API); must not leak into nested compositions — unset → guaranteed-invalid → the primitive's own default */
-@property --rise      { syntax: "*";        inherits: false }                       /* .rise's cqb share (style API); must not leak into nested sized canvases */
-@property --_sem-ink  { syntax: "*";        inherits: false }                       /* the semantic ink-commit flag; unset → components fall back to resting --fg */
+   Type IS the spacing system: everything downstream spaces itself in
+   em / lh, so one knob moves size, lead, tracking, weight — and thereby
+   every gap and padding in the system. There is deliberately NO separate
+   spacing API.
+
+   PUBLIC API:
+     --type   the step, INHERITED (gf-68): set it on an element or a
+              container — the subtree follows unless an element sets its
+              own. Canonical steps are ints −2…+5 (h1=5 … h6=0,
+              small=−1); the scale is continuous, so fractional steps are
+              legal (the system uses −0.5 itself). Absolute, never
+              compounding: −1 inside −1 is still −1.
+     --scale  regional zoom, inherits.
+   PUBLIC OUTPUTS:
+     --_font-size   the resolved, unfloored size. Components may read it
+                    for the iOS floor idiom:
+                    font-size: max(16px, var(--_font-size))
+     --_control-h   THE shared control height — resolved per element
+                    against its OWN unfloored size, so every set-height
+                    control lands on one height at a given --type.
+
+   ORTHOGONALITY: this file reads nothing from colour or layout.
+   REGISTRATION: one. --type must not inherit (a step means the same
+   thing everywhere it is set; components opt in per-subtree with the
+   `--type: inherit` idiom). --scale and all config are plain inherited
+   custom properties with their single home in @layer theme.
+   ════════════════════════════════════════════════════════════════════ */
+/* --type INHERITS (gf-68, canon change): a container's step flows to
+   everything below it, the way every author already assumes. Safe because
+   the scale is ABSOLUTE (pow off the configured base, not em-relative) —
+   inheritance cannot compound: −1 inside −1 is still −1. Elements that set
+   their own step keep it (normal cascade). This retired .type-flow, whose
+   utility-layer placement had a wart the native cascade fixes: it squashed
+   component-set steps (a .badge's −2) instead of respecting them. */
+@property --type { syntax: "<number>"; inherits: true; initial-value: 0 }
+/* ════════════════════════════════════════════════════════════════════
+   components (continued) — the FULL port. Every painter converted to the
+   two-channel contract; every rogue colour formula rebuilt on the
+   anchors. Audit trail per component in component-check.html.
+   ════════════════════════════════════════════════════════════════════ */
+/* --row-width: registered because non-inheritance is load-bearing —
+   a field's row share must never leak to siblings/children. */
+@property --row-width { syntax: "<number>"; inherits: false; initial-value: 1 }
 
 
+/* ════════════════════════════════════════════════════════════════════
+   reset — minimal, modern-only, deferential to the cores.
+   No font-size / line-height (type owns them). No px/rem spacing.
+   ════════════════════════════════════════════════════════════════════ */
+@layer reset {
+  *, *::before, *::after { box-sizing: border-box; margin: 0; background-repeat: no-repeat; }
+  :where(html) { interpolate-size: allow-keywords; -webkit-text-size-adjust: none; text-size-adjust: none; }
+  :where(body, p, h1, h2, h3, h4, h5, h6, figure, blockquote, dl, dd, ul, ol) { margin-block: 0; }
+  :where(img, picture, svg, video, canvas) { display: block; max-inline-size: 100%; block-size: auto; }
+  :where(input, button, textarea, select) { font: inherit; letter-spacing: inherit; color: inherit; background: none; border: 0; }
+  :where(textarea) { resize: vertical; }
+  :where(fieldset) { margin: 0; padding: 0; border: 0; min-inline-size: 0; }
+  :where(legend) { padding: 0; }
+  :where(button, [role="button"], label, summary, input[type="file"]::file-selector-button, .btn) { cursor: pointer; }
+  :where(:disabled, [aria-disabled="true"]) { cursor: not-allowed; }
+  :where(a) { color: inherit; text-decoration: none; }
+  :where(ul, ol):where([role="list"]) { list-style: none; padding: 0; }
+  :where(table) { border-collapse: collapse; }
+  :where(summary) { list-style: none; }
+  :where(:focus-visible) { outline: 2px solid var(--focus); outline-offset: 2px; }
+  :where(body) { overflow-wrap: break-word; overscroll-behavior: none; }
+  :where(p, li) { text-wrap: pretty; }
+  :where(h1, h2, h3, h4, h5, h6) { text-wrap: balance; }
+}
+
+
+/* the semantic ink-commit flag; unset → components fall back to resting --fg */
 /* ════════════════════════════════════════════════════════════════════
    core.color — the resolver.
    ════════════════════════════════════════════════════════════════════ */
@@ -131,180 +234,6 @@
 
 
 /* ════════════════════════════════════════════════════════════════════
-   theme — ALL colour config. A theme = --hue + two banks of
-   (three anchors · flip · st-neut). Everything else is engine tuning.
-   ════════════════════════════════════════════════════════════════════ */
-@layer theme {
-  :root {
-    /* ── defaults ── */
-    --hue: 255;
-    --state: 0;
-    --chroma: 1;
-    --surf: var(--anchor-zero);        /* until something paints, contrast the paper */
-    --surf-bg: 0;
-    --cfg-dark: 0;                     /* exported mode flag (downstream layers key on it) */
-
-    /* ── THE CONTENT LADDER (2026-10-01, Mike: the Open Props spelling —
-       .content-1 · .content-2 · .content-3): the three widths a surface
-       may take, in ch so they resolve in the WEARER's type and grow with
-       --type and the text-size preference; 94vw keeps a floating surface
-       off the viewport's edges. 1 a column (a wizard station, a confirm,
-       a form alone) · 2 reading (a settings leaf, prose, the default
-       dialog) · 3 working (a record page's grid, a workbench dialog). */
-    --content-1: min(40ch, 94vw);
-    --content-2: min(70ch, 94vw);
-    --content-3: min(100ch, 94vw);
-
-    /* ── engine tuning (plain numbers; ink-pole L pairs are 0–1) ── */
-    --fg-ink-d: 0.16; --fg-ink-l: 0.96;   /* neutral ink L on light / dark hosts */
-    --fg-chr-d: 0.45; --fg-chr-l: 0.80;   /* chroma  ink L on light / dark hosts */
-    --fg-chroma: 0.11;
-    --st-hover: 0.35; --st-fg-gain: 0.12;
-    --border-mix: 25%;
-    --focus-boost: 1.6;
-
-    /* ── the banks — sources; live values default to light ── */
-    --lt-flip: 0.66; --lt-st-neut: 1;
-    --lt-neg:  oklch(84% 0.006 0);
-    --lt-zero: oklch(99% 0.004 0);
-    --lt-pos:  oklch(52% 0.160 0);
-    --dk-flip: 0.90; --dk-st-neut: 3;
-    --dk-neg:  oklch(6%  0.012 0);
-    --dk-zero: oklch(22% 0.010 0);
-    --dk-pos:  oklch(68% 0.170 0);
-
-    --flip: var(--lt-flip); --st-neut: var(--lt-st-neut);
-    --anchor-neg: var(--lt-neg); --anchor-zero: var(--lt-zero); --anchor-pos: var(--lt-pos);
-
-    /* semantic hues — .suc/.inf/.wrn/.dgr consume these */
-    --hue-suc: 145; --hue-inf: 255; --hue-wrn: 75; --hue-dgr: 25;
-
-    color-scheme: light-dark;
-  }
-
-  /* ── theme switch — OS default · runtime attribute · static island.
-     The OS rule is guarded against every explicit trigger, so a manual
-     light choice wins over prefers-color-scheme: dark. The dark remap is
-     stated twice (a media query can't join a selector list) — change both. */
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-ui-theme]):not(.light):not(.dark) {
-      color-scheme: dark; --cfg-dark: 1;
-      --flip: var(--dk-flip); --st-neut: var(--dk-st-neut);
-      --anchor-neg: var(--dk-neg); --anchor-zero: var(--dk-zero); --anchor-pos: var(--dk-pos);
-    }
-  }
-  /* :root[…] (0,1,1) — MUST outrank the :root base block (0,1,0) AND the
-     OS media rule; the old :where() wrapper had specificity ZERO, so an
-     explicit dark could never beat the base light anchors (dark rendered
-     light; only System worked). Manual choice > OS > base, by specificity. */
-  :root[data-ui-theme="dark"], .dark {
-    color-scheme: dark; --cfg-dark: 1;
-    --flip: var(--dk-flip); --st-neut: var(--dk-st-neut);
-    --anchor-neg: var(--dk-neg); --anchor-zero: var(--dk-zero); --anchor-pos: var(--dk-pos);
-  }
-  :root[data-ui-theme="light"], .light {
-    color-scheme: light; --cfg-dark: 0;
-    --flip: var(--lt-flip); --st-neut: var(--lt-st-neut);
-    --anchor-neg: var(--lt-neg); --anchor-zero: var(--lt-zero); --anchor-pos: var(--lt-pos);
-  }
-}
-
-
-/* ════════════════════════════════════════════════════════════════════
-   utility — the colour-owned utilities (late so a call-site helper
-   beats a component's own hue/ink).
-   ════════════════════════════════════════════════════════════════════ */
-@layer utility {
-  /* .active — THE transient-highlight utility (gf-191, per Mike): the
-     standard active-row paint for CLIENT-owned, momentary emphasis (a
-     combobox's keyboard row, a rocket's "this one"). Global on purpose —
-     utilities are the layer for exactly this. Not for real current-ness:
-     aria-current keeps pages/steps, aria-pressed keeps toggles. */
-  :where(.active) {
-    --bg: 0.3; background-color: var(--_bg); --fg: var(--_sem-ink, -1); font-weight: 600;
-  }
-
-  /* semantic hue helpers — lock hue + flag components to commit ink */
-  :where(.suc) { --hue-lock: var(--hue-suc); --_sem-ink: 1 }
-  :where(.inf) { --hue-lock: var(--hue-inf); --_sem-ink: 1 }
-  :where(.wrn) { --hue-lock: var(--hue-wrn); --_sem-ink: 1 }
-  :where(.dgr) { --hue-lock: var(--hue-dgr); --_sem-ink: 1 }
-
-	/* Kind identity: events and activations are the same base hue, offset
-	   ±30 so they read as related-but-distinct everywhere. The engine does
-	   the rest; semantic --hue-lock pills (status) still override. */
-	.is-event { --hue-shift: -30; }
-	.is-activation { --hue-shift: 30; }
-
-  /* black & white — the one mono mechanism */
-  :where(.bw) { --chroma: 0; }
-
-  /* frosted surface — the engine's own resolved surface, translucent,
-     over a backdrop blur. Publishes like .bg. Knobs: --glass-alpha
-     (0.65 — a dialog over its dimmed backdrop) · --glass-blur (0.5lh).
-     Needs content BEHIND it to read as glass. TWO RULES (EventOS
-     2026-10-05, toasts over a map unreadable): an overlay that must read
-     over ANYTHING — a hud card — raises --glass-alpha (0.88; a toast wears
-     0.75 and shows a little of what is behind it); and quiet is INK (--fg), never opacity on the card —
-     opacity multiplies into the glass and the words go with it. */
-  :where(.glass) {
-    /* alpha via color-mix-with-transparent: PLAIN substitution of --_bg,
-       the one consumption pattern the engine promises (RCS re-parsing of
-       the unregistered intermediate is not promised and was the failure). */
-    background-color: color-mix(in oklch,
-      var(--_bg) calc(var(--glass-alpha, 0.65) * 100%), transparent);
-    -webkit-backdrop-filter: blur(var(--glass-blur, 0.5lh));
-    backdrop-filter: blur(var(--glass-blur, 0.5lh));
-    --surf: var(--_bg); --surf-bg: var(--bg);
-  }
-}
-/* ════════════════════════════════════════════════════════════════════
-   type.css — the TYPE concern. Standalone, orthogonal, complete.
-
-   Type IS the spacing system: everything downstream spaces itself in
-   em / lh, so one knob moves size, lead, tracking, weight — and thereby
-   every gap and padding in the system. There is deliberately NO separate
-   spacing API.
-
-   PUBLIC API:
-     --type   the step, INHERITED (gf-68): set it on an element or a
-              container — the subtree follows unless an element sets its
-              own. Canonical steps are ints −2…+5 (h1=5 … h6=0,
-              small=−1); the scale is continuous, so fractional steps are
-              legal (the system uses −0.5 itself). Absolute, never
-              compounding: −1 inside −1 is still −1.
-     --scale  regional zoom, inherits.
-   PUBLIC OUTPUTS:
-     --_font-size   the resolved, unfloored size. Components may read it
-                    for the iOS floor idiom:
-                    font-size: max(16px, var(--_font-size))
-     --_control-h   THE shared control height — resolved per element
-                    against its OWN unfloored size, so every set-height
-                    control lands on one height at a given --type.
-
-   ORTHOGONALITY: this file reads nothing from colour or layout.
-   REGISTRATION: one. --type must not inherit (a step means the same
-   thing everywhere it is set; components opt in per-subtree with the
-   `--type: inherit` idiom). --scale and all config are plain inherited
-   custom properties with their single home in @layer theme.
-   ════════════════════════════════════════════════════════════════════ */
-
-/* THE SPINE — identical in every core file (idempotent: first declaration
-   wins and all copies agree), so plain <link> tags in any order — or a
-   simple concat — produce the same cascade. No @import, no server needed. */
-/* (spine declared once at the top of this concatenated file) */
-
-/* --type INHERITS (gf-68, canon change): a container's step flows to
-   everything below it, the way every author already assumes. Safe because
-   the scale is ABSOLUTE (pow off the configured base, not em-relative) —
-   inheritance cannot compound: −1 inside −1 is still −1. Elements that set
-   their own step keep it (normal cascade). This retired .type-flow, whose
-   utility-layer placement had a wart the native cascade fixes: it squashed
-   component-set steps (a .badge's −2) instead of respecting them. */
-@property --type { syntax: "<number>"; inherits: true; initial-value: 0 }
-
-
-/* ════════════════════════════════════════════════════════════════════
    core.type — the scale.
    ════════════════════════════════════════════════════════════════════ */
 @layer core.type {
@@ -345,62 +274,6 @@
 
 
 /* ════════════════════════════════════════════════════════════════════
-   theme (type slice) — ALL type config, including everything that used
-   to hide in @property initial-values.
-   ════════════════════════════════════════════════════════════════════ */
-@layer theme {
-  :root {
-    --scale: 1;
-
-    /* the scale shape. Default = "md": type 0 ≈ 14.5px phone / 15.5px
-       desktop — just under 16px, so editable fields lean on the
-       input-only font floor to dodge iOS focus-zoom. */
-    --cfg-type-min: 0.90625rem;
-    --cfg-type-max: 0.96875rem;
-    --cfg-ratio: 1.2;
-    --cfg-control-lead: 2.06;          /* line-box 1.5 + 2×0.28 vertical padding */
-    --cfg-fluid-min-vp: 375px;
-    --cfg-fluid-max-vp: 1280px;
-
-    /* optical weight */
-    --cfg-wght-base: 400; --cfg-wght-step: 90; --cfg-wght-max: 850;
-
-    --font-ui:      "Roboto", system-ui, sans-serif;
-    --font-mono:    "Roboto Mono", ui-monospace, monospace;
-    --font-display: "Roboto", system-ui, sans-serif;
-  }
-
-  /* ── size switch — reshapes the scale (base + ratio) ── */
-  [data-ui-size="sm"] { --cfg-type-min: 0.780rem; --cfg-type-max: 0.840rem; --cfg-ratio: 1.125; }  /* dense · Major2nd */
-  [data-ui-size="md"] { --cfg-type-min: 0.840rem; --cfg-type-max: 0.920rem; --cfg-ratio: 1.125; }  /* denser default · Major2nd */
-  [data-ui-size="lg"] { --cfg-type-min: 0.920rem; --cfg-type-max: 1.000rem; --cfg-ratio: 1.200; }  /* roomy · Minor3rd */
-  [data-ui-size="xl"] { --cfg-type-min: 1.125rem; --cfg-type-max: 1.250rem; --cfg-ratio: 1.250; }  /* marketing · Major3rd */
-
-  /* ── font switch — orthogonal to skin; consumers load the webfonts ── */
-  [data-ui-font="grotesk"]  { --font-ui:"Hanken Grotesk",system-ui,sans-serif; --font-display:"Hanken Grotesk",sans-serif; --font-mono:"Spline Sans Mono",ui-monospace,monospace; font-family:var(--font-ui); }
-  [data-ui-font="neo"]      { --font-ui:"Inter",system-ui,sans-serif; --font-display:"Inter",sans-serif; --font-mono:"JetBrains Mono",ui-monospace,monospace; font-family:var(--font-ui); }
-  [data-ui-font="serif"]    { --font-ui:"Newsreader",Georgia,serif; --font-display:"Newsreader",Georgia,serif; --font-mono:"Spline Sans Mono",ui-monospace,monospace; font-family:var(--font-ui); }
-  [data-ui-font="techno"]   { --font-ui:"Space Grotesk",system-ui,sans-serif; --font-display:"Space Grotesk",sans-serif; --font-mono:"Space Mono",ui-monospace,monospace; font-family:var(--font-ui); }
-  [data-ui-font="humanist"] { --font-ui:"IBM Plex Sans",system-ui,sans-serif; --font-display:"IBM Plex Sans",sans-serif; --font-mono:"IBM Plex Mono",ui-monospace,monospace; font-family:var(--font-ui); }
-}
-
-
-/* ════════════════════════════════════════════════════════════════════
-   base (type slice) — the element → step mapping.
-   ════════════════════════════════════════════════════════════════════ */
-@layer base {
-  /* PIN the root: the scale drives everything BELOW html; html stays a
-     fixed 16px so `rem` never shifts and cfg-type-min applies ONCE. */
-  :where(html) { font-family: var(--font-ui); font-size: 100%; }
-
-  :where(h1) { --type: 5 } :where(h2) { --type: 4 } :where(h3) { --type: 3 }
-  :where(h4) { --type: 2 } :where(h5) { --type: 1 } :where(h6) { --type: 0 }
-  :where(h6) { font-weight: 600; }   /* step 0 = body weight; nudge so it reads as a heading */
-  :where(small) { --type: -1 }
-  :where(b, strong) { font-weight: 700; }
-  :where(code, kbd, samp, pre) { font-family: var(--font-mono); }
-}
-/* ════════════════════════════════════════════════════════════════════
    layout.css — the LAYOUT concern. Standalone, orthogonal, complete.
 
    Pure geometry: the .page shell, the composition primitives, and the
@@ -421,13 +294,7 @@
    why `media` is a separate late position in the spine — a concern may
    span layers; the file is the concern boundary.
    ════════════════════════════════════════════════════════════════════ */
-
-/* THE SPINE — identical in every core file (idempotent: first declaration
-   wins and all copies agree), so plain <link> tags in any order — or a
-   simple concat — produce the same cascade. No @import, no server needed. */
-/* (spine declared once at the top of this concatenated file) */
-
-@layer core.layout {
+@layer core.shell {
   /* the viewport lock is BOUND to .page (was a global html,body rule that
      clipped bare documents): a .page fills the viewport and lets .pg-main
      scroll — the shell never does; a non-.page document scrolls normally. */
@@ -573,100 +440,6 @@
     & > :where(.pg-main-aside)  { grid-area: ma; overflow-y: auto; min-height: 0; overscroll-behavior: contain; }
     & > :where(.pg-footer)      { grid-area: f;  container-type: inline-size; }
   }
-
-
-  /* ── composition primitives — zero specificity, pure geometry.
-     Gap = 0.25lh: spacing derives from line-height (Type owns rhythm).
-     [cleanup: calc(0.25 * 1lh) → 0.25lh — identical value, less noise] */
-  /* every composition reads --gap (registered non-inheriting): rhythm is a
-     published knob, not an inline gap declaration. Unset → the default.
-
-     THE RHYTHM LADDER (gf-231, per Mike: "keep the css up to date and
-     prevent drift" — 419 inline gaps across 23 values had crept in).
-     --gap takes ONLY these steps; a usage site picks a rung, never a
-     number:
-       block rhythm (lh)  0 · 0.25lh (default) · 0.5lh (breathing) · 1lh (section)
-       inline rows  (em)  0.25em (chips, buttons) · 0.5em · 1em
-     view/ratchet_test.go counts off-ladder values per .templ; the
-     count may only go down. */
-  :where(.column) { display: flex; flex-direction: column; gap: var(--gap, 0.25lh); }
-  :where(.row)    { display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; gap: var(--gap, 0.25lh); }
-  :where(.split)  { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap, 0.25lh); }
-  :where(.spread) { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--gap, 0.25lh); }
-  :where(.spread-column) { display: flex; flex-direction: column; justify-content: space-between; gap: var(--gap, 0.25lh); }
-
-  :where(.lcr) {
-    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: var(--gap, 0.25lh);
-    & > :where(:first-child:not(style):not(script))      { justify-self: start  }
-    & > :where(:nth-child(2 of :not(style):not(script))) { justify-self: center }
-    & > :where(:last-child:not(style):not(script))       { justify-self: end    }
-  }
-
-  :where(.flank, .flank-start) {
-    display: flex; flex-direction: row; align-items: center; gap: var(--gap, 0.25lh);
-    & > :where(:first-child:not(style):not(script)) { flex: 0 0 auto }
-    & > :where(:last-child:not(style):not(script))  { flex: 1 1 auto; min-inline-size: 0 }
-  }
-  :where(.flank-end) {
-    display: flex; flex-direction: row; align-items: center; gap: var(--gap, 0.25lh);
-    & > :where(:first-child:not(style):not(script)) { flex: 1 1 auto; min-inline-size: 0 }
-    & > :where(:last-child:not(style):not(script))  { flex: 0 0 auto; min-inline-size: 0 }
-  }
-
-  /* .frame — a box at a ratio its one child fills; --ratio is the knob
-     (16 / 9 by default; a block's cell on the lab bench rides it, gf-608) */
-  :where(.frame) { aspect-ratio: var(--ratio, 16 / 9); overflow: hidden; & > * { inline-size: 100%; block-size: 100%; object-fit: cover } }
-  /* .block — A SELF-MANAGING CELL (EventOS gf-608, Mike 2026-10-08: "each
-     block is able to manage itself … container queries for portrait or
-     landscape"). The block is a SIZE query container with ONE child, its
-     body: a flex column in portrait, a row in landscape (wider than 3:2)
-     — the words first, the big thing beside them. A block fills the
-     cell a grid track, a .frame or a .stress hands it and never sizes
-     itself: size containment collapses it under an auto-height parent.
-     Inside it the tiers answer by its width and the gates below by its
-     orientation and height; a block queries nothing about itself, which
-     is why the body is a child. */
-  :where(.block) { display: grid; container-type: size; container-name: block; min-inline-size: 0; min-block-size: 0; overflow: hidden; }
-  :where(.block) > :where(*) { display: flex; flex-direction: column; gap: var(--gap, 0.25lh); min-inline-size: 0; min-block-size: 0; }
-  @container block (aspect-ratio > 3/2) { :where(.block) > :where(*) { flex-direction: row; align-items: stretch; } }
-  :where(.grid)  { display: grid; gap: var(--gap, 0.25lh); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--grid-min, 16rem)), 1fr)); }
-  /* .grid > .row-wide — the HERO cell (feedback #67): one child takes the
-     whole row at every column count (1 / -1, never a span, so a
-     one-column phone grid never grows an implicit column). */
-  :where(.grid > .row-wide) { grid-column: 1 / -1; }
-  :where(.ngrid) { display: grid; gap: var(--gap, 0.25lh); grid-template-columns: repeat(var(--cols, 2), 1fr); grid-template-rows: repeat(var(--rows, 2), 1fr); grid-auto-rows: auto; }
-  /* ── bento — THE BIG-PAGE GRID (EventOS gf-571, Mike 2026-10-07): cells
-     of --cell fill the width and flow dense; a child spans two with
-     .span-2 or takes the row with .row-wide; under two cells' width the
-     span falls, so a phone is one column. Nothing else. ── */
-  :where(.bento) { display: grid; gap: var(--gap, 0.5lh); grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--cell, 18rem)), 1fr)); grid-auto-flow: dense; container-type: inline-size; }
-  :where(.bento) > :where(.span-2) { grid-column: span 2; }
-  :where(.bento) > :where(.row-wide) { grid-column: 1 / -1; }
-  @container (inline-size < 38rem) { :where(.bento) > :where(.span-2) { grid-column: span 1; } }
-  :where(.stack) { display: grid; grid-template-areas: "stack"; & > * { grid-area: stack } }
-  /* .rise — an EXPLICIT viewport share (2026-08-31, per Mike: explicit
-     dynamic units, never flex negotiation, no magic lengths): the block
-     takes --rise hundredths of the small viewport as a MINIMUM, so
-     content taller than its share (a phone) pushes past it and the
-     canvas scrolls — the honest degradation. One number, one meaning. */
-  :where(.rise)  { min-block-size: calc(var(--rise, 50) * 1svb); flex-shrink: 0; }
-  /* flex-shrink 0 (2026-09-01): in a flex column a .rise row could be
-     SHRUNK below its own content when the page ran long (the stacked
-     phone split painted its second card over the list) — the share is a
-     floor, and content taller than it means the canvas scrolls. */
-  :where(.track) { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(var(--track-min, 6rem), max-content); gap: var(--gap, 0.25lh); overflow-x: auto; }
-
-  :where(.hero) {
-    display: grid;
-    grid-template: "t t t" auto "l m r" 1fr "b b b" auto / auto 1fr auto;
-    height: 100%; overflow: hidden;
-    & > :where(.top)    { grid-area: t }
-    & > :where(.bottom) { grid-area: b }
-    & > :where(.left)   { grid-area: l; overflow-y: auto; min-height: 0 }
-    & > :where(.main)   { grid-area: m; overflow-y: auto; scrollbar-gutter: stable; min-height: 0 }
-    & > :where(.right)  { grid-area: r; overflow-y: auto; min-height: 0 }
-  }
-
   /* .wash — the page's tint: a static, viewport-fixed UNDERLAY of two soft
      pools in the surface's own colour — the element's --bg resolves the
      first, a real child at the next ladder step the second (the engine
@@ -756,267 +529,158 @@
 
 
 /* ════════════════════════════════════════════════════════════════════
-   utility (geometry slice) — pure-geometry utilities owned by layout.
-   [cleanup: the duplicate .scroll-x rule in the old file is deduped]
+   core.shape — a block knows its own shape.
+
+   Any element marked .cell becomes a size container named `shape`; the
+   parts inside it declare the shapes they belong in (visibility), and
+   blocks arrange themselves per shape with @container shape (…). A cell
+   never measures its own content: size containment ignores it, so a cell
+   takes its size from the layout — a grid track, a region, a chip — and
+   collapses under an auto-height parent.
+
+   THE PARTITION (w, h = the cell's content box; lh = the cell's line)
+       spot    w <  2lh and h <  2lh
+       line    w >= 2lh and h <  2lh
+       rail    w <  2lh and h >= 2lh
+     beyond the edges, three ratio families split small | large on their
+     short side at 6lh:
+       slip  | sheet     ratio < 7/8          short side = w
+       tile  | panel     7/8 <= ratio < 15/8  short side = min(w, h)
+       strip | banner    ratio >= 15/8        short side = h
+   Exhaustive and disjoint: a cell is exactly one shape. 7/8 and 15/8 are
+   the geometric midpoints between US-letter subdivisions (page 0.773 ·
+   square 1 · ½ page 1.545 · ⅓ page 2.318), so no common page piece sits
+   near a boundary. Thresholds are in lh of the cell itself, so --type
+   and --scale move a cell's boundaries with its text.
+
+   Reads type's lh only. Owns nothing else; the gates live in visibility.
    ════════════════════════════════════════════════════════════════════ */
-@layer utility {
-  /* .oneline — a row that must not wrap (header clusters, icon pairs).
-     Composition class: replaces inline flex-wrap styles. */
-  :where(.oneline) { flex-wrap: nowrap; }
-
-  /* .start — a composition whose items align to the block start (an icon
-     beside multi-line text). Replaces inline align-items. */
-  :where(.start) { align-items: start; }
-
-  /* hud slots — promoted past components so .cr etc. override a
-     component's own place-self (the fab default is end/end). */
-  :where(.hud) > :where(.tl) { place-self: start start   }
-  :where(.hud) > :where(.tc) { place-self: start center  }
-  :where(.hud) > :where(.tr) { place-self: start end     }
-  :where(.hud) > :where(.cl) { place-self: center start  }
-  :where(.hud) > :where(.cc) { place-self: center center }
-  :where(.hud) > :where(.cr) { place-self: center end    }
-  :where(.hud) > :where(.bl) { place-self: end start     }
-  :where(.hud) > :where(.bc) { place-self: end center    }
-  :where(.hud) > :where(.br) { place-self: end end       }
-  /* a corner slot used as a STACK of hud triggers: breathing room from the
-     viewport edge, tight rhythm between members, members hug the corner. */
-  :where(.hud) > :where(.tl, .tr, .bl, .br) { padding: 1lh; gap: var(--gap, 0.5lh); }
-  /* THE TOAST PILE'S CLEARANCE (gf-409, 2026-09-24): above the fab
-     cluster where a phone hud is on, above the dock where a main footer
-     is — HERE, in the slot's own layer: the components-layer copy had
-     lost to this padding for as long as it existed */
-  :where(.page:has(> .hud.mobile)) ~ :where(.hud) > :where(.br.toasts) { padding-block-end: 4lh; }
-  :where(.page:has(> .pg-main-footer)) ~ :where(.hud) > :where(.br.toasts) { padding-block-end: 9lh; }
-  :where(.hud) > :where(.tr, .br):where(.column) { align-items: flex-end; }
-  :where(.hud) > :where(.tl, .bl):where(.column) { align-items: flex-start; }
-
-  :where(.fill) { inline-size: 100%; }
-  /* .grow — the block-axis complement to .fill: take the leftover space
-     in a flex chain AND stay shrinkable (min-block-size: 0 defeats the
-     auto-min). Chain it from a region's child down to a .scroll-y and
-     the INNER surface becomes the scroller instead of the region. */
-  :where(.grow) { flex: 1 1 auto; min-block-size: 0; }
-  /* a growing box with an aspect (mini-map) takes the share its column
-     has left, not its aspect: beside a sibling card that sets the row,
-     it absorbs the difference (EventOS local feedback #28); 3lh keeps
-     it legible when there is no share */
-  :where(mini-map.grow) { aspect-ratio: auto; flex-basis: 0; min-block-size: 3lh; }
-  /* .container — the generic self-measuring wrapper: content inside it
-     gates on ITS width (cards in a grid, widgets in a flank). */
-  :where(.container) { container-type: inline-size; }
-  /* scroll viewports — the axis scrolls; pair with a constrained size (a
-     flex/grid track, a max-block-size, etc.) since something must bound the
-     box for it to scroll. min-*-size:0 defeats the flex/grid auto-min so it
-     can shrink-and-scroll inside a parent; overscroll-behavior:contain stops
-     scroll-chaining to the page. */
-  :where(.scroll-x) { overflow-x: auto; overscroll-behavior: contain; min-inline-size: 0; }
-  :where(.scroll-y) { overflow-y: auto; overscroll-behavior: contain; min-block-size: 0; scrollbar-gutter: stable; }
+@layer core.shape {
+  /* named, so a block's own containers (the inline-size .container, the
+     page) never capture a shape query. (.block, in composition, carries
+     the same containment and answers both names.) */
+  :where(.cell) { container-name: shape; container-type: size; min-inline-size: 0; min-block-size: 0; overflow: hidden; }
 }
 
 
 /* ════════════════════════════════════════════════════════════════════
-   media — responsive show/hide via revert-layer. LAST meaningful layer:
-   the gate's display must out-rank a component's display. (Inline display
-   still wins — never set display inline on a gated element.)
-
-   Why display (not visibility/opacity): display:none removes the element
-   from the tab order AND the accessibility tree, so the hidden variant
-   cannot be tabbed into or announced. Don't add aria-hidden/inert/tabindex
-   to gated copies — redundant on the hidden one, a bug on the shown one.
+   theme — ALL colour config. A theme = --hue + two banks of
+   (three anchors · flip · st-neut). Everything else is engine tuning.
    ════════════════════════════════════════════════════════════════════ */
-@layer media {
-  /* Breakpoints follow the Bootstrap grid boundaries: phones < 576 ·
-     576–768 tablet · ≥768 desktop. THIS FILE IS THE SINGLE SOURCE —
-     change thresholds here, in this layer; there is no override file.
-     (The old @layer project — the reserved downstream-consumer slot —
-     retired 2026-09-01, per Mike: single-tenant; app components live in
-     this file's components layer like every other component.) */
-  .mobile, .tablet, .desktop           { display: none }
-  @media (width < 576px)               { .mobile  { display: revert-layer } }
-  /* the mobile global bar (a .hud) FLOATS over the bottom edge; the LAST
-     content region carries the clearance, OUT of the content's own flow:
-     a scrolling main grows a ::after scroll-tail (only reachable by
-     scrolling — it never squeezes a fitted layout), and when a
-     pg-main-footer exists (the calendar's ribbon) IT takes the padding
-     instead. [was padding on pg-main — it shoved the ribbon offscreen.] */
-  @media (width < 576px) {
-    .page:has(> .hud.mobile) > .pg-main:not(:has(~ .pg-main-footer))::after {
-      content: ""; display: block; flex: 0 0 4lh;
-    }
-    .page:has(> .hud.mobile) > .pg-main-footer { padding-block-end: 4lh; }
-    /* the toolbar rail scrolls too — same clearance, same mechanism
-       (gf-105: its bottom items hid behind the floating bar) */
-    .page:has(> .hud.mobile) > .pg-toolbar::after {
-      content: ""; display: block; flex: 0 0 4lh; block-size: 4lh;
-    }
-  }
-  /* a gated crumb takes its separator with it (gf-407: the home crumb is
-     .mobile; its follower's chevron must not stand alone wider) */
-  @media (width >= 576px) { :where(.crumbs) > .mobile + :where(a, span)::before { display: none } }
-  @media (576px <= width < 768px)      { .tablet  { display: revert-layer } }
-  @media (width >= 768px)              { .desktop { display: revert-layer } }
+@layer theme {
+  :root {
+    /* ── defaults ── */
+    --hue: 255;
+    --state: 0;
+    --chroma: 1;
+    --surf: var(--anchor-zero);        /* until something paints, contrast the paper */
+    --surf-bg: 0;
+    --cfg-dark: 0;                     /* exported mode flag (downstream layers key on it) */
 
-  /* [RETIRED 2026-08] the declared aside width: asides are content-
-     sized now (containment removed in core.layout), so the auto track
-     hugs whatever one-off widget the flank carries. */
-  /* [RETIRED 2026-08] the narrow shell re-flow: ONE topology. Dynamic
-     design is gates, not alternate grids — a region that cannot fit at
-     a width gates itself (.c-desktop on an aside) and its track
-     collapses. Narrow reachability of a gated flank is an app decision
-     (dock, drawer), not a shell re-slot. */
-  /* DENSITY TIERS (component scale): small = the glyph alone; medium =
-     glyph + label; large = the full block. "and-up" is the multi-class
-     idiom (class="medium large"). The c-* family below remains the
-     LAYOUT band family — two families, two jobs.
-     THE 8rem BOUNDARY IS RAIL MATH (gf-23): the tiers are what a rail's
-     content gates on, so small/medium must STRADDLE the rail's two
-     declared widths at EVERY type size. Icon width (glyph anatomy) tops
-     out ≈ 4rem at xl type; the labeled 8lh bottoms out ≈ 9.7rem at sm
-     type (rem is fixed, lh rides the type scale — that skew is why
-     10rem broke: labeled-at-sm fell into .small and stacked the foot).
-     8rem sits between them with margin on both sides. */
-  .small, .medium, .large              { display: none }
-  @container (width < 8rem)            { .small  { display: revert-layer } }
-  @container (8rem <= width < 20rem)   { .medium { display: revert-layer } }
-  @container (width >= 20rem)          { .large  { display: revert-layer } }
+    /* ── THE CONTENT LADDER (2026-10-01, Mike: the Open Props spelling —
+       .content-1 · .content-2 · .content-3): the three widths a surface
+       may take, in ch so they resolve in the WEARER's type and grow with
+       --type and the text-size preference; 94vw keeps a floating surface
+       off the viewport's edges. 1 a column (a wizard station, a confirm,
+       a form alone) · 2 reading (a settings leaf, prose, the default
+       dialog) · 3 working (a record page's grid, a workbench dialog). */
+    --content-1: min(40ch, 94vw);
+    --content-2: min(70ch, 94vw);
+    --content-3: min(100ch, 94vw);
 
-  /* the c-* family — the SAME breakpoints as .mobile/.tablet/.desktop,
-     measured against the CONTAINER instead of the viewport. Inside a pg
-     region the available width is the region's, not the window's (the
-     nav column eats 140–260px), so region content declares its ranges
-     against the surface it actually lives on. pg-main-header and
-     pg-main are the query containers (core.layout). */
-  .c-mobile, .c-tablet, .c-desktop     { display: none }
-  @container (width < 576px)           { .c-mobile  { display: revert-layer } }
-  @container (576px <= width < 768px)  { .c-tablet  { display: revert-layer } }
-  @container (width >= 768px)          { .c-desktop { display: revert-layer } }
+    /* ── engine tuning (plain numbers; ink-pole L pairs are 0–1) ── */
+    --fg-ink-d: 0.16; --fg-ink-l: 0.96;   /* neutral ink L on light / dark hosts */
+    --fg-chr-d: 0.45; --fg-chr-l: 0.80;   /* chroma  ink L on light / dark hosts */
+    --fg-chroma: 0.11;
+    --st-hover: 0.35; --st-fg-gain: 0.12;
+    --border-mix: 25%;
+    --focus-boost: 1.6;
 
-  /* ORIENTATION and HEIGHT gates (EventOS gf-608) — answered only inside
-     a SIZE container (a .block): a width-only .container cannot answer
-     them and the gate stays hidden. Landscape is wider than 3:2, the
-     block's own law; tall is 10em and up. */
-  .c-portrait, .c-landscape            { display: none }
-  @container (aspect-ratio <= 3/2)     { .c-portrait  { display: revert-layer } }
-  @container (aspect-ratio > 3/2)      { .c-landscape { display: revert-layer } }
-  .c-short, .c-tall                    { display: none }
-  @container (height < 10em)           { .c-short { display: revert-layer } }
-  @container (height >= 10em)          { .c-tall  { display: revert-layer } }
+    /* ── the banks — sources; live values default to light ── */
+    --lt-flip: 0.66; --lt-st-neut: 1;
+    --lt-neg:  oklch(84% 0.006 0);
+    --lt-zero: oklch(99% 0.004 0);
+    --lt-pos:  oklch(52% 0.160 0);
+    --dk-flip: 0.90; --dk-st-neut: 3;
+    --dk-neg:  oklch(6%  0.012 0);
+    --dk-zero: oklch(22% 0.010 0);
+    --dk-pos:  oklch(68% 0.170 0);
 
-  .fine, .coarse                       { display: none }
-  @media (pointer: fine)               { .fine   { display: revert-layer } }
-  @media (pointer: coarse)             { .coarse { display: revert-layer } }
+    --flip: var(--lt-flip); --st-neut: var(--lt-st-neut);
+    --anchor-neg: var(--lt-neg); --anchor-zero: var(--lt-zero); --anchor-pos: var(--lt-pos);
 
-  /* FOCUS MODE chrome-hide — lives here (not in core.layout) so it beats
-     component display rules. .crumbs sets display:flex in @layer components,
-     which is later than core.layout; only a rule at or after components can
-     hide a .pg-subheader.crumbs. The media layer is the sanctioned home for
-     display-state switches (the .mobile/.tablet/.print gates above), and focus
-     mode is exactly that kind of switch. */
-  .page:where([data-ui-state="focus"]) > :where(.pg-banner, .pg-header,
-      .pg-subheader, .pg-navigation, .pg-toolbar, .pg-aside,
-      .pg-main-aside, .pg-footer) {
-    display: none;
-  }
-  /* focus mode hides the toolbar but :has() still sees it in the DOM — the
-     card would keep a squared, flush left edge against a rail that is no
-     longer there. Re-solve to the lone-main shape (this layer is later than
-     skin, so it wins). */
-  .page:where([data-ui-state="focus"]) > .pg-main.canvas {
-    border-radius: var(--cfg-radius);
-    margin: var(--canvas-gap);
+    /* semantic hues — .suc/.inf/.wrn/.dgr consume these */
+    --hue-suc: 145; --hue-inf: 255; --hue-wrn: 75; --hue-dgr: 25;
+
+    color-scheme: light-dark;
   }
 
-  /* PRINT — the ink-on-paper view. The themed surfaces are a screen medium;
-     on paper the system becomes austere. Keep pg-main* (content + its header
-     for context), drop every other chrome region, and quiet the surfaces to
-     white while KEEPING borders — hairline structure, no fill. This is where
-     Tufte's asceticism lives without compromising the screen experience. */
-  @media print {
-    .page {
-      display: block; height: auto; overflow: visible;
+  /* ── theme switch — OS default · runtime attribute · static island.
+     The OS rule is guarded against every explicit trigger, so a manual
+     light choice wins over prefers-color-scheme: dark. The dark remap is
+     stated twice (a media query can't join a selector list) — change both. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-ui-theme]):not(.light):not(.dark) {
+      color-scheme: dark; --cfg-dark: 1;
+      --flip: var(--dk-flip); --st-neut: var(--dk-st-neut);
+      --anchor-neg: var(--dk-neg); --anchor-zero: var(--dk-zero); --anchor-pos: var(--dk-pos);
     }
-    .page > :where(.pg-banner, .pg-header, .pg-subheader, .pg-navigation,
-                   .pg-toolbar, .pg-aside, .pg-main-aside, .pg-footer),
-    :where(.focus-fab) { display: none; }
-
-    /* surfaces → white; borders stay. Regions and painted components lose
-       their fill but keep their outline. */
-    :where(.page, .pg-main, .pg-main-header, .pg-main-subheader,
-           .pg-main-footer, .card, table, thead th, .search-box) {
-      background: none !important;
-      --bg: 0; --lift: initial;
-    }
-    /* ink → black on white, regardless of screen tone */
-    :where(.pg-main, .pg-main *) { --fg: -1; }
-    /* let content use the full page width on paper */
-    :where(.pg-main) { max-inline-size: none; }
+  }
+  /* :root[…] (0,1,1) — MUST outrank the :root base block (0,1,0) AND the
+     OS media rule; the old :where() wrapper had specificity ZERO, so an
+     explicit dark could never beat the base light anchors (dark rendered
+     light; only System worked). Manual choice > OS > base, by specificity. */
+  :root[data-ui-theme="dark"], .dark {
+    color-scheme: dark; --cfg-dark: 1;
+    --flip: var(--dk-flip); --st-neut: var(--dk-st-neut);
+    --anchor-neg: var(--dk-neg); --anchor-zero: var(--dk-zero); --anchor-pos: var(--dk-pos);
+  }
+  :root[data-ui-theme="light"], .light {
+    color-scheme: light; --cfg-dark: 0;
+    --flip: var(--lt-flip); --st-neut: var(--lt-st-neut);
+    --anchor-neg: var(--lt-neg); --anchor-zero: var(--lt-zero); --anchor-pos: var(--lt-pos);
   }
 }
-/* ════════════════════════════════════════════════════════════════════
-   system.css — the assembler. Three orthogonal cores + the styled-HTML
-   layers built on them.
-
-   THE SPINE — declared once, here, first. Later wins.
-   Files are concern boundaries; layers are cascade positions.
-     reset        minimal modern reset
-     core.color   the anchor engine            → color.css
-     core.type    the type/spacing engine      → type.css
-     core.layout  shell + primitives           → layout.css
-     theme        ALL config (merged slices)
-     base         bare-element defaults        (consumes all three cores)
-     components   bare elements + classes      (consumes all three cores)
-     utility      late single-purpose overrides
-     media        the responsive gates         → layout.css
-     skin         the SHIPPED variants (.pri/.sec, pg-* paint, switches)
-     project      RESERVED — EMPTY. The author's layer. The system never
-                  writes here.
-
-   PAINTER CONTRACT (from color.css) used throughout:
-     publisher:  background-color: var(--_bg); --surf: var(--_bg); --surf-bg: var(--bg);
-     consumer:   background-color: var(--_bg); --surf: var(--_bg);   (reads --lift; never --surf-bg)
-
-   This stitch ships a REPRESENTATIVE component set proving the cores
-   compose: button (+ .pri/.sec/.btn shapes), card/surface, tag,
-   nav-item/nav-icon, form fields. The remaining old components (table,
-   blockquote, details, tabs, progress family, select, fabs, overlays,
-   badge, avatar, crumbs) port on the same recipe. Carousel: deleted.
-   ════════════════════════════════════════════════════════════════════ */
-/* (spine declared once at the top of this concatenated file) */
-
-/* NO @import — load the cores as plain <link> tags in the head:
-     <link rel="stylesheet" href="color.css">
-     <link rel="stylesheet" href="type.css">
-     <link rel="stylesheet" href="layout.css">
-     <link rel="stylesheet" href="system.css">
-   Order is irrelevant: every file opens with the identical spine.
-   For production, concat works the same way:
-     cat color.css type.css layout.css system.css > dist.css        */
 
 
 /* ════════════════════════════════════════════════════════════════════
-   reset — minimal, modern-only, deferential to the cores.
-   No font-size / line-height (type owns them). No px/rem spacing.
+   theme (type slice) — ALL type config, including everything that used
+   to hide in @property initial-values.
    ════════════════════════════════════════════════════════════════════ */
-@layer reset {
-  *, *::before, *::after { box-sizing: border-box; margin: 0; background-repeat: no-repeat; }
-  :where(html) { interpolate-size: allow-keywords; -webkit-text-size-adjust: none; text-size-adjust: none; }
-  :where(body, p, h1, h2, h3, h4, h5, h6, figure, blockquote, dl, dd, ul, ol) { margin-block: 0; }
-  :where(img, picture, svg, video, canvas) { display: block; max-inline-size: 100%; block-size: auto; }
-  :where(input, button, textarea, select) { font: inherit; letter-spacing: inherit; color: inherit; background: none; border: 0; }
-  :where(textarea) { resize: vertical; }
-  :where(fieldset) { margin: 0; padding: 0; border: 0; min-inline-size: 0; }
-  :where(legend) { padding: 0; }
-  :where(button, [role="button"], label, summary, input[type="file"]::file-selector-button, .btn) { cursor: pointer; }
-  :where(:disabled, [aria-disabled="true"]) { cursor: not-allowed; }
-  :where(a) { color: inherit; text-decoration: none; }
-  :where(ul, ol):where([role="list"]) { list-style: none; padding: 0; }
-  :where(table) { border-collapse: collapse; }
-  :where(summary) { list-style: none; }
-  :where(:focus-visible) { outline: 2px solid var(--focus); outline-offset: 2px; }
-  :where(body) { overflow-wrap: break-word; overscroll-behavior: none; }
-  :where(p, li) { text-wrap: pretty; }
-  :where(h1, h2, h3, h4, h5, h6) { text-wrap: balance; }
+@layer theme {
+  :root {
+    --scale: 1;
+
+    /* the scale shape. Default = "md": type 0 ≈ 14.5px phone / 15.5px
+       desktop — just under 16px, so editable fields lean on the
+       input-only font floor to dodge iOS focus-zoom. */
+    --cfg-type-min: 0.90625rem;
+    --cfg-type-max: 0.96875rem;
+    --cfg-ratio: 1.2;
+    --cfg-control-lead: 2.06;          /* line-box 1.5 + 2×0.28 vertical padding */
+    --cfg-fluid-min-vp: 375px;
+    --cfg-fluid-max-vp: 1280px;
+
+    /* optical weight */
+    --cfg-wght-base: 400; --cfg-wght-step: 90; --cfg-wght-max: 850;
+
+    --font-ui:      "Roboto", system-ui, sans-serif;
+    --font-mono:    "Roboto Mono", ui-monospace, monospace;
+    --font-display: "Roboto", system-ui, sans-serif;
+  }
+
+  /* ── size switch — reshapes the scale (base + ratio) ── */
+  [data-ui-size="sm"] { --cfg-type-min: 0.780rem; --cfg-type-max: 0.840rem; --cfg-ratio: 1.125; }  /* dense · Major2nd */
+  [data-ui-size="md"] { --cfg-type-min: 0.840rem; --cfg-type-max: 0.920rem; --cfg-ratio: 1.125; }  /* denser default · Major2nd */
+  [data-ui-size="lg"] { --cfg-type-min: 0.920rem; --cfg-type-max: 1.000rem; --cfg-ratio: 1.200; }  /* roomy · Minor3rd */
+  [data-ui-size="xl"] { --cfg-type-min: 1.125rem; --cfg-type-max: 1.250rem; --cfg-ratio: 1.250; }  /* marketing · Major3rd */
+
+  /* ── font switch — orthogonal to skin; consumers load the webfonts ── */
+  [data-ui-font="grotesk"]  { --font-ui:"Hanken Grotesk",system-ui,sans-serif; --font-display:"Hanken Grotesk",sans-serif; --font-mono:"Spline Sans Mono",ui-monospace,monospace; font-family:var(--font-ui); }
+  [data-ui-font="neo"]      { --font-ui:"Inter",system-ui,sans-serif; --font-display:"Inter",sans-serif; --font-mono:"JetBrains Mono",ui-monospace,monospace; font-family:var(--font-ui); }
+  [data-ui-font="serif"]    { --font-ui:"Newsreader",Georgia,serif; --font-display:"Newsreader",Georgia,serif; --font-mono:"Spline Sans Mono",ui-monospace,monospace; font-family:var(--font-ui); }
+  [data-ui-font="techno"]   { --font-ui:"Space Grotesk",system-ui,sans-serif; --font-display:"Space Grotesk",sans-serif; --font-mono:"Space Mono",ui-monospace,monospace; font-family:var(--font-ui); }
+  [data-ui-font="humanist"] { --font-ui:"IBM Plex Sans",system-ui,sans-serif; --font-display:"IBM Plex Sans",sans-serif; --font-mono:"IBM Plex Mono",ui-monospace,monospace; font-family:var(--font-ui); }
 }
 
 
@@ -1041,6 +705,23 @@
   :root:has([data-ui-motion="off"])   { --cfg-motion: 0 }
   :root:has([data-ui-motion="debug"]) { --cfg-motion: 10 }
   @media (prefers-reduced-motion: reduce) { :root, [data-ui-motion] { --cfg-motion: 0 } }
+}
+
+
+/* ════════════════════════════════════════════════════════════════════
+   base (type slice) — the element → step mapping.
+   ════════════════════════════════════════════════════════════════════ */
+@layer base {
+  /* PIN the root: the scale drives everything BELOW html; html stays a
+     fixed 16px so `rem` never shifts and cfg-type-min applies ONCE. */
+  :where(html) { font-family: var(--font-ui); font-size: 100%; }
+
+  :where(h1) { --type: 5 } :where(h2) { --type: 4 } :where(h3) { --type: 3 }
+  :where(h4) { --type: 2 } :where(h5) { --type: 1 } :where(h6) { --type: 0 }
+  :where(h6) { font-weight: 600; }   /* step 0 = body weight; nudge so it reads as a heading */
+  :where(small) { --type: -1 }
+  :where(b, strong) { font-weight: 700; }
+  :where(code, kbd, samp, pre) { font-family: var(--font-mono); }
 }
 
 
@@ -1280,9 +961,109 @@
 
 
 /* ════════════════════════════════════════════════════════════════════
+   composition — the layout primitives (was the second half of core.layout).
+   Pure geometry, zero specificity; a block placed inside one keeps its own
+   insides, because block cascades later.
+   ════════════════════════════════════════════════════════════════════ */
+@layer composition {  /* ── composition primitives — zero specificity, pure geometry.
+     Gap = 0.25lh: spacing derives from line-height (Type owns rhythm).
+     [cleanup: calc(0.25 * 1lh) → 0.25lh — identical value, less noise] */
+  /* every composition reads --gap (registered non-inheriting): rhythm is a
+     published knob, not an inline gap declaration. Unset → the default.
+
+     THE RHYTHM LADDER (gf-231, per Mike: "keep the css up to date and
+     prevent drift" — 419 inline gaps across 23 values had crept in).
+     --gap takes ONLY these steps; a usage site picks a rung, never a
+     number:
+       block rhythm (lh)  0 · 0.25lh (default) · 0.5lh (breathing) · 1lh (section)
+       inline rows  (em)  0.25em (chips, buttons) · 0.5em · 1em
+     view/ratchet_test.go counts off-ladder values per .templ; the
+     count may only go down. */
+  :where(.column) { display: flex; flex-direction: column; gap: var(--gap, 0.25lh); }
+  :where(.row)    { display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; gap: var(--gap, 0.25lh); }
+  :where(.split)  { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap, 0.25lh); }
+  :where(.spread) { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--gap, 0.25lh); }
+  :where(.spread-column) { display: flex; flex-direction: column; justify-content: space-between; gap: var(--gap, 0.25lh); }
+
+  :where(.lcr) {
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: var(--gap, 0.25lh);
+    & > :where(:first-child:not(style):not(script))      { justify-self: start  }
+    & > :where(:nth-child(2 of :not(style):not(script))) { justify-self: center }
+    & > :where(:last-child:not(style):not(script))       { justify-self: end    }
+  }
+
+  :where(.flank, .flank-start) {
+    display: flex; flex-direction: row; align-items: center; gap: var(--gap, 0.25lh);
+    & > :where(:first-child:not(style):not(script)) { flex: 0 0 auto }
+    & > :where(:last-child:not(style):not(script))  { flex: 1 1 auto; min-inline-size: 0 }
+  }
+  :where(.flank-end) {
+    display: flex; flex-direction: row; align-items: center; gap: var(--gap, 0.25lh);
+    & > :where(:first-child:not(style):not(script)) { flex: 1 1 auto; min-inline-size: 0 }
+    & > :where(:last-child:not(style):not(script))  { flex: 0 0 auto; min-inline-size: 0 }
+  }
+
+  /* .frame — a box at a ratio its one child fills; --ratio is the knob
+     (16 / 9 by default; a block's cell on the lab bench rides it, gf-608) */
+  :where(.frame) { aspect-ratio: var(--ratio, 16 / 9); overflow: hidden; & > * { inline-size: 100%; block-size: 100%; object-fit: cover } }
+  /* .block — A SELF-MANAGING CELL (EventOS gf-608, Mike 2026-10-08: "each
+     block is able to manage itself … container queries for portrait or
+     landscape"). The block is a SIZE query container with ONE child, its
+     body: a flex column in portrait, a row in landscape (wider than 3:2)
+     — the words first, the big thing beside them. A block fills the
+     cell a grid track, a .frame or a .stress hands it and never sizes
+     itself: size containment collapses it under an auto-height parent.
+     Inside it the tiers answer by its width and the gates below by its
+     orientation and height; a block queries nothing about itself, which
+     is why the body is a child. */
+  :where(.block) { display: grid; container-type: size; container-name: block shape; min-inline-size: 0; min-block-size: 0; overflow: hidden; }   /* [mike.css] + shape */
+  :where(.block) > :where(*) { display: flex; flex-direction: column; gap: var(--gap, 0.25lh); min-inline-size: 0; min-block-size: 0; }
+  @container block (aspect-ratio > 3/2) { :where(.block) > :where(*) { flex-direction: row; align-items: stretch; } }
+  :where(.grid)  { display: grid; gap: var(--gap, 0.25lh); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--grid-min, 16rem)), 1fr)); }
+  /* .grid > .row-wide — the HERO cell (feedback #67): one child takes the
+     whole row at every column count (1 / -1, never a span, so a
+     one-column phone grid never grows an implicit column). */
+  :where(.grid > .row-wide) { grid-column: 1 / -1; }
+  :where(.ngrid) { display: grid; gap: var(--gap, 0.25lh); grid-template-columns: repeat(var(--cols, 2), 1fr); grid-template-rows: repeat(var(--rows, 2), 1fr); grid-auto-rows: auto; }
+  /* ── bento — THE BIG-PAGE GRID (EventOS gf-571, Mike 2026-10-07): cells
+     of --cell fill the width and flow dense; a child spans two with
+     .span-2 or takes the row with .row-wide; under two cells' width the
+     span falls, so a phone is one column. Nothing else. ── */
+  :where(.bento) { display: grid; gap: var(--gap, 0.5lh); grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--cell, 18rem)), 1fr)); grid-auto-flow: dense; container-type: inline-size; }
+  :where(.bento) > :where(.span-2) { grid-column: span 2; }
+  :where(.bento) > :where(.row-wide) { grid-column: 1 / -1; }
+  @container (inline-size < 38rem) { :where(.bento) > :where(.span-2) { grid-column: span 1; } }
+  :where(.stack) { display: grid; grid-template-areas: "stack"; & > * { grid-area: stack } }
+  /* .rise — an EXPLICIT viewport share (2026-08-31, per Mike: explicit
+     dynamic units, never flex negotiation, no magic lengths): the block
+     takes --rise hundredths of the small viewport as a MINIMUM, so
+     content taller than its share (a phone) pushes past it and the
+     canvas scrolls — the honest degradation. One number, one meaning. */
+  :where(.rise)  { min-block-size: calc(var(--rise, 50) * 1svb); flex-shrink: 0; }
+  /* flex-shrink 0 (2026-09-01): in a flex column a .rise row could be
+     SHRUNK below its own content when the page ran long (the stacked
+     phone split painted its second card over the list) — the share is a
+     floor, and content taller than it means the canvas scrolls. */
+  :where(.track) { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(var(--track-min, 6rem), max-content); gap: var(--gap, 0.25lh); overflow-x: auto; }
+
+  :where(.hero) {
+    display: grid;
+    grid-template: "t t t" auto "l m r" 1fr "b b b" auto / auto 1fr auto;
+    height: 100%; overflow: hidden;
+    & > :where(.top)    { grid-area: t }
+    & > :where(.bottom) { grid-area: b }
+    & > :where(.left)   { grid-area: l; overflow-y: auto; min-height: 0 }
+    & > :where(.main)   { grid-area: m; overflow-y: auto; scrollbar-gutter: stable; min-height: 0 }
+    & > :where(.right)  { grid-area: r; overflow-y: auto; min-height: 0 }
+  }
+
+}
+
+
+/* ════════════════════════════════════════════════════════════════════
    components — the representative set, on the new painter.
    ════════════════════════════════════════════════════════════════════ */
-@layer components {
+@layer block {
 
   /* ── button — bare <button> is the component; .btn = same recipe on
      any element (an <a href> keeps real link semantics). Default carries
@@ -1617,283 +1398,7 @@
 }
 
 
-/* ════════════════════════════════════════════════════════════════════
-   utility — the non-core slice.
-   ════════════════════════════════════════════════════════════════════ */
-@layer utility {
-  /* an hr inside a composition is a LINE, not a spacer — the gap owns
-     the rhythm. Kills the app-wide `style="margin: 0"` hr pattern. */
-  :where(.row, .column, .spread, .spread-column, .lcr) > :where(hr) { margin-block: 0; }
-  :where(.nowrap)   { white-space: nowrap; }
-  /* .stress — the lab's resize handle (gf-175, per Mike: "give each
-     form a resize so we can stress test"). Drag the corner; the
-     specimen reflows at any width — and any height since the blocks
-     (gf-608: a block answers its height too). A LAB utility — product
-     surfaces size by composition, not by handles. */
-  :where(.stress)   { resize: both; overflow: auto; min-inline-size: 14rem; }
-  :where(.truncate) { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-inline-size: 0; }
-
-  /* .content-1 · .content-2 · .content-3 — a surface centred at a rung of
-     THE CONTENT LADDER (the tokens in theme; 2026-10-01, replacing
-     .measure + --measure, which said the word twice): the class names the
-     rung, the rule is one for all three. It fills anything narrower. The
-     dialog wears the same words — .modal reads --content with rung 2 as
-     its default, so a confirm is a .modal.content-1 and a workbench a
-     .modal.content-3; one ladder, two kinds of surface. Rosters take no
-     rung: they fill the canvas. */
-  :where(.content-1) { --content: var(--content-1); }
-  :where(.content-2) { --content: var(--content-2); }
-  :where(.content-3) { --content: var(--content-3); }
-  :where(.content-1, .content-2, .content-3) { inline-size: 100%; max-inline-size: var(--content); margin-inline: auto; }
-
-  /* (.type-flow is RETIRED, gf-68 — --type inherits natively now; the
-     class was the opt-in workaround and its utility-layer rule squashed
-     component-set steps, which the native cascade respects.) */
-  :where(.center)   { text-align: center; }
-  :where(.center) > :where(svg) { margin-inline: auto; } /* a declared-box glyph centres like the text beside it (EventOS gf-580) */
-  :where(.vh)       { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-  @media print { :where(.np) { display: none !important; } }
-  :where([data-ui-state="on"])  { border-color: var(--focus); box-shadow: inset 0 0 0 1px var(--focus); }
-  :where([data-ui-state="off"]:not(.tag)) { filter: grayscale(1) opacity(0.5); }
-  /* ("active" lives in the skin layer — a standing STATE must outrank the
-     shipped variants, and utility sits below skin in the layer order, so
-     .bare's --bg: 0 was eating the state's --bg: 1.) */
-}
-
-
-/* ════════════════════════════════════════════════════════════════════
-   skin — the shipped variants. NOT the project layer: project is the
-   author's, reserved and empty.
-   ════════════════════════════════════════════════════════════════════ */
-@layer skin {
-  /* .pri — the full-blast POSITION on the scale; label is max-contrast
-     neutral. Opts out of the semantic ink commit by setting --fg literally. */
-  .pri { --lift: initial; --bg: 1; --fg: -1; }
-
-  /* .sec — frosted glass: engine-resolved translucent fill (RCS off the
-     element's own resolved surface — no channel intermediates), a
-     hue-tinted rim derived from the HOST surface, and NO --surf publish:
-     the label must contrast what shows through, not the faint fill. */
-  .sec {
-    --lift: initial; --bg: 0.4; --fg: var(--_sem-ink, -0.9);
-    background-color: oklch(from var(--_bg) l c h / clamp(0.12, calc(0.2 + var(--state) * 0.55), 0.55));
-    -webkit-backdrop-filter: blur(0.6lh) saturate(1.5) brightness(calc(1 + var(--state) * 0.1));
-    backdrop-filter: blur(0.6lh) saturate(1.5) brightness(calc(1 + var(--state) * 0.1));
-    border: 1px solid oklch(from var(--surf)
-      calc(l + (var(--cfg-dark) * 2 - 1) * 0.14) 0.12 var(--_h)
-      / clamp(0.25, calc(0.45 + var(--state) * 0.45), 0.85));
-  }
-  /* semantic .sec (.suc/.inf/.wrn/.dgr): the GLYPH keeps the hue-locked
-     ink, the LABEL returns to neutral (Mike, 2026-08-31 — hue on both
-     reads loud; neutral text is the premium read). The span re-runs the
-     resolver at -0.9, which walks the NEUTRAL pole regardless of the
-     inherited hue-lock; a no-op on non-semantic .sec (same -0.9). */
-  .sec:not(:disabled, [aria-disabled="true"]) > :where(span) { --fg: -0.9; }
-  /* a PRESSED .sec is solid (feedback #143): the skin's translucent fill
-     was out-cascading the button-group's pressed rule, so a held toggle
-     read the same as its neighbours */
-  .sec[aria-pressed="true"] { --bg: 1; --fg: var(--_sem-ink, -1); background-color: var(--_bg); --surf: var(--_bg); --surf-bg: var(--bg); }
-  /* disabled rolls the label back WITH the glyph (2026-09-01, per Mike:
-     the neutral-label rule was overriding the drained ink) — with no
-     span-level --fg the button's disabled -0.3 inherits into both. */
-
-  /* .bare — the chrome-less verb: no border, transparent at rest (the glyph
-     IS the control); hover still lifts. Back-chevrons, inline dismissals. */
-  .bare:where(button, .btn) { border: 0; --bg: 0; }
-
-  /* "active" — full-blast standing state (gf-71): the .pri position as a
-     STATE rather than a voice; lens toggles wear it (gf-79). A state must
-     beat any variant, .bare included, so it sits AFTER them at matching
-     specificity — no :where. For semantic cases prefer the ARIA the shell
-     already speaks: aria-current="page" (nav items), aria-pressed
-     (toggles), aria-selected (tabs). */
-  [data-ui-state="active"] { --lift: initial; --bg: 1; --fg: -1; }
-
-  /* disabled keeps drained ink over the component reads and .pri/.sec literals */
-  button:disabled, button[aria-disabled="true"], .btn[aria-disabled="true"] { --fg: -0.3; }
-
-  /* the shipped region paint — ALL pg-* defaults in ONE home now
-     (pg-main-header's stray padding moved here from the grid) */
-  .pg-banner      { --bg:  0.4; padding: 0.25lh; }
-  .pg-header      { --bg: -0.8; padding: 0.25lh; }
-  .pg-subheader   { --bg: -0.8; padding: 0.15lh 1em; }
-  .pg-navigation  { --bg: -0.8; padding: 0.25lh; border-inline-end: 1px solid var(--border); }
-  /* The toolbar is TERTIARY NAVIGATION FOR THE CONTENT BESIDE IT, so it shares
-     that content's surface rather than sitting on its own panel. Given its own
-     background it reads as a third region competing with the nav drawer, and the
-     relationship to the tabs above becomes guesswork. Same --bg as pg-main, one
-     hairline to separate them, and the two read as one card. */
-  .pg-toolbar     { --bg: -0.3; padding: 0.25lh; border-inline-end: 1px solid var(--border); }
-  /* the header's divider is a HAIRLINE (feedback #149, 2026-09-24: back
-     at half a pixel once the home lost its search bar; rev 10 had dropped
-     the 1px line). Drawn ONCE: when the header carries the tabs-underline,
-     that underline IS the divider. */
-  .pg-main-header { --bg: -0.3; padding: 0.25lh; border-block-end: 0.5px solid var(--border); }
-  .pg-main-header:has(> .tabs-underline) { border-block-end: 0; }
-  /* the bottom padding stands down ONLY when the tabs are the header's last
-     element (feedback #75, gf-331): the underline needs to sit on the divider
-     line; any other header keeps its default margin below. */
-  .pg-main-header:has(> .tabs-underline:last-child) { padding-block-end: 0; }
-  /* the subheader takes over the divider when present; when IT carries
-     the tabs, the underline is the divider */
-  .pg-main-header:has(+ .pg-main-subheader) { border-block-end: 0; }
-  .pg-main-subheader { --bg: -0.3; padding: 0 0.25lh; border-block-end: 1px solid var(--border); }
-  .pg-main-subheader:has(> .tabs-underline) { border-block-end: 0; }
-  .pg-main-aside     { --bg: -0.6; padding: 0.25lh; border-inline-start: 1px solid var(--border); }
-  /* TITLE ROW HEIGHT IS CONSTANT. Without this the row collapses to the title's
-     line box when a screen carries no verbs and no filters, and grows to a
-     control's height when it does — so moving between two tabs of the SAME
-     section shifted the title and the tabs by ~2px. The row now always reserves
-     one control height (the rack convention is --type: -1, which is what
-     --_control-h resolves to here), whether or not anything is in it. */
-  .pg-main-header > .spread {
-    /* the verb rack's scale (the convention is --type: -1 on header
-       controls). Since gf-68 the step INHERITS, so the rack's buttons
-       pick it up for free; the title is untouched because headings set
-       their own step. Reserve the height and the row stops moving. */
-    --type: -1;
-    min-block-size: var(--_control-h);
-  }
-  .pg-main        { --bg: -0.3; padding-inline: 0.25lh; }
-  /* the dock (gf-407 rev 5): a lh of side room, and the safe-area insets
-     where the page runs to the phone's rounded corners in app mode
-     (viewport-fit=cover) — the home's account and bell must not sit in
-     the corner radius */
-  .pg-main-footer { --bg: -0.3; padding: 0.25lh max(1lh, env(safe-area-inset-right)) max(0.25lh, env(safe-area-inset-bottom)) max(1lh, env(safe-area-inset-left)); }
-  /* the version tag LIVES IN THE UNSAFE AREA (gf-407 rev 10, Mike: "the
-     perfect thing to go in the unsafe area"): a footer that ends in the
-     tag drops the inset padding and the tag's box is the inset itself */
-  .pg-main-footer:has(> .nav-version:last-child) { padding-block-end: 0.25lh; display: flex; flex-direction: column; gap: 0.25lh; }
-  .pg-main-footer > .nav-version {
-    display: flex; align-items: center; justify-content: center;
-    min-block-size: env(safe-area-inset-bottom, 0px); --type: -3; --fg: -0.55;
-  }
-  .pg-aside       { --bg: -0.6; padding: 0.25lh; }  /* recessed: quieter than pg-main (-0.3) */
-  .pg-footer      { --bg:  0.03; padding: 0.25lh; }
-
-  /* ── the canvas, as PAINT — no spanning element ──────────────────────────
-     The toolbar is tertiary navigation FOR the content beside it, so the two
-     must read as one rounded card. That used to be a real element (.pg-canvas)
-     spanning both areas, with the regions riding transparently on top — which
-     inverted the painter contract and restated the inset three times.
-
-     MEASURED (2026-08): two abutting regions painting the SAME tone show no
-     seam — .page has no grid gap, so the split-corner composition is
-     pixel-identical to the spanning element. The card is therefore now pure
-     conditional paint: every canvas region defaults to the full rounded
-     inset, and each ADJACENCY zeroes the shared edge. The grid state is the
-     conditional; :has() reads it. Add or remove a region and the corners
-     re-solve — nothing to opt out of, nothing empty to detect.
-
-     A screen opts in by putting .canvas on the regions themselves (each
-     region builds its own part of the page): pg-toolbar, pg-main, and —
-     should a screen ever use it — pg-main-footer. */
-  .page:has(> .canvas) {
-    /* THE TONE STACK, and why this value. Three tiers have to stay legible:
-       chrome (nav -0.8, page/header -0.5) < canvas < a .card ON the canvas
-       (--bg: 0). Push the canvas to -0.06 and it collides with the cards
-       sitting on it; leave it at pg-main's old -0.3 and it barely separates
-       from the page. -0.2 keeps roughly even air on both sides. */
-    --canvas: -0.2;      /* the pair's shared tone — set once, read everywhere */
-    /* 0.25lh is THE spacing unit in this system: the gap of .column/.row/
-       .spread and the padding of every pg-* region. The canvas gets the same
-       one. A bespoke value here is how a composed surface drifts out of step
-       with the compositions sitting inside it. */
-    --canvas-gap: 0.25lh;
-
-    /* chrome recedes to the page's own tone so the canvas is the only lit
-       surface: the content is a thing ON the page, not another region OF it.
-       The crumb bar is NOT in this list — it belongs to the app chrome above
-       it and keeps pg-header's and pg-navigation's own -0.8, so the top strip
-       reads as one band rather than three tones stacked. */
-    & > .pg-main-header { --bg: -0.5; }
-  }
-
-  /* every canvas region paints the shared tone itself (the normal painter
-     contract) and defaults to the FULL rounded inset — a lone pg-main.canvas
-     is the whole card, four corners, no other rule needed. */
-  .page > .canvas {
-    --bg: var(--canvas);
-    border-radius: var(--cfg-radius);
-    margin: var(--canvas-gap);
-  }
-
-  /* ADJACENCIES — each zeroes the edge it shares, in logical properties.
-     toolbar | main(+footer): the vertical seam */
-  .page > .pg-toolbar.canvas {
-    border-start-end-radius: 0; border-end-end-radius: 0;
-    margin-inline-end: 0;
-  }
-  .page:has(> .pg-toolbar.canvas) > :is(.pg-main.canvas, .pg-main-footer.canvas) {
-    border-start-start-radius: 0; border-end-start-radius: 0;
-    margin-inline-start: 0;
-  }
-  /* main over footer: the horizontal seam */
-  .page:has(> .pg-main-footer.canvas) > .pg-main.canvas {
-    border-end-start-radius: 0; border-end-end-radius: 0;
-    margin-block-end: 0;
-  }
-  .page > .pg-main-footer.canvas {
-    border-start-start-radius: 0; border-start-end-radius: 0;
-    margin-block-start: 0;
-  }
-
-  /* (The old NO-BLOCK-PADDING-ON-pg-main doctrine is RETIRED, gf-39: it
-     protected a sticky table head inside a region-level scroller, and
-     pg-main no longer scrolls — components own their scrolling, sticky
-     heads stick inside their own .scroll-y, and pg-main wears the
-     system's uniform 0.25lh padding like every other composition.) */
-
-  /* Card-in-a-card is the defect this invites, and a bare table is where it
-     shows: the table recipe is itself a card. Directly on the canvas it
-     drops the frame and adopts the canvas tone. Scoped to a DIRECT child so
-     a table inside a real .card section keeps its own frame. */
-  .page > .pg-main.canvas > table {
-    --bg: var(--canvas); border: 0; border-radius: 0; background-color: transparent;
-
-    /* THE STICKY HEAD MUST BE TOLD THE TONE. --bg is registered
-       inherits: false — "a surface's position must not leak to children" —
-       so the head does NOT pick up the canvas value set on the table above.
-       Left alone it falls to the initial 0 and paints the brightest tone in
-       the system, which is why it read as a pale band floating over the
-       list. It keeps a paint (it has to occlude the rows passing under it);
-       it simply paints the surface it is sitting on. */
-    & :where(thead th) { --bg: var(--canvas); }
-  }
-
-  /* skins — now just anchor re-picks per bank */
-  [data-ui-skin="carbon"] {
-    --lt-neg: oklch(89% 0 0); --lt-zero: oklch(99.5% 0 0); --lt-pos: oklch(55.7% 0.243 0); --lt-flip: 0.60;
-    --dk-neg: oklch(11% 0 0); --dk-zero: oklch(20% 0 0);   --dk-pos: oklch(64.7% 0.189 0); --dk-flip: 0.85;
-    --cfg-radius: 0px;
-  }
-  [data-ui-skin="material"] {
-    --lt-neg: oklch(87% 0.022 0); --lt-zero: oklch(98.4% 0.013 0); --lt-pos: oklch(49.6% 0.130 0); --lt-flip: 0.62;
-    --dk-neg: oklch(9% 0.015 0);  --dk-zero: oklch(18.7% 0.012 0); --dk-pos: oklch(83.5% 0.095 0); --dk-flip: 0.70;
-    --cfg-radius: 16px;
-  }
-  /* AN EXPLICIT CORNERS CHOICE OUTRANKS A SKIN'S DEFAULT (2026-09-29): the
-     theme layer's [data-ui-radius] steps restated here, after the skins, so
-     colour (the skin, the hue) and shape (the corners) are separate choices
-     a person makes apart — a skin only proposes a radius. */
-  [data-ui-radius="0"] { --cfg-radius: 0px; }
-  [data-ui-radius="1"] { --cfg-radius: 6px; }
-  [data-ui-radius="2"] { --cfg-radius: 12px; }
-  [data-ui-radius="3"] { --cfg-radius: 22px; }
-}
-
-
-/* ════════════════════════════════════════════════════════════════════
-   components (continued) — the FULL port. Every painter converted to the
-   two-channel contract; every rogue colour formula rebuilt on the
-   anchors. Audit trail per component in component-check.html.
-   ════════════════════════════════════════════════════════════════════ */
-
-/* --row-width: registered because non-inheritance is load-bearing —
-   a field's row share must never leak to siblings/children. */
-@property --row-width { syntax: "<number>"; inherits: false; initial-value: 1 }
-
-@layer components {
+@layer block {
 
   /* ── badge — corner count/dot; the parent anchors it automatically ── */
   :where(.badge) {
@@ -3083,84 +2588,6 @@
   :where(.roster) :where(table) { --bg: -0.2; --surf: var(--_bg); --surf-bg: var(--bg); inline-size: 100%; min-inline-size: 100%; }
 }
 
-@layer utility {
-  /* FRAME-IN-FRAME, table edition (moved from components, gf-24 — it
-     lived there as a DEAD rule: the table recipe sits later in that
-     layer and out-ordered it at zero specificity, which is exactly the
-     "weird borders" a card-hosted table showed): the card owns the
-     frame; a table inside one keeps only its two vibrant rules. */
-  :where(.card) :where(table) {
-    border: 0; border-radius: 0; background: none;
-  }
-
-  /* ── data-ui-state, generalized past tags (gf-25, per Mike) ──────────
-     The on-ring recipe (border + inset focus ring) needs a BOX; a bare
-     icon holder — a span whose whole content is one svg — can't wear it.
-     "on" commits full-chroma ink instead (the engine's own emphasis
-     grammar); "off" keeps the standard grayscale quiet from above. */
-  :where(span[data-ui-state="on"]:has(> svg:only-child)) {
-    border: 0; box-shadow: none; --fg: 1;
-  }
-
-  /* .menu plumbing — must out-rank the button paint in components.
-     ⚠ display/align/padding are set HERE, not assumed: a bare <a> row has no
-     button recipe behind it, and without flex its icon and label stack. */
-  :where(.menu):not(:popover-open) { pointer-events: none; }
-  :where(.menu) > :where(button, a) {
-    display: flex; align-items: center;
-    /* a menu row is a ROW whatever its anatomy (gf-191): svg + small
-       inside would otherwise match the DOCK recipe above (icon-over-
-       caption, fixed box) — this later declaration reclaims it. */
-    flex-direction: row; inline-size: auto; block-size: auto;
-    justify-content: flex-start; gap: 0.5em;
-    min-block-size: 1.7lh; padding: 0 0.8em;
-    border: 0; --lift: initial; --bg: initial; background: transparent; box-shadow: none;
-    text-decoration: none; --fg: var(--_sem-ink, -0.85); font-weight: 500;
-    border-radius: max(0px, calc(var(--cfg-radius) - 3px));
-  }
-  :where(.menu) > :where(button, a) > :where(svg) { inline-size: 1.15em; block-size: 1.15em; flex: 0 0 auto; }
-  :where(.menu) > :where(button, a):hover { --bg: 0.16; background-color: var(--_bg); }
-  /* current/selected row — same grammar as .nav-item: state rides ARIA,
-     and aria-selected joins it (gf-191, per Mike: the correct key for a
-     listbox's chosen row — generalized here like .tabs already does).
-     Transient client highlights wear the global .active utility instead. */
-  :where(.menu) > :where(button, a):where([aria-current="page"], [aria-pressed="true"], [aria-selected="true"]) {
-    --bg: 0.3; background-color: var(--_bg); --fg: var(--_sem-ink, -1); font-weight: 600;
-  }
-  /* match highlight in menu rows (gf-191, per Mike: "subtle professional
-     — just --fg: 1"): the matched substring in chromatic ink, nothing
-     else — no background, no bold, no hue shift (the palette's louder
-     mark stays its own). */
-  /* NO color property here: the core pipeline computes ink from --fg —
-     an explicit color would override it (the palette's mark knows). */
-  :where(.menu) :where(mark) { background: transparent; --fg: 1; }
-
-  /* ── group-pick rows (gf-385): a menu row that is a DIV holding two
-     buttons — the pick (grows, reads as the row) and the delete glyph
-     at the end. Same height, hover and selected paint as a button row;
-     the row's own buttons drop the button recipe. A disabled delete
-     (the group is in use) stays visible, dimmed. ── */
-  :where(.menu) > :where(div[role="option"]) {
-    display: flex; align-items: center; gap: 0.25em;
-    min-block-size: 1.7lh; padding-inline: 0.8em 0.3em;
-    border-radius: max(0px, calc(var(--cfg-radius) - 3px));
-    & > :where(button) { border: 0; --lift: initial; --bg: initial; background: transparent; box-shadow: none; min-block-size: 0; padding: 0; }
-    & > :where([data-gp-pick]) { flex: 1 1 auto; display: flex; align-items: center; justify-content: flex-start; gap: 0.5em; text-align: start; --fg: var(--_sem-ink, -0.85); font-weight: 500; }
-    & > :where([data-gp-pick]) > :where(svg) { inline-size: 1.15em; block-size: 1.15em; flex: 0 0 auto; }
-    & > :where([data-gp-edit], [data-gp-del], [data-gp-save]) { --fg: -0.5; }
-    & > :where([data-gp-del]):disabled { --fg: -0.25; }
-    /* edit mode (rev 2): the row's own name input, in flow where the
-       name was; the save check beside it. The rocket toggles hidden. */
-    & > :where([data-gp-rename]) { flex: 1 1 auto; min-inline-size: 0; inline-size: auto; min-block-size: 0; padding-block: 0.1em; margin-block: 0.15lh; }
-    &[data-ui-state="editing"] > :where([data-gp-pick], [data-gp-edit], [data-gp-del]) { display: none; }
-    & > :where([hidden]) { display: none; }
-    &:hover, &:where(.active, [aria-selected="true"]) { --bg: 0.16; background-color: var(--_bg); }
-    &:where(.active, [aria-selected="true"]) > :where([data-gp-pick]) { --fg: var(--_sem-ink, -1); font-weight: 600; }
-    &[hidden] { display: none; } /* the rocket filters by the hidden attribute; a declared display must not out-rank it */
-  }
-  :where(.menu) > :where([data-gp-empty]) { display: block; padding: 0.3lh 0.8em; }
-  :where(.menu) > :where([data-gp-empty])[hidden] { display: none; }
-}
 
 /* ════════════════════════════════════════════════════════════════════
    PRODUCT COMPONENTS — graduated from the retired @layer project
@@ -3171,7 +2598,7 @@
    specificity tie these still win, exactly as their project-layer
    selves did. App rules that must beat a SKIN paint belong in skin.
    ════════════════════════════════════════════════════════════════════ */
-@layer components {
+@layer block {
 	.org-mark svg { block-size: var(--mark-h, 1.4lh); inline-size: auto; display: block; }
 
 	/* THE BUSY DIALOG (gf-390 rev 3): while a dialog's work runs on the
@@ -3379,7 +2806,8 @@
 	.drawer-grow[open] { display: flex; flex-direction: column; } /* the UA keeps the closed dialog display: none */
 }
 
-@layer components {
+
+@layer block {
   /* the dormant home-map SVG unit (from components.templ, 2026-09-01) */
   /* layered 2026-08-31 (Mike's unlayered-css sweep): project is the
      LAST layer, so these keep beating every engine rule exactly as
@@ -3437,6 +2865,463 @@
 	
 }
 
+
+/* ════════════════════════════════════════════════════════════════════
+   utility — the colour-owned utilities (late so a call-site helper
+   beats a component's own hue/ink).
+   ════════════════════════════════════════════════════════════════════ */
+@layer utility {
+  /* .active — THE transient-highlight utility (gf-191, per Mike): the
+     standard active-row paint for CLIENT-owned, momentary emphasis (a
+     combobox's keyboard row, a rocket's "this one"). Global on purpose —
+     utilities are the layer for exactly this. Not for real current-ness:
+     aria-current keeps pages/steps, aria-pressed keeps toggles. */
+  :where(.active) {
+    --bg: 0.3; background-color: var(--_bg); --fg: var(--_sem-ink, -1); font-weight: 600;
+  }
+
+  /* semantic hue helpers — lock hue + flag components to commit ink */
+  :where(.suc) { --hue-lock: var(--hue-suc); --_sem-ink: 1 }
+  :where(.inf) { --hue-lock: var(--hue-inf); --_sem-ink: 1 }
+  :where(.wrn) { --hue-lock: var(--hue-wrn); --_sem-ink: 1 }
+  :where(.dgr) { --hue-lock: var(--hue-dgr); --_sem-ink: 1 }
+
+	/* Kind identity: events and activations are the same base hue, offset
+	   ±30 so they read as related-but-distinct everywhere. The engine does
+	   the rest; semantic --hue-lock pills (status) still override. */
+	.is-event { --hue-shift: -30; }
+	.is-activation { --hue-shift: 30; }
+
+  /* black & white — the one mono mechanism */
+  :where(.bw) { --chroma: 0; }
+
+  /* frosted surface — the engine's own resolved surface, translucent,
+     over a backdrop blur. Publishes like .bg. Knobs: --glass-alpha
+     (0.65 — a dialog over its dimmed backdrop) · --glass-blur (0.5lh).
+     Needs content BEHIND it to read as glass. TWO RULES (EventOS
+     2026-10-05, toasts over a map unreadable): an overlay that must read
+     over ANYTHING — a hud card — raises --glass-alpha (0.88; a toast wears
+     0.75 and shows a little of what is behind it); and quiet is INK (--fg), never opacity on the card —
+     opacity multiplies into the glass and the words go with it. */
+  :where(.glass) {
+    /* alpha via color-mix-with-transparent: PLAIN substitution of --_bg,
+       the one consumption pattern the engine promises (RCS re-parsing of
+       the unregistered intermediate is not promised and was the failure). */
+    background-color: color-mix(in oklch,
+      var(--_bg) calc(var(--glass-alpha, 0.65) * 100%), transparent);
+    -webkit-backdrop-filter: blur(var(--glass-blur, 0.5lh));
+    backdrop-filter: blur(var(--glass-blur, 0.5lh));
+    --surf: var(--_bg); --surf-bg: var(--bg);
+  }
+}
+
+
+/* ════════════════════════════════════════════════════════════════════
+   utility (geometry slice) — pure-geometry utilities owned by layout.
+   [cleanup: the duplicate .scroll-x rule in the old file is deduped]
+   ════════════════════════════════════════════════════════════════════ */
+@layer utility {
+  /* .oneline — a row that must not wrap (header clusters, icon pairs).
+     Composition class: replaces inline flex-wrap styles. */
+  :where(.oneline) { flex-wrap: nowrap; }
+
+  /* .start — a composition whose items align to the block start (an icon
+     beside multi-line text). Replaces inline align-items. */
+  :where(.start) { align-items: start; }
+
+  /* hud slots — promoted past components so .cr etc. override a
+     component's own place-self (the fab default is end/end). */
+  :where(.hud) > :where(.tl) { place-self: start start   }
+  :where(.hud) > :where(.tc) { place-self: start center  }
+  :where(.hud) > :where(.tr) { place-self: start end     }
+  :where(.hud) > :where(.cl) { place-self: center start  }
+  :where(.hud) > :where(.cc) { place-self: center center }
+  :where(.hud) > :where(.cr) { place-self: center end    }
+  :where(.hud) > :where(.bl) { place-self: end start     }
+  :where(.hud) > :where(.bc) { place-self: end center    }
+  :where(.hud) > :where(.br) { place-self: end end       }
+  /* a corner slot used as a STACK of hud triggers: breathing room from the
+     viewport edge, tight rhythm between members, members hug the corner. */
+  :where(.hud) > :where(.tl, .tr, .bl, .br) { padding: 1lh; gap: var(--gap, 0.5lh); }
+  /* THE TOAST PILE'S CLEARANCE (gf-409, 2026-09-24): above the fab
+     cluster where a phone hud is on, above the dock where a main footer
+     is — HERE, in the slot's own layer: the components-layer copy had
+     lost to this padding for as long as it existed */
+  :where(.page:has(> .hud.mobile)) ~ :where(.hud) > :where(.br.toasts) { padding-block-end: 4lh; }
+  :where(.page:has(> .pg-main-footer)) ~ :where(.hud) > :where(.br.toasts) { padding-block-end: 9lh; }
+  :where(.hud) > :where(.tr, .br):where(.column) { align-items: flex-end; }
+  :where(.hud) > :where(.tl, .bl):where(.column) { align-items: flex-start; }
+
+  :where(.fill) { inline-size: 100%; }
+  /* .grow — the block-axis complement to .fill: take the leftover space
+     in a flex chain AND stay shrinkable (min-block-size: 0 defeats the
+     auto-min). Chain it from a region's child down to a .scroll-y and
+     the INNER surface becomes the scroller instead of the region. */
+  :where(.grow) { flex: 1 1 auto; min-block-size: 0; }
+  /* a growing box with an aspect (mini-map) takes the share its column
+     has left, not its aspect: beside a sibling card that sets the row,
+     it absorbs the difference (EventOS local feedback #28); 3lh keeps
+     it legible when there is no share */
+  :where(mini-map.grow) { aspect-ratio: auto; flex-basis: 0; min-block-size: 3lh; }
+  /* .container — the generic self-measuring wrapper: content inside it
+     gates on ITS width (cards in a grid, widgets in a flank). */
+  :where(.container) { container-type: inline-size; }
+  /* scroll viewports — the axis scrolls; pair with a constrained size (a
+     flex/grid track, a max-block-size, etc.) since something must bound the
+     box for it to scroll. min-*-size:0 defeats the flex/grid auto-min so it
+     can shrink-and-scroll inside a parent; overscroll-behavior:contain stops
+     scroll-chaining to the page. */
+  :where(.scroll-x) { overflow-x: auto; overscroll-behavior: contain; min-inline-size: 0; }
+  :where(.scroll-y) { overflow-y: auto; overscroll-behavior: contain; min-block-size: 0; scrollbar-gutter: stable; }
+}
+
+
+/* ════════════════════════════════════════════════════════════════════
+   utility — the non-core slice.
+   ════════════════════════════════════════════════════════════════════ */
+@layer utility {
+  /* an hr inside a composition is a LINE, not a spacer — the gap owns
+     the rhythm. Kills the app-wide `style="margin: 0"` hr pattern. */
+  :where(.row, .column, .spread, .spread-column, .lcr) > :where(hr) { margin-block: 0; }
+  :where(.nowrap)   { white-space: nowrap; }
+  /* .stress — the lab's resize handle (gf-175, per Mike: "give each
+     form a resize so we can stress test"). Drag the corner; the
+     specimen reflows at any width — and any height since the blocks
+     (gf-608: a block answers its height too). A LAB utility — product
+     surfaces size by composition, not by handles. */
+  :where(.stress)   { resize: both; overflow: auto; min-inline-size: 14rem; }
+  :where(.truncate) { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-inline-size: 0; }
+
+  /* .content-1 · .content-2 · .content-3 — a surface centred at a rung of
+     THE CONTENT LADDER (the tokens in theme; 2026-10-01, replacing
+     .measure + --measure, which said the word twice): the class names the
+     rung, the rule is one for all three. It fills anything narrower. The
+     dialog wears the same words — .modal reads --content with rung 2 as
+     its default, so a confirm is a .modal.content-1 and a workbench a
+     .modal.content-3; one ladder, two kinds of surface. Rosters take no
+     rung: they fill the canvas. */
+  :where(.content-1) { --content: var(--content-1); }
+  :where(.content-2) { --content: var(--content-2); }
+  :where(.content-3) { --content: var(--content-3); }
+  :where(.content-1, .content-2, .content-3) { inline-size: 100%; max-inline-size: var(--content); margin-inline: auto; }
+
+  /* (.type-flow is RETIRED, gf-68 — --type inherits natively now; the
+     class was the opt-in workaround and its utility-layer rule squashed
+     component-set steps, which the native cascade respects.) */
+  :where(.center)   { text-align: center; }
+  :where(.center) > :where(svg) { margin-inline: auto; } /* a declared-box glyph centres like the text beside it (EventOS gf-580) */
+  :where(.vh)       { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  @media print { :where(.np) { display: none !important; } }
+  :where([data-ui-state="on"])  { border-color: var(--focus); box-shadow: inset 0 0 0 1px var(--focus); }
+  :where([data-ui-state="off"]:not(.tag)) { filter: grayscale(1) opacity(0.5); }
+  /* ("active" lives in the skin layer — a standing STATE must outrank the
+     shipped variants, and utility sits below skin in the layer order, so
+     .bare's --bg: 0 was eating the state's --bg: 1.) */
+}
+
+
+@layer utility {
+  /* FRAME-IN-FRAME, table edition (moved from components, gf-24 — it
+     lived there as a DEAD rule: the table recipe sits later in that
+     layer and out-ordered it at zero specificity, which is exactly the
+     "weird borders" a card-hosted table showed): the card owns the
+     frame; a table inside one keeps only its two vibrant rules. */
+  :where(.card) :where(table) {
+    border: 0; border-radius: 0; background: none;
+  }
+
+  /* ── data-ui-state, generalized past tags (gf-25, per Mike) ──────────
+     The on-ring recipe (border + inset focus ring) needs a BOX; a bare
+     icon holder — a span whose whole content is one svg — can't wear it.
+     "on" commits full-chroma ink instead (the engine's own emphasis
+     grammar); "off" keeps the standard grayscale quiet from above. */
+  :where(span[data-ui-state="on"]:has(> svg:only-child)) {
+    border: 0; box-shadow: none; --fg: 1;
+  }
+
+  /* .menu plumbing — must out-rank the button paint in components.
+     ⚠ display/align/padding are set HERE, not assumed: a bare <a> row has no
+     button recipe behind it, and without flex its icon and label stack. */
+  :where(.menu):not(:popover-open) { pointer-events: none; }
+  :where(.menu) > :where(button, a) {
+    display: flex; align-items: center;
+    /* a menu row is a ROW whatever its anatomy (gf-191): svg + small
+       inside would otherwise match the DOCK recipe above (icon-over-
+       caption, fixed box) — this later declaration reclaims it. */
+    flex-direction: row; inline-size: auto; block-size: auto;
+    justify-content: flex-start; gap: 0.5em;
+    min-block-size: 1.7lh; padding: 0 0.8em;
+    border: 0; --lift: initial; --bg: initial; background: transparent; box-shadow: none;
+    text-decoration: none; --fg: var(--_sem-ink, -0.85); font-weight: 500;
+    border-radius: max(0px, calc(var(--cfg-radius) - 3px));
+  }
+  :where(.menu) > :where(button, a) > :where(svg) { inline-size: 1.15em; block-size: 1.15em; flex: 0 0 auto; }
+  :where(.menu) > :where(button, a):hover { --bg: 0.16; background-color: var(--_bg); }
+  /* current/selected row — same grammar as .nav-item: state rides ARIA,
+     and aria-selected joins it (gf-191, per Mike: the correct key for a
+     listbox's chosen row — generalized here like .tabs already does).
+     Transient client highlights wear the global .active utility instead. */
+  :where(.menu) > :where(button, a):where([aria-current="page"], [aria-pressed="true"], [aria-selected="true"]) {
+    --bg: 0.3; background-color: var(--_bg); --fg: var(--_sem-ink, -1); font-weight: 600;
+  }
+  /* match highlight in menu rows (gf-191, per Mike: "subtle professional
+     — just --fg: 1"): the matched substring in chromatic ink, nothing
+     else — no background, no bold, no hue shift (the palette's louder
+     mark stays its own). */
+  /* NO color property here: the core pipeline computes ink from --fg —
+     an explicit color would override it (the palette's mark knows). */
+  :where(.menu) :where(mark) { background: transparent; --fg: 1; }
+
+  /* ── group-pick rows (gf-385): a menu row that is a DIV holding two
+     buttons — the pick (grows, reads as the row) and the delete glyph
+     at the end. Same height, hover and selected paint as a button row;
+     the row's own buttons drop the button recipe. A disabled delete
+     (the group is in use) stays visible, dimmed. ── */
+  :where(.menu) > :where(div[role="option"]) {
+    display: flex; align-items: center; gap: 0.25em;
+    min-block-size: 1.7lh; padding-inline: 0.8em 0.3em;
+    border-radius: max(0px, calc(var(--cfg-radius) - 3px));
+    & > :where(button) { border: 0; --lift: initial; --bg: initial; background: transparent; box-shadow: none; min-block-size: 0; padding: 0; }
+    & > :where([data-gp-pick]) { flex: 1 1 auto; display: flex; align-items: center; justify-content: flex-start; gap: 0.5em; text-align: start; --fg: var(--_sem-ink, -0.85); font-weight: 500; }
+    & > :where([data-gp-pick]) > :where(svg) { inline-size: 1.15em; block-size: 1.15em; flex: 0 0 auto; }
+    & > :where([data-gp-edit], [data-gp-del], [data-gp-save]) { --fg: -0.5; }
+    & > :where([data-gp-del]):disabled { --fg: -0.25; }
+    /* edit mode (rev 2): the row's own name input, in flow where the
+       name was; the save check beside it. The rocket toggles hidden. */
+    & > :where([data-gp-rename]) { flex: 1 1 auto; min-inline-size: 0; inline-size: auto; min-block-size: 0; padding-block: 0.1em; margin-block: 0.15lh; }
+    &[data-ui-state="editing"] > :where([data-gp-pick], [data-gp-edit], [data-gp-del]) { display: none; }
+    & > :where([hidden]) { display: none; }
+    &:hover, &:where(.active, [aria-selected="true"]) { --bg: 0.16; background-color: var(--_bg); }
+    &:where(.active, [aria-selected="true"]) > :where([data-gp-pick]) { --fg: var(--_sem-ink, -1); font-weight: 600; }
+    &[hidden] { display: none; } /* the rocket filters by the hidden attribute; a declared display must not out-rank it */
+  }
+  :where(.menu) > :where([data-gp-empty]) { display: block; padding: 0.3lh 0.8em; }
+  :where(.menu) > :where([data-gp-empty])[hidden] { display: none; }
+}
+
+
+/* ════════════════════════════════════════════════════════════════════
+   skin — the shipped variants. NOT the project layer: project is the
+   author's, reserved and empty.
+   ════════════════════════════════════════════════════════════════════ */
+@layer exception {
+  /* .pri — the full-blast POSITION on the scale; label is max-contrast
+     neutral. Opts out of the semantic ink commit by setting --fg literally. */
+  .pri { --lift: initial; --bg: 1; --fg: -1; }
+
+  /* .sec — frosted glass: engine-resolved translucent fill (RCS off the
+     element's own resolved surface — no channel intermediates), a
+     hue-tinted rim derived from the HOST surface, and NO --surf publish:
+     the label must contrast what shows through, not the faint fill. */
+  .sec {
+    --lift: initial; --bg: 0.4; --fg: var(--_sem-ink, -0.9);
+    background-color: oklch(from var(--_bg) l c h / clamp(0.12, calc(0.2 + var(--state) * 0.55), 0.55));
+    -webkit-backdrop-filter: blur(0.6lh) saturate(1.5) brightness(calc(1 + var(--state) * 0.1));
+    backdrop-filter: blur(0.6lh) saturate(1.5) brightness(calc(1 + var(--state) * 0.1));
+    border: 1px solid oklch(from var(--surf)
+      calc(l + (var(--cfg-dark) * 2 - 1) * 0.14) 0.12 var(--_h)
+      / clamp(0.25, calc(0.45 + var(--state) * 0.45), 0.85));
+  }
+  /* semantic .sec (.suc/.inf/.wrn/.dgr): the GLYPH keeps the hue-locked
+     ink, the LABEL returns to neutral (Mike, 2026-08-31 — hue on both
+     reads loud; neutral text is the premium read). The span re-runs the
+     resolver at -0.9, which walks the NEUTRAL pole regardless of the
+     inherited hue-lock; a no-op on non-semantic .sec (same -0.9). */
+  .sec:not(:disabled, [aria-disabled="true"]) > :where(span) { --fg: -0.9; }
+  /* a PRESSED .sec is solid (feedback #143): the skin's translucent fill
+     was out-cascading the button-group's pressed rule, so a held toggle
+     read the same as its neighbours */
+  .sec[aria-pressed="true"] { --bg: 1; --fg: var(--_sem-ink, -1); background-color: var(--_bg); --surf: var(--_bg); --surf-bg: var(--bg); }
+  /* disabled rolls the label back WITH the glyph (2026-09-01, per Mike:
+     the neutral-label rule was overriding the drained ink) — with no
+     span-level --fg the button's disabled -0.3 inherits into both. */
+
+  /* .bare — the chrome-less verb: no border, transparent at rest (the glyph
+     IS the control); hover still lifts. Back-chevrons, inline dismissals. */
+  .bare:where(button, .btn) { border: 0; --bg: 0; }
+
+  /* "active" — full-blast standing state (gf-71): the .pri position as a
+     STATE rather than a voice; lens toggles wear it (gf-79). A state must
+     beat any variant, .bare included, so it sits AFTER them at matching
+     specificity — no :where. For semantic cases prefer the ARIA the shell
+     already speaks: aria-current="page" (nav items), aria-pressed
+     (toggles), aria-selected (tabs). */
+  [data-ui-state="active"] { --lift: initial; --bg: 1; --fg: -1; }
+
+  /* disabled keeps drained ink over the component reads and .pri/.sec literals */
+  button:disabled, button[aria-disabled="true"], .btn[aria-disabled="true"] { --fg: -0.3; }
+
+  /* the shipped region paint — ALL pg-* defaults in ONE home now
+     (pg-main-header's stray padding moved here from the grid) */
+  .pg-banner      { --bg:  0.4; padding: 0.25lh; }
+  .pg-header      { --bg: -0.8; padding: 0.25lh; }
+  .pg-subheader   { --bg: -0.8; padding: 0.15lh 1em; }
+  .pg-navigation  { --bg: -0.8; padding: 0.25lh; border-inline-end: 1px solid var(--border); }
+  /* The toolbar is TERTIARY NAVIGATION FOR THE CONTENT BESIDE IT, so it shares
+     that content's surface rather than sitting on its own panel. Given its own
+     background it reads as a third region competing with the nav drawer, and the
+     relationship to the tabs above becomes guesswork. Same --bg as pg-main, one
+     hairline to separate them, and the two read as one card. */
+  .pg-toolbar     { --bg: -0.3; padding: 0.25lh; border-inline-end: 1px solid var(--border); }
+  /* the header's divider is a HAIRLINE (feedback #149, 2026-09-24: back
+     at half a pixel once the home lost its search bar; rev 10 had dropped
+     the 1px line). Drawn ONCE: when the header carries the tabs-underline,
+     that underline IS the divider. */
+  .pg-main-header { --bg: -0.3; padding: 0.25lh; border-block-end: 0.5px solid var(--border); }
+  .pg-main-header:has(> .tabs-underline) { border-block-end: 0; }
+  /* the bottom padding stands down ONLY when the tabs are the header's last
+     element (feedback #75, gf-331): the underline needs to sit on the divider
+     line; any other header keeps its default margin below. */
+  .pg-main-header:has(> .tabs-underline:last-child) { padding-block-end: 0; }
+  /* the subheader takes over the divider when present; when IT carries
+     the tabs, the underline is the divider */
+  .pg-main-header:has(+ .pg-main-subheader) { border-block-end: 0; }
+  .pg-main-subheader { --bg: -0.3; padding: 0 0.25lh; border-block-end: 1px solid var(--border); }
+  .pg-main-subheader:has(> .tabs-underline) { border-block-end: 0; }
+  .pg-main-aside     { --bg: -0.6; padding: 0.25lh; border-inline-start: 1px solid var(--border); }
+  /* TITLE ROW HEIGHT IS CONSTANT. Without this the row collapses to the title's
+     line box when a screen carries no verbs and no filters, and grows to a
+     control's height when it does — so moving between two tabs of the SAME
+     section shifted the title and the tabs by ~2px. The row now always reserves
+     one control height (the rack convention is --type: -1, which is what
+     --_control-h resolves to here), whether or not anything is in it. */
+  .pg-main-header > .spread {
+    /* the verb rack's scale (the convention is --type: -1 on header
+       controls). Since gf-68 the step INHERITS, so the rack's buttons
+       pick it up for free; the title is untouched because headings set
+       their own step. Reserve the height and the row stops moving. */
+    --type: -1;
+    min-block-size: var(--_control-h);
+  }
+  .pg-main        { --bg: -0.3; padding-inline: 0.25lh; }
+  /* the dock (gf-407 rev 5): a lh of side room, and the safe-area insets
+     where the page runs to the phone's rounded corners in app mode
+     (viewport-fit=cover) — the home's account and bell must not sit in
+     the corner radius */
+  .pg-main-footer { --bg: -0.3; padding: 0.25lh max(1lh, env(safe-area-inset-right)) max(0.25lh, env(safe-area-inset-bottom)) max(1lh, env(safe-area-inset-left)); }
+  /* the version tag LIVES IN THE UNSAFE AREA (gf-407 rev 10, Mike: "the
+     perfect thing to go in the unsafe area"): a footer that ends in the
+     tag drops the inset padding and the tag's box is the inset itself */
+  .pg-main-footer:has(> .nav-version:last-child) { padding-block-end: 0.25lh; display: flex; flex-direction: column; gap: 0.25lh; }
+  .pg-main-footer > .nav-version {
+    display: flex; align-items: center; justify-content: center;
+    min-block-size: env(safe-area-inset-bottom, 0px); --type: -3; --fg: -0.55;
+  }
+  .pg-aside       { --bg: -0.6; padding: 0.25lh; }  /* recessed: quieter than pg-main (-0.3) */
+  .pg-footer      { --bg:  0.03; padding: 0.25lh; }
+
+  /* ── the canvas, as PAINT — no spanning element ──────────────────────────
+     The toolbar is tertiary navigation FOR the content beside it, so the two
+     must read as one rounded card. That used to be a real element (.pg-canvas)
+     spanning both areas, with the regions riding transparently on top — which
+     inverted the painter contract and restated the inset three times.
+
+     MEASURED (2026-08): two abutting regions painting the SAME tone show no
+     seam — .page has no grid gap, so the split-corner composition is
+     pixel-identical to the spanning element. The card is therefore now pure
+     conditional paint: every canvas region defaults to the full rounded
+     inset, and each ADJACENCY zeroes the shared edge. The grid state is the
+     conditional; :has() reads it. Add or remove a region and the corners
+     re-solve — nothing to opt out of, nothing empty to detect.
+
+     A screen opts in by putting .canvas on the regions themselves (each
+     region builds its own part of the page): pg-toolbar, pg-main, and —
+     should a screen ever use it — pg-main-footer. */
+  .page:has(> .canvas) {
+    /* THE TONE STACK, and why this value. Three tiers have to stay legible:
+       chrome (nav -0.8, page/header -0.5) < canvas < a .card ON the canvas
+       (--bg: 0). Push the canvas to -0.06 and it collides with the cards
+       sitting on it; leave it at pg-main's old -0.3 and it barely separates
+       from the page. -0.2 keeps roughly even air on both sides. */
+    --canvas: -0.2;      /* the pair's shared tone — set once, read everywhere */
+    /* 0.25lh is THE spacing unit in this system: the gap of .column/.row/
+       .spread and the padding of every pg-* region. The canvas gets the same
+       one. A bespoke value here is how a composed surface drifts out of step
+       with the compositions sitting inside it. */
+    --canvas-gap: 0.25lh;
+
+    /* chrome recedes to the page's own tone so the canvas is the only lit
+       surface: the content is a thing ON the page, not another region OF it.
+       The crumb bar is NOT in this list — it belongs to the app chrome above
+       it and keeps pg-header's and pg-navigation's own -0.8, so the top strip
+       reads as one band rather than three tones stacked. */
+    & > .pg-main-header { --bg: -0.5; }
+  }
+
+  /* every canvas region paints the shared tone itself (the normal painter
+     contract) and defaults to the FULL rounded inset — a lone pg-main.canvas
+     is the whole card, four corners, no other rule needed. */
+  .page > .canvas {
+    --bg: var(--canvas);
+    border-radius: var(--cfg-radius);
+    margin: var(--canvas-gap);
+  }
+
+  /* ADJACENCIES — each zeroes the edge it shares, in logical properties.
+     toolbar | main(+footer): the vertical seam */
+  .page > .pg-toolbar.canvas {
+    border-start-end-radius: 0; border-end-end-radius: 0;
+    margin-inline-end: 0;
+  }
+  .page:has(> .pg-toolbar.canvas) > :is(.pg-main.canvas, .pg-main-footer.canvas) {
+    border-start-start-radius: 0; border-end-start-radius: 0;
+    margin-inline-start: 0;
+  }
+  /* main over footer: the horizontal seam */
+  .page:has(> .pg-main-footer.canvas) > .pg-main.canvas {
+    border-end-start-radius: 0; border-end-end-radius: 0;
+    margin-block-end: 0;
+  }
+  .page > .pg-main-footer.canvas {
+    border-start-start-radius: 0; border-start-end-radius: 0;
+    margin-block-start: 0;
+  }
+
+  /* (The old NO-BLOCK-PADDING-ON-pg-main doctrine is RETIRED, gf-39: it
+     protected a sticky table head inside a region-level scroller, and
+     pg-main no longer scrolls — components own their scrolling, sticky
+     heads stick inside their own .scroll-y, and pg-main wears the
+     system's uniform 0.25lh padding like every other composition.) */
+
+  /* Card-in-a-card is the defect this invites, and a bare table is where it
+     shows: the table recipe is itself a card. Directly on the canvas it
+     drops the frame and adopts the canvas tone. Scoped to a DIRECT child so
+     a table inside a real .card section keeps its own frame. */
+  .page > .pg-main.canvas > table {
+    --bg: var(--canvas); border: 0; border-radius: 0; background-color: transparent;
+
+    /* THE STICKY HEAD MUST BE TOLD THE TONE. --bg is registered
+       inherits: false — "a surface's position must not leak to children" —
+       so the head does NOT pick up the canvas value set on the table above.
+       Left alone it falls to the initial 0 and paints the brightest tone in
+       the system, which is why it read as a pale band floating over the
+       list. It keeps a paint (it has to occlude the rows passing under it);
+       it simply paints the surface it is sitting on. */
+    & :where(thead th) { --bg: var(--canvas); }
+  }
+
+  /* skins — now just anchor re-picks per bank */
+  [data-ui-skin="carbon"] {
+    --lt-neg: oklch(89% 0 0); --lt-zero: oklch(99.5% 0 0); --lt-pos: oklch(55.7% 0.243 0); --lt-flip: 0.60;
+    --dk-neg: oklch(11% 0 0); --dk-zero: oklch(20% 0 0);   --dk-pos: oklch(64.7% 0.189 0); --dk-flip: 0.85;
+    --cfg-radius: 0px;
+  }
+  [data-ui-skin="material"] {
+    --lt-neg: oklch(87% 0.022 0); --lt-zero: oklch(98.4% 0.013 0); --lt-pos: oklch(49.6% 0.130 0); --lt-flip: 0.62;
+    --dk-neg: oklch(9% 0.015 0);  --dk-zero: oklch(18.7% 0.012 0); --dk-pos: oklch(83.5% 0.095 0); --dk-flip: 0.70;
+    --cfg-radius: 16px;
+  }
+  /* AN EXPLICIT CORNERS CHOICE OUTRANKS A SKIN'S DEFAULT (2026-09-29): the
+     theme layer's [data-ui-radius] steps restated here, after the skins, so
+     colour (the skin, the hue) and shape (the corners) are separate choices
+     a person makes apart — a skin only proposes a radius. */
+  [data-ui-radius="0"] { --cfg-radius: 0px; }
+  [data-ui-radius="1"] { --cfg-radius: 6px; }
+  [data-ui-radius="2"] { --cfg-radius: 12px; }
+  [data-ui-radius="3"] { --cfg-radius: 22px; }
+}
+
+
 /* ── CROSS-DOCUMENT VIEW TRANSITIONS — their own layer, SIMPLIFIED
    (2026-09-01, per Mike: "ditch the complex view transitions for now
    and just use the cross blur everywhere until product is stable").
@@ -3446,7 +3331,7 @@
    ONE uniform transition: every navigation cross-fades through a
    slight blur, ~160ms, riding --cfg-motion so reduced-motion (which
    zeroes the knob) collapses it to an instant swap. ── */
-@layer view-transitions {
+@layer exception {
   /* @view-transition { navigation: auto; }  — KILLED (gf-200, per Mike:
      "more trouble than it's worth"). Measured evidence, 2026-09-04: with
      the opt-in active, EVERY same-origin navigation stalled ~4s — the
@@ -3504,14 +3389,182 @@
   :where(.hud:has(> .toasts))   { view-transition-name: none; }
 }
 
+
+/* ════════════════════════════════════════════════════════════════════
+   media — responsive show/hide via revert-layer. LAST meaningful layer:
+   the gate's display must out-rank a component's display. (Inline display
+   still wins — never set display inline on a gated element.)
+
+   Why display (not visibility/opacity): display:none removes the element
+   from the tab order AND the accessibility tree, so the hidden variant
+   cannot be tabbed into or announced. Don't add aria-hidden/inert/tabindex
+   to gated copies — redundant on the hidden one, a bug on the shown one.
+   ════════════════════════════════════════════════════════════════════ */
+@layer visibility {
+  /* Breakpoints follow the Bootstrap grid boundaries: phones < 576 ·
+     576–768 tablet · ≥768 desktop. THIS FILE IS THE SINGLE SOURCE —
+     change thresholds here, in this layer; there is no override file.
+     (The old @layer project — the reserved downstream-consumer slot —
+     retired 2026-09-01, per Mike: single-tenant; app components live in
+     this file's components layer like every other component.) */
+  .mobile, .tablet, .desktop           { display: none }
+  @media (width < 576px)               { .mobile  { display: revert-layer } }
+  /* the mobile global bar (a .hud) FLOATS over the bottom edge; the LAST
+     content region carries the clearance, OUT of the content's own flow:
+     a scrolling main grows a ::after scroll-tail (only reachable by
+     scrolling — it never squeezes a fitted layout), and when a
+     pg-main-footer exists (the calendar's ribbon) IT takes the padding
+     instead. [was padding on pg-main — it shoved the ribbon offscreen.] */
+  @media (width < 576px) {
+    .page:has(> .hud.mobile) > .pg-main:not(:has(~ .pg-main-footer))::after {
+      content: ""; display: block; flex: 0 0 4lh;
+    }
+    .page:has(> .hud.mobile) > .pg-main-footer { padding-block-end: 4lh; }
+    /* the toolbar rail scrolls too — same clearance, same mechanism
+       (gf-105: its bottom items hid behind the floating bar) */
+    .page:has(> .hud.mobile) > .pg-toolbar::after {
+      content: ""; display: block; flex: 0 0 4lh; block-size: 4lh;
+    }
+  }
+  /* a gated crumb takes its separator with it (gf-407: the home crumb is
+     .mobile; its follower's chevron must not stand alone wider) */
+  @media (width >= 576px) { :where(.crumbs) > .mobile + :where(a, span)::before { display: none } }
+  @media (576px <= width < 768px)      { .tablet  { display: revert-layer } }
+  @media (width >= 768px)              { .desktop { display: revert-layer } }
+
+  /* [RETIRED 2026-08] the declared aside width: asides are content-
+     sized now (containment removed in core.layout), so the auto track
+     hugs whatever one-off widget the flank carries. */
+  /* [RETIRED 2026-08] the narrow shell re-flow: ONE topology. Dynamic
+     design is gates, not alternate grids — a region that cannot fit at
+     a width gates itself (.c-desktop on an aside) and its track
+     collapses. Narrow reachability of a gated flank is an app decision
+     (dock, drawer), not a shell re-slot. */
+  /* DENSITY TIERS (component scale): small = the glyph alone; medium =
+     glyph + label; large = the full block. "and-up" is the multi-class
+     idiom (class="medium large"). The c-* family below remains the
+     LAYOUT band family — two families, two jobs.
+     THE 8rem BOUNDARY IS RAIL MATH (gf-23): the tiers are what a rail's
+     content gates on, so small/medium must STRADDLE the rail's two
+     declared widths at EVERY type size. Icon width (glyph anatomy) tops
+     out ≈ 4rem at xl type; the labeled 8lh bottoms out ≈ 9.7rem at sm
+     type (rem is fixed, lh rides the type scale — that skew is why
+     10rem broke: labeled-at-sm fell into .small and stacked the foot).
+     8rem sits between them with margin on both sides. */
+  .small, .medium, .large              { display: none }
+  @container (width < 8rem)            { .small  { display: revert-layer } }
+  @container (8rem <= width < 20rem)   { .medium { display: revert-layer } }
+  @container (width >= 20rem)          { .large  { display: revert-layer } }
+
+  /* the c-* family — the SAME breakpoints as .mobile/.tablet/.desktop,
+     measured against the CONTAINER instead of the viewport. Inside a pg
+     region the available width is the region's, not the window's (the
+     nav column eats 140–260px), so region content declares its ranges
+     against the surface it actually lives on. pg-main-header and
+     pg-main are the query containers (core.layout). */
+  .c-mobile, .c-tablet, .c-desktop     { display: none }
+  @container (width < 576px)           { .c-mobile  { display: revert-layer } }
+  @container (576px <= width < 768px)  { .c-tablet  { display: revert-layer } }
+  @container (width >= 768px)          { .c-desktop { display: revert-layer } }
+
+  /* ORIENTATION and HEIGHT gates (EventOS gf-608) — answered only inside
+     a SIZE container (a .block): a width-only .container cannot answer
+     them and the gate stays hidden. Landscape is wider than 3:2, the
+     block's own law; tall is 10em and up. */
+  .c-portrait, .c-landscape            { display: none }
+  @container (aspect-ratio <= 3/2)     { .c-portrait  { display: revert-layer } }
+  @container (aspect-ratio > 3/2)      { .c-landscape { display: revert-layer } }
+  .c-short, .c-tall                    { display: none }
+  @container (height < 10em)           { .c-short { display: revert-layer } }
+  @container (height >= 10em)          { .c-tall  { display: revert-layer } }
+
+  .fine, .coarse                       { display: none }
+  @media (pointer: fine)               { .fine   { display: revert-layer } }
+  @media (pointer: coarse)             { .coarse { display: revert-layer } }
+
+  /* FOCUS MODE chrome-hide — lives here (not in core.layout) so it beats
+     component display rules. .crumbs sets display:flex in @layer components,
+     which is later than core.layout; only a rule at or after components can
+     hide a .pg-subheader.crumbs. The media layer is the sanctioned home for
+     display-state switches (the .mobile/.tablet/.print gates above), and focus
+     mode is exactly that kind of switch. */
+  .page:where([data-ui-state="focus"]) > :where(.pg-banner, .pg-header,
+      .pg-subheader, .pg-navigation, .pg-toolbar, .pg-aside,
+      .pg-main-aside, .pg-footer) {
+    display: none;
+  }
+  /* focus mode hides the toolbar but :has() still sees it in the DOM — the
+     card would keep a squared, flush left edge against a rail that is no
+     longer there. Re-solve to the lone-main shape (this layer is later than
+     skin, so it wins). */
+  .page:where([data-ui-state="focus"]) > .pg-main.canvas {
+    border-radius: var(--cfg-radius);
+    margin: var(--canvas-gap);
+  }
+
+  /* PRINT — the ink-on-paper view. The themed surfaces are a screen medium;
+     on paper the system becomes austere. Keep pg-main* (content + its header
+     for context), drop every other chrome region, and quiet the surfaces to
+     white while KEEPING borders — hairline structure, no fill. This is where
+     Tufte's asceticism lives without compromising the screen experience. */
+  @media print {
+    .page {
+      display: block; height: auto; overflow: visible;
+    }
+    .page > :where(.pg-banner, .pg-header, .pg-subheader, .pg-navigation,
+                   .pg-toolbar, .pg-aside, .pg-main-aside, .pg-footer),
+    :where(.focus-fab) { display: none; }
+
+    /* surfaces → white; borders stay. Regions and painted components lose
+       their fill but keep their outline. */
+    :where(.page, .pg-main, .pg-main-header, .pg-main-subheader,
+           .pg-main-footer, .card, table, thead th, .search-box) {
+      background: none !important;
+      --bg: 0; --lift: initial;
+    }
+    /* ink → black on white, regardless of screen tone */
+    :where(.pg-main, .pg-main *) { --fg: -1; }
+    /* let content use the full page width on paper */
+    :where(.pg-main) { max-inline-size: none; }
+  }
+}
+
+
+/* ════════════════════════════════════════════════════════════════════
+   visibility (shape slice) — the nine shape gates. A part lists the
+   shapes it belongs in; any match lifts the one hide rule, so a class
+   list composes as a union. The cell they answer is the nearest
+   ancestor named `shape` (core.shape).
+   ════════════════════════════════════════════════════════════════════ */
+@layer visibility {
+  :where(.spot, .line, .rail, .slip, .sheet, .tile, .panel, .strip, .banner) { display: none; }
+
+  /* edges — spot owns the corner, line and rail own the rest of each 2lh band */
+  @container shape (width <  2lh) and (height <  2lh) { :where(.spot) { display: revert-layer; } }
+  @container shape (width >= 2lh) and (height <  2lh) { :where(.line) { display: revert-layer; } }
+  @container shape (width <  2lh) and (height >= 2lh) { :where(.rail) { display: revert-layer; } }
+
+  /* vertical family — short side is width */
+  @container shape (aspect-ratio < 7/8) and (2lh <= width < 6lh) { :where(.slip)  { display: revert-layer; } }
+  @container shape (aspect-ratio < 7/8) and (width >= 6lh)       { :where(.sheet) { display: revert-layer; } }
+
+  /* centre family — short side is min(w, h) */
+  @container shape (7/8 <= aspect-ratio < 15/8) and (width >= 2lh) and (height >= 2lh) and ((width < 6lh) or (height < 6lh)) { :where(.tile)  { display: revert-layer; } }
+  @container shape (7/8 <= aspect-ratio < 15/8) and (width >= 6lh) and (height >= 6lh)                                      { :where(.panel) { display: revert-layer; } }
+
+  /* horizontal family — short side is height */
+  @container shape (aspect-ratio >= 15/8) and (2lh <= height < 6lh) { :where(.strip)  { display: revert-layer; } }
+  @container shape (aspect-ratio >= 15/8) and (height >= 6lh)       { :where(.banner) { display: revert-layer; } }
+}
+
 /* Keyframes are global by name — outside @layer, like the engine's own. */
 @keyframes vt-blur-out { to   { opacity: 0; filter: blur(6px); } }
-@keyframes vt-blur-in  { from { opacity: 0; filter: blur(6px); } }
+
+@keyframes vt-blur-in { from { opacity: 0; filter: blur(6px); } }
 
 /* The RECIPE SHELF (gf-181: .vtd-hero · .vtd-slide · .vtd-fade · [data-vtd])
    was cut 2026-09-29 with the lab's View-transitions bench (gf-429): the
    patterns live in git; cross-document VT has been off since gf-200. */
-
 /* keyframes are global by name — outside @layer */
 @keyframes progress-slide {
   0%   { background-position: -43% 0; }

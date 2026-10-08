@@ -9,7 +9,7 @@ scope: general
 These components are **HTML, not a framework app**. There is no build step, no
 virtual DOM, and no client-side templating. The markup *is* the component;
 [Datastar](https://data-star.dev) attributes make it reactive, and
-system.css styles it (static/system.css — read the system-css skill). State lives in **signals**, not in
+mike.css styles it (static/mike.css — read the system-css skill). State lives in **signals**, not in
 form fields — with the land-and-stream qualifier stated up front: signals
 hold COMPONENT-EPHEMERAL state (draft, hover, shown month) and act as
 TRANSPORT for commands; anything a view renders is STORE truth, and a
@@ -36,7 +36,7 @@ not a bug. Every component below is the same small shape — learn it once.
    (`cellIsToday($cal.v, i)`, `cbFilter($cb.q)`). They never read globals or
    mutate — they're props-down. `data-on:click` is events-up: it mutates the
    signal, the bindings recompute.
-5. **Layout from system.css primitives in the markup; the rest from the API.**
+5. **Layout from the engine's primitives in the markup; the rest from the API.**
    See "Don't hand-roll layout" below.
 
 ## Datastar bindings these components use
@@ -136,12 +136,12 @@ same fact — one source of truth, one binding.
 
 ### Where component CSS lives
 
-Wrap each component's rules in `@layer components` (with a comment banner) and
+Wrap each component's rules in `@layer block` (with a comment banner) and
 **nest the state inside the structural class**, so an element and its states
 read as one block:
 
 ```css
-@layer components {
+@layer block {
   /* calendar — standalone month surface */
   .cal .ngrid > button {
     aspect-ratio: 1; display: grid; place-items: center; --bg: 0.3;
@@ -155,45 +155,19 @@ read as one block:
 
 Your components then become genuine peers of `.card`/`.tag` in the same layer,
 so the cascade stays predictable instead of "app CSS wins by being unlayered."
-The framework declares the spine up front (`@layer reset, core.color, core.type,
-core.layout, theme, base, components, utility, media, skin, view-transitions;`), so an
-appended `@layer components {}` block *joins* that layer after the framework's
-components — it doesn't become a new top layer. Do **not** put component rules
-in `project` (or leave them unlayered): they would out-cascade the `media`
-layer and break the revert-layer gates (`.small`/`.medium`/`.c-*`). Reactive
+The engine declares the spine up front (`@layer reset, core.color, core.type,
+core.shell, core.shape, theme, base, composition, block, utility, exception,
+visibility;`), so an appended `@layer block {}` block *joins* that layer after
+the engine's blocks — it doesn't become a new top layer. A product keeps its
+blocks in ONE sheet of its own (EventOS: static/blocks.css), one `<blk-*>`
+rule each (the block contract in the system-css skill). Do **not** leave
+component rules unlayered: they would out-cascade the `visibility` layer and
+break the revert-layer gates (`.small`/`.medium`/`.c-*`/the shapes). Reactive
 paints are unaffected: `data-style:--bg` and inline `style="--bg:…"` are inline
 styles, which beat any layer.
-
-## Don't hand-roll layout — compose primitives
-
-A well-built component is **almost no custom CSS**. Push every layout decision
-into system.css classes in the markup; keep only shape and the type/color API in
-your stylesheet.
-
-- **Layout → primitives in markup:** `.card` (surface), `.column`/`.row`,
-  `.spread` (space-between), `.lcr` (start/center/end), `.ngrid` with
-  `style="--cols:7"` (fixed-column grid), `.grid` (auto-fit),
-  `.menu` (anchored popover; note `.center` is TEXT centering, a utility —
-  not a box-centering primitive). Never write `display`/`flex`/`grid` in component CSS.
-- **Type & color → the API only:** `--type` (size), `--bg` (surfaces), `--fg`
-  (ink). E.g. `.cal b { --type:-1; --fg:-0.9 }`.
-- **State → `data-ui-*`** attributes (above) + `.tag[data-ui-state="on|off"]`.
-- **Shape → `aspect-ratio`.** This is the *one* geometric thing you set yourself
-  (square day cells, square keys). Add `min-inline-size:0` so 1fr grid tracks can
-  shrink, and `display:grid; place-items:center` to center the glyph.
-
-> Rule of thumb: a component rarely needs more than ~10 lines of custom CSS. The
-> month calendar is 8–9 lines total (square + number color + the two
-> `data-ui-*` outlines + the `--bg` in/out tints). If you're writing flexbox,
-> you're fighting the system — reach for a primitive.
-
-## Container-responsive (no media queries, no JS)
-
-Make one component render differently by **width of its own box**:
-
 1. Put `.container` on a wrapper (it sets `container-type: inline-size`).
 2. Give a child both a **gate class** and a **layout primitive**:
-   `class="medium column"`. The gate class (in the media layer) hides it with
+   `class="medium column"`. The gate class (in the visibility layer) hides it with
    `display:none` out of band; in band it becomes `display: revert-layer`,
    which restores the value from the earlier layer — i.e. `.column`'s flex.
    **The primitive is load-bearing:** a bare `.medium` with no composed display
@@ -291,7 +265,7 @@ import { rocket } from '/static/datastar.js';   // ABSOLUTE path (see gotcha)
 Object.assign(window, { cellDay, cellIso, cellInMonth, cellIsToday, som, monthLabel, fmtPretty });
 
 rocket('event-date-picker', {
-  mode: 'light',                                  // inherit system.css; shadow DOM walls it off
+  mode: 'light',                                  // inherit the engine; shadow DOM walls it off
   props: ({ oneOf, string }) => ({
     mode:     oneOf('single','range').default('single'),
     value:    string.default(''),                 // committed start ISO; reflects to attribute
@@ -426,7 +400,7 @@ Two more morph/fetch traps, verified in the bundle source (gf-52):
   forces a real boolean, so Rocket omits the attribute when false. (This is the
   Rocket-specific counterpart to the vanilla presence rule above.)
 - **`mode: 'light'`** so the component lives in the page's DOM/CSS and inherits
-  system.css tokens. Shadow DOM (`open`/`closed`) would wall off the stylesheet;
+  the engine's tokens. Shadow DOM (`open`/`closed`) would wall off the stylesheet;
   only reach for it if you *want* encapsulation and theme purely via custom props.
 - **Commit on light-dismiss.** A `[popover]` fires `toggle`; wire
   `data-on:toggle="evt.newState==='closed' && <valid> && @commit()"` so clicking

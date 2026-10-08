@@ -106,8 +106,9 @@ loop above lands it. The workspace file never commits.
 
 - The vocabulary frozen: a list of every class, knob and stamp with its
   specimen, the API of the engine. Removal is a major version.
-- The layer spine frozen as the extension contract: an app writes only
-  in `project`; a theme only in `skin`.
+- The layer spine frozen as the extension contract (2026-10-08, the
+  twelve layers of mike.css): an app writes only in `block`, in its own
+  sheet, one `<blk-*>` rule each; a theme only in `exception`.
 - A second product consuming the engine, and the sync direction fixed
   for good: the library is the source, the products pin.
 - The rockets' Pro dependency gone: Rocket is free since Datastar

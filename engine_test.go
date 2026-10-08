@@ -8,15 +8,16 @@ import (
 )
 
 // TestEngineLaws pins the cascade constitution on the file itself: one
-// spine, layers named in order, no !important outside the media and
-// skin layers, no literal colour, every selector wrapped in :where().
+// spine of twelve layers named in order, no !important outside a print
+// block, no literal colour, no ID selector.
 func TestEngineLaws(t *testing.T) {
-	b, err := fs.ReadFile(Static(), "system.css")
+	b, err := fs.ReadFile(Static(), "mike.css")
 	if err != nil {
 		t.Fatal(err)
 	}
 	css := string(b)
-	if !strings.Contains(css, "@layer reset, core.color, core.type, core.layout, theme, base,") {
+	spine := strings.Join(strings.Fields(regexp.MustCompile(`(?s)/\*.*?\*/`).ReplaceAllString(css, "")), " ")
+	if !strings.Contains(spine, "@layer reset, core.color, core.type, core.shell, core.shape, theme, base, composition, block, utility, exception, visibility;") {
 		t.Error("the spine statement is missing or reordered")
 	}
 	if n := strings.Count(css, "@layer reset,"); n != 1 {
@@ -32,14 +33,24 @@ func TestEngineLaws(t *testing.T) {
 			t.Errorf("line %d: a literal colour: %s", i+1, strings.TrimSpace(line))
 		}
 	}
-	// !important only inside the media and skin layers (config switches that must out-cascade)
-	layer := ""
-	for i, line := range strings.Split(css, "\n") {
-		if m := regexp.MustCompile(`^@layer ([a-z.-]+)\s*\{`).FindStringSubmatch(line); m != nil {
-			layer = m[1]
+	// !important only inside a print block (law 2: an important declaration
+	// inverts the layer order and would beat the gates; paper has no gates)
+	depth, inPrint := 0, false
+	blanked := regexp.MustCompile(`(?s)/\*.*?\*/`).ReplaceAllStringFunc(css, func(c string) string { return strings.Repeat("\n", strings.Count(c, "\n")) }) // comments are not declarations; the lines keep their numbers
+	for i, line := range strings.Split(blanked, "\n") {
+		at := strings.Index(line, "@media print")
+		if at >= 0 && !inPrint {
+			inPrint, depth = true, 0
+			line = line[at:]
 		}
-		if strings.Contains(line, "!important") && layer != "media" && layer != "skin" && !strings.Contains(line, "@media print") {
-			t.Errorf("line %d: !important in layer %q", i+1, layer)
+		if strings.Contains(line, "!important") && !inPrint {
+			t.Errorf("line %d: !important outside a print block", i+1)
+		}
+		if inPrint {
+			depth += strings.Count(line, "{") - strings.Count(line, "}")
+			if depth <= 0 {
+				inPrint = false
+			}
 		}
 	}
 	// colour and shape apart: an explicit corners choice is declared after the skins
@@ -65,7 +76,7 @@ func TestEngineLaws(t *testing.T) {
 
 // TestEmbed pins what the module ships.
 func TestEmbed(t *testing.T) {
-	for _, p := range []string{"system.css", "rocket/hold-confirm.js", "rocket/date-picker.js"} {
+	for _, p := range []string{"mike.css", "rocket/hold-confirm.js", "rocket/date-picker.js"} {
 		if _, err := fs.Stat(Static(), p); err != nil {
 			t.Errorf("static: %s missing", p)
 		}

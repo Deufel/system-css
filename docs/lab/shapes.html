@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="en" data-signals="{theme: ls('theme', ''), size: ls('size', 'md'), skin: ls('skin', ''), radius: ls('radius', ''), motion: ls('motion', 'on'), hue: Number(ls('hue', '255'))}" data-attr:data-ui-theme="$theme != '' ? $theme : false" data-attr:data-ui-size="$size" data-attr:data-ui-skin="$skin != '' ? $skin : false" data-attr:data-ui-radius="$radius != '' ? $radius : false" data-attr:data-ui-motion="$motion" data-style="{'--hue': $hue}">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="dark light"/>
+<title>Shapes — mike.css</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=optional" rel="stylesheet"/>
+<link rel="stylesheet" href="../static/mike.css"/>
+<link rel="stylesheet" href="../static/highlight.css"/>
+<link rel="stylesheet" href="../assets/site.css"/>
+<script>
+// the stored knobs, before first paint (the interstitial frame is pre-CSS);
+// ls/save are the one storage seam the signals use
+function ls(k, d) { try { var v = localStorage.getItem('ui.' + k); return v === null ? d : v } catch (e) { return d } }
+function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (e) {} }
+(function () { var h = document.documentElement; var t = ls('theme', ''); if (t) h.setAttribute('data-ui-theme', t); ['size', 'skin', 'radius', 'motion'].forEach(function (k) { var v = ls(k, ''); if (v) h.setAttribute('data-ui-' + k, v) }); h.style.setProperty('--hue', ls('hue', '255')) })();
+</script>
+<script type="module" src="../static/datastar.js"></script><script type="module" src="../static/rocket/combo-box.js"></script><script type="module" src="../static/rocket/command-palette.js"></script><script type="module" src="../static/rocket/copy-button.js"></script><script type="module" src="../static/rocket/date-picker.js"></script><script type="module" src="../static/rocket/day-picker.js"></script><script type="module" src="../static/rocket/group-pick.js"></script><script type="module" src="../static/rocket/hold-confirm.js"></script><script type="module" src="../static/rocket/image-input.js"></script><script type="module" src="../static/rocket/mini-calc.js"></script><script type="module" src="../static/rocket/toast-card.js"></script>
+</head>
+<body>
+<div class="page">
+	<header class="pg-header spread" style="--gap: 0.5em;">
+		<a href="../index.html" class="row oneline" style="--gap: 0.5em;"><strong>mike.css</strong><small style="--fg: -0.55;">the engine</small></a>
+		<span class="row oneline tablet desktop" style="--gap: 0.75em;"><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">hue</small><input type="range" min="0" max="360" step="5" data-bind:hue data-on:change="save('hue', $hue)" style="inline-size: 6em;"/><span class="number" data-text="$hue"></span></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">skin</small><select data-bind:skin data-on:change="save('skin', $skin)"><option value="">default</option><option value="material">material</option><option value="carbon">carbon</option></select></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">corners</small><select data-bind:radius data-on:change="save('radius', $radius)"><option value="">default</option><option value="0">square</option><option value="1">soft</option><option value="2">round</option><option value="3">pill</option></select></label><span class="button-group" role="group" aria-label="Size" style="--type: -1;"><button type="button" data-attr:aria-pressed="$size == 'sm' ? 'true' : 'false'" data-on:click="$size = 'sm'; save('size', $size)">S</button><button type="button" data-attr:aria-pressed="$size == 'md' ? 'true' : 'false'" data-on:click="$size = 'md'; save('size', $size)">M</button><button type="button" data-attr:aria-pressed="$size == 'lg' ? 'true' : 'false'" data-on:click="$size = 'lg'; save('size', $size)">L</button></span><span class="button-group" role="group" aria-label="Motion" style="--type: -1;"><button type="button" data-attr:aria-pressed="$motion == 'off' ? 'true' : 'false'" data-on:click="$motion = 'off'; save('motion', $motion)">Off</button><button type="button" data-attr:aria-pressed="$motion == 'on' ? 'true' : 'false'" data-on:click="$motion = 'on'; save('motion', $motion)">On</button><button type="button" data-attr:aria-pressed="$motion == 'debug' ? 'true' : 'false'" data-on:click="$motion = 'debug'; save('motion', $motion)">Debug</button></span><span class="button-group" role="group" aria-label="Theme" style="--type: -1;"><button type="button" data-attr:aria-pressed="$theme == '' ? 'true' : 'false'" data-on:click="$theme = ''; save('theme', $theme)">System</button><button type="button" data-attr:aria-pressed="$theme == 'light' ? 'true' : 'false'" data-on:click="$theme = 'light'; save('theme', $theme)">Light</button><button type="button" data-attr:aria-pressed="$theme == 'dark' ? 'true' : 'false'" data-on:click="$theme = 'dark'; save('theme', $theme)">Dark</button></span></span>
+		<span class="row oneline" style="--gap: 0.5em;">
+			<a href="https://github.com/Deufel/system-css" style="--type: -1;">GitHub</a>
+			<button type="button" class="icon mobile" aria-label="Theme" title="Theme: system → dark → light" data-on:click="$theme = $theme == '' ? 'dark' : ($theme == 'dark' ? 'light' : ''); save('theme', $theme)">
+				<span data-show="$theme == ''" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="20" height="14" x="2" y="3" rx="2" /> <line x1="8" x2="16" y1="21" y2="21" /> <line x1="12" x2="12" y1="17" y2="21" /> </svg></span>
+				<span data-show="$theme == 'dark'" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" /> </svg></span>
+				<span data-show="$theme == 'light'" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="4" /> <path d="M12 2v2" /> <path d="M12 20v2" /> <path d="m4.93 4.93 1.41 1.41" /> <path d="m17.66 17.66 1.41 1.41" /> <path d="M2 12h2" /> <path d="M20 12h2" /> <path d="m6.34 17.66-1.41 1.41" /> <path d="m19.07 4.93-1.41 1.41" /> </svg></span>
+			</button>
+		</span>
+	</header>
+	<nav class="pg-navigation spread-column tablet desktop" aria-label="Sections">
+		<div class="column"><a class="nav-item" href="../index.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /> <path d="M20 3v4" /> <path d="M22 5h-4" /> <path d="M4 17v2" /> <path d="M5 18H3" /> </svg><span class="medium large">Home</span></a><a class="nav-item" href="../howto/start.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /> </svg><span class="medium large">How-to</span></a><a class="nav-item" href="../engine/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /> <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /> <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /> <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /> <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /> </svg><span class="medium large">Engine</span></a><a class="nav-item" href="../components/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span class="medium large">Components</span></a><a class="nav-item" href="../stream/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span class="medium large">Land &amp; stream</span></a><a class="nav-item" href="../charts/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /> <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /> <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /> <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /> <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /> </svg><span class="medium large">Charts</span></a><a class="nav-item" href="../advanced/wash.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span class="medium large">Advanced</span></a><a class="nav-item" href="../lab/primitives.html" aria-current="page"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /> <path d="M20 3v4" /> <path d="M22 5h-4" /> <path d="M4 17v2" /> <path d="M5 18H3" /> </svg><span class="medium large">Lab</span></a><a class="nav-item" href="../demos/full-pages.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span class="medium large">Demos</span></a><a class="nav-item" href="../skills/system-css.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /> </svg><span class="medium large">Skills</span></a></div>
+	</nav>
+	<header class="pg-main-header column">
+		<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">mike.css</a><a href="../lab/primitives.html">Lab</a><a href="../lab/primitives.html">Engine</a></nav>
+		<div class="spread"><h1>Shapes</h1></div>
+		<details class="site-menu mobile column" style="--gap: 0.25lh;"><summary class="tag">Menu</summary><div class="row" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../advanced/wash.html">Advanced</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../demos/full-pages.html">Demos</a><a class="tag" href="../skills/system-css.html">Skills</a></div><div class="column" style="--gap: 0; --type: -1;"><a href="../lab/primitives.html">Primitives</a><a href="../lab/compositions.html">Compositions</a><a href="../lab/color.html">Color</a><a href="../lab/type.html">Type</a><a href="../lab/icons.html">Icons</a><a href="../lab/state.html">State</a><a href="../lab/aria.html">ARIA</a><a href="../lab/forms.html">Forms</a><a href="../lab/charts.html">Charts</a><a href="../lab/code.html">Code</a><a href="../lab/drawers.html">Drawers</a><a href="../lab/motion.html">Motion</a><a href="../lab/wash.html">Wash</a><a href="../lab/stack.html">Stack</a><a href="../lab/shapes.html">Shapes</a><a href="../lab/vocabulary.html">Vocabulary</a></div></details>
+	</header>
+	<nav class="pg-main-subheader" aria-label="Lab"><div class="tabs-underline" style="--type: -1;"><a href="../lab/primitives.html" aria-current="page">Engine</a><a href="../lab/rocket-activation-tracker.html">Rockets</a></div></nav><nav class="pg-toolbar spread-column tablet desktop" aria-label="Engine"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">Engine</small><a class="nav-item" href="../lab/primitives.html"><span class="medium large">Primitives</span></a><a class="nav-item" href="../lab/compositions.html"><span class="medium large">Compositions</span></a><a class="nav-item" href="../lab/color.html"><span class="medium large">Color</span></a><a class="nav-item" href="../lab/type.html"><span class="medium large">Type</span></a><a class="nav-item" href="../lab/icons.html"><span class="medium large">Icons</span></a><a class="nav-item" href="../lab/state.html"><span class="medium large">State</span></a><a class="nav-item" href="../lab/aria.html"><span class="medium large">ARIA</span></a><a class="nav-item" href="../lab/forms.html"><span class="medium large">Forms</span></a><a class="nav-item" href="../lab/charts.html"><span class="medium large">Charts</span></a><a class="nav-item" href="../lab/code.html"><span class="medium large">Code</span></a><a class="nav-item" href="../lab/drawers.html"><span class="medium large">Drawers</span></a><a class="nav-item" href="../lab/motion.html"><span class="medium large">Motion</span></a><a class="nav-item" href="../lab/wash.html"><span class="medium large">Wash</span></a><a class="nav-item" href="../lab/stack.html"><span class="medium large">Stack</span></a><a class="nav-item" href="../lab/shapes.html" aria-current="page"><span class="medium large">Shapes</span></a><a class="nav-item" href="../lab/vocabulary.html"><span class="medium large">Vocabulary</span></a></div></nav>
+	<main class="pg-main column owns-scroll">
+		<section class="column" style="--gap: 1lh;">
+<!-- shapes — THE LAB: the shape locker, the specimen of core.shape, the nine shape gates and the block contract; edit here -->
+<style>
+/* ════════════════════════════════════════════════════════════════════
+   the shape locker's blocks — THE LAB'S SPECIMEN of core.shape and the
+   gates (2026-10-08): seven demo blocks, consumers of colour, type and
+   shape: it reads their public knobs and outputs, and declares nothing
+   they own.
+
+   THE WHOLE VOCABULARY
+     <blk-*>        a block. The tag is the component and its only hook.
+     parts          semantic elements inside a block: header h3 small
+                    strong i time mark figure figcaption progress ul li
+                    s input footer hgroup div p
+     part classes   .ring .dot .av — meaningful only inside a block
+     shape          spot line rail slip sheet tile panel strip banner
+                    (shape.css: which shapes a part appears in)
+     helpers        .suc .inf .wrn .dgr .num   (helpers.css)
+     state          data-ui-state="…" — space-separated tokens, matched
+                    with ~=. Vocabulary: off empty drag over armed target
+                    qc tags gates
+     engine         --hue --hue-shift --bg --lift --fg --type --scale,
+                    inline where a value is data (an avatar's hue)
+
+   Every selector is :where()-wrapped: zero specificity, source order is
+   the only tiebreak. Shape rules here are ARRANGEMENT only — visibility
+   belongs to the gates.
+   ════════════════════════════════════════════════════════════════════ */
+
+@layer block {
+
+  /* ───────── blk-board — a grid of slots that reads the shape of the
+     cell it sits in. Every template places all nine slots. ───────── */
+  :where(blk-board) {
+    display: grid; gap: 0.5lh; padding: 0.5lh; block-size: 100%; align-content: start;
+    grid-template:
+      "s1 s1 s1 s1" 1.75lh
+      "s2 s2 s3 s4" 10lh
+      "s5 s6 s3 s7" 1fr
+      "s8 s9 s9 s9" 3.25lh / 1fr 1fr 1fr 1fr;   /* no repeat(): the areas form of grid-template takes an explicit track list */
+
+    @container shape (aspect-ratio >= 15/8) and (height >= 6lh) {        /* banner */
+      grid-template:
+        "s1 s2 s2 s2 s2 s9" 1.75lh
+        "s3 s4 s5 s6 s7 s8" 1fr / 1.75lh 2fr 1fr 1fr 1fr 1fr;
+    }
+    @container shape (aspect-ratio < 7/8) and (width >= 6lh) {           /* sheet */
+      grid-template:
+        "s1 s2 s2" 1.75lh
+        "s9 s9 s9" 3.25lh
+        "s4 s4 s4" 7lh
+        "s5 s6 s7" 1fr
+        "s3 s8 s8" 1fr / 1.75lh 1fr 1fr;
+    }
+    @container shape (height < 6lh) {                                     /* strip · line · spot */
+      grid-template: "s1 s2 s3 s4 s5 s6 s7 s8 s9" 1fr / 1.75lh 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+    @container shape (width < 6lh) and (height >= 6lh) {                  /* slip · rail */
+      grid-template: "s1" 1.75lh "s2" 1fr "s3" 1fr "s4" 1fr "s5" 1fr "s6" 1fr "s7" 1fr "s8" 1fr "s9" 1fr / 1fr;
+    }
+    &:where([data-ui-state~="qc"]) {                                      /* one slot per shape */
+      grid-template:
+        "s1 s2 s2 s2" 1.75lh
+        "s3 s4 s4 s5" 7lh
+        "s3 s6 s7 s5" 16.5lh
+        "s3 s8 s9 s9" 3.25lh / 1.75lh 5.25lh 22lh 11.5lh;
+    }
+
+    /* slots */
+    & > :where(*) {
+      background-color: var(--_bg); --surf: var(--_bg); --surf-bg: var(--bg);
+      display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+      min-inline-size: 0; min-block-size: 0; overflow: hidden; user-select: none;
+      border: 1px solid var(--border); border-radius: 0.6em;
+      & > :where(*) { grid-area: 1 / 1; }
+      &:where([draggable="true"])       { cursor: grab; }
+      &:where([data-ui-state~="empty"]) { --bg: -0.3; border-style: dashed; }
+      &:where([data-ui-state~="drag"])  { opacity: 0.35; }
+      &:where([data-ui-state~="over"])  { outline: 2px solid var(--focus); outline-offset: 1px; }
+    }
+    & > :where(:nth-child(1)) { grid-area: s1; }
+    & > :where(:nth-child(2)) { grid-area: s2; }
+    & > :where(:nth-child(3)) { grid-area: s3; }
+    & > :where(:nth-child(4)) { grid-area: s4; }
+    & > :where(:nth-child(5)) { grid-area: s5; }
+    & > :where(:nth-child(6)) { grid-area: s6; }
+    & > :where(:nth-child(7)) { grid-area: s7; }
+    & > :where(:nth-child(8)) { grid-area: s8; }
+    & > :where(:nth-child(9)) { grid-area: s9; }
+
+    /* slot furniture: the shape tag (samp) and the remove button */
+    & > * > :where(samp, button) {
+      --bg: 1; --chroma: 0;
+      background-color: var(--_bg); --surf: var(--_bg); --surf-bg: var(--bg);
+      z-index: 1; margin: 0.2lh; visibility: hidden; line-height: 1; border: 0; border-radius: 0.35em;
+    }
+    & > * > :where(samp)   { place-self: end; pointer-events: none; --type: -2.5; padding: 0.3em 0.45em; writing-mode: horizontal-tb; }
+    & > * > :where(button) { place-self: start end; inline-size: 1.4em; block-size: 1.4em; padding: 0; border-radius: 50%; cursor: pointer; --type: -1; }
+    & > :where(:hover) > :where(button) { visibility: visible; }
+    & > :where([data-ui-state~="empty"]) > :where(samp) { place-self: center; visibility: visible; --type: -1.5; }
+    :where([data-ui-state~="tags"])  & > * > :where(samp) { visibility: visible; }
+    :where([data-ui-state~="armed"]) & > :where(*) { cursor: copy; }
+    :where([data-ui-state~="gates"]) & :where(.spot, .line, .rail, .slip, .sheet, .tile, .panel, .strip, .banner) {
+      outline: 1px dashed var(--focus); outline-offset: 1px;
+    }
+  }
+
+
+  /* ───────── the widget family — what every dashboard block shares ───────── */
+  :where(blk-kpi, blk-orders, blk-checklist, blk-team, blk-event, blk-notes, blk-status) {
+    width: 100%; height: 100%;   /* physical on purpose: rail turns the writing mode */
+    display: flex; flex-direction: column; gap: 0.4lh; padding: 0.5lh 0.75em; overflow: hidden;
+
+    /* arrangement by shape */
+    @container shape (7/8 <= aspect-ratio < 15/8) and (width >= 2lh) and (height >= 2lh) and ((width < 6lh) or (height < 6lh)) {
+      justify-content: center; gap: 0.1lh; padding: 0.35lh 0.6em;                                   /* tile */
+    }
+    @container shape (width >= 2lh) and (height <  2lh) { flex-direction: row; align-items: center; gap: 0.6em; padding: 0 0.6em; }   /* line */
+    @container shape (width <  2lh) and (height <  2lh) { justify-content: center; align-items: center; padding: 0; }             /* spot */
+    @container shape (width <  2lh) and (height >= 2lh) {                                                                         /* rail */
+      writing-mode: vertical-rl; flex-direction: row; align-items: center; gap: 0.6em; padding: 0.5lh 0;
+    }
+    @container shape (aspect-ratio >= 15/8) and (2lh <= height < 6lh) { flex-direction: row; align-items: center; gap: 1em; padding: 0 0.85em; }  /* strip */
+
+    /* text */
+    & :where(h3) { --type: 0.5; }
+    & :where(ul) { list-style: none; padding: 0; }
+    /* row items may shrink along the inline axis (ellipsis), never along the block axis */
+    & :where(header) {
+      display: flex; align-items: center; gap: 0.5em; flex: 0 1 auto; min-inline-size: 0;
+      @container shape (aspect-ratio < 7/8) and (2lh <= width < 6lh) { flex-direction: column; align-items: start; gap: 0.3lh; }
+    }
+    & :where(hgroup) {
+      display: grid; flex: 1 1 4em; min-inline-size: 0;
+      @container shape (height < 2lh) { display: flex; gap: 0.5em; align-items: baseline; }
+    }
+    & :where(div) {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 0.35em; flex: 0 1 auto; min-inline-size: 0; overflow: hidden;
+      @container shape (height < 2lh) or ((aspect-ratio >= 15/8) and (2lh <= height < 6lh)) { flex-wrap: nowrap; }   /* line · strip: one run, clipped */
+    }
+    & :where(h3, small) { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-inline-size: 0; }
+    & :where(small) { --fg: -0.6; flex-shrink: 4; }   /* in a row, the caption gives way first */
+    @container shape (aspect-ratio < 7/8) and (width >= 2lh) { & :where(h3, small) { white-space: normal; } }
+    & :where(strong) {
+      --type: 4; line-height: 1.1; white-space: nowrap; font-variant-numeric: tabular-nums;
+      flex: 0 1 auto; min-inline-size: 0; overflow: hidden; text-overflow: ellipsis;
+      @container shape (height < 6lh) { --type: 2.5; }
+      @container shape (width  < 6lh) { --type: 2; }
+      @container shape (height < 2lh) { --type: 0.5; }
+      @container shape (width  < 2lh) { --type: 0.5; }
+    }
+    /* prose — takes what is left and clips whole lines (one multicol column; the
+       overflow column is invisible), so no clamp step has to guess the height */
+    & :where(p) { --type: -0.5; --fg: -0.6; flex: 1 1 auto; min-block-size: 0; column-count: 1; column-fill: auto; overflow: hidden; }
+
+    /* small surfaces — each publishes, so its ink contrasts itself */
+    & :where(i, time, mark) { --bg: 0.22; background-color: var(--_bg); --surf: var(--_bg); --surf-bg: var(--bg); flex: none; }
+    & :where(i) {
+      --type: -0.5; font-style: normal; inline-size: 2em; block-size: 2em; border-radius: 0.5em; display: grid; place-items: center; line-height: 1;
+      text-orientation: upright; text-combine-upright: all;
+    }
+    & :where(time) {
+      display: grid; place-items: center; inline-size: 3.2em; padding-block: 0.2lh; border-radius: 0.5em; line-height: 1.1; writing-mode: horizontal-tb;
+      & :where(small) { --type: -2; --fg: inherit; letter-spacing: 0.06em; }
+      & :where(b)     { --type: 1.5; }
+    }
+    & :where(mark) { --type: -1; inline-size: fit-content; white-space: nowrap; padding-inline: 0.7em; border-radius: 999px; }
+    & :where(.av) {
+      --bg: 0.3; background-color: var(--_bg); --surf: var(--_bg); --surf-bg: var(--bg);
+      --type: -2; flex: none; inline-size: 2.3em; block-size: 2.3em; border-radius: 50%; display: grid; place-items: center; writing-mode: horizontal-tb;
+    }
+    & :where(.dot) {
+      --bg: 0.85; background-color: var(--_bg); --surf: var(--_bg); --surf-bg: var(--bg);
+      flex: none; display: inline-block; inline-size: 0.6em; block-size: 0.6em; border-radius: 50%;
+      &:where([data-ui-state~="off"]) { --bg: -0.6; --chroma: 0; }
+    }
+
+    /* data marks — currentColor, so every mark follows --hue and the mode */
+    & :where(figure) {
+      --fg: 0.7; flex: 1 1 0; min-block-size: 0; min-inline-size: 0; align-self: stretch; display: flex; flex-direction: column;
+      @container shape (aspect-ratio >= 15/8) and (2lh <= height < 6lh) { padding-block: 0.5lh; }
+      & :where(svg) { flex: 1 1 0; min-block-size: 0; inline-size: 100%; }
+      & :where(path:first-child) { fill: currentColor; fill-opacity: 0.14; }
+      & :where(path:last-child)  { fill: none; stroke: currentColor; stroke-width: 2; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+      & :where(rect)             { fill: currentColor; --fg: 0.55; }
+      & :where(rect:last-child)  { --fg: 1; }
+    }
+    & :where(figcaption) {
+      display: flex; justify-content: space-between; gap: 1em; flex: none; --type: -1.5; --fg: -0.55; white-space: nowrap;
+      & > :where(*) { overflow: hidden; text-overflow: ellipsis; }
+    }
+    & :where(.ring) {
+      flex: none; inline-size: 2.5lh; block-size: 2.5lh;
+      @container shape (height < 6lh) { inline-size: 1.9lh; block-size: 1.9lh; }
+      @container shape (aspect-ratio < 7/8) and (2lh <= width < 6lh) { inline-size: min(100%, 3.5lh); block-size: auto; aspect-ratio: 1; }
+      & :where(circle)             { fill: none; stroke: currentColor; stroke-width: 6; }
+      & :where(circle:first-child) { --fg: -0.15; }
+      & :where(circle:last-child)  { --fg: 0.8; stroke-linecap: round; }
+    }
+    & :where(progress) {
+      --fg: 0.85; --bg: -0.45; background-color: var(--_bg); --surf: var(--_bg); --surf-bg: var(--bg);
+      appearance: none; border: 0; flex: 0 1 auto; min-inline-size: 3em; inline-size: 100%; block-size: 0.3lh; border-radius: 999px; overflow: hidden;
+      &::-webkit-progress-bar   { background: transparent; }
+      &::-webkit-progress-value { background: currentColor; border-radius: inherit; }
+      &::-moz-progress-bar      { background: currentColor; }
+      @container shape (height < 2lh) or ((aspect-ratio >= 15/8) and (2lh <= height < 6lh)) { inline-size: auto; flex: 1 1 0; }   /* line · strip: takes what is left */
+      @container shape (width < 2lh) and (height >= 2lh) { direction: rtl; inline-size: auto; flex: 1 1 auto; }                    /* rail: fill upward */
+    }
+    & :where(input) { --fg: 0.85; accent-color: currentColor; flex: none; inline-size: 1.05em; block-size: 1.05em; margin: 0; pointer-events: none; }
+
+    /* lists — multicol: rows that don't fit spill into a clipped column, whole */
+    & :where(ul) {
+      column-count: 1; column-fill: auto; column-gap: 1.5em; overflow: hidden; flex: 1 1 0; min-block-size: 0;
+      @container shape (aspect-ratio >= 15/8) and (height >= 6lh) { column-count: 2; }
+    }
+    & :where(li) { --type: -0.5; display: flex; gap: 0.6em; align-items: center; white-space: nowrap; overflow: hidden; break-inside: avoid; padding-block-end: 0.3lh; }
+    & :where(li > span) { overflow: hidden; text-overflow: ellipsis; min-inline-size: 0; }
+    & :where(li > b)    { margin-inline-start: auto; }
+    & :where(s)         { --fg: -0.45; }
+    & :where(footer) {
+      display: grid; gap: 0.2lh; flex: none;
+      @container shape (aspect-ratio >= 15/8) and (height >= 6lh) { grid-template-columns: 1fr auto; align-items: center; column-gap: 0.8em; }
+    }
+  }
+
+
+  /* ───────── the blocks — identity, plus anything private ───────── */
+  :where(blk-kpi) {
+    --hue-shift: -100;
+    & :where(.suc) { --fg: 0.85; }                     /* the delta reads in chromatic ink */
+    @container shape (aspect-ratio >= 15/8) and (height >= 6lh) {   /* banner: figures left, trend fills the rest */
+      display: grid; grid-template: "a f" auto "b f" auto "c f" 1fr / max-content minmax(0, 1fr); column-gap: 1.5em;
+      & > :where(figure) { grid-area: f; }
+    }
+  }
+  :where(blk-orders)    { --hue-shift: 0; }
+  :where(blk-checklist) { --hue-shift: 50; }
+  :where(blk-team) {
+    --hue-shift: -50;
+    @container shape (height < 2lh) or ((aspect-ratio >= 15/8) and (2lh <= height < 6lh)) {   /* line · strip: overlap the avatars */
+      & :where(div)       { gap: 0; }
+      & :where(.av + .av) { margin-inline-start: -0.7em; }
+    }
+  }
+  :where(blk-event)  { --hue-shift: 145; }
+  :where(blk-notes)  { --hue-shift: -165; }
+  :where(blk-status) {
+    --hue-shift: -110;
+    & > :where(.dot) { inline-size: 1em; block-size: 1em; }   /* the spot form: one aggregate dot */
+  }
+}
+
+/* ════ demo chrome — the page around the board. Consumer; nothing here is engine. ════ */
+@layer block {
+  :where(.intro) {
+    display: grid; gap: 0.25lh; margin-block-end: 0.75lh; max-inline-size: 72ch;
+    & :where(p) { --fg: -0.6; }
+  }
+
+  :where(.tools) {
+    display: flex; flex-wrap: wrap; gap: 0.4em; align-items: center; margin-block-end: 0.6lh;
+    & :where(button, select) {
+      --lift: 0.06; background-color: var(--_bg); --surf: var(--_bg);
+      block-size: var(--_control-h); padding-inline: 0.75em; border: 1px solid var(--border); border-radius: 0.4em; cursor: pointer;
+    }
+    & :where([aria-pressed="true"]) { --lift: 0.3; }
+    & :where(label) { display: flex; gap: 0.4em; align-items: center; --type: -0.5; --fg: -0.6; }
+    & :where(input[type="range"]) { inline-size: 8em; accent-color: var(--focus); }
+    & :where(hr) { inline-size: 1px; block-size: 1lh; border: 0; margin: 0 0.25em; background: var(--border); }
+  }
+
+  :where(.app) {
+    display: grid; grid-template-columns: 15lh minmax(0, 1fr); gap: 0.75lh; align-items: start;
+    @media (width < 48rem) { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  :where(.locker) {
+    --bg: -0.3; background-color: var(--_bg); --surf: var(--_bg); --surf-bg: var(--bg);
+    display: grid; gap: 0.3lh; padding: 0.5lh; border-radius: 0.75em;
+    & :where(h2) { --type: 0.5; }
+    & :where(p)  { --type: -1.5; --fg: -0.6; }
+    &:where([data-ui-state~="target"]) { outline: 2px dashed var(--focus); outline-offset: 2px; }
+    & > :where(.cell) {
+      background-color: var(--_bg); --surf: var(--_bg); --surf-bg: var(--bg);
+      block-size: 1.75lh; overflow: hidden; border: 1px solid var(--border); border-radius: 0.5em; cursor: grab; user-select: none;
+      &:where([data-ui-state~="armed"]) { outline: 2px solid var(--focus); outline-offset: 1px; }
+    }
+  }
+
+  /* the region: a resizable cell the board reads its shape from */
+  :where(.region) {
+    --bg: -0.3; background-color: var(--_bg); --surf: var(--_bg); --surf-bg: var(--bg);
+    inline-size: 100%; max-inline-size: 100%; block-size: 31lh; min-inline-size: 4lh; min-block-size: 2.5lh;
+    resize: both; overflow: hidden; border-radius: 0.75em;
+  }
+}
+</style>
+<div class="column" style="--gap: 0.5lh;"><strong>Shape locker — the cell, the shapes, the blocks</strong> <small style="--fg: -0.55;">Two levels of one mechanism: the resizable region is a cell; <code>&lt;blk-board&gt;</code> reads its shape and picks a slot grid. Each slot is a cell; the block dropped in reads its shape and picks its own form. Resize the region from its corner, or pick a preset, and both levels rearrange with no script involved. A part lists the shapes it belongs in (spot line rail · slip sheet · tile panel · strip banner); the gate layer shows it only there; the block's one rule arranges per shape with @container shape (…). Tick "Shape tags" to see each cell name its shape.</small></div>
+
+<div class="tools">
+  <span id="presets" class="row"></span>
+  <hr>
+  <button id="reset">Reset</button>
+  <button id="clear">Clear</button>
+  <hr>
+  <label>Hue <input type="range" id="hue" min="0" max="360" value="250"></label>
+  <span id="modes" class="row"></span>
+  <label>Scale
+    <select id="scale">
+      <option value="0.8">0.8</option><option value="0.9">0.9</option>
+      <option value="1" selected>1</option><option value="1.15">1.15</option><option value="1.3">1.3</option>
+    </select>
+  </label>
+  <hr>
+  <label><input type="checkbox" id="t-tags"> Shape tags</label>
+  <label><input type="checkbox" id="t-gates"> Outline gated parts</label>
+</div>
+
+<div class="app">
+  <aside class="locker" id="locker">
+    <h2>Locker</h2>
+    <p>Drag into a slot, or click one and then click slots. Double-click to fill every slot. Drag a slot back here to empty it.</p>
+  </aside>
+  <div class="region cell" id="region">
+    <blk-board id="board">
+      <div class="cell"></div><div class="cell"></div><div class="cell"></div>
+      <div class="cell"></div><div class="cell"></div><div class="cell"></div>
+      <div class="cell"></div><div class="cell"></div><div class="cell"></div>
+    </blk-board>
+  </div>
+</div>
+
+<!-- =========================== BLOCKS =========================== -->
+
+<template id="tpl-kpi" data-name="Revenue">
+  <blk-kpi>
+    <header class="spot line rail slip sheet panel strip banner"><i>$</i><h3 class="line slip sheet panel strip banner">Revenue</h3></header>
+    <strong class="rail line slip sheet tile panel strip banner">$48.2k</strong>
+    <small class="line sheet panel strip banner"><span class="suc">▲ 12%</span> vs last week</small>
+    <small class="tile slip"><span class="suc">▲ 12%</span></small>
+    <figure class="slip strip banner panel sheet" data-spark="22,25,24,29,27,31,30,34,33,38,36,41,44,48"></figure>
+    <ul class="panel sheet">
+      <li><span class="dot" style="--hue-shift: -100"></span><span>On-premise</span><b class="num">$21.4k</b></li>
+      <li><span class="dot" style="--hue-shift: -50"></span><span>Retail</span><b class="num">$18.9k</b></li>
+      <li><span class="dot" style="--hue-shift: 0"></span><span>Events</span><b class="num">$7.9k</b></li>
+    </ul>
+  </blk-kpi>
+</template>
+
+<template id="tpl-orders" data-name="Orders">
+  <blk-orders>
+    <header class="spot line rail slip sheet panel strip banner"><i>▥</i><h3 class="line slip sheet panel strip banner">Orders · 14 days</h3></header>
+    <strong class="line rail tile strip slip">312</strong>
+    <small class="tile strip slip">orders today</small>
+    <figure class="panel sheet banner strip slip" data-bars="180,210,195,240,260,230,205,250,270,265,290,280,300,312">
+      <figcaption class="panel sheet banner"><span>Sep 25</span><span>Oct 8</span></figcaption>
+    </figure>
+  </blk-orders>
+</template>
+
+<template id="tpl-checklist" data-name="Checklist">
+  <blk-checklist>
+    <header class="line slip sheet panel strip banner"><i>✓</i><h3>Launch checklist</h3></header>
+    <header class="spot line rail tile slip">
+      <svg class="ring tile slip" viewBox="0 0 60 60"><circle cx="30" cy="30" r="24"/><circle cx="30" cy="30" r="24" stroke-dasharray="94.2 150.8" transform="rotate(-90 30 30)"/></svg>
+      <strong>5/8</strong>
+    </header>
+    <progress class="line rail slip strip panel sheet banner" value="5" max="8"></progress>
+    <small class="strip panel sheet banner">5 of 8 done · next: book venue</small>
+    <ul class="panel sheet banner">
+      <li><input type="checkbox" checked><s>Lock date</s></li>
+      <li><input type="checkbox" checked><s>Confirm breweries</s></li>
+      <li><input type="checkbox" checked><s>Order glassware</s></li>
+      <li><input type="checkbox" checked><s>Draft pour list</s></li>
+      <li><input type="checkbox" checked><s>Design tasting cards</s></li>
+      <li><input type="checkbox"><span>Book venue</span></li>
+      <li><input type="checkbox"><span>Print signage</span></li>
+      <li><input type="checkbox"><span>Send invites</span></li>
+    </ul>
+  </blk-checklist>
+</template>
+
+<template id="tpl-team" data-name="Team">
+  <blk-team>
+    <header class="line slip sheet panel strip banner"><i>◎</i><h3>Team</h3></header>
+    <i class="suc spot">4</i>
+    <strong class="tile slip">4/6</strong>
+    <small class="tile slip">online</small>
+    <div class="line strip rail slip">
+      <span class="av">AM</span><span class="av" style="--hue-shift: 60">JR</span><span class="av" style="--hue-shift: 120">KS</span>
+      <span class="av" style="--hue-shift: 180">TL</span><span class="av" style="--hue-shift: 240">PD</span><span class="av" style="--hue-shift: 300">MB</span>
+    </div>
+    <small class="line strip">4 of 6 online</small>
+    <ul class="panel sheet banner">
+      <li><span class="av">AM</span><span>Ana M.</span><b><span class="dot suc"></span></b></li>
+      <li><span class="av" style="--hue-shift: 60">JR</span><span>Jon R.</span><b><span class="dot suc"></span></b></li>
+      <li><span class="av" style="--hue-shift: 120">KS</span><span>Kim S.</span><b><span class="dot suc"></span></b></li>
+      <li><span class="av" style="--hue-shift: 180">TL</span><span>Tom L.</span><b><span class="dot suc"></span></b></li>
+      <li><span class="av" style="--hue-shift: 240">PD</span><span>Pat D.</span><b><span class="dot" data-ui-state="off"></span></b></li>
+      <li><span class="av" style="--hue-shift: 300">MB</span><span>Mia B.</span><b><span class="dot" data-ui-state="off"></span></b></li>
+    </ul>
+  </blk-team>
+</template>
+
+<template id="tpl-event" data-name="Event">
+  <blk-event>
+    <i class="spot line rail">14</i>
+    <header class="line slip sheet panel strip banner">
+      <time class="slip sheet panel strip banner" datetime="2026-10-14"><small>OCT</small><b>14</b></time>
+      <hgroup><h3>Fall Tasting</h3><small class="line slip sheet panel strip banner">Tue · 6–9 pm</small></hgroup>
+    </header>
+    <strong class="tile">Oct 14</strong>
+    <small class="tile">in 6 days</small>
+    <mark class="slip strip panel sheet">in 6 days</mark>
+    <p class="panel sheet banner">Twelve regional breweries, three flights each. Doors at 6, last pour at 8:45. Cards and glassware are staged by the walnut stands.</p>
+    <footer class="panel sheet banner slip"><progress value="42" max="60"></progress><small>42 of 60 RSVPs</small></footer>
+  </blk-event>
+</template>
+
+<template id="tpl-notes" data-name="Notes">
+  <blk-notes>
+    <header class="spot line rail slip sheet panel strip banner"><i>✎</i><h3 class="rail slip sheet panel strip banner">Notes</h3></header>
+    <small class="line strip">Confirm keg count with distributor by Friday.</small>
+    <p class="tile slip panel sheet banner">Confirm keg count with distributor by Friday. Ask the venue about load-in time — last year we lost an hour at the dock. Print 60 tasting cards and reuse the walnut stands.</p>
+  </blk-notes>
+</template>
+
+<template id="tpl-status" data-name="Status">
+  <blk-status>
+    <span class="dot wrn spot"></span>
+    <header class="line slip sheet panel strip banner"><i>●</i><h3>Status</h3></header>
+    <div class="line rail tile strip slip"><span class="dot suc"></span><span class="dot suc"></span><span class="dot wrn"></span><span class="dot suc"></span></div>
+    <small class="line strip slip panel sheet banner">1 service degraded</small>
+    <small class="tile">1 degraded</small>
+    <ul class="panel sheet banner">
+      <li><span class="dot suc"></span><span>Orders API</span><b class="num">99.98%</b></li>
+      <li><span class="dot suc"></span><span>Payments</span><b class="num">99.95%</b></li>
+      <li><span class="dot wrn"></span><span>SSE stream</span><b class="num">98.70%</b></li>
+      <li><span class="dot suc"></span><span>Search</span><b class="num">99.99%</b></li>
+    </ul>
+    <figure class="panel sheet" data-spark="140,152,148,160,171,165,158,190,240,226,205,188,182,176,181,179,183,186,182,178,184,190,185,182">
+      <figcaption><span>p95 latency · 24h</span><span>182 ms</span></figcaption>
+    </figure>
+  </blk-status>
+</template>
+
+<script>
+const COMPS  = ['kpi', 'orders', 'checklist', 'team', 'event', 'notes', 'status'];
+const SHAPES = ['spot', 'line', 'rail', 'slip', 'sheet', 'tile', 'panel', 'strip', 'banner'];
+
+/* region presets: a size, in lh so --scale carries it; the board does the rest */
+const PRESETS = {
+  Desktop: ['100%', '31lh'], Wide: ['100%', '12lh'], Phone: ['18lh', '34lh'],
+  Bar: ['100%', '2.8lh'], Rail: ['5lh', '31lh'], QC: ['45lh', '32lh'],
+};
+
+const $ = id => document.getElementById(id);
+const board = $('board'), region = $('region'), locker = $('locker');
+const slots = [...board.children];
+const state = slots.map(() => null);     // slot index → block key
+let drag = null, armed = null;
+
+/* data-ui-state as a token set */
+function st(el, token, on) {
+  const s = new Set((el.dataset.uiState || '').split(/\s+/).filter(Boolean));
+  on ? s.add(token) : s.delete(token);
+  if (s.size) el.dataset.uiState = [...s].join(' '); else delete el.dataset.uiState;
+}
+
+/* ---------- rendering ---------- */
+function hydrate(root) {
+  for (const fig of root.querySelectorAll('[data-spark]')) {
+    const v = fig.dataset.spark.split(',').map(Number), lo = Math.min(...v), hi = Math.max(...v);
+    const d = v.map((y, i) => (i ? 'L' : 'M') + (i / (v.length - 1) * 100).toFixed(2) + ' ' + (28 - (y - lo) / (hi - lo) * 26).toFixed(2)).join('');
+    fig.insertAdjacentHTML('afterbegin', `<svg viewBox="0 0 100 30" preserveAspectRatio="none"><path d="${d}L100 30L0 30Z"/><path d="${d}"/></svg>`);
+  }
+  for (const fig of root.querySelectorAll('[data-bars]')) {
+    const v = fig.dataset.bars.split(',').map(Number), hi = Math.max(...v), n = v.length;
+    fig.insertAdjacentHTML('afterbegin', `<svg viewBox="0 0 ${n * 10} 100" preserveAspectRatio="none">` +
+      v.map((y, i) => `<rect x="${i * 10 + 1.5}" width="7" y="${100 - y / hi * 100}" height="${y / hi * 100}"/>`).join('') + `</svg>`);
+  }
+  return root;
+}
+const render = key => hydrate($('tpl-' + key).content.cloneNode(true));
+const shapeTag = () => { const s = document.createElement('samp'); s.innerHTML = SHAPES.map(n => `<span class="${n}">${n}</span>`).join(''); return s; };
+
+function paint(i) {
+  const slot = slots[i], key = state[i];
+  slot.replaceChildren();
+  st(slot, 'empty', !key);
+  slot.draggable = !!key;
+  if (key) {
+    slot.append(render(key));
+    const x = document.createElement('button');
+    x.textContent = '×'; x.title = 'Remove';
+    x.onclick = e => { e.stopPropagation(); state[i] = null; paint(i); };
+    slot.append(x);
+  }
+  slot.append(shapeTag());
+}
+const paintAll = () => slots.forEach((_, i) => paint(i));
+
+/* ---------- locker ---------- */
+for (const key of COMPS) {
+  const chip = document.createElement('div');
+  chip.className = 'cell';
+  chip.dataset.block = key;
+  chip.draggable = true;
+  chip.title = $('tpl-' + key).dataset.name;
+  chip.append(render(key));
+  chip.addEventListener('dragstart', e => { drag = { src: 'locker', key }; e.dataTransfer.effectAllowed = 'copy'; e.dataTransfer.setData('text/plain', key); });
+  chip.addEventListener('dragend', clearDrag);
+  chip.addEventListener('click', () => arm(armed === key ? null : key));
+  chip.addEventListener('dblclick', () => { arm(null); state.fill(key); paintAll(); });
+  locker.append(chip);
+}
+
+function arm(key) {
+  armed = key;
+  st(document.body, 'armed', !!key);
+  for (const chip of locker.querySelectorAll('[data-block]')) st(chip, 'armed', chip.dataset.block === key);
+}
+
+/* ---------- drag & drop ---------- */
+function clearDrag() {
+  drag = null;
+  for (const s of slots) { st(s, 'over', false); st(s, 'drag', false); }
+  st(locker, 'target', false);
+}
+
+slots.forEach((slot, i) => {
+  slot.addEventListener('dragstart', e => {
+    if (!state[i]) return e.preventDefault();
+    drag = { src: 'slot', i };
+    st(slot, 'drag', true);
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', String(i));
+  });
+  slot.addEventListener('dragend', clearDrag);
+  slot.addEventListener('dragover', e => {
+    if (!drag || (drag.src === 'slot' && drag.i === i)) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = drag.src === 'locker' ? 'copy' : 'move';
+    st(slot, 'over', true);
+  });
+  slot.addEventListener('dragleave', () => st(slot, 'over', false));
+  slot.addEventListener('drop', e => {
+    e.preventDefault();
+    if (!drag) return;
+    if (drag.src === 'locker') { state[i] = drag.key; paint(i); }
+    else if (drag.i !== i) { [state[drag.i], state[i]] = [state[i], state[drag.i]]; paint(i); paint(drag.i); }
+    clearDrag();
+  });
+  slot.addEventListener('click', () => { if (armed) { state[i] = armed; paint(i); } });
+});
+
+locker.addEventListener('dragover', e => {
+  if (drag?.src !== 'slot') return;
+  e.preventDefault(); e.dataTransfer.dropEffect = 'move';
+  st(locker, 'target', true);
+});
+locker.addEventListener('dragleave', e => { if (!locker.contains(e.relatedTarget)) st(locker, 'target', false); });
+locker.addEventListener('drop', e => {
+  e.preventDefault();
+  if (drag?.src === 'slot') { state[drag.i] = null; paint(drag.i); }
+  clearDrag();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') arm(null); });
+
+/* ---------- presets + engine knobs ---------- */
+const presetBox = $('presets');
+function preset(name) {
+  const [w, h] = PRESETS[name];
+  region.style.width = w; region.style.height = h;
+  st(board, 'qc', name === 'QC');
+  for (const b of presetBox.children) b.setAttribute('aria-pressed', b.textContent === name);
+}
+for (const name of Object.keys(PRESETS)) {
+  const b = document.createElement('button');
+  b.textContent = name; b.onclick = () => preset(name);
+  presetBox.append(b);
+}
+new ResizeObserver(() => { for (const b of presetBox.children) b.setAttribute('aria-pressed', false); }).observe(region);
+
+$('hue').oninput = e => document.documentElement.style.setProperty('--hue', e.target.value);
+const modeBox = $('modes');
+for (const m of ['Auto', 'Light', 'Dark']) {
+  const b = document.createElement('button');
+  b.textContent = m;
+  b.onclick = () => {
+    document.documentElement.classList.remove('light', 'dark');
+    if (m !== 'Auto') document.documentElement.classList.add(m.toLowerCase());
+    for (const x of modeBox.children) x.setAttribute('aria-pressed', x === b);
+  };
+  modeBox.append(b);
+}
+modeBox.children[0].setAttribute('aria-pressed', true);
+$('scale').onchange = e => region.style.setProperty('--scale', e.target.value);
+
+$('reset').onclick = () => { slots.forEach((_, i) => state[i] = COMPS[i % COMPS.length]); paintAll(); };
+$('clear').onclick = () => { state.fill(null); paintAll(); };
+$('t-tags').onchange  = e => st(document.body, 'tags',  e.target.checked);
+$('t-gates').onchange = e => st(document.body, 'gates', e.target.checked);
+
+$('reset').onclick();
+preset('Desktop');
+</script>
+
+		</section>
+	</main>
+	<footer class="pg-main-footer spread" style="--type: -1;"><span><a href="../lab/stack.html">← Stack</a></span><span><a href="../lab/vocabulary.html">Vocabulary →</a></span></footer>
+</div>
+<script src="../static/highlight.js"></script>
+</body>
+</html>

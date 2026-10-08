@@ -34,6 +34,7 @@ var exceptions = map[string]string{
 
 var (
 	cssComment = regexp.MustCompile(`(?s)/\*.*?\*/`)
+	layerHead  = regexp.MustCompile(`@layer[^{;]*[{;]`)
 	classTok   = regexp.MustCompile(`\.([a-zA-Z][\w-]*)`)
 	wordTok    = regexp.MustCompile(`[A-Za-z][\w-]*`)
 	classAttr  = regexp.MustCompile(`class="([^"]*)"`)
@@ -44,7 +45,7 @@ var (
 // no page is not stale, it is undemoed — the fix is a specimen, never a
 // deletion; the exceptions carry a reason each.
 func TestVocabulary(t *testing.T) {
-	css, err := fs.ReadFile(Static(), "system.css")
+	css, err := fs.ReadFile(Static(), "mike.css")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -72,7 +73,8 @@ func TestVocabulary(t *testing.T) {
 	}
 	seen := map[string]bool{}
 	var missing []string
-	for _, m := range classTok.FindAllStringSubmatch(cssComment.ReplaceAllString(string(css), ""), -1) {
+	code := layerHead.ReplaceAllString(cssComment.ReplaceAllString(string(css), ""), "") // a layer's name (core.shape) is not a class
+	for _, m := range classTok.FindAllStringSubmatch(code, -1) {
 		c := m[1]
 		if seen[c] || worn[c] || exceptions[c] != "" {
 			continue

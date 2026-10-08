@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="color-scheme" content="dark light"/>
-<title>Components — mike.css</title>
+<title>The shape and the block contract — mike.css</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=optional" rel="stylesheet"/>
@@ -39,57 +39,90 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 	</nav>
 	<header class="pg-main-header column">
 		<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">mike.css</a><a href="../engine/overview.html">Engine</a></nav>
-		<div class="spread"><h1>Components</h1></div>
+		<div class="spread"><h1>The shape and the block contract</h1></div>
 		<details class="site-menu mobile column" style="--gap: 0.25lh;"><summary class="tag">Menu</summary><div class="row" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../advanced/wash.html">Advanced</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../demos/full-pages.html">Demos</a><a class="tag" href="../skills/system-css.html">Skills</a></div><div class="column" style="--gap: 0; --type: -1;"><a href="../engine/overview.html">Overview</a><a href="../engine/one-file-one-spine.html">ONE file, one spine</a><a href="../engine/the-painter-model.html">The painter model</a><a href="../engine/the-cascade-constitution.html">The cascade constitution</a><a href="../engine/layout.html">Layout</a><a href="../engine/the-shape-and-the-block.html">The shape and the block contract</a><a href="../engine/components.html">Components</a><a href="../engine/semantic-hue-locks-vs-number.html">Semantic hue locks vs number formatting</a><a href="../engine/the-rhythm-ladder.html">The rhythm ladder</a><a href="../engine/authoring-checklist.html">Authoring checklist</a><a href="../engine/view-transitions-the-fouc-ledger.html">View transitions &amp; the FOUC ledger</a><a href="../engine/the-form-canon.html">The form canon</a><a href="../engine/utilities.html">Utilities</a></div></details>
 	</header>
-	<nav class="pg-toolbar spread-column tablet desktop" aria-label="Engine"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">Engine</small><a class="nav-item" href="../engine/overview.html"><span class="medium large">Overview</span></a><a class="nav-item" href="../engine/one-file-one-spine.html"><span class="medium large">ONE file, one spine</span></a><a class="nav-item" href="../engine/the-painter-model.html"><span class="medium large">The painter model</span></a><a class="nav-item" href="../engine/the-cascade-constitution.html"><span class="medium large">The cascade constitution</span></a><a class="nav-item" href="../engine/layout.html"><span class="medium large">Layout</span></a><a class="nav-item" href="../engine/the-shape-and-the-block.html"><span class="medium large">The shape and the block contract</span></a><a class="nav-item" href="../engine/components.html" aria-current="page"><span class="medium large">Components</span></a><a class="nav-item" href="../engine/semantic-hue-locks-vs-number.html"><span class="medium large">Semantic hue locks vs number formatting</span></a><a class="nav-item" href="../engine/the-rhythm-ladder.html"><span class="medium large">The rhythm ladder</span></a><a class="nav-item" href="../engine/authoring-checklist.html"><span class="medium large">Authoring checklist</span></a><a class="nav-item" href="../engine/view-transitions-the-fouc-ledger.html"><span class="medium large">View transitions &amp; the FOUC ledger</span></a><a class="nav-item" href="../engine/the-form-canon.html"><span class="medium large">The form canon</span></a><a class="nav-item" href="../engine/utilities.html"><span class="medium large">Utilities</span></a></div></nav>
+	<nav class="pg-toolbar spread-column tablet desktop" aria-label="Engine"><div class="column" style="--gap: 0.1lh;"><small class="rail-head medium large">Engine</small><a class="nav-item" href="../engine/overview.html"><span class="medium large">Overview</span></a><a class="nav-item" href="../engine/one-file-one-spine.html"><span class="medium large">ONE file, one spine</span></a><a class="nav-item" href="../engine/the-painter-model.html"><span class="medium large">The painter model</span></a><a class="nav-item" href="../engine/the-cascade-constitution.html"><span class="medium large">The cascade constitution</span></a><a class="nav-item" href="../engine/layout.html"><span class="medium large">Layout</span></a><a class="nav-item" href="../engine/the-shape-and-the-block.html" aria-current="page"><span class="medium large">The shape and the block contract</span></a><a class="nav-item" href="../engine/components.html"><span class="medium large">Components</span></a><a class="nav-item" href="../engine/semantic-hue-locks-vs-number.html"><span class="medium large">Semantic hue locks vs number formatting</span></a><a class="nav-item" href="../engine/the-rhythm-ladder.html"><span class="medium large">The rhythm ladder</span></a><a class="nav-item" href="../engine/authoring-checklist.html"><span class="medium large">Authoring checklist</span></a><a class="nav-item" href="../engine/view-transitions-the-fouc-ledger.html"><span class="medium large">View transitions &amp; the FOUC ledger</span></a><a class="nav-item" href="../engine/the-form-canon.html"><span class="medium large">The form canon</span></a><a class="nav-item" href="../engine/utilities.html"><span class="medium large">Utilities</span></a></div></nav>
 	<main class="pg-main column owns-scroll">
 		<section class="column content-3" style="--gap: 1lh;">
-<h2 id="components-styled-semantics--a-few-classes">COMPONENTS (styled semantics + a few classes)</h2>
-<p>.card (lifted surface panel), .tag (small pill; pair with a hue helper),
-.avatar, .crumbs (--type: -3, a crumb <a> is a BARE link — the recipe restates nothing base owns, gf-334), .tree
-(nested lists of links), .tabs / .tabs-underline (the latter is the GitHub underline
-treatment; icon-aware, .count pill support), .button-group, .nav-item /
-.nav-icon, .drawer (+ .left/.right/.top and .glass), .modal, .menu (popover),
-.search-box (icon+input+kbd as one control), .icon (THE icon-only square —
-explicit class, aria-label required; never rely on selector inference),
-section.owns-scroll (a component-scrolled section that stops clipping —
-how every full-height roster is built; overflow-y:auto clips BOTH axes,
-which is why corner badges shear without it), .roster (THE SERVER-DRIVEN
-TABLE: one class on the div holding a roster's head, form and table;
-truncating cells, the hugging column model with .clip absorbers, tonal
-head and hover, 1lh head controls that wake on hover, the shadowed
-.scroll-x — all CSS over server markup, zero client state), .focus-fab, .glass (the surface at --glass-alpha over a --glass-blur of what is behind; 0.65 is a dialog over its dimmed backdrop; an overlay that must read over anything — a toast — wears 0.88; quiet is ink, never opacity on glass: opacity multiplies into it),
-.hud overlay slots (t/c/b row × l/c/r column; corner slots pad 1lh, the
-centre none — a scope zeroes it when the top row must be one line,
-gf-358; a .fab-1/2/3 inside a .hud is frozen to 2.4lh), .wash (gf-359 — a
-viewport-fixed underlay of two soft pools in the surface's own colour;
-<code>:has(&gt; .wash)</code> makes the HOST a stacking context so the pools paint
-above its surface and under its content; the second pool is a real CHILD
-at --hue-shift: 30, never a pseudo — the engine resolves --_bg per
-element), .county-map (an engine recipe demoed in the lab only since
-gf-364's picker paints by --fg groups).</p>
-<p>Anatomy glyphs are DECLARED boxes: flex-frozen, exempt from the reset's
-fluid max-inline-size cap (the 4px-glyph bug), and .icon self-centers —
-a square control never stretches. Know what a class IS before composing
-it: .sec is a BUTTON voice (an exception-layer variant) — on a wrapper it paints a ghost
-box (the gf-46 button-group scar). Voices, locks, and recipes attach to
-specific anatomy.</p>
-<p>Dialogs are native <dialog class="modal"> at a rung of the content ladder
-(.content-2 by default · .content-1 the confirm · .content-3 the workbench, all glass, top-pinned), opened and closed in
-HTML — the button wears <code>commandfor=&quot;&lt;dialog id&gt;&quot; command=&quot;show-modal&quot;</code>,
-a bare close <code>command=&quot;close&quot;</code> (Invoker Commands; never a script lookup
-of the dialog — a verb that posts THEN closes is Datastar's
-<code>@post(…); el.closest('dialog').close()</code>, gf-572) — and dismissed
-declaratively (closedby=&quot;any&quot;;
-data-preserve-attr=&quot;open&quot; is MANDATORY on every dialog on a live page — a push morphs the whole page and closes it under the person (gf-357)). popover +
-popovertarget drive menus — and a closed .menu popover must get
-display:none, never opacity alone (opacity leaves hidden menus in the tab
-order).</p>
+<h2 id="the-shape-and-the-block-contract-mikecss-mike-2026-10-08">THE SHAPE AND THE BLOCK CONTRACT (mike.css, Mike 2026-10-08)</h2>
+<p>&quot;Each block is able to manage itself.&quot; The shell establishes the page
+chrome; pg-main is a container that can be a dynamic grid; a <code>&lt;blk-*&gt;</code>
+component in a grid cell arranges itself for the cell it is given.</p>
+<p>THE CELL (<code>core.shape</code>): any element marked <code>.cell</code> is a size query
+container named <code>shape</code> — a grid track, a region, a chip. A cell never
+measures its own content (size containment collapses it under an
+auto-height parent, and a flex-grown cell answers with its flex base
+size, nothing): the layout hands a cell its size. A cell is EXACTLY ONE
+SHAPE, in lh of the cell's own line so <code>--type</code> and <code>--scale</code> move the
+boundaries with the text:</p>
+<pre><code>spot    w &lt; 2lh, h &lt; 2lh          the glyph alone
+line    w ≥ 2lh, h &lt; 2lh          one run, clipped
+rail    w &lt; 2lh, h ≥ 2lh          vertical writing
+slip | sheet   ratio &lt; 7/8        tall: short side (w) &lt; 6lh | ≥ 6lh
+tile | panel   7/8 ≤ ratio &lt; 15/8 square-ish: min(w,h) &lt; 6lh | ≥ 6lh
+strip | banner ratio ≥ 15/8       wide: short side (h) &lt; 6lh | ≥ 6lh
+</code></pre>
+<p>THE BLOCK (<code>@layer block</code>): the tag is the component and its only hook —
+<code>&lt;blk-kpi&gt;</code>, <code>&lt;blk-location&gt;</code>. ONE rule per block, in the product's own
+sheet (EventOS: static/blocks.css), and nothing about the block anywhere
+else (law 3, locality):</p>
+<pre><code>@layer block {
+  :where(blk-location) {
+    display: grid; …                                 /* its own box */
+    &amp; :where(header) { … }                           /* its parts, by element */
+    &amp;:where([data-ui-state~=&quot;armed&quot;]) { … }          /* its states, ~= tokens */
+    @container shape (aspect-ratio &gt;= 15/8) { … }    /* its ARRANGEMENT per shape */
+  }
+}
+</code></pre>
+<ul>
+<li>parts are semantic elements (header h3 small strong figure ul li time
+mark progress footer …); a part CLASS (.ring .dot .av) is meaningful
+only inside its block;</li>
+<li>a part declares WHICH SHAPES it belongs in with the shape classes
+(<code>&lt;small class=&quot;line strip banner&quot;&gt;</code>); the block's rule never sets
+visibility — the gate layer owns the only two states, none and
+revert-layer, so a part may use any display;</li>
+<li>arrangement per shape is <code>@container shape (…)</code> INSIDE the block's rule;</li>
+<li>colour and type through the knobs (<code>--hue --hue-shift --bg --lift --fg --type --scale --gap</code>), inline only where a value is DATA (an avatar's
+hue); helpers from the closed utility list (.suc .inf .wrn .dgr .num …);</li>
+<li>state is <code>data-ui-state=&quot;a b&quot;</code> tokens matched <code>~=</code>, after native and
+ARIA state (disabled, aria-pressed, :open);</li>
+<li>every selector <code>:where()</code>-wrapped; no !important; nothing reaches
+outside the tag.</li>
+</ul>
+<p>A block is written FOR THE BENCH FIRST: the product's Layout bench puts
+one block in a resizable <code>.cell</code> with a shape tag that names the shape;
+every shape is looked at before any page wears the block. The lab's
+Shapes page is the engine's own specimen: the shape locker, a resizable
+region whose <code>&lt;blk-board&gt;</code> of nine cells reads the region's shape, and
+seven demo blocks that read their cell's.</p>
+<p>Container rule: gate classes go on a dedicated wrapper div, never on a styled
+leaf component, and the gated element must also carry a layout primitive
+(revert-layer restores the primitive's display, not a default).</p>
+<p>Focus mode (gf-262): a STORED pref like every other display choice —
+the server stamps data-ui-state=&quot;focus&quot; on .page and the chrome
+collapses so pg-main* fill the viewport. The Theme shelf of the profile
+dialog posts /settings/focus/mode; the focus fab retired in gf-307 (its
+engine classes .focus-fab .i-expand .i-collapse wait, undemoed, for the
+day it returns) and the old hidden #focus-toggle checkbox before it.</p>
+<p>THE EDIT CARD (gf-262, view/settings.templ editCard): the ONE shape for a
+record's form — h3 + pencil top-right (unlocks), the canon fieldsets bound
+readonly while locked, Cancel bottom-left as a native type=&quot;reset&quot; (the
+fields fall back to their stored values — no seed strings), Save
+bottom-right posting the form (contentType 'form'). Stored values are
+judged by the RENDER (aria-invalid + the message in the field's small —
+canon (4)); a wizard lights the one control to click next with
+data-ui-state=&quot;guide&quot; (a still ring + a slow glow, motion-gated; the
+set-up walk that first used it retired in gf-313).</p>
+<p>Print: @media print (in the exception layer) strips every region except pg-main*,
+drops surfaces to white while keeping borders, forces black ink. The screen is
+the themed medium; paper is austere.</p>
 
 		</section>
 	</main>
-	<footer class="pg-main-footer spread" style="--type: -1;"><span><a href="../engine/the-shape-and-the-block.html">← The shape and the block contract</a></span><span><a href="../engine/semantic-hue-locks-vs-number.html">Semantic hue locks vs number formatting →</a></span></footer>
+	<footer class="pg-main-footer spread" style="--type: -1;"><span><a href="../engine/layout.html">← Layout</a></span><span><a href="../engine/components.html">Components →</a></span></footer>
 </div>
 <script src="../static/highlight.js"></script>
 </body>

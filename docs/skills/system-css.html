@@ -4,11 +4,11 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="color-scheme" content="dark light"/>
-<title>system-css — system.css</title>
+<title>system-css — mike.css</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=optional" rel="stylesheet"/>
-<link rel="stylesheet" href="../static/system.css"/>
+<link rel="stylesheet" href="../static/mike.css"/>
 <link rel="stylesheet" href="../static/highlight.css"/>
 <link rel="stylesheet" href="../assets/site.css"/>
 <script>
@@ -23,7 +23,7 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 <body>
 <div class="page">
 	<header class="pg-header spread" style="--gap: 0.5em;">
-		<a href="../index.html" class="row oneline" style="--gap: 0.5em;"><strong>system.css</strong><small style="--fg: -0.55;">the engine</small></a>
+		<a href="../index.html" class="row oneline" style="--gap: 0.5em;"><strong>mike.css</strong><small style="--fg: -0.55;">the engine</small></a>
 		<span class="row oneline tablet desktop" style="--gap: 0.75em;"><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">hue</small><input type="range" min="0" max="360" step="5" data-bind:hue data-on:change="save('hue', $hue)" style="inline-size: 6em;"/><span class="number" data-text="$hue"></span></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">skin</small><select data-bind:skin data-on:change="save('skin', $skin)"><option value="">default</option><option value="material">material</option><option value="carbon">carbon</option></select></label><label class="row oneline" style="--gap: 0.35em; --type: -1;"><small style="--fg: -0.55;">corners</small><select data-bind:radius data-on:change="save('radius', $radius)"><option value="">default</option><option value="0">square</option><option value="1">soft</option><option value="2">round</option><option value="3">pill</option></select></label><span class="button-group" role="group" aria-label="Size" style="--type: -1;"><button type="button" data-attr:aria-pressed="$size == 'sm' ? 'true' : 'false'" data-on:click="$size = 'sm'; save('size', $size)">S</button><button type="button" data-attr:aria-pressed="$size == 'md' ? 'true' : 'false'" data-on:click="$size = 'md'; save('size', $size)">M</button><button type="button" data-attr:aria-pressed="$size == 'lg' ? 'true' : 'false'" data-on:click="$size = 'lg'; save('size', $size)">L</button></span><span class="button-group" role="group" aria-label="Motion" style="--type: -1;"><button type="button" data-attr:aria-pressed="$motion == 'off' ? 'true' : 'false'" data-on:click="$motion = 'off'; save('motion', $motion)">Off</button><button type="button" data-attr:aria-pressed="$motion == 'on' ? 'true' : 'false'" data-on:click="$motion = 'on'; save('motion', $motion)">On</button><button type="button" data-attr:aria-pressed="$motion == 'debug' ? 'true' : 'false'" data-on:click="$motion = 'debug'; save('motion', $motion)">Debug</button></span><span class="button-group" role="group" aria-label="Theme" style="--type: -1;"><button type="button" data-attr:aria-pressed="$theme == '' ? 'true' : 'false'" data-on:click="$theme = ''; save('theme', $theme)">System</button><button type="button" data-attr:aria-pressed="$theme == 'light' ? 'true' : 'false'" data-on:click="$theme = 'light'; save('theme', $theme)">Light</button><button type="button" data-attr:aria-pressed="$theme == 'dark' ? 'true' : 'false'" data-on:click="$theme = 'dark'; save('theme', $theme)">Dark</button></span></span>
 		<span class="row oneline" style="--gap: 0.5em;">
 			<a href="https://github.com/Deufel/system-css" style="--type: -1;">GitHub</a>
@@ -38,7 +38,7 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 		<div class="column"><a class="nav-item" href="../index.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /> <path d="M20 3v4" /> <path d="M22 5h-4" /> <path d="M4 17v2" /> <path d="M5 18H3" /> </svg><span class="medium large">Home</span></a><a class="nav-item" href="../howto/start.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /> </svg><span class="medium large">How-to</span></a><a class="nav-item" href="../engine/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /> <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /> <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /> <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /> <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /> </svg><span class="medium large">Engine</span></a><a class="nav-item" href="../components/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span class="medium large">Components</span></a><a class="nav-item" href="../stream/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span class="medium large">Land &amp; stream</span></a><a class="nav-item" href="../charts/overview.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /> <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /> <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /> <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /> <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /> </svg><span class="medium large">Charts</span></a><a class="nav-item" href="../advanced/wash.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span class="medium large">Advanced</span></a><a class="nav-item" href="../lab/primitives.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /> <path d="M20 3v4" /> <path d="M22 5h-4" /> <path d="M4 17v2" /> <path d="M5 18H3" /> </svg><span class="medium large">Lab</span></a><a class="nav-item" href="../demos/full-pages.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span class="medium large">Demos</span></a><a class="nav-item" href="../skills/system-css.html" aria-current="page"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /> </svg><span class="medium large">Skills</span></a></div>
 	</nav>
 	<header class="pg-main-header column">
-		<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">system.css</a><a href="../skills/system-css.html">Skills</a></nav>
+		<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">mike.css</a><a href="../skills/system-css.html">Skills</a></nav>
 		<div class="spread"><h1>system-css</h1></div>
 		<details class="site-menu mobile column" style="--gap: 0.25lh;"><summary class="tag">Menu</summary><div class="row" style="--gap: 0.5em; --type: -1;"><a class="tag" href="../index.html">Home</a><a class="tag" href="../howto/start.html">How-to</a><a class="tag" href="../engine/overview.html">Engine</a><a class="tag" href="../components/overview.html">Components</a><a class="tag" href="../stream/overview.html">Land & stream</a><a class="tag" href="../charts/overview.html">Charts</a><a class="tag" href="../advanced/wash.html">Advanced</a><a class="tag" href="../lab/primitives.html">Lab</a><a class="tag" href="../demos/full-pages.html">Demos</a><a class="tag" href="../skills/system-css.html">Skills</a></div><div class="column" style="--gap: 0; --type: -1;"><a href="../skills/system-css.html">system-css</a><a href="../skills/datastar-components.html">datastar-components</a><a href="../skills/land-and-stream.html">land-and-stream</a><a href="../skills/svg-charts.html">svg-charts</a></div></details>
 	</header>
@@ -47,22 +47,38 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 		<section class="column content-3" style="--gap: 1lh;">
 <hr>
 <h2 id="scope-general-the-engine-travels-the-eventos-paths-inside-are-examples">name: system-css
-description: Author HTML/UI with system.css — an OKLCH + type-driven design engine where components are styled semantic elements themed by inherited custom properties (--hue, --bg, --fg, --lift, --type), not variant classes. Use when building or editing pages, components, forms, tables, dashboards, or app shells on system.css; when the user mentions system.css, the painter/engine model, the .page shell and pg-* regions, the revert-layer gates (.mobile/.tablet/.desktop), the .row/.column/.grid primitives, the .card/.tag/.avatar/.tabs-underline/.search-box components, the semantic hue locks (.suc/.inf/.wrn/.dgr), the number family (.num/.delta/.num-good/.est/.past), or the Laws of authoring. Do NOT use for Tailwind, Bootstrap, or Material work — this engine rejects palette-of-decisions frameworks.
+description: Author HTML/UI with mike.css (the system-css module) — an OKLCH + type-driven design engine where components are styled semantic elements themed by inherited custom properties (--hue, --bg, --fg, --lift, --type), not variant classes. Use when building or editing pages, components, forms, tables, dashboards, or app shells on system.css; when the user mentions system.css, the painter/engine model, the .page shell and pg-* regions, the revert-layer gates (.mobile/.tablet/.desktop), the .row/.column/.grid primitives, the .card/.tag/.avatar/.tabs-underline/.search-box components, the semantic hue locks (.suc/.inf/.wrn/.dgr), the number family (.num/.delta/.num-good/.est/.past), or the Laws of authoring. Do NOT use for Tailwind, Bootstrap, or Material work — this engine rejects palette-of-decisions frameworks.
 scope: general (the engine travels; the EventOS paths inside are examples)</h2>
-<h1 id="systemcss--the-engine">system.css — the engine</h1>
-<p>system.css is a small design <strong>engine</strong>, not a component library. You style
+<h1 id="mikecss--the-engine">mike.css — the engine</h1>
+<p>mike.css (the <code>system-css</code> module) is a small design <strong>engine</strong>, not a component library. You style
 semantic HTML (button, table, form) and a handful of composition classes, then
 theme everything by setting a few inherited custom properties. There are no
 .btn-primary / .btn-lg variant classes. A button is a button; its appearance
 comes from the --bg/--fg/--hue it inherits.</p>
 <h2 id="one-file-one-spine">ONE file, one spine</h2>
-<p>The engine is a SINGLE file: <code>static/system.css</code>, edited in-repo (the old
-four-file split and the &quot;canonical source lives elsewhere / read-mostly&quot;
-doctrine are both retired). Concern boundaries survive as @layer sections
-inside the file, opened by one spine statement:</p>
-<pre><code>@layer reset, core.color, core.type, core.layout, theme, base,
-       components, utility, media, skin, view-transitions;
+<p>The engine is a SINGLE file: <code>static/mike.css</code>, authored in the library
+(github.com/Deufel/system-css) and synced into a product, never edited
+there. Concern boundaries are @layer sections inside the file, opened by
+one spine statement of TWELVE layers (2026-10-08, the re-layering):</p>
+<pre><code>@layer reset,
+       core.color, core.type, core.shell, core.shape,   /* the four cores */
+       theme, base,                                      /* config · bare defaults */
+       composition, block, utility,                      /* primitives · blocks · helpers */
+       exception, visibility;                            /* states, modes · the gates, last */
 </code></pre>
+<ul>
+<li>the four cores are orthogonal (shell and shape read type's lh only);</li>
+<li><code>theme</code> holds ALL config; <code>base</code> the bare-element defaults;</li>
+<li><code>composition</code> the layout primitives (.row .column .grid .stack …);</li>
+<li><code>block</code> the components — a <code>&lt;blk-*&gt;</code> tag owns one rule here, and a
+PRODUCT'S blocks live in the product's own sheet in this same layer;</li>
+<li><code>utility</code> the closed helper list, late so a helper beats a block;</li>
+<li><code>exception</code> what overrides a block from outside: shipped variants
+(skins, radius), standing states (data-ui-state), modes (print,
+focus, view transitions);</li>
+<li><code>visibility</code> the display gates — revert-layer — LAST, so a gate
+outranks every display a block ever sets.</li>
+</ul>
 <p>Layers, not source order, decide the cascade — read the whole file before
 changing it (the layer order IS the cascade; a rule's position in the file
 tells you nothing about who wins).</p>
@@ -107,21 +123,22 @@ custom element and want it painted, add .bg or let a pg-* region rule do it.</p>
 <ol>
 <li>Layers decide the cascade. Within a layer, specificity is ZERO. Every
 selector is wrapped in :where(...), and :not() guards go INSIDE the
-:where(). No ID selectors, no !important outside the media and skin layers
-(config switches that must out-cascade), no specificity battles. A
+:where(). No ID selectors, no !important anywhere but a print block
+(an important declaration inverts the layer order and would beat the
+gates), no specificity battles. A
 specificity conflict is a SYSTEM FAILURE requiring root-cause review — never
 patch it with a more-specific selector.</li>
 <li>Do not touch engine internals when the public API suffices. Internal vars
 are --_-prefixed (--_bg, --_sem-ink). Author with the public knobs above. If
 you find yourself reaching for --_sem-ink, stop — you almost certainly want
 --hue-lock + --fg instead.</li>
-<li>The right LAYER owns the change. Region surfaces (pg-* --bg) ship in the
-skin layer; an app recipe that has settled graduates into the engine's
-own components layer (the project layer RETIRED 2026-09-01, gf-133 —
-ProjectStyles is gone); a public page's one-off look lives in that
-page's own <code>@scope</code> block (the landing's idiom). A rule
-in the wrong layer is silently out-cascaded — that is a layer-placement
-bug, never a specificity problem to fight.</li>
+<li>The right LAYER owns the change. A skin's region surfaces (pg-* --bg)
+ship in <code>exception</code>; a product's component is a <code>&lt;blk-*&gt;</code> rule in the
+product's own sheet in <code>block</code> (THE BLOCK CONTRACT below); a general
+word that three blocks want graduates into the engine; a public page's
+one-off look lives in that page's own <code>@scope</code> block (the landing's
+idiom). A rule in the wrong layer is silently out-cascaded — that is a
+layer-placement bug, never a specificity problem to fight.</li>
 <li><strong>NO NEW CSS CLASSES (gf-185, per Mike, at maximum emphasis).</strong> The
 engine's whole point is explicit declarative HTML composed from the
 EXISTING composition classes + the style API (--type/--bg/--fg/
@@ -145,9 +162,10 @@ product use.</li>
 <code>go test ./...</code> runs view/ratchet_test.go — the INLINE-GEOMETRY ratchet
 (style= is sanctioned only for --knobs, anchor-name/position-anchor, and
 commented one-offs; per-.templ counts may only go DOWN), the icon 24px-box
-ratchet, and the anatomy-reach ratchet (project CSS may not restyle engine
-anatomy). The cssaudit package charts lines-per-layer complexity on the
-admin Metrics page. Keep them all green.</p>
+ratchet, and the blocks' locality test (every top-level selector in the
+product's blocks.css is a <code>&lt;blk-*&gt;</code> tag; nothing in it is !important). The
+cssaudit package charts lines-per-layer complexity on the admin Metrics
+page. Keep them all green.</p>
 <h2 id="layout--the-page-shell-and-primitives">LAYOUT — the page shell and primitives</h2>
 <p>Regions (grid areas on .page, 5-column shell): pg-banner (b), pg-header (h),
 pg-subheader (s), pg-navigation (n), pg-toolbar (t), pg-main-header (mh),
@@ -176,8 +194,8 @@ drawer), not a shell re-slot.</p>
 <p>Flow primitives: .row / .column (flex), .grid (auto-fit with --grid-min),
 .spread (space-between row), .lcr (left-center-right 3-zone grid — used for
 headers), .flank, .oneline (nowrap), .stack (overlap).</p>
-<p>Responsive gates (revert-layer trick, in the media layer) — TWO FAMILIES, TWO
-JOBS:</p>
+<p>Responsive gates (revert-layer trick, in the visibility layer) — THREE
+FAMILIES, THREE JOBS:</p>
 <ul>
 <li>Viewport gates: .mobile / .tablet / .desktop show an element only at that
 viewport width. Container equivalents (LAYOUT band family): .c-mobile /
@@ -190,20 +208,68 @@ The 8rem boundary is rail math: it straddles the rail's two declared widths
 at every type size, so rail content gates on the tiers instead of inferring
 density from attributes.</li>
 <li>.fine / .coarse gate on pointer type.</li>
-<li>ORIENTATION and HEIGHT gates (gf-608): .c-portrait / .c-landscape (landscape
-= wider than 3:2) and .c-short / .c-tall (tall = 10em and up). They answer
-only inside a SIZE container — a <code>.block</code> — never a width-only .container.
-THE BLOCK (gf-608, Mike: &quot;each block is able to manage itself&quot;): <code>.block</code> is
-a size query container with ONE child, its body — a flex column in portrait,
-a row in landscape (the words first, the big thing beside them). It fills the
-cell a grid track, a <code>.frame</code> or a <code>.stress</code> hands it and never sizes itself
-(size containment collapses it under an auto-height parent). A block is pure
-composition: the engine's tiers and gates inside, no per-block CSS; the lab's
-Compositions page carries the specimen. <code>.stress</code> resizes both axes.
-Container rule: gate classes go on a dedicated wrapper div, never on a styled
-leaf component, and the gated element must also carry a layout primitive
-(revert-layer restores the primitive's display, not a default).</li>
+<li>THE SHAPE GATES (core.shape + visibility, 2026-10-08): a part lists the
+shapes it belongs in — <code>spot line rail · slip sheet · tile panel · strip banner</code> — and shows only in those. They answer the nearest <code>.cell</code>.
+(<code>.c-portrait/.c-landscape/.c-short/.c-tall</code> and <code>.block</code> of gf-608 are
+superseded by the shapes; <code>.block</code> stays as an alias of <code>.cell</code> until no
+template wears it.)</li>
 </ul>
+<h2 id="the-shape-and-the-block-contract-mikecss-mike-2026-10-08">THE SHAPE AND THE BLOCK CONTRACT (mike.css, Mike 2026-10-08)</h2>
+<p>&quot;Each block is able to manage itself.&quot; The shell establishes the page
+chrome; pg-main is a container that can be a dynamic grid; a <code>&lt;blk-*&gt;</code>
+component in a grid cell arranges itself for the cell it is given.</p>
+<p>THE CELL (<code>core.shape</code>): any element marked <code>.cell</code> is a size query
+container named <code>shape</code> — a grid track, a region, a chip. A cell never
+measures its own content (size containment collapses it under an
+auto-height parent, and a flex-grown cell answers with its flex base
+size, nothing): the layout hands a cell its size. A cell is EXACTLY ONE
+SHAPE, in lh of the cell's own line so <code>--type</code> and <code>--scale</code> move the
+boundaries with the text:</p>
+<pre><code>spot    w &lt; 2lh, h &lt; 2lh          the glyph alone
+line    w ≥ 2lh, h &lt; 2lh          one run, clipped
+rail    w &lt; 2lh, h ≥ 2lh          vertical writing
+slip | sheet   ratio &lt; 7/8        tall: short side (w) &lt; 6lh | ≥ 6lh
+tile | panel   7/8 ≤ ratio &lt; 15/8 square-ish: min(w,h) &lt; 6lh | ≥ 6lh
+strip | banner ratio ≥ 15/8       wide: short side (h) &lt; 6lh | ≥ 6lh
+</code></pre>
+<p>THE BLOCK (<code>@layer block</code>): the tag is the component and its only hook —
+<code>&lt;blk-kpi&gt;</code>, <code>&lt;blk-location&gt;</code>. ONE rule per block, in the product's own
+sheet (EventOS: static/blocks.css), and nothing about the block anywhere
+else (law 3, locality):</p>
+<pre><code>@layer block {
+  :where(blk-location) {
+    display: grid; …                                 /* its own box */
+    &amp; :where(header) { … }                           /* its parts, by element */
+    &amp;:where([data-ui-state~=&quot;armed&quot;]) { … }          /* its states, ~= tokens */
+    @container shape (aspect-ratio &gt;= 15/8) { … }    /* its ARRANGEMENT per shape */
+  }
+}
+</code></pre>
+<ul>
+<li>parts are semantic elements (header h3 small strong figure ul li time
+mark progress footer …); a part CLASS (.ring .dot .av) is meaningful
+only inside its block;</li>
+<li>a part declares WHICH SHAPES it belongs in with the shape classes
+(<code>&lt;small class=&quot;line strip banner&quot;&gt;</code>); the block's rule never sets
+visibility — the gate layer owns the only two states, none and
+revert-layer, so a part may use any display;</li>
+<li>arrangement per shape is <code>@container shape (…)</code> INSIDE the block's rule;</li>
+<li>colour and type through the knobs (<code>--hue --hue-shift --bg --lift --fg --type --scale --gap</code>), inline only where a value is DATA (an avatar's
+hue); helpers from the closed utility list (.suc .inf .wrn .dgr .num …);</li>
+<li>state is <code>data-ui-state=&quot;a b&quot;</code> tokens matched <code>~=</code>, after native and
+ARIA state (disabled, aria-pressed, :open);</li>
+<li>every selector <code>:where()</code>-wrapped; no !important; nothing reaches
+outside the tag.</li>
+</ul>
+<p>A block is written FOR THE BENCH FIRST: the product's Layout bench puts
+one block in a resizable <code>.cell</code> with a shape tag that names the shape;
+every shape is looked at before any page wears the block. The lab's
+Shapes page is the engine's own specimen: the shape locker, a resizable
+region whose <code>&lt;blk-board&gt;</code> of nine cells reads the region's shape, and
+seven demo blocks that read their cell's.</p>
+<p>Container rule: gate classes go on a dedicated wrapper div, never on a styled
+leaf component, and the gated element must also carry a layout primitive
+(revert-layer restores the primitive's display, not a default).</p>
 <p>Focus mode (gf-262): a STORED pref like every other display choice —
 the server stamps data-ui-state=&quot;focus&quot; on .page and the chrome
 collapses so pg-main* fill the viewport. The Theme shelf of the profile
@@ -219,7 +285,7 @@ judged by the RENDER (aria-invalid + the message in the field's small —
 canon (4)); a wizard lights the one control to click next with
 data-ui-state=&quot;guide&quot; (a still ring + a slow glow, motion-gated; the
 set-up walk that first used it retired in gf-313).</p>
-<p>Print: @media print (in the media layer) strips every region except pg-main*,
+<p>Print: @media print (in the exception layer) strips every region except pg-main*,
 drops surfaces to white while keeping borders, forces black ink. The screen is
 the themed medium; paper is austere.</p>
 <h2 id="components-styled-semantics--a-few-classes">COMPONENTS (styled semantics + a few classes)</h2>
@@ -249,7 +315,7 @@ gf-364's picker paints by --fg groups).</p>
 <p>Anatomy glyphs are DECLARED boxes: flex-frozen, exempt from the reset's
 fluid max-inline-size cap (the 4px-glyph bug), and .icon self-centers —
 a square control never stretches. Know what a class IS before composing
-it: .sec is a skin-layer BUTTON voice — on a wrapper it paints a ghost
+it: .sec is a BUTTON voice (an exception-layer variant) — on a wrapper it paints a ghost
 box (the gf-46 button-group scar). Voices, locks, and recipes attach to
 specific anatomy.</p>
 <p>Dialogs are native <dialog class="modal"> at a rung of the content ladder
@@ -269,7 +335,7 @@ order).</p>
 (success/info/warning/danger) against local context so a button, tag, or SVG
 graph stays that color no matter what --hue surrounds it. They set --hue-lock
 (+ the commit flag). They are NOT text/number colorers.</li>
-<li>The number family (separate concern, in system.css utility layer):
+<li>The number family (separate concern, in the utility layer):
 <ul>
 <li>.num — a value+delta cluster: white-space: nowrap + tabular figures,
 auto-spaces a child .delta. Keeps &quot;312 CE ▲ 8%&quot; on one line.</li>
@@ -318,8 +384,8 @@ length is a regression.</p>
 <h2 id="authoring-checklist">Authoring checklist</h2>
 <ul>
 <li>Theme by setting --hue / --bg / --lift / --fg / --type, not classes.</li>
-<li>Never write a hex color. Never write an ID selector or !important (outside
-media/skin). Never fight specificity — find the root cause.</li>
+<li>Never write a hex color. Never write an ID selector or !important (a
+print block is the one place). Never fight specificity — find the root cause.</li>
 <li>Gate responsiveness with .mobile/.tablet/.desktop on wrapper divs.</li>
 <li>Use native dialog (commandfor + command=&quot;show-modal&quot;, closedby) and popover
 (popovertarget) for dynamic UI; Datastar only where the logic is more than
@@ -327,10 +393,10 @@ open and close.</li>
 <li>Inline style= carries ONLY knobs (--bg/--fg/--type/--gap…) or anchor
 plumbing — the geometry ratchet counts everything else, and counts may
 only go down. Run <code>go test ./...</code> after every CSS change.</li>
-<li>Engine changes go in static/system.css in the right layer; a settled app
-recipe graduates into the engine's components layer, a public page's
-one-off look rides its own <code>@scope</code> block — never unlayered, never a
-project layer (retired gf-133).</li>
+<li>Engine changes go in the library's static/mike.css in the right layer;
+a product's component is a <code>&lt;blk-*&gt;</code> rule in the product's blocks.css
+(<code>@layer block</code>); a public page's one-off look rides its own <code>@scope</code>
+block — never unlayered.</li>
 <li>VERIFY WITH EYES, not imagination: a throwaway GEN_* preview test
 (a specimen in the lab, site/lab) or <code>go run ./cmd/snap</code>, then READ the
 PNGs. And remember staticfs caches assets at boot — restart the app
@@ -343,12 +409,12 @@ the old document held open (SSE alive four seconds past the new GET)
 waiting for a snapshot that never completed, then the transition timed
 out, skipped, and showed the white interstitial; cross-origin
 navigations ran in 21ms. All cost, no cross-fade. The opt-in is
-commented out in the view-transitions layer with the evidence; the
+commented out in the exception layer (the old view-transitions layer) with the evidence; the
 <code>html[data-vt-ran]</code> pagereveal probe stays armed — any re-enable
 experiment starts by uncommenting the opt-in and watching that probe,
 and MUST verify the ~4s stall stays gone. The baked <code>meta color-scheme</code> keeps plain document swaps dark-to-dark.</p>
-<p>The nav cross-blur lived in <code>@layer view-transitions</code> (the spine's last
-layer; the old <code>project</code> tail is retired) as <code>@view-transition { navigation: auto }</code> plus explicit animations. The navigation-flash
+<p>The nav cross-blur lived in <code>@layer view-transitions</code> (now a slice of
+<code>exception</code>; the old <code>project</code> tail is retired) as <code>@view-transition { navigation: auto }</code> plus explicit animations. The navigation-flash
 bugs run to ground so far; each is a LAW now:</p>
 <ul>
 <li>
@@ -397,7 +463,7 @@ dated note where it is used.</p>
 rocket-injected sheet (gf-198).</strong> hold-confirm's
 <code>display:inline-flex</code> lived only in JS injectCSS — the pre-upgrade
 frame rendered the host inline and reflowed on connect. Every
-custom-element host is sized by system.css's <code>:where(host)</code> rules
+custom-element host is sized by the engine's <code>:where(host)</code> rules
 (date-picker, day-picker, combo-box…); a rocket's injected CSS may
 add BEHAVIOR chrome only, never the host's own box.</p>
 </li>
@@ -444,7 +510,7 @@ bug), and only then read the VT rules.</p>
 <h2 id="the-form-canon-gf-173-per-mike--follow-this-exactly">THE FORM CANON (gf-173, per Mike — follow this EXACTLY)</h2>
 <p>The practice bench is the lab's Forms page (site/lab/forms.html,
 <a href="https://deufel.github.io/system-css/lab/forms.html);">https://deufel.github.io/system-css/lab/forms.html);</a> the engine rules live in
-the form/fieldset sections of system.css. If a product form doesn't look
+the form/fieldset sections of mike.css. If a product form doesn't look
 like the bench specimens, the product form is wrong.</p>
 <ul>
 <li><strong>Everything lives in <code>&lt;fieldset&gt;</code>s.</strong> A fieldset is ONE ROW of
@@ -576,7 +642,7 @@ are specimens on the lab's Forms page.</li>
 
 		</section>
 	</main>
-	<aside class="pg-aside desktop"><nav class="toc column" aria-label="On this page" style="--gap: 0; --type: -1;"><small class="rail-head">On this page</small><a href="#one-file-one-spine">ONE file, one spine</a><a href="#the-painter-model-how-color-works">THE PAINTER MODEL (how color works)</a><a href="#the-cascade-constitution-hard-laws">THE CASCADE CONSTITUTION (hard laws)</a><a href="#layout--the-page-shell-and-primitives">LAYOUT — the page shell and primitives</a><a href="#components-styled-semantics--a-few-classes">COMPONENTS (styled semantics + a few classes)</a><a href="#semantic-hue-locks-vs-number-formatting-keep-separate">SEMANTIC HUE LOCKS vs NUMBER FORMATTING (keep separate)</a><a href="#the-rhythm-ladder-gf-231-per-mike--prevent-drift">THE RHYTHM LADDER (gf-231, per Mike — &quot;prevent drift&quot;)</a><a href="#authoring-checklist">Authoring checklist</a><a href="#view-transitions--the-fouc-ledger-hard-won--do-not-relearn">View transitions &amp; the FOUC ledger (hard-won — do not relearn)</a><a href="#the-form-canon-gf-173-per-mike--follow-this-exactly">THE FORM CANON (gf-173, per Mike — follow this EXACTLY)</a></nav></aside><footer class="pg-main-footer spread" style="--type: -1;"><span></span><span><a href="../skills/datastar-components.html">datastar-components →</a></span></footer>
+	<aside class="pg-aside desktop"><nav class="toc column" aria-label="On this page" style="--gap: 0; --type: -1;"><small class="rail-head">On this page</small><a href="#one-file-one-spine">ONE file, one spine</a><a href="#the-painter-model-how-color-works">THE PAINTER MODEL (how color works)</a><a href="#the-cascade-constitution-hard-laws">THE CASCADE CONSTITUTION (hard laws)</a><a href="#layout--the-page-shell-and-primitives">LAYOUT — the page shell and primitives</a><a href="#the-shape-and-the-block-contract-mikecss-mike-2026-10-08">THE SHAPE AND THE BLOCK CONTRACT (mike.css, Mike 2026-10-08)</a><a href="#components-styled-semantics--a-few-classes">COMPONENTS (styled semantics + a few classes)</a><a href="#semantic-hue-locks-vs-number-formatting-keep-separate">SEMANTIC HUE LOCKS vs NUMBER FORMATTING (keep separate)</a><a href="#the-rhythm-ladder-gf-231-per-mike--prevent-drift">THE RHYTHM LADDER (gf-231, per Mike — &quot;prevent drift&quot;)</a><a href="#authoring-checklist">Authoring checklist</a><a href="#view-transitions--the-fouc-ledger-hard-won--do-not-relearn">View transitions &amp; the FOUC ledger (hard-won — do not relearn)</a><a href="#the-form-canon-gf-173-per-mike--follow-this-exactly">THE FORM CANON (gf-173, per Mike — follow this EXACTLY)</a></nav></aside><footer class="pg-main-footer spread" style="--type: -1;"><span></span><span><a href="../skills/datastar-components.html">datastar-components →</a></span></footer>
 </div>
 <script src="../static/highlight.js"></script>
 </body>
