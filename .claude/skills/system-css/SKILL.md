@@ -183,61 +183,39 @@ FAMILIES, THREE JOBS:
 
 ## THE SHAPE AND THE BLOCK CONTRACT (mike.css, Mike 2026-10-08)
 
-"Each block is able to manage itself." The shell establishes the page
-chrome; pg-main is a container that can be a dynamic grid; a `<blk-*>`
-component in a grid cell arranges itself for the cell it is given.
+"Each block is able to manage itself": the shell is the chrome, pg-main a
+grid of cells, a `<blk-*>` in a cell arranges itself for the cell it is
+given. LOCALITY OF BEHAVIOUR and few helpers are what let an agent write a
+stable component: everything about a block is in one place.
 
-THE CELL (`core.shape`): any element marked `.cell` is a size query
-container named `shape` — a grid track, a region, a chip. A cell never
-measures its own content (size containment collapses it under an
-auto-height parent, and a flex-grown cell answers with its flex base
-size, nothing): the layout hands a cell its size. A cell is EXACTLY ONE
-SHAPE, in lh of the cell's own line so `--type` and `--scale` move the
-boundaries with the text:
+THE CELL (`core.shape`): `.cell` is a size query container named `shape` —
+a grid track, a region, a chip. The layout hands a cell its size (size
+containment collapses it under an auto-height parent; a flex-grown cell
+answers with nothing). A cell is EXACTLY ONE SHAPE, in its own lh:
 
-    spot    w < 2lh, h < 2lh          the glyph alone
-    line    w ≥ 2lh, h < 2lh          one run, clipped
-    rail    w < 2lh, h ≥ 2lh          vertical writing
-    slip | sheet   ratio < 7/8        tall: short side (w) < 6lh | ≥ 6lh
-    tile | panel   7/8 ≤ ratio < 15/8 square-ish: min(w,h) < 6lh | ≥ 6lh
-    strip | banner ratio ≥ 15/8       wide: short side (h) < 6lh | ≥ 6lh
+    spot  w<2lh h<2lh · line  w≥2lh h<2lh · rail  w<2lh h≥2lh
+    slip | sheet   ratio < 7/8          short side (w)   < 6lh | ≥ 6lh
+    tile | panel   7/8 ≤ ratio < 15/8   min(w,h)         < 6lh | ≥ 6lh
+    strip | banner ratio ≥ 15/8         short side (h)   < 6lh | ≥ 6lh
 
-THE BLOCK (`@layer block`): the tag is the component and its only hook —
-`<blk-kpi>`, `<blk-location>`. ONE rule per block, in the product's own
-sheet (EventOS: static/blocks.css), and nothing about the block anywhere
-else (law 3, locality):
+THE BLOCK (`@layer block`): the tag is the hook. ONE rule per block in the
+product's own sheet (EventOS: static/blocks.css), nothing elsewhere:
 
-    @layer block {
-      :where(blk-location) {
-        display: grid; …                                 /* its own box */
-        & :where(header) { … }                           /* its parts, by element */
-        &:where([data-ui-state~="armed"]) { … }          /* its states, ~= tokens */
-        @container shape (aspect-ratio >= 15/8) { … }    /* its ARRANGEMENT per shape */
-      }
+    :where(blk-location) {
+      display: grid; …                              /* its box */
+      & :where(header) { … }                        /* parts, by element */
+      &:where([data-ui-state~="armed"]) { … }       /* states, ~= tokens */
+      @container shape (aspect-ratio >= 15/8) { … } /* arrangement per shape */
     }
 
-- parts are semantic elements (header h3 small strong figure ul li time
-  mark progress footer …); a part CLASS (.ring .dot .av) is meaningful
-  only inside its block;
-- a part declares WHICH SHAPES it belongs in with the shape classes
-  (`<small class="line strip banner">`); the block's rule never sets
-  visibility — the gate layer owns the only two states, none and
-  revert-layer, so a part may use any display;
-- arrangement per shape is `@container shape (…)` INSIDE the block's rule;
-- colour and type through the knobs (`--hue --hue-shift --bg --lift --fg
-  --type --scale --gap`), inline only where a value is DATA (an avatar's
-  hue); helpers from the closed utility list (.suc .inf .wrn .dgr .num …);
-- state is `data-ui-state="a b"` tokens matched `~=`, after native and
-  ARIA state (disabled, aria-pressed, :open);
-- every selector `:where()`-wrapped; no !important; nothing reaches
-  outside the tag.
-
-A block is written FOR THE BENCH FIRST: the product's Layout bench puts
-one block in a resizable `.cell` with a shape tag that names the shape;
-every shape is looked at before any page wears the block. The lab's
-Shapes page is the engine's own specimen: the shape locker, a resizable
-region whose `<blk-board>` of nine cells reads the region's shape, and
-seven demo blocks that read their cell's.
+Parts are semantic elements; a part lists the shapes it belongs in with
+the shape classes (`<small class="line strip banner">`) and the gate layer
+shows it only there — a block never sets display on a part. Knobs for
+colour and type, inline only where a value is data; helpers only from the
+closed utility list; state as `data-ui-state` tokens after native/ARIA
+state; every selector `:where()`-wrapped; no `!important`. A block is
+written FOR THE BENCH FIRST (the product's Layout bench: one resizable
+cell and a shape tag); the lab's Shapes page is the engine's own specimen.
 
 Container rule: gate classes go on a dedicated wrapper div, never on a styled
 leaf component, and the gated element must also carry a layout primitive
