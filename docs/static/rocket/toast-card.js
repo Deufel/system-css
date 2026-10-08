@@ -19,13 +19,16 @@
 //              the expand verb opened the fold (#154); once, from unread.
 //   dismiss  — [data-toast-dismiss]: the card leaves, rests in the drawer.
 //   trash    — [data-toast-trash]: the card leaves, the row is deleted.
+//   fold     — the expand verb opened or closed the fold (detail.open).
 // Leaving sets the state AND dispatches in the same tick (feedback #151,
 // 2026-09-24: a verb that waited for the slide was cancelled by any
 // morph landing inside the wait); the server renders the card as
 // leaving for a grace window, so the morph keeps the node through the
 // exit and the one after removes a node that is already display: none.
-// The expand verb is client-only: aria-expanded on the button, preserved
-// through morphs by the server's data-preserve-attr.
+// The expand verb flips aria-expanded on the button a round trip early
+// (preserved through morphs by the server's data-preserve-attr) and
+// raises `fold` with detail.open, so the server can keep the state and
+// render it on the next page.
 import { rocket } from '../datastar.js';
 
 rocket("toast-card", {
@@ -40,7 +43,8 @@ rocket("toast-card", {
     const onLeave = () => clearTimeout(dwell);
     const onClick = (e) => {
       const expand = e.target.closest("[data-toast-expand]");
-      if (expand) { expand.setAttribute("aria-expanded", expand.getAttribute("aria-expanded") !== "true"); read(); }
+      // the fold's state is the server's to keep (EventOS feedback #212): `fold` tells it
+      if (expand) { const open = expand.getAttribute("aria-expanded") !== "true"; expand.setAttribute("aria-expanded", open); host.dispatchEvent(new CustomEvent("fold", { bubbles: true, detail: { open } })); read(); }
       else if (e.target.closest("[data-toast-trash]")) leave("trash");
       else if (e.target.closest("[data-toast-dismiss]")) leave("dismiss");
     };

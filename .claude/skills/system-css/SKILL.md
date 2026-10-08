@@ -157,6 +157,16 @@ JOBS:
   at every type size, so rail content gates on the tiers instead of inferring
   density from attributes.
 - .fine / .coarse gate on pointer type.
+- ORIENTATION and HEIGHT gates (gf-608): .c-portrait / .c-landscape (landscape
+  = wider than 3:2) and .c-short / .c-tall (tall = 10em and up). They answer
+  only inside a SIZE container — a `.block` — never a width-only .container.
+THE BLOCK (gf-608, Mike: "each block is able to manage itself"): `.block` is
+a size query container with ONE child, its body — a flex column in portrait,
+a row in landscape (the words first, the big thing beside them). It fills the
+cell a grid track, a `.frame` or a `.stress` hands it and never sizes itself
+(size containment collapses it under an auto-height parent). A block is pure
+composition: the engine's tiers and gates inside, no per-block CSS; the lab's
+Compositions page carries the specimen. `.stress` resizes both axes.
 Container rule: gate classes go on a dedicated wrapper div, never on a styled
 leaf component, and the gated element must also carry a layout primitive
 (revert-layer restores the primitive's display, not a default).

@@ -157,6 +157,16 @@ JOBS:
   at every type size, so rail content gates on the tiers instead of inferring
   density from attributes.
 - .fine / .coarse gate on pointer type.
+- ORIENTATION and HEIGHT gates (gf-608): .c-portrait / .c-landscape (landscape
+  = wider than 3:2) and .c-short / .c-tall (tall = 10em and up). They answer
+  only inside a SIZE container — a `.block` — never a width-only .container.
+THE BLOCK (gf-608, Mike: "each block is able to manage itself"): `.block` is
+a size query container with ONE child, its body — a flex column in portrait,
+a row in landscape (the words first, the big thing beside them). It fills the
+cell a grid track, a `.frame` or a `.stress` hands it and never sizes itself
+(size containment collapses it under an auto-height parent). A block is pure
+composition: the engine's tiers and gates inside, no per-block CSS; the lab's
+Compositions page carries the specimen. `.stress` resizes both axes.
 Container rule: gate classes go on a dedicated wrapper div, never on a styled
 leaf component, and the gated element must also carry a layout primitive
 (revert-layer restores the primitive's display, not a default).
@@ -216,8 +226,12 @@ box (the gf-46 button-group scar). Voices, locks, and recipes attach to
 specific anatomy.
 
 Dialogs are native <dialog class="modal"> at a rung of the content ladder
-(.content-2 by default · .content-1 the confirm · .content-3 the workbench, all glass, top-pinned), opened by a one-line
-showModal() onclick and closed declaratively (closedby="any";
+(.content-2 by default · .content-1 the confirm · .content-3 the workbench, all glass, top-pinned), opened and closed in
+HTML — the button wears `commandfor="<dialog id>" command="show-modal"`,
+a bare close `command="close"` (Invoker Commands; never a script lookup
+of the dialog — a verb that posts THEN closes is Datastar's
+`@post(…); el.closest('dialog').close()`, gf-572) — and dismissed
+declaratively (closedby="any";
 data-preserve-attr="open" is MANDATORY on every dialog on a live page — a push morphs the whole page and closes it under the person (gf-357)). popover +
 popovertarget drive menus — and a closed .menu popover must get
 display:none, never opacity alone (opacity leaves hidden menus in the tab
@@ -283,7 +297,9 @@ length is a regression.
 - Never write a hex color. Never write an ID selector or !important (outside
   media/skin). Never fight specificity — find the root cause.
 - Gate responsiveness with .mobile/.tablet/.desktop on wrapper divs.
-- Use native dialog (showModal + closedby) and popover for dynamic UI.
+- Use native dialog (commandfor + command="show-modal", closedby) and popover
+  (popovertarget) for dynamic UI; Datastar only where the logic is more than
+  open and close.
 - Inline style= carries ONLY knobs (--bg/--fg/--type/--gap…) or anchor
   plumbing — the geometry ratchet counts everything else, and counts may
   only go down. Run `go test ./...` after every CSS change.

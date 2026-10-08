@@ -416,7 +416,7 @@ rocket(&#39;event-date-picker&#39;, {
           data-attr:data-ui-selected=&#34;!!($$da &amp;&amp; cellIso($$v,i)===$$da)&#34;
           data-on:click=&#34;$$clicked=cellIso($$v,i); @pick()&#34;&gt;&lt;/button&gt;
       &lt;/template&gt;
-      &lt;button data-on:click=&#34;@commit(); document.getElementById(&#39;evpop&#39;).hidePopover()&#34;&gt;Confirm&lt;/button&gt;
+      &lt;button data-on:click=&#34;@commit(); el.closest(&#39;[popover]&#39;).hidePopover()&#34;&gt;Confirm&lt;/button&gt;
     &lt;/div&gt;
   `,
 });
@@ -446,7 +446,7 @@ rocket('event-date-picker', {
           data-attr:data-ui-selected=&quot;!!($$da &amp;&amp; cellIso($$v,i)===$$da)&quot;
           data-on:click=&quot;$$clicked=cellIso($$v,i); @pick()&quot;&gt;&lt;/button&gt;
       &lt;/template&gt;
-      &lt;button data-on:click=&quot;@commit(); document.getElementById('evpop').hidePopover()&quot;&gt;Confirm&lt;/button&gt;
+      &lt;button data-on:click=&quot;@commit(); el.closest('[popover]').hidePopover()&quot;&gt;Confirm&lt;/button&gt;
     &lt;/div&gt;
   `,
 });

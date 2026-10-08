@@ -240,8 +240,13 @@
   :where(.bw) { --chroma: 0; }
 
   /* frosted surface — the engine's own resolved surface, translucent,
-     over a backdrop blur. Publishes like .bg. Knobs: --glass-alpha ·
-     --glass-blur. Needs content BEHIND it to read as glass. */
+     over a backdrop blur. Publishes like .bg. Knobs: --glass-alpha
+     (0.65 — a dialog over its dimmed backdrop) · --glass-blur (0.5lh).
+     Needs content BEHIND it to read as glass. TWO RULES (EventOS
+     2026-10-05, toasts over a map unreadable): an overlay that must read
+     over ANYTHING — a hud card — raises --glass-alpha (0.88; a toast wears
+     0.75 and shows a little of what is behind it); and quiet is INK (--fg), never opacity on the card —
+     opacity multiplies into the glass and the words go with it. */
   :where(.glass) {
     /* alpha via color-mix-with-transparent: PLAIN substitution of --_bg,
        the one consumption pattern the engine promises (RCS re-parsing of
@@ -608,13 +613,36 @@
     & > :where(:last-child:not(style):not(script))  { flex: 0 0 auto; min-inline-size: 0 }
   }
 
-  :where(.frame) { aspect-ratio: 16 / 9; overflow: hidden; & > * { inline-size: 100%; block-size: 100%; object-fit: cover } }
+  /* .frame — a box at a ratio its one child fills; --ratio is the knob
+     (16 / 9 by default; a block's cell on the lab bench rides it, gf-608) */
+  :where(.frame) { aspect-ratio: var(--ratio, 16 / 9); overflow: hidden; & > * { inline-size: 100%; block-size: 100%; object-fit: cover } }
+  /* .block — A SELF-MANAGING CELL (EventOS gf-608, Mike 2026-10-08: "each
+     block is able to manage itself … container queries for portrait or
+     landscape"). The block is a SIZE query container with ONE child, its
+     body: a flex column in portrait, a row in landscape (wider than 3:2)
+     — the words first, the big thing beside them. A block fills the
+     cell a grid track, a .frame or a .stress hands it and never sizes
+     itself: size containment collapses it under an auto-height parent.
+     Inside it the tiers answer by its width and the gates below by its
+     orientation and height; a block queries nothing about itself, which
+     is why the body is a child. */
+  :where(.block) { display: grid; container-type: size; container-name: block; min-inline-size: 0; min-block-size: 0; overflow: hidden; }
+  :where(.block) > :where(*) { display: flex; flex-direction: column; gap: var(--gap, 0.25lh); min-inline-size: 0; min-block-size: 0; }
+  @container block (aspect-ratio > 3/2) { :where(.block) > :where(*) { flex-direction: row; align-items: stretch; } }
   :where(.grid)  { display: grid; gap: var(--gap, 0.25lh); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--grid-min, 16rem)), 1fr)); }
   /* .grid > .row-wide — the HERO cell (feedback #67): one child takes the
      whole row at every column count (1 / -1, never a span, so a
      one-column phone grid never grows an implicit column). */
   :where(.grid > .row-wide) { grid-column: 1 / -1; }
   :where(.ngrid) { display: grid; gap: var(--gap, 0.25lh); grid-template-columns: repeat(var(--cols, 2), 1fr); grid-template-rows: repeat(var(--rows, 2), 1fr); grid-auto-rows: auto; }
+  /* ── bento — THE BIG-PAGE GRID (EventOS gf-571, Mike 2026-10-07): cells
+     of --cell fill the width and flow dense; a child spans two with
+     .span-2 or takes the row with .row-wide; under two cells' width the
+     span falls, so a phone is one column. Nothing else. ── */
+  :where(.bento) { display: grid; gap: var(--gap, 0.5lh); grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--cell, 18rem)), 1fr)); grid-auto-flow: dense; container-type: inline-size; }
+  :where(.bento) > :where(.span-2) { grid-column: span 2; }
+  :where(.bento) > :where(.row-wide) { grid-column: 1 / -1; }
+  @container (inline-size < 38rem) { :where(.bento) > :where(.span-2) { grid-column: span 1; } }
   :where(.stack) { display: grid; grid-template-areas: "stack"; & > * { grid-area: stack } }
   /* .rise — an EXPLICIT viewport share (2026-08-31, per Mike: explicit
      dynamic units, never flex negotiation, no magic lengths): the block
@@ -663,6 +691,11 @@
   :where(.hud) {
     position: fixed; inset: 0; display: grid; grid-template-areas: "hud";
     pointer-events: none; z-index: 1;
+    /* a hud CLEARS THE BANNER (EventOS gf-527, 2026-10-05): the pg-banner
+       is the page's top track — one line and its padding — and a fixed
+       hud over a page that shows one starts beneath it, or the mark and
+       the doors would paint over the words */
+    .page:has(> .pg-banner) ~ & { inset-block-start: 1.5lh; }
     & > :where(*) { grid-area: hud; justify-self: center; align-self: center; pointer-events: auto; }
     /* slot ALIGNMENT lives in @layer utility below: slot classes must beat
        component defaults (e.g. the fab recipe's place-self) — a slot is a
@@ -764,6 +797,11 @@
      auto-min). Chain it from a region's child down to a .scroll-y and
      the INNER surface becomes the scroller instead of the region. */
   :where(.grow) { flex: 1 1 auto; min-block-size: 0; }
+  /* a growing box with an aspect (mini-map) takes the share its column
+     has left, not its aspect: beside a sibling card that sets the row,
+     it absorbs the difference (EventOS local feedback #28); 3lh keeps
+     it legible when there is no share */
+  :where(mini-map.grow) { aspect-ratio: auto; flex-basis: 0; min-block-size: 3lh; }
   /* .container — the generic self-measuring wrapper: content inside it
      gates on ITS width (cards in a grid, widgets in a flank). */
   :where(.container) { container-type: inline-size; }
@@ -853,6 +891,17 @@
   @container (width < 576px)           { .c-mobile  { display: revert-layer } }
   @container (576px <= width < 768px)  { .c-tablet  { display: revert-layer } }
   @container (width >= 768px)          { .c-desktop { display: revert-layer } }
+
+  /* ORIENTATION and HEIGHT gates (EventOS gf-608) — answered only inside
+     a SIZE container (a .block): a width-only .container cannot answer
+     them and the gate stays hidden. Landscape is wider than 3:2, the
+     block's own law; tall is 10em and up. */
+  .c-portrait, .c-landscape            { display: none }
+  @container (aspect-ratio <= 3/2)     { .c-portrait  { display: revert-layer } }
+  @container (aspect-ratio > 3/2)      { .c-landscape { display: revert-layer } }
+  .c-short, .c-tall                    { display: none }
+  @container (height < 10em)           { .c-short { display: revert-layer } }
+  @container (height >= 10em)          { .c-tall  { display: revert-layer } }
 
   .fine, .coarse                       { display: none }
   @media (pointer: fine)               { .fine   { display: revert-layer } }
@@ -1007,6 +1056,11 @@
      pixel on a dense screen, and never the full-then-faint flicker a
      1px rule shows across DPRs */
   :where(hr)  { border: 0; block-size: 0.5px; background: var(--border); margin-block: 1lh; }
+  /* .vr — THE VERTICAL RULE (EventOS gf-591, Mike 2026-10-07): hr's line
+     stood on end, on the inline-start edge of the element that begins a
+     new column — a grid area, a flex item — so the seam rides the
+     content and needs no track of its own. hr's ink, hr's weight. */
+  :where(.vr) { border-inline-start: 0.5px solid var(--border); padding-inline-start: 0.5em; }
 
   /* links — engine-native: chromatic ink, hover = full chroma + hue turn.
      The transition is why --fg / --hue-shift stay registered. */
@@ -1271,7 +1325,7 @@
   }
   /* custom-element hosts (Rocket) are inline by default — let them fill the
      field row when their trigger is a .field. */
-  :where(date-picker, day-picker, multi-select, single-select):has(> .field) { display: block; inline-size: 100%; }
+  :where(date-picker, day-picker, multi-select, single-select):has(.field) { display: block; inline-size: 100%; }
   /* the combobox pair (gf-191): host is the control slot; its input or
      committed .field chip-box fills it. */
   :where(combo-box, combo-select, group-pick) { display: block; inline-size: 100%; }
@@ -1318,6 +1372,13 @@
        cross-axis fill + aspect-ratio ballooned the whole button. */
     align-self: center;
   }
+  /* ── lock — THE LOCK (EventOS gf-559): an icon button whose shackle
+     swings open as it is pressed; aria-pressed is the state, the path's
+     d transitions where the browser can (Chromium, Firefox), the motion
+     is --cfg-motion's. The glyph is lucide's lock, the open form its
+     lock-open shackle. */
+  :where(button.lock, .btn.lock) > :where(svg) > :where(path:last-child) { transition: d calc(var(--cfg-motion) * 0.3s) ease; }
+  :where(button.lock, .btn.lock):where([aria-pressed="true"]) > :where(svg) > :where(path:last-child) { d: path("M7 11V7a5 5 0 0 1 9.9-1"); }
   :where(.btn-touch):where(button, .btn) {
     min-block-size: max(44px, var(--_control-h)); min-inline-size: max(44px, var(--_control-h));
     aspect-ratio: 1; padding: 0;
@@ -1516,7 +1577,7 @@
      display:grid dropped the input onto the grid's second row, under the
      box (the gf-22 lab caught it live on the roster search). The recipe
      is for labeled FIELDS; a search-box labels nothing. */
-  :where(form, [role="form"]) :where(label:has(> input, > select, > textarea, > .field, > date-picker, > multi-select, > single-select, > combo-box, > combo-select, > group-pick):not(.search-box):not(:has(> input:is([type="checkbox"], [type="radio"])))) {
+  :where(form, [role="form"]) :where(label:has(> input, > select, > textarea, > .field, > date-picker, > day-picker, > multi-select, > single-select, > combo-box, > combo-select, > group-pick):not(.search-box):not(:has(> input:is([type="checkbox"], [type="radio"])))) {
     display: grid;
     grid-template-columns: auto 1fr;
     grid-template-rows: 1lh auto;
@@ -1526,7 +1587,7 @@
       --type: -1; --fg: -0.8; grid-column: 2; justify-self: start;
       block-size: 1lh; display: inline-flex; align-items: center; line-height: 1;
     }
-    & > :where(input, select, textarea, .field, date-picker, multi-select, single-select, combo-box, combo-select, group-pick) { grid-column: 1 / -1; inline-size: 100%; }
+    & > :where(input, select, textarea, .field, date-picker, day-picker, multi-select, single-select, combo-box, combo-select, group-pick) { grid-column: 1 / -1; inline-size: 100%; }
     &:where(:has(:where(input, select, textarea):required)) > :where(span)::after {
       content: " *"; --hue-lock: var(--hue-dgr); --fg: 0.8;
     }
@@ -1566,9 +1627,10 @@
   :where(.nowrap)   { white-space: nowrap; }
   /* .stress — the lab's resize handle (gf-175, per Mike: "give each
      form a resize so we can stress test"). Drag the corner; the
-     specimen reflows at any width. A LAB utility — product surfaces
-     size by composition, not by handles. */
-  :where(.stress)   { resize: horizontal; overflow: auto; min-inline-size: 14rem; }
+     specimen reflows at any width — and any height since the blocks
+     (gf-608: a block answers its height too). A LAB utility — product
+     surfaces size by composition, not by handles. */
+  :where(.stress)   { resize: both; overflow: auto; min-inline-size: 14rem; }
   :where(.truncate) { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-inline-size: 0; }
 
   /* .content-1 · .content-2 · .content-3 — a surface centred at a rung of
@@ -1588,6 +1650,7 @@
      class was the opt-in workaround and its utility-layer rule squashed
      component-set steps, which the native cascade respects.) */
   :where(.center)   { text-align: center; }
+  :where(.center) > :where(svg) { margin-inline: auto; } /* a declared-box glyph centres like the text beside it (EventOS gf-580) */
   :where(.vh)       { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   @media print { :where(.np) { display: none !important; } }
   :where([data-ui-state="on"])  { border-color: var(--focus); box-shadow: inset 0 0 0 1px var(--focus); }
@@ -2111,8 +2174,8 @@
     --crumb-sep: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 18 6-6-6-6'/%3E%3C/svg%3E");
     --type: -3;
     display: flex; flex-wrap: wrap; align-items: center; gap: 0.45em;
-    & > :where(a, span) { display: inline-flex; align-items: center; gap: 0.35em; }
-    & > :where(a, span) > :where(svg) { inline-size: 1em; block-size: 1em; flex: 0 0 auto; }
+    & > :where(a, span, button) { display: inline-flex; align-items: center; gap: 0.35em; }
+    & > :where(a, span, button) > :where(svg) { inline-size: 1em; block-size: 1em; flex: 0 0 auto; }
     & > :where([aria-current]:not([aria-current="false"])):not(:hover) { --fg: -1; }
     /* the root crumb's aggregate count rides inline (gf-407) — the
        corner badge would sit on the label's tail at the trail's -3 step */
@@ -2267,7 +2330,7 @@
        a submit is not a field — which is exactly what makes the
        SINGLE-ROW form work: bare controls share the row, the button
        takes only its own width. */
-    :scope > :where(button) { flex: 0 0 auto; }
+    :scope > :where(button) { flex: 0 0 auto; align-self: end; } /* on the controls' line, under the labels' row (EventOS feedback #382) */
     :scope > :where(legend) {
       display: flex; align-items: baseline; gap: 0.5em;
       flex: 1 0 100%;
@@ -2522,6 +2585,11 @@
     :where(select), :where(select)::picker(select) { appearance: base-select; }
     :where(select) {
       display: inline-flex; align-items: center;
+      /* the chosen option is ONE line (EventOS feedback #271, 2026-10-05): a
+         base-select lays its selected content out as flex text and a long
+         option wrapped the control to two lines; the control keeps its row
+         and the words clip, the picker shows them whole */
+      min-inline-size: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
       &::picker-icon {
         --fg: -0.5; margin-inline-start: auto;
         transition: rotate calc(var(--cfg-motion) * 0.15s) ease;
@@ -2723,102 +2791,83 @@
     }
   }
 
-  /* ── toast — the notification hud's card (canonical since gf-42; born
-     in the app's project layer, promoted once the shape settled; rev 3
-     gf-470, feedback #196 #197 #198). ONE LINE AT REST: the tone glyph,
-     the title (never a link — a toast must not pull the reader out of
-     their flow), the verb group (expand · delete · dismiss, the same
-     three on every card). THE FOLD, .toast-body — the words, the verb
-     or link row, the age — opens under the expand verb's aria-expanded
-     (the rocket flips it, :has() reads it). ONE STATE WORD on the host,
-     data-ui-state, stamped by the server (seen_at and a just-dismissed
-     grace window, time math in SQL) and echoed a round trip early by
-     the <toast-card> rocket: "unread" paints the dot, "read" quiets,
-     "leaving" plays the exit — no second element, nothing a morph can
-     add or remove twice (the old badge <i> beside the attribute was the
-     doubled stack of #198).
-     THE MOTION (feedback #197): entrance and exit are one choreography
-     reversed, two beats of --_dur each. IN — the pile makes room (the
-     box grows from 0, the neighbours glide up), THEN the card slides in
-     from the edge and fades up. OUT — the card slides to the edge and
-     fades, THEN its box collapses so the neighbours glide shut, and at
-     the end display flips to none (allow-discrete). The box holds
-     through the slide, so nothing above a leaving card moves until the
-     card itself is gone. The node outlives the exit because the server
-     keeps rendering a just-dismissed toast as leaving for a grace window:
-     the morph that answers the verb keeps the node (no mid-slide
-     removal — the layout jump of #197), and the first morph after the
-     window removes a node that is already display: none. Both
-     directions are gated by --cfg-motion (0 = instant). ── */
+  /* ── toast — THE NOTIFICATION CARD, ONE SHAPE (the toast contract,
+     EventOS gf-535, 2026-10-05; canonical since gf-42, rev 3 gf-470).
+     The markup is the whole vocabulary and this rule lays it out by
+     nesting:
+       <toast-card class="toast card glass {tone}" data-ui-state="unread|read|leaving">
+         <header> glyph · <strong>title · <menu>verbs </header>   one line at rest
+         <progress>                                                 optional, the row's bar
+         <section> the words · the verb · the age </section>       the fold
+       </toast-card>
+     The header's [aria-expanded] (a button in the menu, the SERVER's
+     word) opens the fold; the host's ONE state word, stamped by the
+     server, paints the dot (unread), quiets (read) or plays the exit
+     (leaving). No other class, no other hook. The preview is small: one
+     type step down, 20rem. The choreography of gf-470 stands: IN — the
+     box grows, then the slide; OUT — the slide, then the collapse, then
+     display none (allow-discrete); the server renders a put-away card
+     as leaving for a grace window so the morph never cuts the exit. ── */
   :where(.toast) {
     --_dur: calc(var(--cfg-motion) * 0.2s);
-    /* one width for every card — the stack reads as a column, not a
-       ragged pile; the viewport cap keeps small screens honest. */
-    inline-size: 24rem; max-inline-size: calc(100vw - 2lh);
+    --type: -1;
+    --glass-alpha: 0.75; /* a toast shows what is behind it, a little (Mike 2026-10-05: 0.88 read opaque over a dark map; 0.65 too thin, gf-519) */
+    display: flex; flex-direction: column; gap: var(--gap, 0.25lh);
+    inline-size: 20rem; max-inline-size: calc(100vw - 2lh);
     overflow: clip;
     opacity: 1; translate: 0 0;
-    /* IN: the box first, the slide second (a transition reads the
-       timing of the state it ENTERS, so the rest state owns the entrance) */
     transition: block-size var(--_dur) ease-out, margin-block var(--_dur) ease-out,
                 padding-block var(--_dur) ease-out, border-block-width var(--_dur) ease-out,
                 opacity var(--_dur) ease-out var(--_dur), translate var(--_dur) ease-out var(--_dur),
                 display calc(2 * var(--_dur)) allow-discrete;
+    & + :where(.toast) { margin-block-start: 0.25lh; } /* the pile's spacing rides the cards, so a leaving card's whole footprint collapses */
+    & > :where(header) {
+      display: flex; align-items: center; gap: 0.5em; min-inline-size: 0;
+      & > :where(svg) { inline-size: 1.25em; block-size: 1.25em; flex: none; }
+      & > :where(strong) { flex: 1; min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      & > :where(menu) { display: flex; flex: none; order: 2; margin: 0; padding: 0; margin-inline-start: auto; }
+    }
+    & > :where(progress) { inline-size: 100%; }
+    /* THE FOLD: closed it is not a flex item; open it grows from 0 */
+    & > :where(section) {
+      display: none; flex-direction: column; gap: var(--gap, 0.25lh);
+      overflow: hidden; block-size: 0; opacity: 0;
+      transition: block-size var(--_dur) ease, opacity var(--_dur) ease, display var(--_dur) allow-discrete;
+      & > :where(p) { margin: 0; --fg: -0.6; }
+      & > :where(small) { --fg: -0.6; }
+    }
+    &:has(> header [aria-expanded="true"]) {
+      & > :where(section) { display: flex; block-size: auto; opacity: 1; }
+      & > :where(header) > :where(strong) { white-space: normal; overflow: visible; } /* an opened card shows its whole title (#205) */
+      & > header [aria-expanded] svg { rotate: 90deg; }
+    }
+    & > header [aria-expanded] svg { transition: rotate var(--_dur) ease; }
+    /* THE UNREAD DOT (#137, #198): a pseudo of the header, the state word its only switch */
+    &[data-ui-state="unread"] > :where(header)::after {
+      content: ""; order: 1; flex: none;
+      inline-size: 0.5em; block-size: 0.5em; border-radius: 50%;
+      background-color: var(--focus);
+    }
+    &[data-ui-state="read"] { --fg: -0.6; } /* quiet ink; never opacity on glass */
+    /* OUT: the slide first, the collapse second, then gone */
+    &[data-ui-state="leaving"] {
+      opacity: 0; translate: 100% 0;
+      block-size: 0; margin-block: 0; padding-block: 0; border-block-width: 0;
+      display: none;
+      transition: opacity var(--_dur) ease-in, translate var(--_dur) ease-in,
+                  block-size var(--_dur) ease-out var(--_dur), margin-block var(--_dur) ease-out var(--_dur),
+                  padding-block var(--_dur) ease-out var(--_dur), border-block-width var(--_dur) ease-out var(--_dur),
+                  display calc(2 * var(--_dur)) allow-discrete;
+    }
   }
-  /* stack spacing rides the TOASTS (sibling margin), not the stack's gap:
-     a leaving card's whole footprint — height AND spacing — collapses in
-     one beat, so the neighbours glide instead of snapping. (The
-     interpolate-size: allow-keywords on html lets auto block-size
-     animate; engines without it skip the glide, never the layout.) */
-  :where(.toast) + :where(.toast) { margin-block-start: 0.25lh; }
-  /* fixed anatomy: the card is a COLUMN — the header row, an optional
-     progress bar (a live producer's state stays in view), the fold. In
-     the row the tone glyph and the verb cluster are identical boxes on
-     every card — the glyph never scales, the verbs pin to the end edge
-     (order 2, after the dot) — and the title is the one flexible thing. */
-  :where(.toast) > :where(.row) > :where(svg) { inline-size: 1.25em; block-size: 1.25em; flex: none; }
-  :where(.toast) > :where(.row) > :where(strong) { flex: 1; min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  :where(.toast) > :where(.row) > :where(.toast-verbs) { flex: none; order: 2; margin-inline-start: auto; }
-  /* THE UNREAD DOT (feedback #137, rev 2 #198): a pseudo of the header
-     row, after the title and before the verbs, in the tone's vibrant
-     edge; the host's state word is its only switch. */
-  :where(.toast[data-ui-state="unread"]) > :where(.row)::after {
-    content: ""; order: 1; flex: none;
-    inline-size: 0.5em; block-size: 0.5em; border-radius: 50%;
-    background-color: var(--focus);
-  }
-  /* THE FOLD: closed it is not a flex item (no gap spent on it); open it
-     grows from 0 under the expand verb's aria-expanded — display rides
-     allow-discrete so the unfold animates up and the fold animates shut. */
-  :where(.toast) > :where(.toast-body) {
-    display: none; flex-direction: column; gap: var(--gap, 0.25lh);
-    overflow: hidden; block-size: 0; opacity: 0;
-    transition: block-size var(--_dur) ease, opacity var(--_dur) ease, display var(--_dur) allow-discrete;
-  }
-  :where(.toast:has([data-toast-expand][aria-expanded="true"])) > :where(.toast-body) { display: flex; block-size: auto; opacity: 1; }
-  @starting-style { :where(.toast:has([data-toast-expand][aria-expanded="true"])) > :where(.toast-body) { block-size: 0; opacity: 0; } }
-  /* the expand glyph is a chevron: pointing on at rest, down when open */
-  :where(.toast) [data-toast-expand] svg { transition: rotate var(--_dur) ease; }
-  :where(.toast:has([data-toast-expand][aria-expanded="true"])) [data-toast-expand] svg { rotate: 90deg; }
-  /* READ (feedback #101): the notice the viewer's pointer rested on —
-     still in the pile, no longer calling */
-  :where(.toast[data-ui-state="read"]) { opacity: 0.72; }
-  /* OUT: the slide first, the collapse second, then gone */
-  :where(.toast[data-ui-state="leaving"]) {
-    opacity: 0; translate: 100% 0;
-    block-size: 0; margin-block: 0; padding-block: 0; border-block-width: 0;
-    display: none;
-    transition: opacity var(--_dur) ease-in, translate var(--_dur) ease-in,
-                block-size var(--_dur) ease-out var(--_dur), margin-block var(--_dur) ease-out var(--_dur),
-                padding-block var(--_dur) ease-out var(--_dur), border-block-width var(--_dur) ease-out var(--_dur),
-                display calc(2 * var(--_dur)) allow-discrete;
-  }
+  @starting-style { :where(.toast:has(> header [aria-expanded="true"])) > :where(section) { block-size: 0; opacity: 0; } }
   @starting-style { :where(.toast) {
     opacity: 0; translate: 100% 0;
     block-size: 0; margin-block: 0; padding-block: 0; border-block-width: 0;
   } }
   /* .prelines — multi-line producer text (the pipeline's per-table
      lines) keeps its newlines wherever it renders (drawer, toast). */
-  :where(.prelines) { white-space: pre-line; }
+  :where(.prelines) { white-space: pre-line; overflow-wrap: anywhere; } /* a person's text: a long token wraps instead of widening its card (EventOS feedback #284) */
 
   /* copy-button (gf-164): the glyph wrappers dissolve into the icon
      button's own layout; the [hidden] one stays gone (UA default). */
@@ -2917,8 +2966,10 @@
     /* EXPLICIT rows (--lanes is the week's server-set knob): the day
        cell's 1 / -1 must span every lane, and -1 only counts explicit
        lines. The trailing fr absorbs min-block-size on quiet weeks. */
-    grid-template-rows: 1lh repeat(var(--lanes, 1), 0.95lh) minmax(0, 1fr);
-    min-block-size: 3lh; border-block-start: 1px solid var(--border);
+    /* a lane is the bar's own line (EventOS feedback #283, 2026-10-05: no
+       space above and below the words — more events stack in a week) */
+    grid-template-rows: 1lh repeat(var(--lanes, 1), 0.8lh) minmax(0, 1fr);
+    min-block-size: 2.8lh; border-block-start: 1px solid var(--border);
   }
   :where(.cal-d) {
     grid-column: var(--gc); grid-row: 1 / -1;
@@ -2945,7 +2996,7 @@
   :where(.cal-b.cont-l) { border-start-start-radius: 0; border-end-start-radius: 0; margin-inline-start: 0; }
   :where(.cal-b.cont-r) { border-start-end-radius: 0; border-end-end-radius: 0; margin-inline-end: 0; }
   @container (width < 560px) {
-    :where(.cal-wk) { grid-template-rows: 1lh repeat(var(--lanes, 1), 0.8lh) minmax(0, 1fr); min-block-size: 2.8lh; }
+    :where(.cal-wk) { grid-template-rows: 1lh repeat(var(--lanes, 1), 0.75lh) minmax(0, 1fr); min-block-size: 2.6lh; }
     :where(.cal-b) > :where(span) { --type: -3; }
   }
   :where(.cal-cards) {
@@ -3285,6 +3336,14 @@
 	.county-map path { fill: currentColor; fill-opacity: 0.06; stroke: currentColor; stroke-opacity: 0.35; stroke-width: 0.7; vector-effect: non-scaling-stroke; cursor: pointer; }
 	.county-map path:hover { fill-opacity: 0.22; }
 	.county-map path.on { --fg: 1; fill-opacity: 0.6; stroke-opacity: 0.9; }
+	/* THE GLANCE (EventOS feedback #279, 2026-10-05): the same recipe read
+	   only, at a fixed share of the rhythm — 10 lines tall, as wide as
+	   its cell, the state letterboxed inside — so a settings split sizes
+	   by the theme, not by the map's own ratio; no pointer, no hover */
+	.county-map[data-ui-state="glance"] { block-size: 10lh; max-inline-size: none; }
+	.county-map[data-ui-state="glance"] path { cursor: default; }
+	.county-map[data-ui-state="glance"] path:hover { fill-opacity: 0.06; }
+	.county-map[data-ui-state="glance"] path.on:hover { fill-opacity: 0.6; }
 
 	/* HOME full-bleed canvas + the timeline (2026-08-31, per
 	   Mike: the letterbox dies — a dashboard fills its screen) */

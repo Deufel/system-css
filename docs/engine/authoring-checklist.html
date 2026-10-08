@@ -51,7 +51,9 @@ function save(k, v) { try { localStorage.setItem('ui.' + k, String(v)) } catch (
 <li>Never write a hex color. Never write an ID selector or !important (outside
 media/skin). Never fight specificity — find the root cause.</li>
 <li>Gate responsiveness with .mobile/.tablet/.desktop on wrapper divs.</li>
-<li>Use native dialog (showModal + closedby) and popover for dynamic UI.</li>
+<li>Use native dialog (commandfor + command=&quot;show-modal&quot;, closedby) and popover
+(popovertarget) for dynamic UI; Datastar only where the logic is more than
+open and close.</li>
 <li>Inline style= carries ONLY knobs (--bg/--fg/--type/--gap…) or anchor
 plumbing — the geometry ratchet counts everything else, and counts may
 only go down. Run <code>go test ./...</code> after every CSS change.</li>

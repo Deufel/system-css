@@ -613,7 +613,22 @@
     & > :where(:last-child:not(style):not(script))  { flex: 0 0 auto; min-inline-size: 0 }
   }
 
-  :where(.frame) { aspect-ratio: 16 / 9; overflow: hidden; & > * { inline-size: 100%; block-size: 100%; object-fit: cover } }
+  /* .frame — a box at a ratio its one child fills; --ratio is the knob
+     (16 / 9 by default; a block's cell on the lab bench rides it, gf-608) */
+  :where(.frame) { aspect-ratio: var(--ratio, 16 / 9); overflow: hidden; & > * { inline-size: 100%; block-size: 100%; object-fit: cover } }
+  /* .block — A SELF-MANAGING CELL (EventOS gf-608, Mike 2026-10-08: "each
+     block is able to manage itself … container queries for portrait or
+     landscape"). The block is a SIZE query container with ONE child, its
+     body: a flex column in portrait, a row in landscape (wider than 3:2)
+     — the words first, the big thing beside them. A block fills the
+     cell a grid track, a .frame or a .stress hands it and never sizes
+     itself: size containment collapses it under an auto-height parent.
+     Inside it the tiers answer by its width and the gates below by its
+     orientation and height; a block queries nothing about itself, which
+     is why the body is a child. */
+  :where(.block) { display: grid; container-type: size; container-name: block; min-inline-size: 0; min-block-size: 0; overflow: hidden; }
+  :where(.block) > :where(*) { display: flex; flex-direction: column; gap: var(--gap, 0.25lh); min-inline-size: 0; min-block-size: 0; }
+  @container block (aspect-ratio > 3/2) { :where(.block) > :where(*) { flex-direction: row; align-items: stretch; } }
   :where(.grid)  { display: grid; gap: var(--gap, 0.25lh); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--grid-min, 16rem)), 1fr)); }
   /* .grid > .row-wide — the HERO cell (feedback #67): one child takes the
      whole row at every column count (1 / -1, never a span, so a
@@ -876,6 +891,17 @@
   @container (width < 576px)           { .c-mobile  { display: revert-layer } }
   @container (576px <= width < 768px)  { .c-tablet  { display: revert-layer } }
   @container (width >= 768px)          { .c-desktop { display: revert-layer } }
+
+  /* ORIENTATION and HEIGHT gates (EventOS gf-608) — answered only inside
+     a SIZE container (a .block): a width-only .container cannot answer
+     them and the gate stays hidden. Landscape is wider than 3:2, the
+     block's own law; tall is 10em and up. */
+  .c-portrait, .c-landscape            { display: none }
+  @container (aspect-ratio <= 3/2)     { .c-portrait  { display: revert-layer } }
+  @container (aspect-ratio > 3/2)      { .c-landscape { display: revert-layer } }
+  .c-short, .c-tall                    { display: none }
+  @container (height < 10em)           { .c-short { display: revert-layer } }
+  @container (height >= 10em)          { .c-tall  { display: revert-layer } }
 
   .fine, .coarse                       { display: none }
   @media (pointer: fine)               { .fine   { display: revert-layer } }
@@ -1601,9 +1627,10 @@
   :where(.nowrap)   { white-space: nowrap; }
   /* .stress — the lab's resize handle (gf-175, per Mike: "give each
      form a resize so we can stress test"). Drag the corner; the
-     specimen reflows at any width. A LAB utility — product surfaces
-     size by composition, not by handles. */
-  :where(.stress)   { resize: horizontal; overflow: auto; min-inline-size: 14rem; }
+     specimen reflows at any width — and any height since the blocks
+     (gf-608: a block answers its height too). A LAB utility — product
+     surfaces size by composition, not by handles. */
+  :where(.stress)   { resize: both; overflow: auto; min-inline-size: 14rem; }
   :where(.truncate) { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-inline-size: 0; }
 
   /* .content-1 · .content-2 · .content-3 — a surface centred at a rung of
